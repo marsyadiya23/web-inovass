@@ -23,7 +23,7 @@
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(to right, transparent, rgba(240,184,0,0.3), transparent);
+  background: linear-gradient(to right, transparent, rgba(0, 224, 160, 0.3), transparent);
 }
 
 .page-hero::after {
@@ -56,7 +56,7 @@
 
 .page-hero-content h1 em {
   font-style: normal;
-  color: var(--gold-light);
+  color: var(--green);
 }
 
 .page-desc {
@@ -163,9 +163,9 @@
 }
 
 .filter-btn.active {
-  background: rgba(240, 184, 0, 0.12);
-  border-color: #f0b800;
-  color: #f0b800;
+  background: rgba(0, 224, 160, 0.1);
+  border-color: var(--green);
+  color: var(--green);
 }
 
 .products-page-grid {
@@ -244,7 +244,7 @@
 .product-price {
   font-family: var(--font-serif);
   font-size: 1.05rem;
-  color: #f0b800;
+  color: var(--green);
 }
 
 .product-price span {
@@ -258,16 +258,16 @@
   letter-spacing: 0.1em;
   text-transform: uppercase;
   padding: 0.5rem 1rem;
-  border: 1px solid rgba(240, 184, 0, 0.5);
-  color: #f0b800;
+  border: 1px solid rgba(0, 224, 160, 0.4);
+  color: var(--green);
   border-radius: 3px;
   transition: background 0.25s, color 0.25s;
   white-space: nowrap;
 }
 
 .product-cta:hover {
-  background: #f0b800;
-  color: var(--dark);
+  background: var(--green);
+  color: #030d14;
 }
 
 /* ========================
@@ -293,7 +293,7 @@
 
 .about-text h2 em {
   font-style: normal;
-  color: var(--gold-light);
+  color: var(--green);
 }
 
 .about-text p {
@@ -317,7 +317,7 @@
   font-family: var(--font-serif);
   font-size: 2rem;
   font-weight: 300;
-  color: #f0b800;
+  color: var(--green);
   line-height: 1;
 }
 
@@ -356,7 +356,7 @@
 
 .about-values .section-header h2 em {
   font-style: normal;
-  color: var(--gold-light);
+  color: var(--green);
 }
 
 .values-grid {
@@ -410,7 +410,7 @@
 
 .about-team .section-header h2 em {
   font-style: italic;
-  color: var(--gold-light);
+  color: var(--green);
 }
 
 .team-grid {
@@ -453,7 +453,7 @@
   font-size: 0.65rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #f0b800;
+  color: var(--green);
   display: block;
   margin-bottom: 0.75rem;
 }
@@ -544,8 +544,8 @@
   gap: 0.7rem;
   padding: 0.9rem 2rem;
   background: transparent;
-  border: 1.5px solid #f0b800;
-  color: #f0b800;
+  border: 1.5px solid var(--green);
+  color: var(--green);
   font-family: var(--font-sans);
   font-size: 0.78rem;
   font-weight: 500;
@@ -558,9 +558,9 @@
 }
 
 .contact-submit:hover {
-  background: #f0b800;
-  color: var(--dark);
-  box-shadow: 0 0 20px rgba(240, 184, 0, 0.3);
+  background: var(--green);
+  color: #030d14;
+  box-shadow: 0 0 20px rgba(0, 224, 160, 0.2);
 }
 
 .form-success {
@@ -663,7 +663,7 @@
   padding: 6rem 5rem;
   text-align: center;
   background: var(--dark-green);
-  border-top: 1px solid rgba(240, 184, 0, 0.08);
+  border-top: 1px solid rgba(0, 224, 160, 0.1);
 }
 
 .page-cta h2 {
@@ -677,7 +677,7 @@
 
 .page-cta h2 em {
   font-style: italic;
-  color: var(--gold-light);
+  color: var(--green);
 }
 
 .page-cta p {
@@ -692,7 +692,7 @@
 
 /* Mobile link active state */
 .mobile-link.active {
-  color: #f0b800;
+  color: var(--green);
   opacity: 1;
 }
 

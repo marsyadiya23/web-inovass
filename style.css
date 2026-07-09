@@ -8,13 +8,16 @@
 }
 
 :root {
-  --cream: #f5f0e8;
-  --dark: #1a1a18;
-  --dark-green: #1e2218;
-  --olive: #3a3d2e;
-  --gold: #c9b89a;
-  --gold-light: #e0d4be;
-  --text-muted: #8a8070;
+  --cream: #e8f0ec;
+  --dark: #030d14;
+  --dark-green: #051a14;
+  --dark-navy: #0a1628;
+  --olive: #0d2b20;
+  --gold: #f0b800;
+  --gold-light: #ffd84d;
+  --green: #00e0a0;
+  --green-dim: #00b07a;
+  --text-muted: #6b8f80;
   --font-serif: 'Plus Jakarta Sans', system-ui, sans-serif;
   --font-sans: 'Inter', system-ui, sans-serif;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -24,7 +27,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background-color: var(--dark);
+  background-color: var(--dark-navy);
   color: var(--cream);
   font-family: var(--font-sans);
   font-weight: 300;
@@ -306,6 +309,7 @@ a { text-decoration: none; color: inherit; }
   display: flex;
   align-items: center;
   overflow: hidden;
+  margin-bottom: 0;
 }
 
 .hero-bg {
@@ -328,11 +332,28 @@ a { text-decoration: none; color: inherit; }
   position: absolute; inset: 0;
   background: linear-gradient(
     105deg,
-    rgba(20,20,18,0.72) 0%,
-    rgba(20,20,18,0.35) 55%,
-    rgba(20,20,18,0.08) 100%
+    rgba(3,13,20,0.72) 0%,
+    rgba(3,13,20,0.35) 55%,
+    rgba(3,13,20,0.08) 100%
   );
   z-index: 1;
+}
+
+/* Gradient linear bawah hero → menyatu ke collections */
+.hero::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 320px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(10, 22, 40, 0.55) 40%,
+    rgba(10, 22, 40, 0.85) 70%,
+    #0a1628 100%
+  );
+  z-index: 2;
+  pointer-events: none;
 }
 
 .hero-accent {
@@ -451,16 +472,20 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ========================
+/* ========================
    COLLECTIONS
 ======================== */
 .collections {
   padding: 7rem 5rem;
-  background: var(--dark);
+  background: var(--dark-navy);
+  position: relative;
 }
 
 .section-header {
   text-align: center;
   margin-bottom: 4rem;
+  position: relative;
+  z-index: 2;
 }
 
 .section-header h2 {
@@ -484,14 +509,14 @@ a { text-decoration: none; color: inherit; }
   font-size: 0.66rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--gold);
+  color: var(--green);
   padding-bottom: 3px;
-  border-bottom: 1px solid rgba(201,184,154,0.35);
+  border-bottom: 1px solid rgba(0, 224, 160, 0.35);
   transition: border-color 0.25s, letter-spacing 0.3s;
 }
 
 .view-archive:hover {
-  border-color: var(--gold);
+  border-color: var(--green);
   letter-spacing: 0.22em;
 }
 
@@ -501,6 +526,8 @@ a { text-decoration: none; color: inherit; }
   gap: 2rem;
   max-width: 1100px;
   margin: 0 auto;
+  position: relative;
+  z-index: 2;
 }
 
 .product-card { cursor: pointer; }
@@ -555,7 +582,7 @@ a { text-decoration: none; color: inherit; }
 
 .product-info p {
   font-size: 0.84rem;
-  color: var(--gold);
+  color: var(--green);
 }
 
 /* ========================
@@ -626,21 +653,21 @@ a { text-decoration: none; color: inherit; }
   gap: 1.6rem;
   align-items: flex-start;
   padding-bottom: 2.2rem;
-  border-bottom: 1px solid rgba(201,184,154,0.08);
+  border-bottom: 1px solid rgba(0, 224, 160, 0.08);
   transition: border-color 0.3s;
 }
 
 .step:last-child { border-bottom: none; padding-bottom: 0; }
-.step:hover { border-color: rgba(201,184,154,0.2); }
+.step:hover { border-color: rgba(0, 224, 160, 0.2); }
 
 .step-num {
   font-family: var(--font-serif);
   font-size: 0.68rem;
-  color: var(--gold);
+  color: var(--green);
   letter-spacing: 0.12em;
   min-width: 26px;
   padding-top: 5px;
-  opacity: 0.7;
+  opacity: 0.8;
 }
 
 .step h4 {
@@ -662,7 +689,7 @@ a { text-decoration: none; color: inherit; }
 ======================== */
 .archives {
   padding: 7rem 5rem;
-  background: var(--dark);
+  background: var(--dark-navy);
 }
 
 .archives h2 {
@@ -749,7 +776,6 @@ a { text-decoration: none; color: inherit; }
   background: var(--dark-green);
   overflow: hidden;
 }
-
 .testimonials h2 {
   font-family: var(--font-serif);
   font-size: clamp(2.2rem, 3.5vw, 3.4rem);
@@ -803,19 +829,19 @@ a { text-decoration: none; color: inherit; }
   flex: 0 0 340px;
   scroll-snap-align: start;
   padding: 2rem;
-  border: 1px solid rgba(201,184,154,0.12);
-  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(0, 224, 160, 0.1);
+  background: rgba(0, 224, 160, 0.03);
   transition: border-color 0.35s, background 0.35s, transform 0.35s var(--ease-out);
 }
 
 .testimonial-card:hover {
-  border-color: rgba(201,184,154,0.28);
-  background: rgba(255,255,255,0.04);
+  border-color: rgba(0, 224, 160, 0.25);
+  background: rgba(0, 224, 160, 0.06);
   transform: translateY(-4px);
 }
 
 .stars {
-  color: var(--gold);
+  color: var(--green);
   font-size: 0.78rem;
   letter-spacing: 0.14em;
   margin-bottom: 1.1rem;
@@ -844,9 +870,9 @@ a { text-decoration: none; color: inherit; }
   display: flex; align-items: center; justify-content: center;
   font-family: var(--font-serif);
   font-size: 0.9rem;
-  color: var(--gold);
+  color: var(--green);
   flex-shrink: 0;
-  border: 1px solid rgba(201,184,154,0.25);
+  border: 1px solid rgba(0, 224, 160, 0.25);
 }
 
 .testimonial-author strong {
@@ -942,7 +968,7 @@ a { text-decoration: none; color: inherit; }
   padding: 7rem 5rem;
   overflow: hidden;
   text-align: center;
-  background: var(--dark);
+  background: var(--dark-navy);
 }
 
 .newsletter-bg {
@@ -996,18 +1022,18 @@ a { text-decoration: none; color: inherit; }
 
 .newsletter-form input::placeholder { color: var(--text-muted); }
 .newsletter-form input:focus {
-  border-color: rgba(201,184,154,0.55);
+  border-color: rgba(0, 224, 160, 0.55);
   background: rgba(255,255,255,0.08);
 }
 
 .newsletter-form button {
   padding: 0.9rem 1.6rem;
-  background: var(--gold);
-  border: 1px solid var(--gold);
-  color: var(--dark);
+  background: var(--green);
+  border: 1px solid var(--green);
+  color: var(--dark-navy);
   font-family: var(--font-sans);
   font-size: 0.7rem;
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   cursor: pointer;
@@ -1016,7 +1042,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .newsletter-form button:hover {
-  background: var(--gold-light);
+  background: #00c88a;
   letter-spacing: 0.15em;
 }
 
@@ -1024,9 +1050,9 @@ a { text-decoration: none; color: inherit; }
    FOOTER
 ======================== */
 .footer {
-  background: #0f0f0e;
+  background: #020a10;
   padding: 5.5rem 5rem 2.5rem;
-  border-top: 1px solid rgba(201,184,154,0.08);
+  border-top: 1px solid rgba(0, 224, 160, 0.1);
 }
 
 .footer-top {
@@ -1062,7 +1088,7 @@ a { text-decoration: none; color: inherit; }
 .footer-tagline {
   font-size: 0.76rem;
   letter-spacing: 0.1em;
-  color: var(--gold);
+  color: var(--green);
   margin-bottom: 1.1rem;
 }
 
@@ -1111,7 +1137,7 @@ a { text-decoration: none; color: inherit; }
   justify-content: space-between;
   align-items: center;
   padding-top: 2rem;
-  border-top: 1px solid rgba(201,184,154,0.07);
+  border-top: 1px solid rgba(0, 224, 160, 0.07);
 }
 
 .footer-bottom p {
@@ -1138,7 +1164,7 @@ a { text-decoration: none; color: inherit; }
   position: absolute;
   bottom: -2px; left: 0;
   width: 0; height: 1px;
-  background: var(--gold);
+  background: var(--green);
   transition: width 0.3s var(--ease-out);
 }
 
