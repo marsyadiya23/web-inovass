@@ -3,358 +3,505 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="INOVASS - Solusi sertifikasi dan akreditasi terpercaya untuk kemajuan organisasi Anda" />
-  <meta name="keywords" content="sertifikasi, akreditasi, ISO, konsultasi, pelatihan, INOVASS" />
-  <title>INOVASS - The Maker of Innovation</title>
-
-  <!-- Google Fonts -->
+  <title>INOVASS — The Maker of Innovation to be Comes True</title>
+  <meta name="description" content="INOVASS — Solusi sertifikasi dan akreditasi terpercaya untuk kemajuan organisasi Anda di seluruh Indonesia." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-
-  <!-- Main Stylesheet -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- ===== NAVBAR ===== -->
-  <header class="navbar" id="navbar">
-    <div class="container navbar__inner">
-      <a href="#beranda" class="navbar__logo">
-        <span class="logo-icon">🌿</span>
-        <span class="logo-text">INOVASS</span>
-      </a>
-
-      <nav class="navbar__nav" id="nav-menu" aria-label="Navigasi utama">
-        <ul class="nav-list">
-          <li><a href="#beranda" class="nav-link active">Beranda</a></li>
-          <li class="has-dropdown">
-            <a href="#layanan" class="nav-link">Layanan <span class="dropdown-arrow">▾</span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#layanan" class="dropdown-item">Sertifikasi Organisasi</a></li>
-              <li><a href="#layanan" class="dropdown-item">Akreditasi Organisasi</a></li>
-              <li><a href="#layanan" class="dropdown-item">Konsultasi &amp; Pelatihan</a></li>
-            </ul>
-          </li>
-          <li class="has-dropdown">
-            <a href="#produk" class="nav-link">Produk <span class="dropdown-arrow">▾</span></a>
-            <ul class="dropdown-menu">
-              <li><a href="#produk" class="dropdown-item">Pelatihan &amp; Awareness</a></li>
-              <li><a href="#produk" class="dropdown-item">Document Control (SOLID)</a></li>
-            </ul>
-          </li>
-          <li><a href="#tentang" class="nav-link">Tentang Kami</a></li>
-          <li><a href="#kontak" class="nav-link">Kontak</a></li>
-        </ul>
-      </nav>
-
-      <a href="#kontak" class="btn btn--primary navbar__cta">Hubungi Kami</a>
-
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+<!-- LOADING SCREEN -->
+<div id="loading-screen" class="loading-screen" role="status" aria-label="Memuat halaman">
+  <div class="loading-content">
+    <div class="loading-logo">
+      <span class="loading-icon">🌿</span>
+      <span class="loading-brand" id="loading-brand-text"></span>
     </div>
-  </header>
+    <div class="loading-progress-wrap">
+      <div class="loading-progress-bar" id="loading-bar"></div>
+    </div>
+    <div class="loading-percent" id="loading-percent">0%</div>
+  </div>
+</div>
 
-  <main>
+<!-- ANNOUNCEMENT TICKER -->
+<div class="announcement-bar" role="marquee" aria-label="Pengumuman">
+  <div class="ticker-wrap">
+    <div class="ticker-content">
+      🌿 INOVASS — The Maker of Innovation to be Comes True &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+      📞 Hubungi kami: +62-813-117-3257 &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+      ✅ Terpercaya, Profesional, Inovatif &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+      🌿 INOVASS — The Maker of Innovation to be Comes True &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+      📞 Hubungi kami: +62-813-117-3257 &nbsp;&nbsp;&nbsp; | &nbsp;&nbsp;&nbsp;
+      ✅ Terpercaya, Profesional, Inovatif &nbsp;&nbsp;&nbsp;
+    </div>
+  </div>
+</div>
 
-    <!-- ===== HERO SECTION ===== -->
-    <section class="hero" id="beranda">
-      <!-- Floating geometric shapes -->
-      <div class="hero__bg" aria-hidden="true">
-        <div class="shape shape--circle shape--1"></div>
-        <div class="shape shape--circle shape--2"></div>
-        <div class="shape shape--rect shape--3"></div>
-        <div class="shape shape--rect shape--4"></div>
-        <div class="shape shape--dot shape--5"></div>
-        <div class="shape shape--dot shape--6"></div>
-        <div class="shape shape--ring shape--7"></div>
-        <div class="shape shape--ring shape--8"></div>
-      </div>
+<!-- NAVBAR -->
+<header class="navbar" id="navbar" role="banner">
+  <div class="container navbar-inner">
+    <a href="#beranda" class="navbar-logo" aria-label="INOVASS Home">
+      <span class="logo-icon">🌿</span>
+      <span class="logo-text">INOVASS</span>
+    </a>
+    <nav class="navbar-nav" id="navbar-nav" role="navigation" aria-label="Navigasi utama">
+      <ul class="nav-list">
+        <li><a href="#beranda" class="nav-link active">Beranda</a></li>
+        <li class="nav-item-dropdown">
+          <a href="#layanan" class="nav-link nav-link-drop" aria-haspopup="true">Layanan <span class="drop-arrow">▾</span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li role="menuitem"><a href="#layanan">Sertifikasi Organisasi</a></li>
+            <li role="menuitem"><a href="#layanan">Akreditasi Organisasi</a></li>
+            <li role="menuitem"><a href="#layanan">Konsultasi &amp; Pelatihan</a></li>
+          </ul>
+        </li>
+        <li class="nav-item-dropdown">
+          <a href="#produk" class="nav-link nav-link-drop" aria-haspopup="true">Produk <span class="drop-arrow">▾</span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li role="menuitem"><a href="#produk">Pelatihan &amp; Awareness</a></li>
+            <li role="menuitem"><a href="#produk">Document Control (SOLID)</a></li>
+          </ul>
+        </li>
+        <li><a href="#tentang" class="nav-link">Tentang Kami</a></li>
+        <li><a href="#kontak" class="nav-link">Kontak</a></li>
+      </ul>
+    </nav>
+    <a href="#kontak" class="btn btn-primary navbar-cta">Hubungi Kami</a>
+    <button class="hamburger" id="hamburger" aria-label="Buka menu" aria-expanded="false" aria-controls="navbar-nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
 
-      <div class="container hero__content">
-        <div class="hero__text fade-in">
-          <span class="hero__badge">🏅 Terpercaya · Profesional · Inovatif</span>
-          <h1 class="hero__headline">The Maker of <span class="text-highlight">Innovation</span><br>to be Comes True</h1>
-          <p class="hero__sub">Solusi sertifikasi dan akreditasi terpercaya untuk kemajuan organisasi Anda. Kami hadir dengan standar nasional dan internasional.</p>
-          <div class="hero__actions">
-            <a href="#layanan" class="btn btn--primary btn--lg">Mulai Sekarang</a>
-            <a href="#tentang" class="btn btn--outline btn--lg">Pelajari Lebih Lanjut</a>
+<!-- HERO SLIDER -->
+<section class="hero-slider" id="beranda" aria-label="Hero Slider" tabindex="0">
+  <div class="slider-wrapper">
+    <!-- Slide 1 -->
+    <div class="slide slide-1 active" aria-hidden="false">
+      <div class="slide-bg"></div>
+      <div class="container slide-content">
+        <div class="slide-left">
+          <span class="slide-tag">🏅 Terpercaya · Profesional · Inovatif</span>
+          <h1 class="slide-headline">The Maker of <strong>Innovation</strong><br>to be Comes True</h1>
+          <p class="slide-sub">Solusi sertifikasi dan akreditasi terpercaya untuk kemajuan organisasi Anda</p>
+          <div class="slide-ctas">
+            <a href="#layanan" class="btn btn-primary">Mulai Sekarang</a>
+            <a href="#tentang" class="btn btn-outline-white">Pelajari Lebih →</a>
           </div>
         </div>
-        <div class="hero__visual fade-in fade-in--delay-2" aria-hidden="true">
-          <div class="hero__card-stack">
-            <div class="hero__card hero__card--1">
-              <span class="card-icon">🏆</span>
-              <span>Sertifikasi ISO</span>
-            </div>
-            <div class="hero__card hero__card--2">
-              <span class="card-icon">✅</span>
-              <span>Akreditasi Nasional</span>
-            </div>
-            <div class="hero__card hero__card--3">
-              <span class="card-icon">📈</span>
-              <span>500+ Klien Puas</span>
-            </div>
-            <div class="hero__circle">
-              <span>10+</span>
-              <small>Tahun</small>
-            </div>
+        <div class="slide-right">
+          <div class="stat-cards">
+            <div class="stat-card"><span class="stat-icon">🏆</span><div><strong>ISO Certified</strong><span>Lembaga Tersertifikasi</span></div></div>
+            <div class="stat-card"><span class="stat-icon">👥</span><div><strong>500+ Klien</strong><span>Organisasi Terpercaya</span></div></div>
+            <div class="stat-card"><span class="stat-icon">⭐</span><div><strong>10+ Tahun</strong><span>Pengalaman Profesional</span></div></div>
           </div>
         </div>
-      </div>
-
-      <div class="hero__scroll-hint" aria-hidden="true">
-        <span>Scroll</span>
-        <div class="scroll-line"></div>
-      </div>
-    </section>
-
-    <!-- ===== SERVICES SECTION ===== -->
-    <section class="section services" id="layanan">
-      <div class="container">
-        <div class="section__header fade-up">
-          <span class="section__label">Apa yang Kami Tawarkan</span>
-          <h2 class="section__title">Layanan Kami</h2>
-          <p class="section__desc">Kami menyediakan layanan komprehensif untuk membantu organisasi Anda mencapai standar terbaik</p>
-        </div>
-
-        <div class="services__grid">
-          <div class="service-card fade-up">
-            <div class="service-card__accent"></div>
-            <div class="service-card__icon">🏆</div>
-            <h3 class="service-card__title">Sertifikasi Organisasi</h3>
-            <p class="service-card__desc">Layanan sertifikasi standar internasional untuk meningkatkan kepercayaan dan kualitas organisasi Anda.</p>
-            <a href="#kontak" class="service-card__link">Pelajari lebih lanjut →</a>
-          </div>
-
-          <div class="service-card fade-up fade-up--delay-1">
-            <div class="service-card__accent"></div>
-            <div class="service-card__icon">✅</div>
-            <h3 class="service-card__title">Akreditasi Organisasi</h3>
-            <p class="service-card__desc">Proses akreditasi yang komprehensif sesuai standar nasional dan internasional untuk pengakuan resmi.</p>
-            <a href="#kontak" class="service-card__link">Pelajari lebih lanjut →</a>
-          </div>
-
-          <div class="service-card fade-up fade-up--delay-2">
-            <div class="service-card__accent"></div>
-            <div class="service-card__icon">📚</div>
-            <h3 class="service-card__title">Konsultasi &amp; Pelatihan</h3>
-            <p class="service-card__desc">Bimbingan ahli untuk mempersiapkan organisasi Anda menghadapi proses sertifikasi dengan percaya diri.</p>
-            <a href="#kontak" class="service-card__link">Pelajari lebih lanjut →</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== ABOUT SECTION ===== -->
-    <section class="section about" id="tentang">
-      <div class="container about__inner">
-        <div class="about__text fade-in-left">
-          <span class="section__label">Tentang INOVASS</span>
-          <h2 class="section__title">Menjangkau Kebutuhan Khusus Secara Nasional</h2>
-          <p class="about__desc">INOVASS hadir sebagai mitra terpercaya bagi organisasi di seluruh Indonesia dalam perjalanan menuju standar kualitas terbaik. Dengan pengalaman lebih dari satu dekade, kami memahami kompleksitas dan tantangan yang dihadapi setiap organisasi.</p>
-          <p class="about__desc">Tim kami terdiri dari para ahli berpengalaman di bidang sertifikasi dan akreditasi yang siap mendampingi Anda di setiap langkah proses.</p>
-
-          <div class="stats-grid">
-            <div class="stat-item">
-              <span class="stat-number" data-target="500">0</span>
-              <span class="stat-suffix">+</span>
-              <span class="stat-label">Klien</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number" data-target="50">0</span>
-              <span class="stat-suffix">+</span>
-              <span class="stat-label">Mitra</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number" data-target="10">0</span>
-              <span class="stat-suffix">+</span>
-              <span class="stat-label">Tahun</span>
-            </div>
-            <div class="stat-item">
-              <span class="stat-number" data-target="99">0</span>
-              <span class="stat-suffix">%</span>
-              <span class="stat-label">Kepuasan</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="about__visual fade-in-right">
-          <div class="map-visual" aria-label="Peta jangkauan nasional">
-            <div class="map-bg">
-              <div class="map-dot map-dot--1" title="Jakarta"></div>
-              <div class="map-dot map-dot--2" title="Bandung"></div>
-              <div class="map-dot map-dot--3" title="Surabaya"></div>
-              <div class="map-dot map-dot--4" title="Yogyakarta"></div>
-              <div class="map-dot map-dot--5" title="Medan"></div>
-              <svg class="map-svg" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M30 130 Q80 80 130 100 Q180 120 220 90 Q270 60 320 80 Q360 95 380 120" stroke="#2ECC71" stroke-width="2" stroke-dasharray="6 4" fill="none" opacity="0.5"/>
-                <path d="M50 160 Q100 140 150 150 Q200 160 250 145 Q300 130 350 150" stroke="#1ABC9C" stroke-width="1.5" stroke-dasharray="4 3" fill="none" opacity="0.4"/>
-                <circle cx="200" cy="125" r="60" stroke="#2ECC71" stroke-width="1" fill="rgba(46,204,113,0.05)" stroke-dasharray="8 4"/>
-                <circle cx="200" cy="125" r="40" stroke="#1ABC9C" stroke-width="1" fill="rgba(26,188,156,0.05)" stroke-dasharray="5 3"/>
-              </svg>
-              <span class="map-label">Jangkauan Nasional</span>
-            </div>
-          </div>
-
-          <div class="partners">
-            <p class="partners__title">Dipercaya oleh Institusi Terkemuka</p>
-            <div class="partners__grid">
-              <div class="partner-logo">UI</div>
-              <div class="partner-logo">IPB</div>
-              <div class="partner-logo">UGM</div>
-              <div class="partner-logo">ITB</div>
-              <div class="partner-logo">Unpad</div>
-              <div class="partner-logo">ITS</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== PRODUCTS SECTION ===== -->
-    <section class="section products" id="produk">
-      <div class="container">
-        <div class="section__header fade-up">
-          <span class="section__label">Solusi Digital Kami</span>
-          <h2 class="section__title">Produk Kami</h2>
-          <p class="section__desc">Platform teknologi terdepan untuk mendukung perjalanan sertifikasi dan manajemen dokumen Anda</p>
-        </div>
-
-        <div class="products__grid">
-          <!-- Product 1 -->
-          <div class="product-card fade-up">
-            <div class="product-card__header product-card__header--green">
-              <div class="product-card__header-content">
-                <span class="product-icon">🎓</span>
-                <div>
-                  <span class="product-tag">ISO Training</span>
-                  <h3 class="product-card__title">Pelatihan &amp; Awareness</h3>
-                </div>
-              </div>
-              <div class="product-card__decor" aria-hidden="true">
-                <div class="decor-circle decor-circle--1"></div>
-                <div class="decor-circle decor-circle--2"></div>
-              </div>
-            </div>
-            <div class="product-card__body">
-              <p class="product-card__desc">Platform LMS untuk pelatihan ISO 14001:2015 Environmental Management System. Modul interaktif, sertifikat digital, dan progress tracking real-time.</p>
-              <ul class="product-features">
-                <li>✓ Modul ISO 14001:2015</li>
-                <li>✓ Sertifikat Digital</li>
-                <li>✓ Progress Tracking</li>
-              </ul>
-              <a href="#kontak" class="btn btn--primary">Selengkapnya →</a>
-            </div>
-          </div>
-
-          <!-- Product 2 -->
-          <div class="product-card fade-up fade-up--delay-1">
-            <div class="product-card__header product-card__header--teal">
-              <div class="product-card__header-content">
-                <span class="product-icon">📋</span>
-                <div>
-                  <span class="product-tag">Software</span>
-                  <h3 class="product-card__title">Document Control System</h3>
-                </div>
-              </div>
-              <div class="product-card__subtitle">SOLID</div>
-              <div class="product-card__decor" aria-hidden="true">
-                <div class="decor-circle decor-circle--1"></div>
-                <div class="decor-circle decor-circle--2"></div>
-              </div>
-            </div>
-            <div class="product-card__body">
-              <p class="product-card__desc">Platform manajemen dokumen terpadu untuk mengelola dokumen dan persyaratan sistem manajemen secara efisien dan terstruktur.</p>
-              <ul class="product-features">
-                <li>✓ Manajemen Dokumen Terpadu</li>
-                <li>✓ Version Control</li>
-                <li>✓ Workflow Approval</li>
-              </ul>
-              <a href="#kontak" class="btn btn--outline-teal">Selengkapnya →</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===== CTA BANNER ===== -->
-    <section class="cta-banner fade-up">
-      <div class="cta-banner__bg" aria-hidden="true">
-        <div class="cta-shape cta-shape--1"></div>
-        <div class="cta-shape cta-shape--2"></div>
-      </div>
-      <div class="container cta-banner__inner">
-        <div class="cta-banner__text">
-          <h2 class="cta-banner__title">Anda ingin mengetahui lebih lanjut<br>tentang layanan kami?</h2>
-          <p class="cta-banner__sub">Tim kami siap membantu Anda menemukan solusi terbaik untuk kebutuhan organisasi Anda.</p>
-        </div>
-        <a href="#kontak" class="btn btn--white btn--lg">Hubungi Kami</a>
-      </div>
-    </section>
-
-  </main>
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer" id="kontak">
-    <div class="container footer__inner">
-      <div class="footer__col footer__col--brand">
-        <a href="#beranda" class="footer__logo">
-          <span class="logo-icon">🌿</span>
-          <span class="logo-text">INOVASS</span>
-        </a>
-        <p class="footer__tagline">The Maker of Innovation to be Comes True. Mitra terpercaya untuk sertifikasi dan akreditasi organisasi Anda.</p>
-        <div class="footer__socials">
-          <a href="#" class="social-link" aria-label="LinkedIn">💼</a>
-          <a href="#" class="social-link" aria-label="Instagram">📸</a>
-          <a href="#" class="social-link" aria-label="Facebook">🌐</a>
-          <a href="#" class="social-link" aria-label="YouTube">▶️</a>
-        </div>
-      </div>
-
-      <div class="footer__col">
-        <h4 class="footer__col-title">Kantor Kami</h4>
-        <address class="footer__address">
-          <p>🏢 Jl. Danau Mela Raya No. 23A</p>
-          <p>Perum Tenjo, Cibinong</p>
-          <p>Kel. Harapan Jaya Kec. Cibinong</p>
-          <p>Cibinong, Bogor</p>
-          <p>Jawa Barat, Indonesia</p>
-        </address>
-      </div>
-
-      <div class="footer__col">
-        <h4 class="footer__col-title">Kontak</h4>
-        <ul class="footer__contact">
-          <li><a href="tel:+6281311733257">📞 +62-813-117-3257</a></li>
-          <li><a href="tel:+6282111233127">📞 +62-821-112-3127</a></li>
-          <li><a href="mailto:inovasskadin@gmail.com">✉️ inovasskadin@gmail.com</a></li>
-        </ul>
-
-        <h4 class="footer__col-title" style="margin-top: 1.5rem;">Layanan</h4>
-        <ul class="footer__links">
-          <li><a href="#layanan">Sertifikasi Organisasi</a></li>
-          <li><a href="#layanan">Akreditasi Organisasi</a></li>
-          <li><a href="#layanan">Konsultasi &amp; Pelatihan</a></li>
-          <li><a href="#produk">Produk Kami</a></li>
-        </ul>
       </div>
     </div>
-
-    <div class="footer__bottom">
-      <div class="container">
-        <p>© 2024 INOVASS. Hak cipta dilindungi. Dibuat dengan 💚 untuk kemajuan organisasi Indonesia.</p>
+    <!-- Slide 2 -->
+    <div class="slide slide-2" aria-hidden="true">
+      <div class="slide-bg"></div>
+      <div class="container slide-content">
+        <div class="slide-left">
+          <span class="slide-tag">✅ Akreditasi Nasional</span>
+          <h1 class="slide-headline">Akreditasi yang <strong>Diakui</strong><br>Secara Nasional</h1>
+          <p class="slide-sub">Proses akreditasi komprehensif sesuai standar nasional dan internasional</p>
+          <div class="slide-ctas">
+            <a href="#layanan" class="btn btn-primary">Lihat Layanan</a>
+            <a href="#tentang" class="btn btn-outline-white">Tentang Kami →</a>
+          </div>
+        </div>
+        <div class="slide-right">
+          <div class="slide-graphic">
+            <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="100" cy="100" r="80" fill="none" stroke="#2ECC71" stroke-width="2" stroke-dasharray="8 4" opacity="0.6"><animateTransform attributeName="transform" type="rotate" from="0 100 100" to="360 100 100" dur="20s" repeatCount="indefinite"/></circle>
+              <circle cx="100" cy="100" r="55" fill="none" stroke="#1ABC9C" stroke-width="1.5" stroke-dasharray="4 8" opacity="0.4"><animateTransform attributeName="transform" type="rotate" from="360 100 100" to="0 100 100" dur="15s" repeatCount="indefinite"/></circle>
+              <circle cx="100" cy="100" r="30" fill="rgba(46,204,113,0.15)" stroke="#2ECC71" stroke-width="2"/>
+              <text x="100" y="96" text-anchor="middle" fill="#2ECC71" font-size="18">✅</text>
+              <text x="100" y="115" text-anchor="middle" fill="#ffffff" font-size="9" font-family="Inter">AKREDITASI</text>
+            </svg>
+          </div>
+        </div>
       </div>
     </div>
-  </footer>
+    <!-- Slide 3 -->
+    <div class="slide slide-3" aria-hidden="true">
+      <div class="slide-bg"></div>
+      <div class="container slide-content">
+        <div class="slide-left">
+          <span class="slide-tag">📋 Document Control</span>
+          <h1 class="slide-headline">Kelola Dokumen dengan <strong>SOLID</strong></h1>
+          <p class="slide-sub">Platform manajemen dokumen terpadu untuk sistem manajemen yang efisien</p>
+          <div class="slide-ctas">
+            <a href="#produk" class="btn btn-primary">Coba Sekarang</a>
+            <a href="#produk" class="btn btn-outline-white">Fitur SOLID →</a>
+          </div>
+        </div>
+        <div class="slide-right">
+          <div class="solid-graphic">
+            <div class="solid-card">
+              <div class="solid-card-header">📋 SOLID v2.0</div>
+              <div class="solid-card-body">
+                <div class="solid-item">✓ Version Control</div>
+                <div class="solid-item">✓ Approval Workflow</div>
+                <div class="solid-item">✓ Audit Trail</div>
+                <div class="solid-item">✓ ISO Compliance</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="slider-btn slider-prev" id="slider-prev" aria-label="Slide sebelumnya">&#8249;</button>
+  <button class="slider-btn slider-next" id="slider-next" aria-label="Slide berikutnya">&#8250;</button>
+  <div class="slider-dots" role="tablist" aria-label="Pilih slide">
+    <button class="dot active" data-index="0" role="tab" aria-selected="true" aria-label="Slide 1"></button>
+    <button class="dot" data-index="1" role="tab" aria-selected="false" aria-label="Slide 2"></button>
+    <button class="dot" data-index="2" role="tab" aria-selected="false" aria-label="Slide 3"></button>
+  </div>
+</section>
 
-  <!-- Scroll to top -->
-  <button class="scroll-top" id="scrollTop" aria-label="Kembali ke atas">↑</button>
+<!-- INOVASS UNTUK INDONESIA -->
+<section class="untuk-indonesia" id="tentang">
+  <div class="container ui-header">
+    <h2 class="ui-title animate-fade-up">INOVASS untuk Indonesia</h2>
+    <p class="ui-sub animate-fade-up">INOVASS hadir sebagai mitra terpercaya bagi organisasi di seluruh Indonesia dalam mewujudkan standar kualitas tertinggi dan keunggulan operasional.</p>
+  </div>
+  <div class="ui-panels">
+    <div class="ui-panel panel-1 animate-fade-up">
+      <div class="ui-panel-overlay">
+        <div class="ui-panel-icon">🏢</div>
+        <h3 class="ui-panel-number">500+ Klien</h3>
+        <p class="ui-panel-desc">Organisasi terpercaya di seluruh nusantara</p>
+      </div>
+    </div>
+    <div class="ui-panel panel-2 animate-fade-up">
+      <div class="ui-panel-overlay">
+        <div class="ui-panel-icon">🤝</div>
+        <h3 class="ui-panel-number">50+ Mitra</h3>
+        <p class="ui-panel-desc">Institusi pendidikan &amp; pemerintahan terkemuka</p>
+      </div>
+    </div>
+    <div class="ui-panel panel-3 animate-fade-up">
+      <div class="ui-panel-overlay">
+        <div class="ui-panel-icon">⭐</div>
+        <h3 class="ui-panel-number">99% Kepuasan</h3>
+        <p class="ui-panel-desc">Tingkat kepuasan klien tertinggi</p>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <!-- Main JS -->
-  <script src="js/main.js"></script>
+<!-- STATS COUNTER -->
+<section class="stats-section">
+  <div class="container stats-grid">
+    <div class="stat-item animate-fade-up"><span class="stat-num" data-target="500" data-suffix="+">0</span><span class="stat-label">Klien</span></div>
+    <div class="stat-item animate-fade-up"><span class="stat-num" data-target="50" data-suffix="+">0</span><span class="stat-label">Mitra</span></div>
+    <div class="stat-item animate-fade-up"><span class="stat-num" data-target="10" data-suffix="+">0</span><span class="stat-label">Tahun Pengalaman</span></div>
+    <div class="stat-item animate-fade-up"><span class="stat-num" data-target="99" data-suffix="%">0</span><span class="stat-label">Kepuasan Klien</span></div>
+  </div>
+</section>
+
+<!-- LAYANAN -->
+<section class="layanan-section" id="layanan">
+  <div class="container">
+    <div class="section-header animate-fade-up">
+      <span class="section-tag">Layanan Profesional</span>
+      <h2 class="section-title">Layanan Kami</h2>
+      <p class="section-sub">Kami menyediakan layanan lengkap untuk membantu organisasi Anda mencapai standar terbaik</p>
+    </div>
+    <div class="cards-grid">
+      <div class="service-card animate-fade-up">
+        <div class="service-card-icon">🏆</div>
+        <h3 class="service-card-title">Sertifikasi Organisasi</h3>
+        <p class="service-card-desc">Layanan sertifikasi ISO komprehensif mencakup ISO 9001, ISO 14001, ISO 45001 dan standar internasional lainnya untuk organisasi Anda.</p>
+        <a href="#kontak" class="service-card-link">Selengkapnya →</a>
+      </div>
+      <div class="service-card animate-fade-up">
+        <div class="service-card-icon">✅</div>
+        <h3 class="service-card-title">Akreditasi Organisasi</h3>
+        <p class="service-card-desc">Proses akreditasi komprehensif sesuai standar KAN dan badan akreditasi internasional dengan pendampingan penuh dari tim ahli kami.</p>
+        <a href="#kontak" class="service-card-link">Selengkapnya →</a>
+      </div>
+      <div class="service-card animate-fade-up">
+        <div class="service-card-icon">📚</div>
+        <h3 class="service-card-title">Konsultasi &amp; Pelatihan</h3>
+        <p class="service-card-desc">Program konsultasi dan pelatihan intensif dirancang untuk meningkatkan kompetensi SDM dalam implementasi sistem manajemen mutu.</p>
+        <a href="#kontak" class="service-card-link">Selengkapnya →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUK -->
+<section class="produk-section" id="produk">
+  <div class="container">
+    <div class="section-header animate-fade-up">
+      <span class="section-tag section-tag-light">Platform Digital</span>
+      <h2 class="section-title section-title-light">Produk Kami</h2>
+      <p class="section-sub section-sub-light">Solusi digital inovatif untuk meningkatkan efisiensi dan efektivitas organisasi</p>
+    </div>
+    <div class="produk-grid">
+      <div class="produk-card animate-fade-left">
+        <div class="produk-card-header produk-header-green">
+          <span class="produk-icon">🎓</span>
+          <h3 class="produk-title">Pelatihan &amp; Awareness</h3>
+          <p class="produk-subtitle">ISO 14001:2015 LMS Platform</p>
+        </div>
+        <div class="produk-card-body">
+          <p class="produk-desc">Platform Learning Management System untuk pelatihan ISO online yang interaktif dan terstruktur.</p>
+          <ul class="produk-features">
+            <li>✓ Modul ISO 14001:2015 Lengkap</li>
+            <li>✓ Video &amp; Materi Interaktif</li>
+            <li>✓ Sertifikat Digital Otomatis</li>
+            <li>✓ Progress Tracking Real-time</li>
+            <li>✓ Quiz &amp; Asesmen Online</li>
+          </ul>
+          <a href="#kontak" class="btn btn-primary produk-btn">Daftar Sekarang</a>
+        </div>
+      </div>
+      <div class="produk-card animate-fade-right">
+        <div class="produk-card-header produk-header-teal">
+          <span class="produk-icon">📋</span>
+          <h3 class="produk-title">Document Control System</h3>
+          <p class="produk-subtitle">SOLID — Smart Document Management</p>
+        </div>
+        <div class="produk-card-body">
+          <p class="produk-desc">Sistem manajemen dokumen terpadu yang memastikan kepatuhan dan efisiensi dokumentasi organisasi Anda.</p>
+          <ul class="produk-features">
+            <li>✓ Version Control Otomatis</li>
+            <li>✓ Approval &amp; Workflow Engine</li>
+            <li>✓ Audit Trail Lengkap</li>
+            <li>✓ ISO Compliance Dashboard</li>
+            <li>✓ Integrasi Multi-departemen</li>
+          </ul>
+          <a href="#kontak" class="btn btn-secondary produk-btn">Coba Gratis</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="timeline-section">
+  <div class="container">
+    <div class="section-header animate-fade-up">
+      <span class="section-tag">Sejarah Kami</span>
+      <h2 class="section-title">Perjalanan INOVASS</h2>
+      <p class="section-sub">Satu dekade dedikasi dalam memajukan standar kualitas Indonesia</p>
+    </div>
+    <div class="timeline-tabs" role="tablist" aria-label="Tahun perjalanan INOVASS">
+      <button class="tl-tab active" data-year="2015" role="tab" aria-selected="true" aria-controls="tl-content-2015">2015</button>
+      <button class="tl-tab" data-year="2017" role="tab" aria-selected="false" aria-controls="tl-content-2017">2017</button>
+      <button class="tl-tab" data-year="2019" role="tab" aria-selected="false" aria-controls="tl-content-2019">2019</button>
+      <button class="tl-tab" data-year="2021" role="tab" aria-selected="false" aria-controls="tl-content-2021">2021</button>
+      <button class="tl-tab" data-year="2023" role="tab" aria-selected="false" aria-controls="tl-content-2023">2023</button>
+      <button class="tl-tab" data-year="2025" role="tab" aria-selected="false" aria-controls="tl-content-2025">2025</button>
+    </div>
+    <div class="timeline-content-wrap">
+      <div class="tl-content active" id="tl-content-2015" role="tabpanel"><div class="tl-icon">🏛️</div><h3 class="tl-year-title">2015 — Pendirian INOVASS</h3><p class="tl-desc">Berdiri sebagai lembaga sertifikasi independen yang berkomitmen memberikan layanan sertifikasi berkualitas tinggi bagi organisasi di Indonesia.</p></div>
+      <div class="tl-content" id="tl-content-2017" role="tabpanel"><div class="tl-icon">🚀</div><h3 class="tl-year-title">2017 — Ekspansi Layanan</h3><p class="tl-desc">Mulai melayani akreditasi organisasi nasional, memperluas jangkauan ke berbagai industri termasuk manufaktur, jasa, dan pendidikan.</p></div>
+      <div class="tl-content" id="tl-content-2019" role="tabpanel"><div class="tl-icon">💻</div><h3 class="tl-year-title">2019 — Platform Digital</h3><p class="tl-desc">Meluncurkan LMS untuk pelatihan ISO online, menjangkau peserta di seluruh Indonesia tanpa batasan geografis.</p></div>
+      <div class="tl-content" id="tl-content-2021" role="tabpanel"><div class="tl-icon">📋</div><h3 class="tl-year-title">2021 — SOLID Launch</h3><p class="tl-desc">Sistem Document Control terintegrasi SOLID resmi diluncurkan, membantu ratusan organisasi mengelola dokumen sistem manajemen secara efisien.</p></div>
+      <div class="tl-content" id="tl-content-2023" role="tabpanel"><div class="tl-icon">🎯</div><h3 class="tl-year-title">2023 — 500+ Klien</h3><p class="tl-desc">Milestone pencapaian klien ke-500, membuktikan kepercayaan dan komitmen INOVASS dalam melayani organisasi terbaik di seluruh nusantara.</p></div>
+      <div class="tl-content" id="tl-content-2025" role="tabpanel"><div class="tl-icon">🌏</div><h3 class="tl-year-title">2025 — Jangkauan Nasional</h3><p class="tl-desc">Hadir di seluruh provinsi Indonesia dengan tim konsultan berpengalaman, mewujudkan visi INOVASS sebagai lembaga sertifikasi pilihan nasional.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REPORTS SECTION -->
+<section class="reports-section">
+  <div class="container reports-inner">
+    <div class="reports-left animate-fade-left">
+      <span class="section-tag section-tag-light">Transparansi &amp; Kepercayaan</span>
+      <h2 class="reports-title">Laporan &amp; Sertifikasi</h2>
+      <p class="reports-sub">Bukti nyata komitmen kami dalam menjaga standar kualitas dan kepercayaan klien.</p>
+      <a href="#kontak" class="btn btn-primary">Lihat Selengkapnya →</a>
+    </div>
+    <div class="reports-right animate-fade-right">
+      <div class="report-card"><div class="report-card-top"></div><span class="report-year">2024</span><div class="report-icon">📜</div><h4 class="report-name">Sertifikat ISO 9001</h4><p class="report-type">Sistem Manajemen Mutu</p></div>
+      <div class="report-card"><div class="report-card-top"></div><span class="report-year">2024</span><div class="report-icon">🏅</div><h4 class="report-name">Akreditasi KAN</h4><p class="report-type">Komite Akreditasi Nasional</p></div>
+      <div class="report-card"><div class="report-card-top"></div><span class="report-year">2024</span><div class="report-icon">📊</div><h4 class="report-name">Laporan Tahunan</h4><p class="report-type">Annual Report 2024</p></div>
+      <div class="report-card"><div class="report-card-top"></div><span class="report-year">2024</span><div class="report-icon">🏆</div><h4 class="report-name">Penghargaan 2024</h4><p class="report-type">Lembaga Terbaik Nasional</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- MITRA CAROUSEL -->
+<section class="mitra-section">
+  <div class="container">
+    <div class="section-header animate-fade-up">
+      <span class="section-tag">Kepercayaan Bersama</span>
+      <h2 class="section-title">Mitra &amp; Klien Kami</h2>
+      <p class="section-sub">Dipercaya oleh ratusan organisasi terkemuka di seluruh Indonesia</p>
+    </div>
+  </div>
+  <div class="mitra-carousel-wrap">
+    <div class="mitra-carousel" id="mitra-carousel">
+      <div class="mitra-card"><span class="mitra-logo">🏛️</span><span class="mitra-name">Kementerian LHK</span></div>
+      <div class="mitra-card"><span class="mitra-logo">🏫</span><span class="mitra-name">Universitas Indonesia</span></div>
+      <div class="mitra-card"><span class="mitra-logo">🏭</span><span class="mitra-name">PT Astra International</span></div>
+      <div class="mitra-card"><span class="mitra-logo">🏗️</span><span class="mitra-name">PT Waskita Karya</span></div>
+      <div class="mitra-card"><span class="mitra-logo">⚡</span><span class="mitra-name">PLN Indonesia</span></div>
+      <div class="mitra-card"><span class="mitra-logo">🚢</span><span class="mitra-name">Pelindo Group</span></div>
+      <div class="mitra-card"><span class="mitra-logo">🏥</span><span class="mitra-name">RSUP Cipto</span></div>
+      <div class="mitra-card"><span class="mitra-logo">✈️</span><span class="mitra-name">PT Angkasa Pura</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWS SECTION -->
+<section class="news-section">
+  <div class="container">
+    <div class="section-header animate-fade-up">
+      <span class="section-tag">Update Terbaru</span>
+      <h2 class="section-title">Berita Terkini</h2>
+      <p class="section-sub">Ikuti perkembangan terbaru dari INOVASS dan dunia sertifikasi</p>
+    </div>
+    <div class="news-grid">
+      <article class="news-card animate-fade-up">
+        <div class="news-img news-img-1"></div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">Penghargaan</span><span class="news-date">15 Des 2024</span></div>
+          <h3 class="news-title">INOVASS Raih Penghargaan Lembaga Sertifikasi Terbaik 2024</h3>
+          <p class="news-excerpt">INOVASS kembali meraih penghargaan bergengsi sebagai lembaga sertifikasi terbaik tingkat nasional.</p>
+          <a href="#" class="news-link">Baca →</a>
+        </div>
+      </article>
+      <article class="news-card animate-fade-up">
+        <div class="news-img news-img-2"></div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">Produk</span><span class="news-date">10 Des 2024</span></div>
+          <h3 class="news-title">Peluncuran SOLID v2.0: Manajemen Dokumen Lebih Cerdas</h3>
+          <p class="news-excerpt">Versi terbaru SOLID hadir dengan fitur AI-powered workflow dan dashboard analytics yang lebih komprehensif.</p>
+          <a href="#" class="news-link">Baca →</a>
+        </div>
+      </article>
+      <article class="news-card animate-fade-up">
+        <div class="news-img news-img-3"></div>
+        <div class="news-body">
+          <div class="news-meta"><span class="news-tag">Pelatihan</span><span class="news-date">5 Des 2024</span></div>
+          <h3 class="news-title">Workshop ISO 14001:2015 Batch 12 Sukses Dilaksanakan</h3>
+          <p class="news-excerpt">Workshop intensif 3 hari dihadiri 85 peserta dari berbagai perusahaan manufaktur se-Indonesia.</p>
+          <a href="#" class="news-link">Baca →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <div class="container cta-inner">
+    <div class="cta-text animate-fade-left">
+      <h2 class="cta-title">Anda ingin mengetahui lebih lanjut tentang layanan kami?</h2>
+      <p class="cta-sub">Tim konsultan kami siap membantu Anda menemukan solusi terbaik untuk organisasi Anda.</p>
+    </div>
+    <div class="cta-action animate-fade-right">
+      <a href="#kontak" class="btn btn-white-solid">Hubungi Kami</a>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAK -->
+<section class="kontak-section" id="kontak">
+  <div class="container">
+    <div class="section-header animate-fade-up">
+      <span class="section-tag">Siap Membantu</span>
+      <h2 class="section-title">Hubungi Kami</h2>
+      <p class="section-sub">Konsultasikan kebutuhan sertifikasi dan akreditasi organisasi Anda bersama tim ahli kami</p>
+    </div>
+    <div class="kontak-grid">
+      <div class="kontak-info animate-fade-left">
+        <div class="kontak-item"><span class="kontak-icon">📍</span><div><strong>Kantor</strong><p>Jl. Danau Mela Raya No. 23A, Cibinong, Bogor</p></div></div>
+        <div class="kontak-item"><span class="kontak-icon">📞</span><div><strong>Telepon</strong><p>+62-813-117-3257 / +62-821-112-3127</p></div></div>
+        <div class="kontak-item"><span class="kontak-icon">📧</span><div><strong>Email</strong><p>inovasskadin@gmail.com</p></div></div>
+        <div class="kontak-item"><span class="kontak-icon">⏰</span><div><strong>Jam Operasional</strong><p>Senin – Jumat: 08.00 – 17.00 WIB</p></div></div>
+      </div>
+      <div class="kontak-form animate-fade-right">
+        <form id="kontak-form" novalidate>
+          <div class="form-row">
+            <div class="form-group"><label for="nama">Nama Lengkap</label><input type="text" id="nama" name="nama" placeholder="Masukkan nama Anda" required /></div>
+            <div class="form-group"><label for="email">Email</label><input type="email" id="email" name="email" placeholder="email@organisasi.com" required /></div>
+          </div>
+          <div class="form-group"><label for="organisasi">Nama Organisasi</label><input type="text" id="organisasi" name="organisasi" placeholder="PT / Instansi Anda" /></div>
+          <div class="form-group">
+            <label for="layanan-select">Layanan yang Diminati</label>
+            <select id="layanan-select" name="layanan">
+              <option value="">Pilih layanan...</option>
+              <option>Sertifikasi Organisasi</option>
+              <option>Akreditasi Organisasi</option>
+              <option>Konsultasi &amp; Pelatihan</option>
+              <option>Pelatihan &amp; Awareness LMS</option>
+              <option>Document Control (SOLID)</option>
+            </select>
+          </div>
+          <div class="form-group"><label for="pesan">Pesan</label><textarea id="pesan" name="pesan" rows="4" placeholder="Ceritakan kebutuhan organisasi Anda..."></textarea></div>
+          <button type="submit" class="btn btn-primary form-submit">Kirim Pesan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="container footer-grid">
+    <div class="footer-col footer-col-brand">
+      <a href="#beranda" class="footer-logo" aria-label="INOVASS"><span class="logo-icon">🌿</span><span class="logo-text">INOVASS</span></a>
+      <p class="footer-tagline">The Maker of Innovation to be Comes True. Mitra terpercaya untuk sertifikasi dan akreditasi organisasi Indonesia.</p>
+      <div class="footer-socials">
+        <a href="#" aria-label="LinkedIn" class="social-icon">💼</a>
+        <a href="#" aria-label="Instagram" class="social-icon">📸</a>
+        <a href="#" aria-label="Website" class="social-icon">🌐</a>
+        <a href="#" aria-label="YouTube" class="social-icon">▶️</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-heading">Navigasi</h4>
+      <ul class="footer-links">
+        <li><a href="#beranda">Beranda</a></li>
+        <li><a href="#tentang">Tentang Kami</a></li>
+        <li><a href="#layanan">Layanan</a></li>
+        <li><a href="#produk">Produk</a></li>
+        <li><a href="#kontak">Kontak</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-heading">Layanan</h4>
+      <ul class="footer-links">
+        <li><a href="#layanan">Sertifikasi ISO</a></li>
+        <li><a href="#layanan">Akreditasi KAN</a></li>
+        <li><a href="#layanan">Konsultasi</a></li>
+        <li><a href="#layanan">Pelatihan</a></li>
+        <li><a href="#produk">SOLID Platform</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 class="footer-heading">Kantor</h4>
+      <address class="footer-address">
+        <p>📍 Jl. Danau Mela Raya No. 23A<br/>Cibinong, Bogor 16913</p>
+        <p>📞 +62-813-117-3257</p>
+        <p>📧 inovasskadin@gmail.com</p>
+        <p>⏰ Senin–Jumat 08.00–17.00</p>
+      </address>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p>© 2024 INOVASS · All Rights Reserved</p>
+      <p>Made with 💚 for Indonesia</p>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button class="back-to-top" id="back-to-top" aria-label="Kembali ke atas">↑</button>
+
+<script src="js/main.js"></script>
 </body>
 </html>
