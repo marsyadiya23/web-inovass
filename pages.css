@@ -48,14 +48,14 @@
 .page-hero-content h1 {
   font-family: var(--font-serif);
   font-size: clamp(3rem, 5vw, 5.5rem);
-  font-weight: 300;
+  font-weight: 700;
   line-height: 1.05;
   color: var(--cream);
   margin-bottom: 1.2rem;
 }
 
 .page-hero-content h1 em {
-  font-style: italic;
+  font-style: normal;
   color: var(--gold-light);
 }
 
@@ -285,14 +285,14 @@
 .about-text h2 {
   font-family: var(--font-serif);
   font-size: clamp(2rem, 3vw, 3rem);
-  font-weight: 300;
+  font-weight: 700;
   line-height: 1.12;
   color: var(--cream);
   margin: 1rem 0 1.2rem;
 }
 
 .about-text h2 em {
-  font-style: italic;
+  font-style: normal;
   color: var(--gold-light);
 }
 
@@ -348,14 +348,14 @@
 .about-values .section-header h2 {
   font-family: var(--font-serif);
   font-size: clamp(2rem, 3vw, 3rem);
-  font-weight: 300;
+  font-weight: 700;
   color: var(--cream);
   line-height: 1.12;
   margin-bottom: 0.8rem;
 }
 
 .about-values .section-header h2 em {
-  font-style: italic;
+  font-style: normal;
   color: var(--gold-light);
 }
 
