@@ -436,22 +436,6 @@ a { text-decoration: none; color: inherit; }
   color: var(--dark);
 }
 
-.btn-ghost {
-  font-size: 0.7rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgba(245,240,232,0.6);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  transition: color 0.25s, gap 0.25s;
-}
-
-.btn-ghost::after {
-  content: '→';
-  transition: transform 0.3s var(--ease-out);
-}
-
 .btn-ghost:hover {
   color: var(--cream);
   gap: 0.8rem;
