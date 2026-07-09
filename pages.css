@@ -5,9 +5,9 @@
 
 /* Navbar always solid on inner pages */
 .navbar.scrolled {
-  background: rgba(17, 17, 16, 0.96) !important;
+  background: rgba(8, 24, 18, 0.97) !important;
   backdrop-filter: blur(20px) !important;
-  border-color: rgba(201, 184, 154, 0.1) !important;
+  border-color: rgba(0, 224, 160, 0.12) !important;
 }
 
 /* PAGE HERO */
