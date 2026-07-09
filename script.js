@@ -1,74 +1,148 @@
-// Navbar scroll effect
+/* ========================
+   NAVBAR — scroll state
+======================== */
 const navbar = document.querySelector('.navbar');
+
 window.addEventListener('scroll', () => {
-  if (window.scrollY > 50) {
-    navbar.style.background = 'rgba(17, 17, 16, 0.96)';
-  } else {
-    navbar.style.background = 'rgba(26, 26, 24, 0.85)';
-  }
-});
+  navbar.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
 
-// Testimonials auto-scroll
-const track = document.querySelector('.testimonials-track');
-let scrollDir = 1;
-let autoScroll;
+/* ========================
+   SCROLL REVEAL
+   Adds .visible to elements with .reveal / .reveal-left / .reveal-right / .reveal-scale
+======================== */
+const revealSelectors = '.reveal, .reveal-left, .reveal-right, .reveal-scale';
+const revealEls = document.querySelectorAll(revealSelectors);
 
-function startAutoScroll() {
-  autoScroll = setInterval(() => {
-    track.scrollLeft += scrollDir * 1.2;
-    if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
-      scrollDir = -1;
-    } else if (track.scrollLeft <= 0) {
-      scrollDir = 1;
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
     }
-  }, 16);
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+revealEls.forEach((el) => revealObserver.observe(el));
+
+/* ========================
+   TESTIMONIALS SLIDER
+   Auto-scroll with pause on hover/drag
+======================== */
+const track = document.querySelector('.testimonials-track');
+if (track) {
+  let raf;
+  let speed = 0.8;
+  let isPaused = false;
+  let isDragging = false;
+  let startX = 0;
+  let startScroll = 0;
+
+  function autoScroll() {
+    if (!isPaused && !isDragging) {
+      track.scrollLeft += speed;
+      // reset seamlessly at end
+      if (track.scrollLeft >= track.scrollWidth - track.clientWidth - 2) {
+        track.scrollLeft = 0;
+      }
+    }
+    raf = requestAnimationFrame(autoScroll);
+  }
+
+  raf = requestAnimationFrame(autoScroll);
+
+  // pause on hover
+  track.addEventListener('mouseenter', () => { isPaused = true; });
+  track.addEventListener('mouseleave', () => { isPaused = false; });
+
+  // drag to scroll
+  track.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    startX = e.pageX - track.offsetLeft;
+    startScroll = track.scrollLeft;
+    track.style.cursor = 'grabbing';
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const x = e.pageX - track.offsetLeft;
+    track.scrollLeft = startScroll - (x - startX);
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+    track.style.cursor = 'grab';
+  });
+
+  // touch support
+  track.addEventListener('touchstart', (e) => {
+    startX = e.touches[0].pageX;
+    startScroll = track.scrollLeft;
+    isPaused = true;
+  }, { passive: true });
+
+  track.addEventListener('touchmove', (e) => {
+    const x = e.touches[0].pageX;
+    track.scrollLeft = startScroll - (x - startX);
+  }, { passive: true });
+
+  track.addEventListener('touchend', () => {
+    setTimeout(() => { isPaused = false; }, 1200);
+  });
 }
 
-startAutoScroll();
+/* ========================
+   PARALLAX — ethos bg
+======================== */
+const ethosBg = document.querySelector('.ethos-bg');
+if (ethosBg) {
+  window.addEventListener('scroll', () => {
+    const ethos = ethosBg.parentElement;
+    const rect = ethos.getBoundingClientRect();
+    if (rect.bottom > 0 && rect.top < window.innerHeight) {
+      const pct = rect.top / window.innerHeight;
+      ethosBg.style.transform = `scale(1.08) translateY(${pct * 30}px)`;
+    }
+  }, { passive: true });
+}
 
-track.addEventListener('mouseenter', () => clearInterval(autoScroll));
-track.addEventListener('mouseleave', startAutoScroll);
-
-// Intersection Observer - fade in on scroll
-const fadeEls = document.querySelectorAll(
-  '.product-card, .step, .archive-card, .testimonial-card, .ethos-content, .newsletter-content'
-);
-
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.1 }
-);
-
-fadeEls.forEach((el) => {
-  el.style.opacity = '0';
-  el.style.transform = 'translateY(24px)';
-  el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-  observer.observe(el);
-});
-
-// Newsletter form
+/* ========================
+   NEWSLETTER FORM
+======================== */
 const form = document.querySelector('.newsletter-form');
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const input = form.querySelector('input');
-  const btn = form.querySelector('button');
-  if (input.value) {
+if (form) {
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = form.querySelector('input');
+    const btn = form.querySelector('button');
+    if (!input.value.trim()) return;
+
     btn.textContent = 'Subscribed ✓';
-    btn.style.background = '#3a3d2e';
-    btn.style.color = '#c9b89a';
+    btn.style.background = 'var(--olive)';
+    btn.style.color = 'var(--gold)';
+    btn.style.borderColor = 'var(--olive)';
+    btn.style.letterSpacing = '0.08em';
     input.value = '';
+
     setTimeout(() => {
       btn.textContent = 'Subscribe';
       btn.style.background = '';
       btn.style.color = '';
-    }, 3000);
-  }
-});
+      btn.style.borderColor = '';
+      btn.style.letterSpacing = '';
+    }, 3200);
+  });
+}
+
+/* ========================
+   STAGGER — product & archive cards
+======================== */
+function staggerCards(selector, baseDelay = 0) {
+  document.querySelectorAll(selector).forEach((el, i) => {
+    el.style.transitionDelay = `${baseDelay + i * 0.1}s`;
+  });
+}
+
+staggerCards('.product-card');
+staggerCards('.archive-card');
+staggerCards('.step', 0.05);
