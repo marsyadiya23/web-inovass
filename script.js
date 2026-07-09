@@ -1,10 +1,27 @@
 /* ========================
-   NAVBAR — scroll state
+   NAVBAR — scroll state & active link
 ======================== */
 const navbar = document.querySelector('.navbar');
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('section[id]');
 
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 40);
+
+  // Active link highlight
+  let current = '';
+  sections.forEach((sec) => {
+    if (window.scrollY >= sec.offsetTop - 100) {
+      current = sec.getAttribute('id');
+    }
+  });
+
+  navLinks.forEach((link) => {
+    link.classList.remove('active');
+    if (link.getAttribute('href') === '#' + current) {
+      link.classList.add('active');
+    }
+  });
 }, { passive: true });
 
 /* ========================
