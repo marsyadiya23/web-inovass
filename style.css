@@ -161,32 +161,36 @@ a { text-decoration: none; color: inherit; }
   font-weight: 400;
   letter-spacing: 0.06em;
   color: var(--cream);
-  opacity: 0.78;
+  opacity: 0.72;
   padding: 0.45rem 0.9rem;
   border-radius: 4px;
   position: relative;
   transition: opacity 0.2s, background 0.2s;
+  /* tidak ada ::after saat hover */
 }
 
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: 4px; left: 50%;
-  transform: translateX(-50%);
-  width: 0; height: 1.5px;
-  background: #f0b800;
-  border-radius: 2px;
-  transition: width 0.3s var(--ease-out);
+.nav-link:hover {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.nav-link:hover::after { width: 60%; }
-
+/* Garis kuning HANYA muncul pada halaman yang aktif */
 .nav-link.active {
   opacity: 1;
   color: var(--cream);
 }
 
-.nav-link.active::after { width: 60%; }
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1.5px;
+  background: #f0b800;
+  border-radius: 2px;
+}
 
 /* --- Nav Right --- */
 .nav-right {

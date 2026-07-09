@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Produk — INOVASS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+</head>
+<body>
+
+  <nav class="navbar scrolled">
+    <a href="index.html" class="nav-logo">
+      <svg class="nav-logo-icon" viewBox="0 0 54 54" fill="none">
+        <path d="M8 42 C14 30 28 18 48 10 C40 22 30 30 18 36 Z" fill="#00e0a0"/>
+        <path d="M6 46 C11 36 22 26 42 18 C35 28 26 36 14 42 Z" fill="#00c88a" opacity="0.85"/>
+        <path d="M10 50 C14 42 24 34 40 28 C34 36 26 42 16 48 Z" fill="#00b07a" opacity="0.7"/>
+        <path d="M12 50 C16 46 22 42 30 40 C26 44 20 48 14 51 Z" fill="#00e0a0" opacity="0.6"/>
+        <path d="M16 52 C19 49 24 46 31 44 C27 47 22 50 17 53 Z" fill="#00c88a" opacity="0.5"/>
+      </svg>
+      <span class="nav-logo-text">INOVASS</span>
+    </a>
+    <div class="nav-menu">
+      <a href="index.html" class="nav-link">Beranda</a>
+      <a href="layanan.html" class="nav-link">Layanan</a>
+      <a href="produk.html" class="nav-link active">Produk</a>
+      <a href="tentang.html" class="nav-link">Tentang Kami</a>
+      <a href="kontak.html" class="nav-link">Kontak</a>
+    </div>
+    <div class="nav-right">
+      <a href="kontak.html" class="nav-cta">Hubungi Kami</a>
+      <button class="nav-hamburger" aria-label="Menu" id="hamburgerBtn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mobile-link">Beranda</a>
+    <a href="layanan.html" class="mobile-link">Layanan</a>
+    <a href="produk.html" class="mobile-link active">Produk</a>
+    <a href="tentang.html" class="mobile-link">Tentang Kami</a>
+    <a href="kontak.html" class="mobile-link">Kontak</a>
+    <a href="kontak.html" class="mobile-cta">Hubungi Kami</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-content reveal">
+      <p class="page-eyebrow">KOLEKSI KAMI</p>
+      <h1>Produk<br /><em>Unggulan.</em></h1>
+      <p class="page-desc">Rangkaian produk digital premium yang dirancang untuk mempercepat bisnis Anda di era modern.</p>
+    </div>
+  </section>
+
+  <!-- FILTER TABS -->
+  <section class="page-section">
+    <div class="filter-tabs reveal">
+      <button class="filter-btn active" data-filter="all">Semua</button>
+      <button class="filter-btn" data-filter="software">Software</button>
+      <button class="filter-btn" data-filter="template">Template</button>
+      <button class="filter-btn" data-filter="tools">Tools</button>
+    </div>
+
+    <div class="products-page-grid">
+      <div class="product-page-card reveal delay-1" data-category="software">
+        <div class="product-page-img">
+          <img src="https://floria-landing-page.vercel.app/bouquet-1.webp" alt="InoDash" />
+          <span class="product-badge">Software</span>
+        </div>
+        <div class="product-page-info">
+          <h3>InoDash</h3>
+          <p>Dashboard analitik real-time untuk monitoring bisnis Anda dalam satu layar terpadu.</p>
+          <div class="product-page-footer">
+            <span class="product-price">Rp 499.000<span>/bln</span></span>
+            <a href="kontak.html" class="product-cta">Mulai Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-page-card reveal delay-2" data-category="template">
+        <div class="product-page-img">
+          <img src="https://floria-landing-page.vercel.app/bouquet-2.webp" alt="NovaKit" />
+          <span class="product-badge">Template</span>
+        </div>
+        <div class="product-page-info">
+          <h3>NovaKit UI</h3>
+          <p>Komponen UI siap pakai dengan 200+ elemen untuk membangun produk digital lebih cepat.</p>
+          <div class="product-page-footer">
+            <span class="product-price">Rp 299.000<span> sekali bayar</span></span>
+            <a href="kontak.html" class="product-cta">Dapatkan Sekarang</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-page-card reveal delay-3" data-category="tools">
+        <div class="product-page-img">
+          <img src="https://floria-landing-page.vercel.app/bouquet-3.webp" alt="FlowSync" />
+          <span class="product-badge">Tools</span>
+        </div>
+        <div class="product-page-info">
+          <h3>FlowSync</h3>
+          <p>Otomasi alur kerja tim dengan integrasi ke 50+ aplikasi populer. Hemat waktu, tingkatkan produktivitas.</p>
+          <div class="product-page-footer">
+            <span class="product-price">Rp 199.000<span>/bln</span></span>
+            <a href="kontak.html" class="product-cta">Coba Gratis</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-page-card reveal delay-1" data-category="software">
+        <div class="product-page-img">
+          <img src="https://floria-landing-page.vercel.app/collection-1.webp" alt="InoSec" />
+          <span class="product-badge">Software</span>
+        </div>
+        <div class="product-page-info">
+          <h3>InoSec Shield</h3>
+          <p>Solusi keamanan siber enterprise dengan pemantauan ancaman 24/7 dan respons otomatis.</p>
+          <div class="product-page-footer">
+            <span class="product-price">Rp 799.000<span>/bln</span></span>
+            <a href="kontak.html" class="product-cta">Konsultasi</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-page-card reveal delay-2" data-category="template">
+        <div class="product-page-img">
+          <img src="https://floria-landing-page.vercel.app/collection-2.webp" alt="LandKit" />
+          <span class="product-badge">Template</span>
+        </div>
+        <div class="product-page-info">
+          <h3>LandKit Pro</h3>
+          <p>10 template landing page premium dengan konversi tinggi. Mudah dikustomisasi tanpa coding.</p>
+          <div class="product-page-footer">
+            <span class="product-price">Rp 149.000<span> sekali bayar</span></span>
+            <a href="kontak.html" class="product-cta">Lihat Demo</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-page-card reveal delay-3" data-category="tools">
+        <div class="product-page-img">
+          <img src="https://floria-landing-page.vercel.app/collection-3.webp" alt="DataPulse" />
+          <span class="product-badge">Tools</span>
+        </div>
+        <div class="product-page-info">
+          <h3>DataPulse</h3>
+          <p>Kumpulkan, olah, dan visualisasikan data bisnis Anda tanpa perlu keahlian teknis khusus.</p>
+          <div class="product-page-footer">
+            <span class="product-price">Rp 349.000<span>/bln</span></span>
+            <a href="kontak.html" class="product-cta">Coba Gratis</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="page-cta reveal">
+    <h2>Butuh solusi<br /><em>yang lebih spesifik?</em></h2>
+    <p>Kami juga menyediakan layanan custom sesuai kebutuhan bisnis Anda.</p>
+    <a href="kontak.html" class="btn-outline">Diskusikan Kebutuhan Anda</a>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="index.html" class="footer-logo-link">
+          <svg class="footer-logo-icon" viewBox="0 0 54 54" fill="none">
+            <path d="M8 42 C14 30 28 18 48 10 C40 22 30 30 18 36 Z" fill="#00e0a0"/>
+            <path d="M6 46 C11 36 22 26 42 18 C35 28 26 36 14 42 Z" fill="#00c88a" opacity="0.85"/>
+            <path d="M10 50 C14 42 24 34 40 28 C34 36 26 42 16 48 Z" fill="#00b07a" opacity="0.7"/>
+          </svg>
+          <span class="footer-logo-text">INOVASS</span>
+        </a>
+        <p class="footer-tagline">Inovasi untuk Masa Depan</p>
+        <p class="footer-desc">Studio kreatif independen untuk solusi modern dan berkelanjutan.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col"><h4>Halaman</h4><ul>
+          <li><a href="index.html">Beranda</a></li>
+          <li><a href="layanan.html">Layanan</a></li>
+          <li><a href="produk.html">Produk</a></li>
+          <li><a href="tentang.html">Tentang Kami</a></li>
+        </ul></div>
+        <div class="footer-col"><h4>Produk</h4><ul>
+          <li><a href="produk.html">InoDash</a></li>
+          <li><a href="produk.html">NovaKit UI</a></li>
+          <li><a href="produk.html">FlowSync</a></li>
+        </ul></div>
+        <div class="footer-col"><h4>Kontak</h4><ul>
+          <li><a href="mailto:hello@inovass.id">hello@inovass.id</a></li>
+          <li>+62 812 3456 7890</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 INOVASS. Hak cipta dilindungi.</p>
+      <div class="footer-socials">
+        <a href="#">INSTAGRAM</a><a href="#">LINKEDIN</a><a href="#">GITHUB</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+    });
+    document.querySelectorAll('.mobile-link, .mobile-cta').forEach(l => {
+      l.addEventListener('click', () => {
+        hamburgerBtn.classList.remove('active');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    // Filter tabs
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('.product-page-card').forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = '';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
