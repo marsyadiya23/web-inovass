@@ -179,11 +179,6 @@ a { text-decoration: none; color: inherit; }
   transition: width 0.3s var(--ease-out);
 }
 
-.nav-link:hover {
-  opacity: 1;
-  background: rgba(255,255,255,0.05);
-}
-
 .nav-link:hover::after { width: 60%; }
 
 .nav-link.active {
