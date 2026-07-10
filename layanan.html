@@ -38,72 +38,126 @@
   </div>
 
   <!-- PAGE HERO -->
-  <section class="page-hero">
+  <section class="page-hero page-hero-img">
+    <img src="image/layanan kami.jpeg" alt="Layanan Kami" class="page-hero-bg" />
+    <div class="page-hero-overlay"></div>
     <div class="page-hero-content reveal">
-      <p class="page-eyebrow">APA YANG KAMI TAWARKAN</p>
-      <h1>Layanan<br /><em>Kami.</em></h1>
+      <nav class="page-breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Beranda</a>
+        <span>›</span>
+        <span>Layanan</span>
+      </nav>
+      <h1>Layanan<br /><em>Kami</em></h1>
       <p class="page-desc">Solusi inovatif yang dirancang untuk mengakselerasi pertumbuhan bisnis Anda dengan teknologi terdepan.</p>
     </div>
   </section>
 
-  <!-- LAYANAN GRID -->
-  <section class="page-section">
-    <div class="services-grid">
+  <!-- LAYANAN INTERAKTIF -->
+  <section class="page-section svc-explorer-section">
+    <div class="svc-explorer">
 
-      <div class="service-card reveal delay-1">
-        <div class="service-icon">
-          <svg viewBox="0 0 40 40" fill="none"><rect x="6" y="8" width="28" height="20" rx="2" stroke="#00e0a0" stroke-width="1.5"/><path d="M14 32h12M20 28v4" stroke="#00e0a0" stroke-width="1.5" stroke-linecap="round"/><path d="M11 14h6M11 18h12" stroke="#00e0a0" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/></svg>
-        </div>
-        <h3>Pengembangan Web</h3>
-        <p>Website profesional yang responsif, cepat, dan dioptimalkan untuk konversi. Dari landing page hingga aplikasi web kompleks.</p>
-        <a href="kontak.html" class="service-link">Pelajari lebih lanjut →</a>
+      <!-- Sidebar kiri -->
+      <div class="svc-sidebar">
+        <div class="svc-sidebar-line"></div>
+
+        <button class="svc-sidebar-item active" data-target="konsultasi-iso">
+          <span class="svc-dot"></span>
+          <span class="svc-sidebar-label">Konsultasi &amp; Sertifikasi ISO</span>
+          <svg class="svc-arrow" viewBox="0 0 20 20" fill="none"><path d="M7 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <button class="svc-sidebar-item" data-target="konsultasi-akreditasi">
+          <span class="svc-dot"></span>
+          <span class="svc-sidebar-label">Konsultasi Akreditasi</span>
+          <svg class="svc-arrow" viewBox="0 0 20 20" fill="none"><path d="M7 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <button class="svc-sidebar-item" data-target="pelatihan">
+          <span class="svc-dot"></span>
+          <span class="svc-sidebar-label">Pelatihan Profesional</span>
+          <svg class="svc-arrow" viewBox="0 0 20 20" fill="none"><path d="M7 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+
+        <button class="svc-sidebar-item" data-target="sertifikasi">
+          <span class="svc-dot"></span>
+          <span class="svc-sidebar-label">Sertifikasi Kompetensi</span>
+          <svg class="svc-arrow" viewBox="0 0 20 20" fill="none"><path d="M7 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
       </div>
 
-      <div class="service-card reveal delay-2">
-        <div class="service-icon">
-          <svg viewBox="0 0 40 40" fill="none"><rect x="10" y="4" width="20" height="32" rx="3" stroke="#00e0a0" stroke-width="1.5"/><circle cx="20" cy="31" r="1.5" fill="#00e0a0"/><path d="M15 10h10M15 14h7" stroke="#00e0a0" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/></svg>
-        </div>
-        <h3>Aplikasi Mobile</h3>
-        <p>Aplikasi iOS dan Android yang intuitif dan berperforma tinggi. UX yang mulus untuk pengalaman pengguna terbaik.</p>
-        <a href="kontak.html" class="service-link">Pelajari lebih lanjut →</a>
-      </div>
+      <!-- Panel kanan -->
+      <div class="svc-panel-wrap">
 
-      <div class="service-card reveal delay-3">
-        <div class="service-icon">
-          <svg viewBox="0 0 40 40" fill="none"><path d="M8 28 L20 10 L32 28 Z" stroke="#00e0a0" stroke-width="1.5" stroke-linejoin="round"/><circle cx="20" cy="24" r="3" stroke="#00e0a0" stroke-width="1.5"/><path d="M14 34h12" stroke="#00e0a0" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/></svg>
+        <div class="svc-panel active" id="konsultasi-iso">
+          <div class="svc-panel-header">
+            <div class="svc-panel-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00c278" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+            </div>
+            <h3>Konsultasi &amp; Sertifikasi ISO</h3>
+          </div>
+          <p>Pendampingan implementasi, penyusunan dokumen, audit internal, hingga persiapan sertifikasi ISO oleh badan akreditasi internasional.</p>
+          <div class="svc-sub-list">
+            <div class="svc-sub-item active-sub"><span class="svc-sub-dot"></span>ISO 9001 – Sistem Manajemen Mutu</div>
+            <div class="svc-sub-item"><span class="svc-sub-dot"></span>ISO 14001 – Manajemen Lingkungan</div>
+            <div class="svc-sub-item"><span class="svc-sub-dot"></span>ISO 45001 – Keselamatan &amp; Kesehatan Kerja</div>
+            <div class="svc-sub-item"><span class="svc-sub-dot"></span>ISO 27001 – Keamanan Informasi</div>
+            <div class="svc-sub-item"><span class="svc-sub-dot"></span>ISO 50001 – Manajemen Energi</div>
+          </div>
+          <a href="kontak.html" class="svc-panel-cta">Konsultasikan Sekarang →</a>
         </div>
-        <h3>Desain UI/UX</h3>
-        <p>Desain antarmuka yang estetis dan fungsional. Riset pengguna mendalam untuk pengalaman yang benar-benar bermakna.</p>
-        <a href="kontak.html" class="service-link">Pelajari lebih lanjut →</a>
-      </div>
 
-      <div class="service-card reveal delay-1">
-        <div class="service-icon">
-          <svg viewBox="0 0 40 40" fill="none"><ellipse cx="20" cy="20" rx="14" ry="9" stroke="#00e0a0" stroke-width="1.5"/><ellipse cx="20" cy="20" rx="14" ry="9" stroke="#00e0a0" stroke-width="1.5" transform="rotate(60 20 20)" opacity="0.5"/><ellipse cx="20" cy="20" rx="14" ry="9" stroke="#00e0a0" stroke-width="1.5" transform="rotate(120 20 20)" opacity="0.3"/></svg>
+        <div class="svc-panel" id="konsultasi-akreditasi">
+          <div class="svc-panel-header">
+            <div class="svc-panel-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00c278" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg>
+            </div>
+            <h3>Konsultasi Akreditasi</h3>
+          </div>
+          <p>Pendampingan akreditasi laboratorium, lembaga inspeksi, LSP, dan LSPro sesuai standar yang berlaku.</p>
+          <div class="svc-sub-list">
+            <div class="svc-sub-item active-sub"><span class="svc-sub-dot"></span>ISO/IEC 17025 – Laboratorium Pengujian</div>
+            <div class="svc-sub-item"><span class="svc-sub-dot"></span>ISO/IEC 17020 – Lembaga Inspeksi</div>
+            <div class="svc-sub-item"><span class="svc-sub-dot"></span>ISO/IEC 17065 – LSPro</div>
+            <div class="svc-sub-item"><span class="svc-sub-dot"></span>PNBP Akreditasi KAN</div>
+          </div>
+          <a href="kontak.html" class="svc-panel-cta">Konsultasikan Sekarang →</a>
         </div>
-        <h3>Konsultasi Digital</h3>
-        <p>Strategi transformasi digital yang terukur. Kami bantu petakan roadmap teknologi yang tepat untuk bisnis Anda.</p>
-        <a href="kontak.html" class="service-link">Pelajari lebih lanjut →</a>
-      </div>
 
-      <div class="service-card reveal delay-2">
-        <div class="service-icon">
-          <svg viewBox="0 0 40 40" fill="none"><path d="M8 14h6v12H8zM17 8h6v18h-6zM26 18h6v8h-6z" stroke="#00e0a0" stroke-width="1.5" stroke-linejoin="round"/><path d="M8 30h24" stroke="#00e0a0" stroke-width="1.2" stroke-linecap="round" opacity="0.6"/></svg>
+        <div class="svc-panel" id="pelatihan">
+          <div class="svc-panel-header">
+            <div class="svc-panel-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00c278" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+            </div>
+            <h3>Pelatihan Profesional</h3>
+          </div>
+          <p>Program pelatihan berbasis standar internasional untuk meningkatkan kompetensi personel organisasi Anda.</p>
+          <div class="svc-sub-list">
+            <div class="svc-sub-item active-sub"><span class="svc-sub-dot"></span>Public Training</div>
+            <div class="svc-sub-item"><span class="svc-sub-dot"></span>In House Training</div>
+            <div class="svc-sub-item"><span class="svc-sub-dot"></span>Executive Training</div>
+            <div class="svc-sub-item"><span class="svc-sub-dot"></span>Private Training</div>
+          </div>
+          <a href="kontak.html" class="svc-panel-cta">Konsultasikan Sekarang →</a>
         </div>
-        <h3>Analitik & Data</h3>
-        <p>Insight berbasis data untuk pengambilan keputusan yang lebih cerdas. Dashboard real-time dan laporan yang actionable.</p>
-        <a href="kontak.html" class="service-link">Pelajari lebih lanjut →</a>
-      </div>
 
-      <div class="service-card reveal delay-3">
-        <div class="service-icon">
-          <svg viewBox="0 0 40 40" fill="none"><path d="M20 8 L34 16 V24 C34 30 20 36 20 36 C20 36 6 30 6 24 V16 Z" stroke="#00e0a0" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 20l4 4 8-8" stroke="#00e0a0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="svc-panel" id="sertifikasi">
+          <div class="svc-panel-header">
+            <div class="svc-panel-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#00c278" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 9h3.75M15 12h3.75M15 15h3.75M4.5 19.5h15a2.25 2.25 0 000-4.5H4.5a2.25 2.25 0 000 4.5zM8.25 9.75h.008v.008H8.25V9.75zm0 3h.008v.008H8.25v-.008zm0 3h.008v.008H8.25v-.008z"/></svg>
+            </div>
+            <h3>Sertifikasi Kompetensi</h3>
+          </div>
+          <p>Program sertifikasi kompetensi personel pada bidang mutu, K3, lingkungan, laboratorium, dan bidang terkait.</p>
+          <div class="svc-sub-list">
+            <div class="svc-sub-item active-sub"><span class="svc-sub-dot"></span>Sertifikasi Auditor Internal ISO</div>
+            <div class="svc-sub-item"><span class="svc-sub-dot"></span>Sertifikasi Personel K3</div>
+            <div class="svc-sub-item"><span class="svc-sub-dot"></span>Sertifikasi Analis Laboratorium</div>
+            <div class="svc-sub-item"><span class="svc-sub-dot"></span>Sertifikasi Personel Lingkungan</div>
+          </div>
+          <a href="kontak.html" class="svc-panel-cta">Konsultasikan Sekarang →</a>
         </div>
-        <h3>Keamanan Sistem</h3>
-        <p>Perlindungan infrastruktur digital Anda dari ancaman siber. Audit keamanan dan implementasi best practice.</p>
-        <a href="kontak.html" class="service-link">Pelajari lebih lanjut →</a>
-      </div>
 
+      </div>
     </div>
   </section>
 
@@ -169,6 +223,17 @@
       link.addEventListener('click', () => {
         hamburgerBtn.classList.remove('active');
         mobileMenu.classList.remove('open');
+      });
+    });
+
+    // Service Explorer — sidebar klik
+    document.querySelectorAll('.svc-sidebar-item').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.svc-sidebar-item').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const target = btn.dataset.target;
+        document.querySelectorAll('.svc-panel').forEach(p => p.classList.remove('active'));
+        document.getElementById(target).classList.add('active');
       });
     });
   </script>

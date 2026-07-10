@@ -998,6 +998,46 @@
         cards.forEach(card => card.style.setProperty('--active', '0'));
       }, { passive: true });
     })();
+
+    // ── Mega Menu Layanan ──
+    (function() {
+      const btn = document.getElementById('navLayananBtn');
+      const menu = document.getElementById('navMegaMenu');
+      if (!btn || !menu) return;
+
+      // Toggle buka/tutup
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = menu.classList.contains('open');
+        menu.classList.toggle('open', !isOpen);
+        btn.setAttribute('aria-expanded', String(!isOpen));
+      });
+
+      // Tutup saat klik di luar
+      document.addEventListener('click', () => {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+
+      menu.addEventListener('click', (e) => e.stopPropagation());
+
+      // Sidebar hover → ganti panel
+      document.querySelectorAll('.mega-item').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+          document.querySelectorAll('.mega-item').forEach(i => i.classList.remove('active'));
+          item.classList.add('active');
+          const target = item.dataset.panel;
+          document.querySelectorAll('.mega-panel').forEach(p => p.classList.remove('active'));
+          document.getElementById(target).classList.add('active');
+        });
+      });
+
+      // Tutup saat scroll
+      window.addEventListener('scroll', () => {
+        menu.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }, { passive: true });
+    })();
   </script>
 </body>
 </html>

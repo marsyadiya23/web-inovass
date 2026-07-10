@@ -146,3 +146,25 @@ function staggerCards(selector, baseDelay = 0) {
 staggerCards('.product-card');
 staggerCards('.archive-card');
 staggerCards('.step', 0.05);
+
+/* ========================
+   MOBILE MENU (Hamburger)
+======================== */
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const mobileMenu = document.getElementById('mobileMenu');
+
+if (hamburgerBtn && mobileMenu) {
+  hamburgerBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    hamburgerBtn.classList.toggle('active');
+    mobileMenu.classList.toggle('open');
+  });
+
+  // Close mobile menu on click outside
+  document.addEventListener('click', (e) => {
+    if (!mobileMenu.contains(e.target) && !hamburgerBtn.contains(e.target)) {
+      hamburgerBtn.classList.remove('active');
+      mobileMenu.classList.remove('open');
+    }
+  });
+}

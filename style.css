@@ -3105,3 +3105,286 @@ a { text-decoration: none; color: inherit; }
 @media (max-width: 900px) {
   .cta-section { padding: 5rem var(--section-pad-h-mobile); }
 }
+
+/* ========================
+   MEGA MENU DROPDOWN
+======================== */
+.nav-dropdown-wrap {
+  position: relative;
+}
+
+.nav-dropdown-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-family: var(--font-sans);
+}
+
+.nav-dropdown-arrow {
+  transition: transform 0.25s var(--ease-out);
+  flex-shrink: 0;
+}
+
+.nav-dropdown-btn[aria-expanded="true"] .nav-dropdown-arrow {
+  transform: rotate(180deg);
+}
+
+.nav-mega-menu {
+  position: absolute;
+  top: calc(100% + 18px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-12px);
+  width: 620px;
+  background: #ffffff;
+  border-radius: 24px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.15),
+    0 8px 24px rgba(0, 0, 0, 0.10),
+    0 0 0 1px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 224, 160, 0.15);
+  display: none;
+  opacity: 0;
+  transition: 
+    opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
+    transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 200;
+  overflow: hidden;
+}
+
+/* Subtle top highlight - green accent */
+.nav-mega-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(0, 224, 160, 0.4) 30%, 
+    rgba(0, 224, 160, 0.7) 50%, 
+    rgba(0, 224, 160, 0.4) 70%, 
+    transparent 100%
+  );
+}
+
+.nav-mega-menu.open {
+  display: flex;
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* Sidebar mega - Default Gray Text, Navy BG + Green Text on Hover */
+.mega-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  padding: 1.5rem 0;
+  background: #ffffff;
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+/* Remove decorative accent */
+.mega-sidebar::before {
+  display: none;
+}
+
+.mega-sidebar-line {
+  display: none;
+}
+
+.mega-item {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 1rem 1.5rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 12px;
+  margin: 0 0.5rem;
+  width: calc(100% - 1rem);
+}
+
+/* Remove green accent bar */
+.mega-item::before {
+  display: none;
+}
+
+/* Hover: Navy background + shadow */
+.mega-item:hover {
+  background: rgba(10, 22, 40, 0.95);
+  box-shadow: 0 4px 16px rgba(10, 22, 40, 0.2);
+}
+
+/* Active state: ALWAYS Navy background + Green text */
+.mega-item.active {
+  background: rgba(10, 22, 40, 0.98);
+  box-shadow: 0 4px 20px rgba(10, 22, 40, 0.25);
+}
+
+.mega-dot {
+  display: none;
+}
+
+.mega-item.active .mega-dot {
+  display: none;
+}
+
+/* Default text: Gray */
+.mega-item span:not(.mega-dot) {
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: #6a7a8a;
+  flex: 1;
+  line-height: 1.4;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  letter-spacing: -0.01em;
+  position: relative;
+  z-index: 1;
+}
+
+/* Hover: Green text */
+.mega-item:hover span:not(.mega-dot) {
+  color: #00e0a0;
+  font-weight: 500;
+}
+
+/* Active: ALWAYS Green text (tidak berubah ke gray) */
+.mega-item.active span:not(.mega-dot) {
+  color: #00e0a0;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* Hide arrow icon */
+.mega-item svg {
+  display: none;
+}
+
+/* Panel mega - Default Gray Text, Navy BG + Green Text on Hover */
+.mega-panel-wrap {
+  flex: 1;
+  padding: 2rem 2.5rem;
+  min-height: 280px;
+  background: #ffffff;
+  position: relative;
+}
+
+/* Subtle background pattern */
+.mega-panel-wrap::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(0, 224, 160, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.mega-panel { 
+  display: none;
+}
+
+.mega-panel.active { 
+  display: block; 
+  animation: megaFadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes megaFadeIn {
+  from { 
+    opacity: 0; 
+    transform: translateY(8px);
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0);
+  }
+}
+
+/* Label: Green color */
+.mega-panel-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #00c278;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid rgba(0, 194, 120, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Remove icon before label */
+.mega-panel-label::before {
+  display: none;
+}
+
+.mega-sub-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  padding: 0.9rem 1.2rem;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6a7a8a;
+  background: transparent;
+  border: none;
+  border-radius: 10px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover background - navy */
+.mega-sub-item::before {
+  display: none;
+}
+
+/* Remove arrow icon */
+.mega-sub-item::after {
+  display: none;
+}
+
+/* Text wrapper for z-index */
+.mega-sub-item > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Hover effect: Navy background + Green text */
+.mega-sub-item:hover {
+  color: #00e0a0;
+  font-weight: 500;
+  background: rgba(10, 22, 40, 0.95);
+  box-shadow: 0 4px 16px rgba(10, 22, 40, 0.2);
+}
+
+/* Active state: ALWAYS Navy background + Green text (tidak berubah) */
+.mega-sub-item.active-sub {
+  color: #00e0a0;
+  font-weight: 500;
+  background: rgba(10, 22, 40, 0.98);
+  box-shadow: 0 4px 20px rgba(10, 22, 40, 0.25);
+}
+
+/* Remove active indicator bar */
+.mega-sub-item.active-sub::before {
+  display: none;
+}
