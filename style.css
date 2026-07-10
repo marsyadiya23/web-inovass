@@ -654,6 +654,9 @@ a { text-decoration: none; color: inherit; }
   gap: 1.2rem;
 }
 
+/* ========================
+   GLOWING EFFECT CARD
+======================== */
 .about-val-card {
   position: relative;
   padding: 2rem;
@@ -666,9 +669,28 @@ a { text-decoration: none; color: inherit; }
   cursor: default;
 }
 
-.about-val-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.11);
+/* Glow border — conic gradient mengikuti mouse */
+.glow-border {
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 2px;
+  background: conic-gradient(
+    from calc(var(--start, 0) * 1deg) at 50% 50%,
+    transparent 0deg,
+    #00e0a0 calc(var(--spread, 40) * 0.5deg),
+    #00c278 calc(var(--spread, 40) * 1deg),
+    transparent calc(var(--spread, 40) * 2deg)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  opacity: calc(var(--active, 0) * 1);
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 0;
 }
 
 /* Mouse spotlight */
@@ -678,17 +700,20 @@ a { text-decoration: none; color: inherit; }
   inset: 0;
   border-radius: inherit;
   background: radial-gradient(
-    180px circle at var(--mx, 50%) var(--my, 50%),
-    rgba(0, 224, 160, 0.08) 0%,
+    200px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(0, 224, 160, 0.07) 0%,
     transparent 70%
   );
-  opacity: 0;
+  opacity: var(--active, 0);
   transition: opacity 0.3s;
   pointer-events: none;
   z-index: 0;
 }
 
-.about-val-card:hover::before { opacity: 1; }
+.about-val-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.11);
+}
 
 .about-val-icon {
   position: relative;
