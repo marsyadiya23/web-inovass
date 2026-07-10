@@ -406,11 +406,16 @@ a { text-decoration: none; color: inherit; }
   content: '';
   position: absolute;
   bottom: 0; left: 0; right: 0;
-  height: 30%;
+  height: 35%;
   background: linear-gradient(
     to bottom,
     transparent 0%,
-    rgba(255, 255, 255, 0.4) 55%,
+    rgba(255, 255, 255, 0.01) 20%,
+    rgba(255, 255, 255, 0.05) 35%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.4)  65%,
+    rgba(255, 255, 255, 0.72) 80%,
+    rgba(255, 255, 255, 0.92) 92%,
     #ffffff 100%
   );
   z-index: 2;
@@ -548,13 +553,205 @@ a { text-decoration: none; color: inherit; }
 
 /* ========================
 /* ========================
-   COLLECTIONS
+   ABOUT BRIEF (konten 2 — bg putih)
 ======================== */
 .collections {
   padding: 5rem 5rem 7rem;
   background: #ffffff;
   position: relative;
   margin-top: -2px;
+}
+
+.about-brief-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: center;
+}
+
+/* Kiri */
+.about-brief-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #00c278;
+  margin-bottom: 1rem;
+}
+
+.about-brief-text h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #0a1628;
+  margin-bottom: 1.4rem;
+}
+
+.about-brief-text h2 em {
+  font-style: normal;
+  color: #00c278;
+}
+
+.about-brief-desc {
+  font-size: 0.88rem;
+  color: #4a6455;
+  line-height: 1.85;
+  margin-bottom: 0.9rem;
+}
+
+.about-brief-stats {
+  display: flex;
+  gap: 2.5rem;
+  margin: 2rem 0 2rem;
+  padding-top: 1.8rem;
+  border-top: 1px solid rgba(0, 194, 120, 0.18);
+}
+
+.about-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.about-stat-num {
+  font-family: var(--font-serif);
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #0a1628;
+  line-height: 1;
+}
+
+.about-stat-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #7a9080;
+}
+
+.about-brief-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  color: #0d1f17;
+  border-bottom: 1.5px solid #00c278;
+  padding-bottom: 2px;
+  transition: color 0.2s, gap 0.25s;
+}
+
+.about-brief-cta:hover {
+  color: #00c278;
+  gap: 0.7rem;
+}
+
+/* Kanan — value cards grid */
+.about-brief-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+
+.about-val-card {
+  position: relative;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+  overflow: hidden;
+  transition: transform 0.3s var(--ease-out), box-shadow 0.3s;
+  cursor: default;
+}
+
+.about-val-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.11);
+}
+
+/* Mouse spotlight */
+.about-val-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    180px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(0, 224, 160, 0.08) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.about-val-card:hover::before { opacity: 1; }
+
+.about-val-icon {
+  position: relative;
+  z-index: 1;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: rgba(0, 194, 120, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.4rem;
+  transition: background 0.3s;
+}
+
+.about-val-card:hover .about-val-icon {
+  background: rgba(0, 194, 120, 0.15);
+}
+
+.about-val-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.val-divider {
+  width: 36px;
+  height: 3px;
+  background: #00c278;
+  border-radius: 999px;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1;
+}
+
+.about-val-card h4 {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-sans);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0a1628;
+  margin-bottom: 0.4rem;
+}
+
+.about-val-card p {
+  position: relative;
+  z-index: 1;
+  font-size: 0.85rem;
+  color: #6b8090;
+  line-height: 1.75;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .about-brief-inner {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .about-brief-stats { gap: 1.5rem; }
+  .about-brief-cards { grid-template-columns: 1fr; }
 }
 
 .section-header {
