@@ -718,8 +718,8 @@ a { text-decoration: none; color: inherit; }
 .about-val-icon {
   position: relative;
   z-index: 1;
-  width: 60px;
-  height: 60px;
+  width: 72px;
+  height: 72px;
   border-radius: 50%;
   background: rgba(0, 194, 120, 0.08);
   display: flex;
@@ -733,9 +733,10 @@ a { text-decoration: none; color: inherit; }
   background: rgba(0, 194, 120, 0.15);
 }
 
-.about-val-icon svg {
-  width: 24px;
-  height: 24px;
+.about-val-icon img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 .val-divider {
@@ -1561,4 +1562,106 @@ a { text-decoration: none; color: inherit; }
 
   .footer-links { grid-template-columns: 1fr 1fr; gap: 2rem; }
   .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
+}
+
+/* ========================
+   MARQUEE LOGO SECTION
+======================== */
+.marquee-section {
+  background: #ffffff;
+  padding: 3rem 0 4rem;
+  overflow: hidden;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.marquee-label {
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9aada4;
+  margin-bottom: 2rem;
+}
+
+.marquee-wrap {
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 0.75rem;
+}
+
+/* Fade edges kiri kanan */
+.marquee-wrap::before,
+.marquee-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0; bottom: 0;
+  width: 120px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marquee-wrap::before {
+  left: 0;
+  background: linear-gradient(to right, #ffffff, transparent);
+}
+
+.marquee-wrap::after {
+  right: 0;
+  background: linear-gradient(to left, #ffffff, transparent);
+}
+
+.marquee-track {
+  display: flex;
+  gap: 0.75rem;
+  width: max-content;
+}
+
+/* Baris 1 — gerak ke kiri */
+.marquee-left {
+  animation: scrollLeft 30s linear infinite;
+}
+
+/* Baris 2 — gerak ke kanan */
+.marquee-right {
+  animation: scrollRight 35s linear infinite;
+}
+
+@keyframes scrollLeft {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes scrollRight {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* Pause on hover */
+.marquee-wrap:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-item {
+  flex-shrink: 0;
+}
+
+.marquee-item span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.1rem;
+  background: #f5f8f6;
+  border: 1px solid rgba(0, 194, 120, 0.15);
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #3a5244;
+  white-space: nowrap;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.marquee-item span:hover {
+  border-color: rgba(0, 194, 120, 0.4);
+  background: rgba(0, 194, 120, 0.06);
 }
