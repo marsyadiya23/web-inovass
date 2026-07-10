@@ -1901,3 +1901,226 @@ a { text-decoration: none; color: inherit; }
 @media (max-width: 580px) {
   .svc-small-grid { grid-template-columns: 1fr; }
 }
+
+/* ========================
+   PRODUCTS SHOWCASE
+======================== */
+.products-showcase {
+  padding: 7rem 5rem;
+  background: #0a1628;
+  position: relative;
+  overflow: hidden;
+}
+
+/* subtle grid pattern background */
+.products-showcase::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0,224,160,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,224,160,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+}
+
+/* glow radial top right */
+.products-showcase::after {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(0,194,120,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.products-showcase-header {
+  text-align: center;
+  margin-bottom: 4.5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.prod-eyebrow {
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #00c278;
+  margin-bottom: 1rem;
+}
+
+.products-showcase-header h2 {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 3vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.products-showcase-header h2 em {
+  font-style: normal;
+  color: #00c278;
+}
+
+.prod-subtitle {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.55);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+
+/* Cards row */
+.products-cards-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  max-width: 960px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* Card wrapper */
+.prod-card {
+  perspective: 1200px;
+}
+
+.prod-card-inner {
+  background: #ffffff;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.35),
+    0 4px 16px rgba(0,0,0,0.2);
+  transition: transform 0.5s var(--ease-out), box-shadow 0.5s;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.prod-card:hover .prod-card-inner {
+  transform: translateY(-10px);
+  box-shadow:
+    0 32px 80px rgba(0,0,0,0.45),
+    0 8px 24px rgba(0,194,120,0.15);
+}
+
+/* Visual / mockup screen */
+.prod-visual {
+  position: relative;
+  padding: 1.2rem 1.2rem 0;
+  background: rgba(0,0,0,0.04);
+}
+
+.prod-card-dark .prod-visual {
+  background: rgba(0,0,0,0.2);
+}
+
+.prod-mockup-screen {
+  position: relative;
+  border-radius: 16px 16px 0 0;
+  overflow: hidden;
+  aspect-ratio: 16/9;
+}
+
+.prod-mockup-screen img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s var(--ease-out);
+}
+
+.prod-card:hover .prod-mockup-screen img {
+  transform: scale(1.04);
+}
+
+.prod-screen-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    transparent 50%,
+    rgba(10,22,40,0.4) 100%
+  );
+}
+
+.prod-screen-ui {
+  position: absolute;
+  bottom: 0.75rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.prod-ui-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.35);
+  transition: all 0.3s;
+}
+
+.prod-ui-dot.active {
+  width: 20px;
+  border-radius: 3px;
+  background: #ffffff;
+}
+
+/* Card info */
+.prod-info {
+  padding: 1.5rem 1.6rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.prod-info h3 {
+  font-family: var(--font-sans);
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #0a1628;
+  line-height: 1.2;
+}
+
+.prod-desc {
+  font-size: 0.82rem;
+  color: #4a6070;
+  line-height: 1.75;
+}
+
+.prod-cta-btn {
+  display: block;
+  text-align: center;
+  padding: 0.85rem;
+  border-radius: 14px;
+  background: #0a1628;
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: background 0.25s, transform 0.2s;
+  margin-top: 0.4rem;
+}
+
+.prod-cta-btn:hover {
+  background: #162440;
+  transform: translateY(-1px);
+}
+
+/* Hover: card 1 tilts left, card 2 tilts right */
+#prodCard1:hover .prod-card-inner {
+  transform: translateY(-10px) rotate(-1deg);
+}
+
+#prodCard2:hover .prod-card-inner {
+  transform: translateY(-10px) rotate(1deg);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .products-showcase { padding: 5rem 1.5rem; }
+  .products-cards-row { grid-template-columns: 1fr; max-width: 420px; }
+}
