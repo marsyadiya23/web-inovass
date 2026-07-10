@@ -455,16 +455,16 @@ a { text-decoration: none; color: inherit; }
 .hero-eyebrow {
   display: inline-block;
   font-family: var(--font-sans);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.18em;
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  padding: 0.55rem 1.4rem;
+  padding: 0.35rem 0.9rem;
   border-radius: 999px;
   margin-bottom: 1.6rem;
   opacity: 0;
@@ -515,17 +515,39 @@ a { text-decoration: none; color: inherit; }
   font-family: var(--font-sans);
   font-size: 0.78rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 0.85rem 2rem;
-  background: #f0b800;
-  border: none;
-  color: #030d14;
+  padding: 0.9rem 2.4rem;
+  background: transparent;
+  border: 2px solid #f0b800;
+  color: #0a1628;
   border-radius: 999px;
-  transition: background 0.25s, transform 0.2s, box-shadow 0.25s;
+  transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.2s;
 }
 
 .btn-outline:hover {
+  background: #f0b800;
+  color: #0a1628;
+  box-shadow: 0 4px 20px rgba(240, 184, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Hero button — tetap full kuning */
+.btn-hero {
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.9rem 2.4rem;
+  background: #f0b800;
+  border: none;
+  color: #0a1628;
+  border-radius: 999px;
+  transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
+}
+
+.btn-hero:hover {
   background: #ffd84d;
   box-shadow: 0 4px 20px rgba(240, 184, 0, 0.45);
   transform: translateY(-2px);
@@ -1468,6 +1490,21 @@ a { text-decoration: none; color: inherit; }
   color: var(--text-muted);
 }
 
+.footer-bottom-links {
+  display: flex;
+  gap: 1.6rem;
+}
+
+.footer-bottom-links a {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  transition: color 0.25s;
+}
+
+.footer-bottom-links a:hover {
+  color: var(--cream);
+}
+
 .footer-socials {
   display: flex;
   gap: 1.6rem;
@@ -1737,10 +1774,17 @@ a { text-decoration: none; color: inherit; }
   align-items: stretch;
 }
 
-.svc-small-grid {
+/* Kanan: grid unik — 2 kecil atas + 1 lebar bawah */
+.svc-right-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
   gap: 1.2rem;
+}
+
+.svc-wide {
+  grid-column: span 2;
+  min-height: 160px;
 }
 
 /* Base card */
@@ -1902,11 +1946,14 @@ a { text-decoration: none; color: inherit; }
   .services-showcase { padding: 5rem var(--section-pad-h-mobile); }
   .services-bento { grid-template-columns: 1fr; }
   .svc-main { min-height: 300px; }
-  .svc-small-grid { grid-template-columns: 1fr 1fr; }
+  .svc-right-grid { grid-template-columns: 1fr 1fr; }
+  .svc-wide { grid-column: span 2; }
+  .svc-content-wide { flex-direction: column; gap: 0.6rem; }
 }
 
 @media (max-width: 580px) {
-  .svc-small-grid { grid-template-columns: 1fr; }
+  .svc-right-grid { grid-template-columns: 1fr; }
+  .svc-wide { grid-column: span 1; }
 }
 
 /* ========================
@@ -2163,6 +2210,10 @@ a { text-decoration: none; color: inherit; }
   line-height: 1.2;
 }
 
+.bp-header h2 em {
+  font-style: normal;
+  color: #00c278;
+}
 .bp-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -3045,8 +3096,9 @@ a { text-decoration: none; color: inherit; }
 }
 
 .cta-btn-secondary:hover {
-  border-color: #ffffff;
-  background: rgba(255, 255, 255, 0.06);
+  border-color: #00c278;
+  background: #00c278;
+  color: #ffffff;
   transform: translateY(-2px);
 }
 
