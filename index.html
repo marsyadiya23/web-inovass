@@ -66,16 +66,20 @@
         <p class="about-brief-desc">INOVASS menghadirkan layanan konsultasi ISO, pelatihan, audit, pengembangan sistem, dan solusi digital untuk membantu organisasi meningkatkan kinerja, memastikan kepatuhan, serta mempercepat transformasi menuju standar kelas dunia.</p>
         <div class="about-brief-stats">
           <div class="about-stat reveal delay-1">
-            <span class="about-stat-num">200+</span>
-            <span class="about-stat-label">Klien Aktif</span>
-          </div>
-          <div class="about-stat reveal delay-2">
-            <span class="about-stat-num">20+</span>
+            <span class="about-stat-num" data-target="20" data-suffix="+">20+</span>
             <span class="about-stat-label">Tahun Pengalaman</span>
           </div>
+          <div class="about-stat reveal delay-2">
+            <span class="about-stat-num" data-target="200" data-suffix="+">200+</span>
+            <span class="about-stat-label">Organisasi</span>
+          </div>
           <div class="about-stat reveal delay-3">
-            <span class="about-stat-num">98%</span>
-            <span class="about-stat-label">Kepuasan Klien</span>
+            <span class="about-stat-num" data-target="500" data-suffix="+">500+</span>
+            <span class="about-stat-label">Program Pelatihan</span>
+          </div>
+          <div class="about-stat reveal delay-4">
+            <span class="about-stat-num" data-target="10000" data-suffix="+">10.000+</span>
+            <span class="about-stat-label">Peserta</span>
           </div>
         </div>
         <a href="tentang.html" class="about-brief-cta reveal delay-2">Pelajari Lebih Lanjut →</a>
@@ -500,7 +504,38 @@
       });
     });
 
-    // GlowingEffect — conic gradient border mengikuti posisi mouse
+    // Counter animation — angka menghitung saat masuk viewport
+    function animateCounter(el, target, suffix, duration = 1800) {
+      let start = 0;
+      const startTime = performance.now();
+
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        // ease-out cubic
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.floor(eased * target);
+        el.textContent = current.toLocaleString('id-ID') + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+        else el.textContent = target.toLocaleString('id-ID') + suffix;
+      }
+      requestAnimationFrame(update);
+    }
+
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        const raw = el.dataset.target;
+        const suffix = el.dataset.suffix || '';
+        animateCounter(el, parseInt(raw), suffix);
+        counterObserver.unobserve(el);
+      });
+    }, { threshold: 0.5 });
+
+    document.querySelectorAll('.about-stat-num[data-target]').forEach(el => {
+      counterObserver.observe(el);
+    });
     (function() {
       const cards = document.querySelectorAll('.glow-card');
       const spread = 40;

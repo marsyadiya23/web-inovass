@@ -601,8 +601,9 @@ a { text-decoration: none; color: inherit; }
 }
 
 .about-brief-stats {
-  display: flex;
-  gap: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
   margin: 2rem 0 2rem;
   padding-top: 1.8rem;
   border-top: 1px solid rgba(0, 194, 120, 0.18);
@@ -612,21 +613,40 @@ a { text-decoration: none; color: inherit; }
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  padding-right: 1.5rem;
+  border-right: 1px solid rgba(0, 194, 120, 0.15);
+  padding-left: 1.5rem;
+}
+
+.about-stat:first-child {
+  padding-left: 0;
+}
+
+.about-stat:last-child {
+  border-right: none;
 }
 
 .about-stat-num {
   font-family: var(--font-serif);
-  font-size: 2.2rem;
+  font-size: 1.6rem;
   font-weight: 700;
   color: #0a1628;
   line-height: 1;
 }
 
 .about-stat-label {
-  font-size: 0.7rem;
+  font-size: 0.62rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: #7a9080;
+  white-space: nowrap;
+}
+
+.about-stat-desc {
+  font-size: 0.72rem;
+  color: #9aada4;
+  line-height: 1.5;
+  margin-top: 0.15rem;
 }
 
 .about-brief-cta {
