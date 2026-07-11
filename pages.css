@@ -775,6 +775,165 @@
 }
 
 /* ========================
+   NAVIGATION TABS CARD
+======================== */
+.nav-tabs-section {
+  position: relative;
+  margin-top: -50px;
+  padding: 0 5rem;
+  z-index: 10;
+}
+
+.nav-tabs-container {
+  max-width: 100%;
+  margin: 0;
+}
+
+.nav-tabs-card {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 0.8rem 2rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.nav-tabs-card::-webkit-scrollbar { display: none; }
+
+.nav-tab-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.1rem 1.5rem;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+/* Underline - hanya muncul saat active */
+.nav-tab-item::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: transparent;
+  transition: background 0.3s var(--ease-out);
+}
+
+/* Hanya active yang punya underline navy */
+.nav-tab-item.active::before {
+  background: #1e3a8a;
+}
+
+.nav-tab-label {
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #6b7280;
+  letter-spacing: 0.01em;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+/* Hover: text jadi navy */
+.nav-tab-item:hover .nav-tab-label {
+  color: #1e3a8a;
+}
+
+/* Active: text navy + bold */
+.nav-tab-item.active .nav-tab-label {
+  color: #1e3a8a;
+  font-weight: 600;
+}
+
+/* Alternative style - more like reference image 2 */
+.nav-tabs-card.style-underline {
+  background: rgba(245, 245, 245, 0.95);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 0 2rem;
+}
+
+.nav-tabs-card.style-underline .nav-tab-item {
+  padding: 1.2rem 1.5rem;
+  border-bottom: 3px solid transparent;
+}
+
+.nav-tabs-card.style-underline .nav-tab-item::before {
+  display: none;
+}
+
+/* Hover: tidak ada underline */
+.nav-tabs-card.style-underline .nav-tab-item:hover {
+  border-bottom-color: transparent;
+}
+
+/* Active: underline navy */
+.nav-tabs-card.style-underline .nav-tab-item.active {
+  border-bottom-color: #1e3a8a;
+}
+
+.nav-tabs-card.style-underline .nav-tab-item .nav-tab-label {
+  color: #6b7280;
+  font-size: 0.88rem;
+}
+
+/* Hover: text navy */
+.nav-tabs-card.style-underline .nav-tab-item:hover .nav-tab-label {
+  color: #1e3a8a;
+}
+
+/* Active: text navy + bold */
+.nav-tabs-card.style-underline .nav-tab-item.active .nav-tab-label {
+  color: #1e3a8a;
+  font-weight: 600;
+}
+
+@media (max-width: 1100px) {
+  .nav-tabs-section { padding: 0 3rem; }
+}
+
+@media (max-width: 900px) {
+  .nav-tabs-section { 
+    padding: 0 1.5rem;
+    margin-top: -40px;
+  }
+  .nav-tab-item {
+    padding: 1rem 1.2rem;
+  }
+  .nav-tab-label {
+    font-size: 0.82rem;
+  }
+  .nav-tabs-card.style-underline .nav-tab-item {
+    padding: 1rem 1.2rem;
+  }
+}
+
+@media (max-width: 580px) {
+  .nav-tabs-section { margin-top: -30px; }
+  .nav-tab-item {
+    padding: 0.9rem 1rem;
+  }
+  .nav-tab-label {
+    font-size: 0.76rem;
+  }
+  .nav-tabs-card {
+    padding: 0.6rem 1rem;
+  }
+  .nav-tabs-card.style-underline {
+    padding: 0 1rem;
+  }
+}
+
+/* ========================
    BREADCRUMB
 ======================== */
 .page-breadcrumb {
