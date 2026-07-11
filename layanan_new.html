@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Layanan — INOVASS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+  <style>
+    /* Override z-index to ensure tabs are clickable */
+    .nav-tabs-section {
+      position: sticky !important;
+      top: 72px !important;
+      z-index: 999 !important;
+      background: #f8f9fa !important;
+      pointer-events: auto !important;
+    }
+    
+    .nav-tabs-container {
+      pointer-events: auto !important;
+      z-index: 999 !important;
+    }
+    
+    .nav-tabs-card {
+      pointer-events: auto !important;
+      z-index: 999 !important;
+    }
+    
+    .nav-tab-btn {
+      pointer-events: auto !important;
+      z-index: 999 !important;
+      cursor: pointer !important;
+      background: transparent;
+      border: none;
+      padding: 1.3rem 1.8rem;
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #6b7280;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-tab-btn:hover {
+      color: #1e3a8a;
+    }
+    
+    .nav-tab-btn.active {
+      color: #1e3a8a;
+      font-weight: 600;
+    }
+    
+    .nav-tab-btn::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 1.8rem;
+      right: 1.8rem;
+      height: 3px;
+      background: transparent;
+      transition: background 0.3s ease;
+    }
+    
+    .nav-tab-btn.active::after {
+      background: #1e3a8a;
+    }
+    
+    /* Force navbar to be lower */
+    .navbar {
+      z-index: 50 !important;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <img src="image/logo.png" alt="INOVASS Logo" class="nav-logo-img" />
+    </a>
+    <div class="nav-menu">
+      <a href="index.html" class="nav-link">Beranda</a>
+      <a href="layanan_new.html" class="nav-link active">Layanan</a>
+      <a href="produk.html" class="nav-link">Produk</a>
+      <a href="tentang.html" class="nav-link">Tentang Kami</a>
+    </div>
+    <div class="nav-right">
+      <a href="kontak.html" class="nav-cta">Hubungi Kami</a>
+      <button class="nav-hamburger" aria-label="Menu" id="hamburgerBtn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mobile-link">Beranda</a>
+    <a href="layanan_new.html" class="mobile-link active">Layanan</a>
+    <a href="produk.html" class="mobile-link">Produk</a>
+    <a href="tentang.html" class="mobile-link">Tentang Kami</a>
+    <a href="kontak.html" class="mobile-cta">Hubungi Kami</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero page-hero-img">
+    <img src="image/layanan kami.jpeg" alt="Layanan Kami" class="page-hero-bg" />
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content reveal">
+      <nav class="page-breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Beranda</a>
+        <span>›</span>
+        <span>Layanan</span>
+      </nav>
+      <h1>Layanan<br /><em>Kami</em></h1>
+      <p class="page-desc">Solusi konsultasi ISO profesional untuk membantu organisasi membangun, menerapkan, meningkatkan, dan memperoleh sertifikasi sistem manajemen sesuai standar nasional maupun internasional.</p>
+    </div>
+  </section>
+
+  <!-- NAVIGATION TABS -->
+  <section class="nav-tabs-section">
+    <div class="nav-tabs-container">
+      <div class="nav-tabs-card">
+        <button class="nav-tab-btn active" onclick="showContent('konsultasi-iso')">
+          Konsultasi & Sertifikasi ISO
+        </button>
+        <button class="nav-tab-btn" onclick="showContent('konsultasi-akreditasi')">
+          Konsultasi Akreditasi
+        </button>
+        <button class="nav-tab-btn" onclick="showContent('pelatihan')">
+          Pelatihan Profesional
+        </button>
+        <button class="nav-tab-btn" onclick="showContent('sertifikasi')">
+          Sertifikasi Kompetensi
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT SECTION -->
+  <section class="service-content-section">
+    <div class="service-content-container">
+      
+      <!-- Content cards will be loaded here via JavaScript -->
+      <div id="content-area"></div>
+
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="page-cta reveal">
+    <h2>Siap memulai<br /><em>proyek Anda?</em></h2>
+    <p>Ceritakan kebutuhan Anda, dan tim kami akan menyiapkan solusi yang tepat.</p>
+    <a href="kontak.html" class="btn-outline">Hubungi Kami Sekarang</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand reveal-left">
+        <a href="index.html" class="footer-logo-link">
+          <img src="image/logo.png" alt="INOVASS Logo" class="nav-logo-img" />
+        </a>
+        <p class="footer-tagline">Inovasi untuk Masa Depan</p>
+        <p class="footer-desc">Perusahaan konsultan ISO dan pengembangan solusi digital yang membantu organisasi meningkatkan mutu, efisiensi, dan daya saing.</p>
+        <div class="footer-socials" style="margin-top:1.5rem;">
+          <a href="#">INSTAGRAM</a>
+          <a href="#">LINKEDIN</a>
+          <a href="#">YOUTUBE</a>
+        </div>
+      </div>
+      <div class="footer-links reveal-right">
+        <div class="footer-col">
+          <h4>Office</h4>
+          <ul>
+            <li>Jl. Danau Melahayu No. 23A</li>
+            <li>Pesona Telaga Cibinong</li>
+            <li>Kel. Harapan Jaya, Kec. Cibinong,</li>
+            <li>Kab. Bogor</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><a href="https://wa.me/6281311173707">+62-813-1117-3707</a></li>
+            <li><a href="mailto:inovass.adm@gmail.com">inovass.adm@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 INOVASS. Hak cipta dilindungi undang-undang.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Kebijakan Privasi</a>
+        <a href="#">Syarat &amp; Ketentuan</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Content data
+    const contentData = {
+      'konsultasi-iso': `
+        <div class="service-content-card active" id="konsultasi-iso">
+          <div class="service-intro">
+            <h2>Konsultasi & Sertifikasi ISO</h2>
+            <p class="service-intro-desc">Layanan konsultasi ISO dirancang untuk memenuhi kebutuhan kompleks dari berbagai segmen, mulai dari perusahaan besar, industri manufaktur, institusi pemerintahan, hingga lembaga pendidikan. Kami menyediakan pendampingan menyeluruh mulai dari penyusunan dokumen, implementasi sistem manajemen, audit internal, hingga persiapan sertifikasi oleh badan akreditasi internasional.</p>
+          </div>
+          <div class="service-grid">
+            <div class="service-item-card">
+              <div class="service-item-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1e3a8a" stroke-width="1.5">
+                  <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+              </div>
+              <h3>Jasa Penyusunan Dokumen ISO Organisasi</h3>
+              <p>Perusahaan, Industri, Kontraktor, Konsultan, Kampus, Sekolah, Lembaga Pemerintah, dll</p>
+              <a href="kontak.html" class="service-item-btn">
+                Lihat Detail
+                <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"/></svg>
+              </a>
+            </div>
+            <!-- Add more cards here -->
+          </div>
+        </div>
+      `,
+      'konsultasi-akreditasi': `
+        <div class="service-content-card active">
+          <div class="service-intro">
+            <h2>Konsultasi Akreditasi</h2>
+            <p class="service-intro-desc">Pendampingan akreditasi laboratorium, lembaga inspeksi, LSP, dan LSPro sesuai standar yang berlaku.</p>
+          </div>
+          <div class="service-grid">
+            <div class="service-item-card">
+              <h3>Akreditasi Laboratorium</h3>
+              <p>ISO/IEC 17025</p>
+            </div>
+          </div>
+        </div>
+      `,
+      'pelatihan': `
+        <div class="service-content-card active">
+          <div class="service-intro">
+            <h2>Pelatihan Profesional</h2>
+            <p class="service-intro-desc">Program pelatihan berbasis standar internasional.</p>
+          </div>
+        </div>
+      `,
+      'sertifikasi': `
+        <div class="service-content-card active">
+          <div class="service-intro">
+            <h2>Sertifikasi Kompetensi</h2>
+            <p class="service-intro-desc">Program sertifikasi kompetensi personel.</p>
+          </div>
+        </div>
+      `
+    };
+    
+    // Function to show content
+    function showContent(contentId) {
+      console.log('Showing content:', contentId);
+      
+      // Update active button
+      document.querySelectorAll('.nav-tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      
+      // Load content
+      document.getElementById('content-area').innerHTML = contentData[contentId] || '<p>Content not found</p>';
+      
+      // Scroll to content
+      document.querySelector('.service-content-section').scrollIntoView({ behavior: 'smooth' });
+    }
+    
+    // Load initial content
+    document.addEventListener('DOMContentLoaded', () => {
+      showContent('konsultasi-iso');
+      
+      // Hamburger menu
+      const hamburgerBtn = document.getElementById('hamburgerBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      hamburgerBtn.addEventListener('click', () => {
+        hamburgerBtn.classList.toggle('active');
+        mobileMenu.classList.toggle('open');
+      });
+    });
+    
+    console.log('✅ Page loaded successfully');
+  </script>
+</body>
+</html>
