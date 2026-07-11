@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Test - Clear Cache</title>
+<style>
+body { font-family: Arial; padding: 50px; }
+.success { color: green; font-size: 24px; }
+button { padding: 15px 30px; font-size: 18px; margin: 10px; cursor: pointer; }
+</style>
+</head>
+<body>
+<h1>Browser Cache Test</h1>
+<p class="success">✓ Jika Anda melihat halaman ini, berarti file baru sudah ter-load!</p>
+<p>Sekarang coba buka layanan.html dengan hard refresh:</p>
+<ul>
+<li><strong>Mac Chrome/Safari:</strong> Cmd + Shift + R</li>
+<li><strong>Mac Firefox:</strong> Cmd + Shift + Delete (clear cache)</li>
+</ul>
+<button onclick="window.location.href='layanan.html'">Buka layanan.html</button>
+<button onclick="location.reload(true)">Hard Reload</button>
+</body>
+</html>

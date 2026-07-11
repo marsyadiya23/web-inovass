@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Test Tabs - Force Reload</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    .container {
+      background: rgba(255,255,255,0.1);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    h1 { margin-top: 0; font-size: 32px; }
+    .success { 
+      color: #4ade80; 
+      font-size: 24px; 
+      margin: 20px 0;
+      font-weight: bold;
+    }
+    .instructions {
+      background: rgba(255,255,255,0.1);
+      padding: 20px;
+      border-radius: 10px;
+      margin: 20px 0;
+    }
+    .instructions h3 { margin-top: 0; color: #fbbf24; }
+    button {
+      padding: 15px 30px;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+      background: #10b981;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: all 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    }
+    button:hover {
+      background: #059669;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    }
+    ul { text-align: left; line-height: 2; }
+    code {
+      background: rgba(0,0,0,0.3);
+      padding: 5px 10px;
+      border-radius: 5px;
+      color: #fbbf24;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🔧 Test Navigation Tabs</h1>
+    <p class="success">✓ File CSS sudah diupdate dengan z-index 999!</p>
+    
+    <div class="instructions">
+      <h3>📋 Cara Clear Cache Browser:</h3>
+      <ul>
+        <li><strong>Chrome/Safari (Mac):</strong> <code>Cmd + Shift + R</code></li>
+        <li><strong>Chrome/Safari (Mac Alt):</strong> <code>Cmd + Option + E</code> lalu <code>Cmd + R</code></li>
+        <li><strong>Firefox (Mac):</strong> <code>Cmd + Shift + Delete</code></li>
+      </ul>
+    </div>
+
+    <div class="instructions">
+      <h3>🎯 Setelah Clear Cache:</h3>
+      <ul>
+        <li>Semua tab HARUS bisa diklik</li>
+        <li>Nav-tabs z-index: <code>999</code></li>
+        <li>Navbar z-index: <code>90</code></li>
+        <li>Navbar scrolled z-index: <code>85</code></li>
+      </ul>
+    </div>
+
+    <div style="text-align: center; margin-top: 30px;">
+      <button onclick="window.location.href='layanan.html?v=' + Date.now()">
+        🚀 Buka Layanan.html (Force Reload)
+      </button>
+      <br>
+      <button onclick="clearCacheAndReload()" style="background: #ef4444;">
+        🔄 Clear Cache & Reload
+      </button>
+    </div>
+
+    <p style="margin-top: 30px; font-size: 14px; opacity: 0.8;">
+      Timestamp: <span id="time"></span>
+    </p>
+  </div>
+
+  <script>
+    document.getElementById('time').textContent = new Date().toLocaleString();
+    
+    function clearCacheAndReload() {
+      // Clear service worker cache if exists
+      if ('caches' in window) {
+        caches.keys().then(names => {
+          names.forEach(name => caches.delete(name));
+        });
+      }
+      
+      // Force reload
+      window.location.href = 'layanan.html?nocache=' + new Date().getTime();
+    }
+  </script>
+</body>
+</html>

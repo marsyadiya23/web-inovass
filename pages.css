@@ -784,19 +784,23 @@
    NAVIGATION TABS CARD
 ======================== */
 .nav-tabs-section {
-  position: sticky;
-  top: 72px;
+  position: sticky !important;
+  top: 72px !important;
   margin-top: 0;
   padding: 0;
-  z-index: 95;
+  z-index: 9999 !important;
   background: #f8f9fa;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  pointer-events: auto !important;
 }
 
 .nav-tabs-container {
   max-width: 100%;
   margin: 0;
+  position: relative;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
 }
 
 .nav-tabs-card {
@@ -814,19 +818,27 @@
   overflow-x: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  position: relative;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
 }
 
 .nav-tabs-card::-webkit-scrollbar { display: none; }
 
 .nav-tab-item {
-  position: relative;
+  position: relative !important;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 1.3rem 1.8rem;
-  text-decoration: none;
+  background: transparent;
+  border: none;
   white-space: nowrap;
-  cursor: pointer;
+  cursor: pointer !important;
+  z-index: 9999 !important;
+  pointer-events: auto !important;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 /* Underline - hanya muncul saat active */
@@ -839,6 +851,7 @@
   height: 3px;
   background: transparent;
   transition: background 0.3s var(--ease-out);
+  pointer-events: none;
 }
 
 /* Hanya active yang punya underline navy */
