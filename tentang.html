@@ -12,7 +12,7 @@
 </head>
 <body>
 
-  <nav class="navbar scrolled">
+  <nav class="navbar">
     <a href="index.html" class="nav-logo">
       <img src="image/logo.png" alt="INOVASS Logo" class="nav-logo-img" />
     </a>
@@ -48,7 +48,7 @@
         <span>Tentang Kami</span>
       </nav>
       <h1>Tentang<br /><em>Kami</em></h1>
-      <p class="page-desc">Studio teknologi independen yang lahir dari keyakinan bahwa inovasi adalah hak semua orang, bukan hanya perusahaan besar.</p>
+      <p class="page-desc">Inovass hadir sebagai mitra strategis yang mengubah tantangan organisasi menjadi peluang melalui solusi konsultasi, inovasi, dan penerapan standar internasional yang berkelanjutan</p>
     </div>
   </section>
 
@@ -209,6 +209,24 @@
         mobileMenu.classList.remove('open');
       });
     });
+
+    // Navbar scroll behavior
+    const navbar = document.querySelector('.navbar');
+    
+    function updateNavbar() {
+      const scrollY = window.scrollY;
+      
+      if (scrollY > 100) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
+      }
+    }
+    
+    window.addEventListener('scroll', updateNavbar);
+    window.addEventListener('load', updateNavbar);
+    
+    updateNavbar();
   </script>
 </body>
 </html>
