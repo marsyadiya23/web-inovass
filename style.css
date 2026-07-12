@@ -1397,7 +1397,7 @@ a { text-decoration: none; color: inherit; }
    FOOTER
 ======================== */
 .footer {
-  background: #020a10;
+  background: #0a1628 !important;
   padding: 5.5rem 5rem 2.5rem;
   border-top: 1px solid rgba(0, 224, 160, 0.1);
 }
