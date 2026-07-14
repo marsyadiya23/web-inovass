@@ -105,7 +105,7 @@
 
 .page-hero-content h1 em {
   font-style: normal;
-  color: var(--green);
+  color: #00e0a0;
 }
 
 .page-desc {
@@ -407,7 +407,7 @@
 
 .about-values .section-header h2 em {
   font-style: normal;
-  color: var(--green);
+  color: #00e0a0;
 }
 
 .values-grid {
@@ -728,7 +728,7 @@
 
 .page-cta h2 em {
   font-style: italic;
-  color: var(--green);
+  color: #00e0a0;
 }
 
 .page-cta p {
@@ -743,7 +743,7 @@
 
 /* Mobile link active state */
 .mobile-link.active {
-  color: var(--green);
+  color: #00e0a0;
   opacity: 1;
 }
 
@@ -924,7 +924,7 @@
   font-family: var(--font-serif);
   font-size: clamp(1.8rem, 3vw, 2.5rem);
   font-weight: 700;
-  color: #1a1a1a;
+  color: #1e3a8a;
   line-height: 1.3;
   margin-bottom: 1rem;
 }
@@ -1253,7 +1253,7 @@
 }
 
 .page-breadcrumb span:last-child {
-  color: #00c278;
+  color: #00e0a0;
   font-weight: 500;
 }
 
@@ -2178,7 +2178,7 @@
 }
 
 .breadcrumb-current {
-  color: #00c278;
+  color: #00e0a0;
   font-weight: 600;
 }
 

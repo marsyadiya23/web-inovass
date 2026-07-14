@@ -112,10 +112,11 @@
     .section-title {
       text-align: center;
       font-family: var(--font-serif);
-      font-size: clamp(2rem, 3vw, 2.8rem);
+      font-size: clamp(2rem, 3.5vw, 3.2rem);
       font-weight: 700;
-      color: #1e3a8a;
+      color: #00c278;
       margin-bottom: 3rem;
+      line-height: 1.3;
     }
 
     .product-item {
@@ -180,17 +181,19 @@
       font-family: var(--font-sans);
       font-size: 0.95rem;
       font-weight: 600;
-      color: #1e3a8a;
+      color: #00c278;
+      background: transparent;
       text-decoration: none;
-      border-bottom: 2px solid #1e3a8a;
-      padding-bottom: 4px;
-      transition: color 0.3s, border-color 0.3s, gap 0.3s;
+      padding: 0.9rem 2rem;
+      border: 2px solid #00c278;
+      border-radius: 50px;
+      transition: all 0.3s ease;
     }
 
     .product-item-link:hover {
-      color: #00c278;
-      border-color: #00c278;
-      gap: 0.8rem;
+      background: #00c278;
+      color: #ffffff;
+      transform: translateY(-2px);
     }
 
     .product-item-link svg {
@@ -295,37 +298,25 @@
         <span>Produk</span>
       </nav>
       <h1>Produk<br /><em>Kami</em></h1>
-      <p class="page-desc">Platform digital untuk mengelola pelatihan, dokumen, dan sistem manajemen organisasi secara modern dan terintegrasi.</p>
+      <p class="page-desc">Platform digital yang dirancang untuk mendukung implementasi standar ISO, pengelolaan pelatihan, dokumen, audit, dan sistem manajemen organisasi secara modern dan terintegrasi.</p>
     </div>
   </section>
 
-  <!-- PRODUCT HERO SECTION -->
-  <section class="product-hero-section">
-    <div class="product-hero-grid">
-      <div class="product-hero-content reveal-left">
-        <h1>Tingkatkan Kompetensi Anda Dengan Produk Digital Bersama INOVASS</h1>
-        <p>Ikuti berbagai produk digital terkini yang dirancang untuk mendukung pertumbuhan profesional dan organisasi Anda. Dapatkan keterampilan strategis yang relevan, dibimbing langsung oleh konsultan dan trainer berpengalaman.</p>
-      </div>
-      <div class="product-hero-visual reveal-right">
-        <img src="image/laptop.png" alt="Ilustrasi INOVASS" style="width: auto; height: auto; max-height: 200px; object-fit: contain; display: block; transform: scale(2); transform-origin: center;" />
-      </div>
-    </div>
-  </section>
 
   <!-- PRODUCT LIST SECTION -->
   <section class="product-list-section">
-    <h2 class="section-title">Pilih Produk Digital yang Tepat untuk Meningkatkan Kinerja Organisasi Anda</h2>
+    <h2 class="section-title">Solusi Digital INOVASS</h2>
 
     <!-- Product 1 -->
     <div class="product-item reveal">
       <div class="product-item-image">
-        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=800" alt="Document Control System (DCS)" />
+        <img src="image/dcs.png" alt="Document Control System (DCS)" />
       </div>
       <div class="product-item-content">
         <h2>Document Control System (DCS)</h2>
         <p>Platform digital yang dirancang untuk mengelola dokumen ISO, SOP, kebijakan, instruksi kerja, dan formulir secara terpusat dengan kontrol revisi, persetujuan digital, serta distribusi dokumen yang aman dan terdokumentasi</p>
         <a href="kontak.html" class="product-item-link">
-          Pelajari Lebih Lanjut
+          Hubungi Kami
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M5 12h14m-7-7l7 7-7 7"/>
           </svg>
@@ -336,13 +327,13 @@
     <!-- Product 2 -->
     <div class="product-item reverse reveal">
       <div class="product-item-image">
-        <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=800" alt="Platform Dokumentasi ISO" />
+        <img src="image/lms.png" alt="Learning Management System (LMS)" />
       </div>
       <div class="product-item-content">
-        <h2>Platform Dokumentasi ISO</h2>
-        <p>Solusi digital terbuka bagi individu maupun tim dari berbagai organisasi yang ingin memperdalam pemahaman dan keterampilan dalam sistem manajemen. Dengan jadwal yang telah ditentukan, peserta dapat berinteraksi dengan profesional dari berbagai industri untuk bertukar wawasan dan pengalaman.</p>
+        <h2>Learning Management System (LMS)</h2>
+        <p>Platform digital yang dirancang untuk mendukung pelatihan ISO, K3, laboratorium, dan pengembangan kompetensi SDM melalui pengelolaan kelas, materi, ujian, sertifikat digital, serta pelaporan hasil pelatihan secara terpusat dan terdokumentasi</p>
         <a href="kontak.html" class="product-item-link">
-          Pelajari Lebih Lanjut
+          Hubungi Kami
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M5 12h14m-7-7l7 7-7 7"/>
           </svg>
@@ -350,39 +341,6 @@
       </div>
     </div>
 
-    <!-- Product 3 -->
-    <div class="product-item reveal">
-      <div class="product-item-image">
-        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800" alt="Sistem Audit Digital" />
-      </div>
-      <div class="product-item-content">
-        <h2>Sistem Audit Digital</h2>
-        <p>Platform audit komprehensif yang membantu organisasi melakukan audit internal secara sistematis dan terstruktur. Dengan fitur pelacakan otomatis, pelaporan real-time, dan integrasi dengan sistem manajemen yang ada, audit menjadi lebih efisien dan akurat.</p>
-        <a href="kontak.html" class="product-item-link">
-          Pelajari Lebih Lanjut
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14m-7-7l7 7-7 7"/>
-          </svg>
-        </a>
-      </div>
-    </div>
-
-    <!-- Product 4 -->
-    <div class="product-item reverse reveal">
-      <div class="product-item-image">
-        <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=800" alt="Dashboard Monitoring" />
-      </div>
-      <div class="product-item-content">
-        <h2>Dashboard Monitoring Kinerja</h2>
-        <p>Visualisasi data kinerja organisasi dalam satu dashboard terpadu. Pantau KPI, target, dan pencapaian secara real-time dengan grafik interaktif yang mudah dipahami. Membantu manajemen dalam mengambil keputusan berbasis data yang akurat dan terkini.</p>
-        <a href="kontak.html" class="product-item-link">
-          Pelajari Lebih Lanjut
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M5 12h14m-7-7l7 7-7 7"/>
-          </svg>
-        </a>
-      </div>
-    </div>
 
   </section>
 
