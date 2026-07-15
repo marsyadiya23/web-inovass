@@ -123,8 +123,8 @@
 }
 
 .page-section + .page-section { 
-  padding-top: 3rem; 
-  margin-top: 0;
+  padding-top: 0; 
+  margin-top: 4.375rem;
   border-top: none;
 }
 
@@ -171,7 +171,7 @@
 
 .service-card p {
   font-size: 0.84rem;
-  color: #1e3a8a;
+  color: #64748b;
   line-height: 1.75;
   margin-bottom: 1.5rem;
 }
@@ -189,11 +189,17 @@
 /* ========================
    PRODUCTS PAGE
 ======================== */
+.page-section .section-header {
+  max-width: 1300px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .filter-tabs {
   display: flex;
   gap: 0.5rem;
   margin-bottom: 2.5rem;
-  max-width: 1100px;
+  max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -228,7 +234,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
-  max-width: 1100px;
+  max-width: 1300px;
   margin: 0 auto;
 }
 
@@ -284,7 +290,7 @@
 
 .product-page-info > p {
   font-size: 0.83rem;
-  color: var(--text-muted);
+  color: #64748b;
   line-height: 1.7;
   margin-bottom: 1.2rem;
 }
@@ -334,7 +340,7 @@
   grid-template-columns: 1fr 1fr;
   gap: 4rem;
   align-items: center;
-  max-width: 1100px;
+  max-width: 1300px;
   margin: 0 auto;
 }
 
@@ -344,7 +350,7 @@
   font-weight: 700;
   line-height: 1.2;
   color: #1e3a8a;
-  margin: 2rem 0 2rem;
+  margin: 0 0 3rem 0;
 }
 
 .about-text h2 em {
@@ -354,7 +360,7 @@
 
 .about-text p {
   font-size: 0.95rem;
-  color: #1e3a8a;
+  color: #64748b;
   line-height: 1.9;
   margin-bottom: 1rem !important;
 }
@@ -406,7 +412,7 @@
 
 .about-image img {
   width: 100%; 
-  height: 520px;
+  height: 100%;
   object-fit: cover;
   transition: transform 0.8s var(--ease-out);
 }
@@ -418,7 +424,7 @@
 /* About Profile */
 .about-profile { 
   background: #ffffff;
-  padding: 3rem 5rem;
+  padding: 2rem 5rem 2rem;
   margin-bottom: 0;
 }
 
@@ -430,7 +436,7 @@
 /* Visi Misi */
 .about-visi-misi { 
   background: #ffffff;
-  padding: 3rem 5rem;
+  padding: 2rem 5rem 2rem;
   margin-bottom: 0;
 }
 
@@ -449,19 +455,19 @@
 
 .about-visi-misi .visi-block p,
 .about-visi-misi .misi-block ul li {
-  color: #1e3a8a;
+  color: #64748b;
 }
 
 .about-visi-misi .about-grid {
-  grid-template-columns: 1.2fr 1fr;
-  gap: 5rem;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
 }
 
 .visi-misi-content {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin-top: 2rem;
+  margin-top: 3rem;
 }
 
 .visi-block h3,
@@ -477,7 +483,7 @@
 
 .visi-block p {
   font-size: 0.95rem;
-  color: #1e3a8a;
+  color: #64748b;
   line-height: 1.9;
 }
 
@@ -491,7 +497,7 @@
 
 .misi-block ul li {
   font-size: 0.92rem;
-  color: #1e3a8a;
+  color: #64748b;
   line-height: 1.8;
   padding-left: 1.8rem;
   position: relative;
@@ -508,30 +514,14 @@
 
 /* Why Us Section */
 .about-why-us { 
-  background: #f8f9fa;
-  padding: 4rem 5rem 5rem;
+  background: #ffffff;
+  padding: 2rem 5rem 2rem;
   border-top: none !important;
   border: none !important;
   box-shadow: none !important;
   margin-top: 0;
   position: relative;
   overflow: visible;
-}
-
-.about-why-us::before {
-  content: '';
-  position: absolute;
-  top: 2rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 10rem);
-  max-width: 1100px;
-  height: calc(100% - 4rem);
-  background: #1e3a8a;
-  border-radius: 24px;
-  box-shadow: 0 8px 32px rgba(30, 58, 138, 0.2);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .about-why-us .section-header::before,
@@ -544,12 +534,12 @@
 .about-why-us::before {
   content: '';
   position: absolute;
-  top: 0;
+  top: 2rem;
   left: 50%;
   transform: translateX(-50%);
   width: calc(100% - 10rem);
   max-width: 1300px;
-  height: 100%;
+  height: calc(100% - 4rem);
   background: #1e3a8a;
   border-radius: 24px;
   box-shadow: 0 8px 32px rgba(30, 58, 138, 0.15);
@@ -563,7 +553,7 @@
 
 .about-why-us .section-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   max-width: 1100px;
   margin-left: auto;
   margin-right: auto;
@@ -673,7 +663,7 @@
 /* Clients Section */
 .about-clients {
   background: #ffffff;
-  padding: 3rem 5rem;
+  padding: 2rem 5rem 2rem;
   border-top: none !important;
   border: none !important;
   box-shadow: none !important;
@@ -693,7 +683,7 @@
 
 .about-clients .section-header {
   text-align: center;
-  margin-bottom: 2rem;
+  margin-bottom: 3rem;
   max-width: 1100px;
   margin-left: auto;
   margin-right: auto;
@@ -735,7 +725,7 @@
 
 .about-clients .section-sub {
   font-size: 1rem;
-  color: #1e3a8a;
+  color: #64748b;
   line-height: 1.8;
   margin-top: 1.5rem;
 }
@@ -1415,7 +1405,7 @@
 
 .service-intro-desc {
   font-size: 0.95rem;
-  color: #1e3a8a;
+  color: #64748b;
   line-height: 1.8;
   font-family: var(--font-sans);
 }
