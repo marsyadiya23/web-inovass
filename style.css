@@ -144,14 +144,14 @@ a { text-decoration: none; color: inherit; }
 
 /* Teks navbar jadi gelap saat light mode */
 .navbar.scrolled .nav-link {
-  color: #0d1f17;
+  color: #1e3a8a;
   opacity: 0.7;
 }
 
 .navbar.scrolled .nav-link:hover,
 .navbar.scrolled .nav-link.active {
   opacity: 1;
-  color: #0d1f17;
+  color: #1e3a8a;
 }
 
 .navbar.scrolled .nav-link.active::after {
@@ -530,7 +530,7 @@ a { text-decoration: none; color: inherit; }
 
 .btn-outline:hover {
   background: #f0b800;
-  color: #0a1628;
+  color: #1e3a8a;
   box-shadow: 0 4px 20px rgba(240, 184, 0, 0.4);
   transform: translateY(-2px);
 }
@@ -545,7 +545,7 @@ a { text-decoration: none; color: inherit; }
   padding: 0.9rem 2.4rem;
   background: #f0b800;
   border: none;
-  color: #0a1628;
+  color: #1e3a8a;
   border-radius: 999px;
   transition: background 0.3s, box-shadow 0.3s, transform 0.2s;
 }
@@ -613,7 +613,7 @@ a { text-decoration: none; color: inherit; }
   font-size: clamp(2rem, 3vw, 2.8rem);
   font-weight: 700;
   line-height: 1.15;
-  color: #0a1628;
+  color: #1e3a8a;
   margin-bottom: 1.4rem;
 }
 
@@ -659,7 +659,7 @@ a { text-decoration: none; color: inherit; }
   font-family: var(--font-serif);
   font-size: 1.6rem;
   font-weight: 700;
-  color: #0a1628;
+  color: #1e3a8a;
   line-height: 1;
 }
 
@@ -685,7 +685,7 @@ a { text-decoration: none; color: inherit; }
   font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.06em;
-  color: #0d1f17;
+  color: #1e3a8a;
   border-bottom: 1.5px solid #00c278;
   padding-bottom: 2px;
   transition: color 0.2s, gap 0.25s;
@@ -804,7 +804,7 @@ a { text-decoration: none; color: inherit; }
   font-family: var(--font-sans);
   font-size: 1.05rem;
   font-weight: 700;
-  color: #0a1628;
+  color: #1e3a8a;
   margin-bottom: 0.4rem;
 }
 
@@ -840,7 +840,7 @@ a { text-decoration: none; color: inherit; }
   font-family: var(--font-serif);
   font-size: clamp(2.2rem, 3.5vw, 3.4rem);
   font-weight: 700;
-  color: #0d1f17;
+  color: #1e3a8a;
   margin-bottom: 1rem;
 }
 
@@ -921,7 +921,7 @@ a { text-decoration: none; color: inherit; }
   font-family: var(--font-serif);
   font-size: 1.18rem;
   font-weight: 600;
-  color: #0d1f17;
+  color: #1e3a8a;
   margin-bottom: 0.35rem;
   transition: color 0.2s;
 }
@@ -1760,7 +1760,7 @@ a { text-decoration: none; color: inherit; }
   font-size: clamp(2rem, 3vw, 2.8rem);
   font-weight: 700;
   line-height: 1.15;
-  color: #0a1628;
+  color: #1e3a8a;
   margin-top: 0.75rem;
 }
 
@@ -2135,13 +2135,13 @@ a { text-decoration: none; color: inherit; }
   font-family: var(--font-sans);
   font-size: 1.3rem;
   font-weight: 700;
-  color: #0a1628;
+  color: #1e3a8a;
   line-height: 1.2;
 }
 
 .prod-desc {
   font-size: 0.82rem;
-  color: #4a6070;
+  color: #1e3a8a;
   line-height: 1.75;
 }
 
@@ -2209,7 +2209,7 @@ a { text-decoration: none; color: inherit; }
   font-family: var(--font-serif);
   font-size: clamp(1.9rem, 2.8vw, 2.6rem);
   font-weight: 700;
-  color: #0a1628;
+  color: #1e3a8a;
   line-height: 1.2;
 }
 
@@ -2259,7 +2259,7 @@ a { text-decoration: none; color: inherit; }
   font-family: var(--font-sans);
   font-size: 1rem;
   font-weight: 700;
-  color: #0a1628;
+  color: #1e3a8a;
   margin-bottom: 0.5rem;
   line-height: 1.3;
 }
@@ -2448,7 +2448,7 @@ a { text-decoration: none; color: inherit; }
   font-family: var(--font-serif);
   font-size: clamp(1.9rem, 2.8vw, 2.6rem);
   font-weight: 700;
-  color: #0a1628;
+  color: #1e3a8a;
   line-height: 1.2;
 }
 
@@ -2531,7 +2531,7 @@ a { text-decoration: none; color: inherit; }
   font-family: var(--font-sans);
   font-size: 1rem;
   font-weight: 700;
-  color: #0a1628;
+  color: #1e3a8a;
   margin-bottom: 0.5rem;
 }
 
@@ -2580,7 +2580,7 @@ a { text-decoration: none; color: inherit; }
   font-family: var(--font-serif);
   font-size: clamp(1.9rem, 2.8vw, 2.6rem);
   font-weight: 700;
-  color: #0a1628;
+  color: #1e3a8a;
   line-height: 1.2;
 }
 
@@ -2670,7 +2670,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 .bi-badge-green  { background: #00c278; }
-.bi-badge-yellow { background: #f0b800; color: #0a1628; }
+.bi-badge-yellow { background: #f0b800; color: #1e3a8a; }
 .bi-badge-blue   { background: #1a6ff5; }
 
 .bi-date {
@@ -2930,7 +2930,7 @@ a { text-decoration: none; color: inherit; }
   font-family: var(--font-serif);
   font-size: clamp(1.9rem, 2.8vw, 2.6rem);
   font-weight: 700;
-  color: #0a1628;
+  color: #1e3a8a;
   line-height: 1.2;
 }
 
@@ -2966,7 +2966,7 @@ a { text-decoration: none; color: inherit; }
   font-family: var(--font-sans);
   font-size: 1rem;
   font-weight: 600;
-  color: #0a1628;
+  color: #1e3a8a;
   line-height: 1.4;
   transition: color 0.2s;
 }
@@ -3077,7 +3077,7 @@ a { text-decoration: none; color: inherit; }
   text-transform: uppercase;
   padding: 0.95rem 2rem;
   background: #00e0a0;
-  color: #0a1628;
+  color: #1e3a8a;
   border: 2px solid #00e0a0;
   border-radius: 50px;
   transition: background 0.25s, box-shadow 0.25s, transform 0.2s;
