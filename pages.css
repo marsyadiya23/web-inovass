@@ -429,9 +429,27 @@
 
 /* Visi Misi */
 .about-visi-misi { 
-  background: #ffffff;
+  background: #1e3a8a;
   padding: 3rem 5rem;
   margin-bottom: 0;
+}
+
+.about-visi-misi .about-text h2 {
+  color: #ffffff;
+}
+
+.about-visi-misi .about-text h2 em {
+  color: #00e0a0;
+}
+
+.about-visi-misi .visi-block h3,
+.about-visi-misi .misi-block h3 {
+  color: #00e0a0;
+}
+
+.about-visi-misi .visi-block p,
+.about-visi-misi .misi-block ul li {
+  color: rgba(255, 255, 255, 0.85);
 }
 
 .about-visi-misi .about-grid {
@@ -601,18 +619,28 @@
 
 /* Clients Section */
 .about-clients {
-  background: #ffffff;
+  background: linear-gradient(135deg, #e8f5f0 0%, #d4ede3 100%);
   padding: 3rem 5rem;
   border-top: none !important;
   border: none !important;
   box-shadow: none !important;
   margin-top: 0;
+  position: relative;
 }
 
-.about-clients::before,
-.about-clients::after,
-.about-clients .section-header::before,
-.about-clients .section-header::after {
+.about-clients::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 20% 50%, rgba(0, 194, 120, 0.08) 0%, transparent 50%);
+  pointer-events: none;
+  display: block !important;
+}
+
+.about-clients::after {
   display: none !important;
   border: none !important;
   background: none !important;
@@ -628,6 +656,18 @@
   border-top: none;
   margin-top: 0;
   padding-top: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.about-clients .section-header::before,
+.about-clients .section-header::after {
+  display: none !important;
+}
+
+.about-clients .clients-marquee-wrap {
+  position: relative;
+  z-index: 1;
 }
 
 .about-clients .section-header .page-eyebrow {
