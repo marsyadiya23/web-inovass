@@ -117,13 +117,13 @@
 
 /* PAGE SECTION WRAPPER */
 .page-section {
-  padding: 5rem 5rem;
+  padding: 3rem 5rem;
   background: #ffffff;
   margin: 0;
 }
 
 .page-section + .page-section { 
-  padding-top: 5rem; 
+  padding-top: 3rem; 
   margin-top: 0;
   border-top: none;
 }
@@ -344,7 +344,7 @@
   font-weight: 700;
   line-height: 1.2;
   color: #1e3a8a;
-  margin: 2rem 0 1.5rem;
+  margin: 2rem 0 2rem;
 }
 
 .about-text h2 em {
@@ -356,22 +356,31 @@
   font-size: 0.95rem;
   color: #4a6070;
   line-height: 1.9;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem !important;
 }
 
 .about-text p:last-of-type {
-  margin-bottom: 0;
+  margin-bottom: 0 !important;
+}
+
+.about-profile .about-text p {
+  margin-bottom: 1rem !important;
 }
 
 .about-stats {
   display: flex;
   gap: 3rem;
-  margin-top: 3rem;
-  padding-top: 2.5rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
   border-top: 1px solid rgba(0, 194, 120, 0.2);
 }
 
-.stat-item { display: flex; flex-direction: column; gap: 0.5rem; }
+.stat-item { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 0.5rem; 
+  white-space: nowrap;
+}
 
 .stat-num {
   font-family: var(--font-serif);
@@ -409,7 +418,7 @@
 /* About Profile */
 .about-profile { 
   background: #ffffff;
-  padding: 6rem 5rem;
+  padding: 3rem 5rem;
   margin-bottom: 0;
 }
 
@@ -421,7 +430,7 @@
 /* Visi Misi */
 .about-visi-misi { 
   background: #ffffff;
-  padding: 6rem 5rem;
+  padding: 3rem 5rem;
   margin-bottom: 0;
 }
 
@@ -434,7 +443,7 @@
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
 }
 
 .visi-block h3,
@@ -443,7 +452,7 @@
   font-size: 1.15rem;
   font-weight: 700;
   color: #00c278;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -459,7 +468,7 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 0.5rem;
 }
 
 .misi-block ul li {
@@ -482,7 +491,7 @@
 /* Why Us Section */
 .about-why-us { 
   background: #ffffff;
-  padding: 6rem 5rem;
+  padding: 3rem 5rem;
   border-top: none !important;
   border: none !important;
   box-shadow: none !important;
@@ -500,7 +509,7 @@
 
 .about-why-us .section-header {
   text-align: center;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
@@ -520,7 +529,7 @@
   font-weight: 700;
   color: #1e3a8a;
   line-height: 1.2;
-  margin: 0 0 1.5rem;
+  margin: 0 0 1rem;
 }
 
 .about-why-us .section-header h2 em {
@@ -580,7 +589,7 @@
   font-size: 1.1rem;
   font-weight: 700;
   color: #1e3a8a;
-  margin: 0.5rem 0 1.5rem;
+  margin: 0.5rem 0 2rem;
   line-height: 1.4;
 }
 
@@ -593,7 +602,7 @@
 /* Clients Section */
 .about-clients {
   background: #ffffff;
-  padding: 6rem 5rem;
+  padding: 3rem 5rem;
   border-top: none !important;
   border: none !important;
   box-shadow: none !important;
@@ -611,7 +620,7 @@
 
 .about-clients .section-header {
   text-align: center;
-  margin-bottom: 4.5rem;
+  margin-bottom: 2rem;
   max-width: 800px;
   margin-left: auto;
   margin-right: auto;
@@ -631,7 +640,7 @@
   font-weight: 700;
   color: #1e3a8a;
   line-height: 1.2;
-  margin: 0 0 1.5rem;
+  margin: 0 0 1rem;
 }
 
 .about-clients .section-header h2 em {
@@ -648,7 +657,7 @@
 
 .clients-marquee-wrap {
   overflow: hidden;
-  padding: 1.5rem 0;
+  padding: 0.625rem 0;
   position: relative;
 }
 
@@ -1032,7 +1041,7 @@
    CTA SECTION (shared)
 ======================== */
 .page-cta {
-  padding: 6rem 5rem;
+  padding: 3rem 5rem;
   text-align: center;
   background: linear-gradient(160deg, #0a1628 0%, #051a0f 100%);
   border-top: none;
@@ -1125,8 +1134,8 @@
 
 @media (max-width: 900px) {
   .page-hero { padding: 120px 1.5rem 4rem; }
-  .page-section { padding: 4rem 1.5rem; }
-  .page-cta { padding: 4rem 1.5rem; }
+  .page-section { padding: 3rem 1.5rem; }
+  .page-cta { padding: 3rem 1.5rem; }
 
   .services-grid { grid-template-columns: 1fr 1fr; }
   .products-page-grid { grid-template-columns: 1fr 1fr; }
@@ -1139,10 +1148,10 @@
   
   /* New responsive styles */
   .why-us-grid { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-  .about-why-us { padding: 4.5rem 1.5rem; }
-  .about-clients { padding: 4.5rem 1.5rem; }
-  .about-visi-misi { padding: 4.5rem 1.5rem; }
-  .about-profile { padding: 4.5rem 1.5rem; }
+  .about-why-us { padding: 3rem 1.5rem; }
+  .about-clients { padding: 3rem 1.5rem; }
+  .about-visi-misi { padding: 3rem 1.5rem; }
+  .about-profile { padding: 3rem 1.5rem; }
   .about-visi-misi .about-grid { grid-template-columns: 1fr; gap: 3rem; }
   .why-card { padding: 2rem 1.5rem; }
   .about-stats { gap: 2rem; }
@@ -1160,10 +1169,10 @@
   .why-us-grid { grid-template-columns: 1fr; }
   .why-card { padding: 2rem 1.5rem; }
   .client-logo-item { width: 130px; height: 75px; padding: 1rem; }
-  .about-why-us { padding: 3.5rem 1.5rem; }
-  .about-clients { padding: 3.5rem 1.5rem; }
-  .about-visi-misi { padding: 3.5rem 1.5rem; }
-  .about-profile { padding: 3.5rem 1.5rem; }
+  .about-why-us { padding: 3rem 1.5rem; }
+  .about-clients { padding: 3rem 1.5rem; }
+  .about-visi-misi { padding: 3rem 1.5rem; }
+  .about-profile { padding: 3rem 1.5rem; }
   .about-stats { gap: 1.5rem; }
   .stat-num { font-size: 2rem; }
   .clients-marquee-wrap { padding: 1.5rem 0; }
