@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K3 Laboratorium Pendidikan Teknik Sipil — INOVASS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <img src="image/logo.png" alt="INOVASS Logo" class="nav-logo-img" />
+    </a>
+    <div class="nav-menu">
+      <a href="index.html" class="nav-link">Beranda</a>
+      <a href="layanan-iso.html" class="nav-link active">Layanan</a>
+      <a href="produk.html" class="nav-link">Produk</a>
+      <a href="tentang.html" class="nav-link">Tentang Kami</a>
+    </div>
+    <div class="nav-right">
+      <a href="kontak.html" class="nav-cta">Hubungi Kami</a>
+      <button class="nav-hamburger" aria-label="Menu" id="hamburgerBtn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mobile-link">Beranda</a>
+    <a href="layanan-iso.html" class="mobile-link active">Layanan</a>
+    <a href="produk.html" class="mobile-link">Produk</a>
+    <a href="tentang.html" class="mobile-link">Tentang Kami</a>
+    <a href="kontak.html" class="mobile-cta">Hubungi Kami</a>
+  </div>
+
+  <!-- BREADCRUMB & TITLE -->
+  <section class="detail-header-section">
+    <div class="detail-header-container">
+      <nav class="detail-breadcrumb-nav" style="font-size: 0.82rem !important;">
+        <a href="index.html" class="breadcrumb-link" style="color: rgba(255, 255, 255, 0.5) !important;">Beranda</a>
+        <span class="breadcrumb-sep" style="color: rgba(255, 255, 255, 0.5) !important;">›</span>
+        <a href="layanan-iso.html" class="breadcrumb-link" style="color: rgba(255, 255, 255, 0.5) !important;">Layanan</a>
+        <span class="breadcrumb-sep" style="color: rgba(255, 255, 255, 0.5) !important;">›</span>
+        <span class="breadcrumb-current" style="color: #00e0a0 !important;">K3 Laboratorium Pendidikan Teknik Sipil</span>
+      </nav>
+      <h1 class="detail-page-title" style="color: #ffffff !important; font-size: clamp(1.2rem, 2.5vw, 1.8rem) !important; font-weight: 700 !important;">K3 Laboratorium Pendidikan Teknik Sipil</h1>
+    </div>
+  </section>
+
+  <!-- COMING SOON PLACEHOLDER -->
+  <section class="coming-soon-section">
+    <div class="coming-soon-container">
+      <div class="coming-soon-content">
+        <div class="coming-soon-icon-wrapper">
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring-delay"></div>
+          <div class="coming-soon-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="coming-soon-title">Konten Segera Hadir</h2>
+        <p class="coming-soon-description">Informasi lengkap mengenai layanan ini sedang dalam proses pengembangan dan akan segera ditambahkan.</p>
+        
+        <div class="coming-soon-features">
+          <div class="feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            <span>Konsultan Berpengalaman</span>
+          </div>
+          <div class="feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>Harga Kompetitif</span>
+          </div>
+          <div class="feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            <span>Proses Cepat & Efisien</span>
+          </div>
+        </div>
+
+        <div class="coming-soon-cta-group">
+          <a href="kontak.html" class="cta-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            Hubungi Kami Untuk Informasi
+          </a>
+          <a href="layanan-iso.html" class="cta-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Kembali ke Layanan
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand reveal-left">
+        <a href="index.html" class="footer-logo-link">
+          <img src="image/logo.png" alt="INOVASS Logo" class="nav-logo-img" />
+        </a>
+        <p class="footer-tagline">Inovasi untuk Masa Depan</p>
+        <p class="footer-desc">Perusahaan konsultan ISO dan pengembangan solusi digital yang membantu organisasi meningkatkan mutu, efisiensi, dan daya saing.</p>
+        <div class="footer-socials" style="margin-top:1.5rem;">
+          <a href="#">INSTAGRAM</a>
+          <a href="#">LINKEDIN</a>
+          <a href="#">YOUTUBE</a>
+        </div>
+      </div>
+      <div class="footer-links reveal-right">
+        <div class="footer-col">
+          <h4>Office</h4>
+          <ul>
+            <li>Jl. Danau Melahayu No. 23A</li>
+            <li>Pesona Telaga Cibinong</li>
+            <li>Kel. Harapan Jaya, Kec. Cibinong,</li>
+            <li>Kab. Bogor</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><a href="https://wa.me/6281311173707">+62-813-1117-3707</a></li>
+            <li><a href="mailto:inovass.adm@gmail.com">inovass.adm@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 INOVASS. Hak cipta dilindungi undang-undang.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Kebijakan Privasi</a>
+        <a href="#">Syarat &amp; Ketentuan</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
+
+  <section class="detail-features">
+    <div class="detail-features-container">
+      
+      <div class="detail-feature-card">
+        <div class="detail-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+          </svg>
+        </div>
+        <h3>Kekhususan Lab Teknik Sipil</h3>
+        <p>Sistem K3 yang disesuaikan dengan karakteristik dan risiko laboratorium teknik sipil</p>
+      </div>
+
+      <div class="detail-feature-card">
+        <div class="detail-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+          </svg>
+        </div>
+        <h3>Pendekatan Edukatif</h3>
+        <p>Mengintegrasikan aspek pembelajaran dengan keselamatan mahasiswa dan praktikum</p>
+      </div>
+
+      <div class="detail-feature-card">
+        <div class="detail-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
+          </svg>
+        </div>
+        <h3>Compliance Standar Pendidikan</h3>
+        <p>Memenuhi persyaratan K3 laboratorium dari Kemenristekdikti dan standar akreditasi</p>
+      </div>
+
+      <div class="detail-feature-card">
+        <div class="detail-feature-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+        </div>
+        <h3>Mitigasi Risiko Praktikum</h3>
+        <p>Identifikasi dan pengendalian risiko pada berbagai jenis praktikum teknik sipil</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- KEY FEATURES -->
+  <section class="detail-key-features">
+    <div class="detail-key-container">
+      <div class="detail-key-image">
+        <img src="image/image1.png" alt="Key Features" />
+      </div>
+      <div class="detail-key-content">
+        <h2>K3 Laboratorium yang Aman untuk Pendidikan</h2>
+        <ul class="detail-key-list">
+          <li>Laboratorium pendidikan teknik sipil memiliki risiko khusus yang memerlukan penanganan K3 yang spesifik dan terstruktur</li>
+          <li>Kami membantu perguruan tinggi membangun sistem K3 laboratorium yang melindungi mahasiswa, dosen, dan laboran sekaligus mendukung proses pembelajaran</li>
+          <li>Sistem mencakup pengelolaan alat berat praktikum, bahan berbahaya, dan prosedur keselamatan yang sesuai standar pendidikan tinggi</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- RUANG LINGKUP -->
+  <section class="detail-scope">
+    <div class="detail-scope-container">
+      <h2 class="detail-section-title">Ruang Lingkup Layanan</h2>
+      <p class="detail-section-subtitle">Layanan K3 Laboratorium Teknik Sipil mencakup:</p>
+      
+      <div class="detail-scope-grid">
+        
+        <div class="detail-scope-card">
+          <div class="detail-scope-number">01</div>
+          <h3>Identifikasi Bahaya Lab</h3>
+          <ul>
+            <li>Lab Struktur dan Konstruksi</li>
+            <li>Lab Mekanika Tanah</li>
+            <li>Lab Beton dan Material</li>
+            <li>Lab Survei dan Pemetaan</li>
+            <li>Lab Hidrolika dan Hidrogeologi</li>
+          </ul>
+        </div>
+
+        <div class="detail-scope-card">
+          <div class="detail-scope-number">02</div>
+          <h3>Sistem Manajemen K3 Lab</h3>
+          <ul>
+            <li>Manual K3 Laboratorium</li>
+            <li>SOP Keselamatan Praktikum</li>
+            <li>Instruksi Kerja Alat Lab</li>
+            <li>Prosedur Darurat</li>
+          </ul>
+        </div>
+
+        <div class="detail-scope-card">
+          <div class="detail-scope-number">03</div>
+          <h3>Pelatihan & Sosialisasi</h3>
+          <ul>
+            <li>Safety Induction Mahasiswa</li>
+            <li>Pelatihan Penggunaan Alat</li>
+            <li>Penanggulangan Keadaan Darurat</li>
+            <li>Pelatihan P3K</li>
+          </ul>
+        </div>
+
+        <div class="detail-scope-card">
+          <div class="detail-scope-number">04</div>
+          <h3>Monitoring & Evaluasi</h3>
+          <ul>
+            <li>Inspeksi Berkala Laboratorium</li>
+            <li>Audit K3 Internal</li>
+            <li>Investigasi Insiden</li>
+            <li>Program Perbaikan</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="detail-scope-support">
+        <h3>Elemen Pendukung K3 Lab</h3>
+        <div class="detail-support-tags">
+          <span>APD Praktikum</span>
+          <span>APAR & Hydrant</span>
+          <span>Safety Sign</span>
+          <span>First Aid Kit</span>
+          <span>Ventilasi Lab</span>
+          <span>Material Handling</span>
+          <span>Waste Management</span>
+          <span>Emergency Exit</span>
+          <span>Log Book Praktikum</span>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- MANFAAT -->
+  <section class="detail-benefits">
+    <div class="detail-benefits-container">
+      <div class="detail-benefits-content">
+        <h2>Manfaat K3 Lab untuk Institusi Pendidikan</h2>
+        <ul class="detail-benefits-list">
+          <li>
+            <strong>Melindungi Mahasiswa & Dosen</strong>
+            <p>Mengurangi risiko kecelakaan praktikum dan menciptakan lingkungan belajar yang aman</p>
+          </li>
+          <li>
+            <strong>Memenuhi Standar Akreditasi</strong>
+            <p>Memenuhi persyaratan K3 laboratorium untuk proses akreditasi program studi dan institusi</p>
+          </li>
+          <li>
+            <strong>Meningkatkan Kualitas Pembelajaran</strong>
+            <p>Mahasiswa lebih fokus belajar tanpa khawatir dengan risiko keselamatan</p>
+          </li>
+        </ul>
+      </div>
+      <div class="detail-benefits-image">
+        <img src="image/image2.png" alt="Benefits" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ORGANISASI & OUTPUT -->
+  <section class="detail-outputs">
+    <div class="detail-outputs-container">
+      
+      <div class="detail-output-block">
+        <h2>Institusi yang Kami Layani</h2>
+        <p>Layanan K3 Lab Teknik Sipil untuk berbagai institusi pendidikan</p>
+        <div class="detail-org-grid">
+          <div class="detail-org-item">Universitas</div>
+          <div class="detail-org-item">Institut Teknologi</div>
+          <div class="detail-org-item">Politeknik</div>
+          <div class="detail-org-item">Sekolah Tinggi</div>
+          <div class="detail-org-item">Akademi</div>
+          <div class="detail-org-item">SMK Teknik Bangunan</div>
+          <div class="detail-org-item">Balai Pelatihan Teknis</div>
+          <div class="detail-org-item">Lembaga Riset</div>
+        </div>
+      </div>
+
+      <div class="detail-output-block">
+        <h2>Output Layanan</h2>
+        <p>Setelah layanan selesai, institusi akan memperoleh:</p>
+        <ul class="detail-output-list">
+          <li>Manual Sistem Manajemen K3 Laboratorium</li>
+          <li>SOP Keselamatan untuk setiap jenis praktikum</li>
+          <li>Instruksi Kerja Penggunaan Alat Laboratorium</li>
+          <li>Prosedur Tanggap Darurat Laboratorium</li>
+          <li>Form Safety Induction & Checklist Praktikum</li>
+          <li>Program Pelatihan K3 Lab</li>
+          <li>Signage & Marking K3 Laboratorium</li>
+          <li>Database Insiden & Tindakan Korektif</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="page-cta reveal" style="padding: 6rem 5rem; text-align: center; background: linear-gradient(160deg, #0a1628 0%, #051a0f 100%); border-top: 1px solid rgba(0, 224, 160, 0.1); position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 700px; height: 500px; background: radial-gradient(ellipse at center, rgba(0, 194, 120, 0.18) 0%, transparent 70%); pointer-events: none;"></div>
+    <div style="max-width: 700px; margin: 0 auto; position: relative; z-index: 1;">
+      <h2 style="font-family: var(--font-serif); font-size: clamp(1.5rem, 2.5vw, 2.2rem); font-weight: 700; color: #ffffff; line-height: 1.3; margin-bottom: 1.2rem; text-align: center;">Siap memulai<br /><em style="font-style: normal; color: #00e0a0;">proyek Anda?</em></h2>
+      <p style="font-size: 0.88rem; color: rgba(255, 255, 255, 0.7); line-height: 1.7; max-width: 560px; margin: 0 auto; text-align: center; margin-bottom: 32px;">Hubungi kami untuk konsultasi gratis dan penawaran terbaik untuk organisasi Anda.</p>
+      <a href="kontak.html" class="btn-outline-yellow" style="font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.95rem 2rem; background: transparent; color: #f0b800; border: 3px solid #f0b800; border-radius: 50px; text-decoration: none; display: inline-block; transition: all 0.3s ease; cursor: pointer;" onmouseover="this.style.background='#f0b800'; this.style.color='#1e3a8a';" onmouseout="this.style.background='transparent'; this.style.color='#f0b800';">Hubungi Kami Sekarang</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" style="background: #0a1628 !important;">
+    <div class="footer-top">
+      <div class="footer-brand reveal-left">
+        <a href="index.html" class="footer-logo-link">
+          <img src="image/logo.png" alt="INOVASS Logo" class="nav-logo-img" />
+        </a>
+        <p class="footer-tagline">Inovasi untuk Masa Depan</p>
+        <p class="footer-desc">Perusahaan konsultan ISO dan pengembangan solusi digital yang membantu organisasi meningkatkan mutu, efisiensi, dan daya saing.</p>
+        <div class="footer-socials" style="margin-top:1.5rem;">
+          <a href="#">INSTAGRAM</a>
+          <a href="#">LINKEDIN</a>
+          <a href="#">YOUTUBE</a>
+        </div>
+      </div>
+      <div class="footer-links reveal-right">
+        <div class="footer-col">
+          <h4>Office</h4>
+          <ul>
+            <li>Jl. Danau Melahayu No. 23A</li>
+            <li>Pesona Telaga Cibinong</li>
+            <li>Kel. Harapan Jaya, Kec. Cibinong,</li>
+            <li>Kab. Bogor</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><a href="https://wa.me/6281311173707">+62-813-1117-3707</a></li>
+            <li><a href="mailto:inovass.adm@gmail.com">inovass.adm@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 INOVASS. Hak cipta dilindungi undang-undang.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Kebijakan Privasi</a>
+        <a href="#">Syarat &amp; Ketentuan</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+    });
+    console.log('✅ Detail page loaded successfully');
+  </script>
+</body>
+</html>
