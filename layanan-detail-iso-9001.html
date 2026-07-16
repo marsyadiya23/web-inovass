@@ -571,7 +571,7 @@
     }
     
     
-    /* Certification Cycle Section - Simple & Colorful */
+    /* Certification Cycle Section - Animated Reveal Cards */
     .cert-cycle-section {
       max-width: 1200px;
       margin: 4rem auto;
@@ -597,85 +597,200 @@
       margin-right: auto;
     }
     
-    /* Simple Grid Layout */
+    /* Grid Layout untuk Cards */
     .cert-cycle-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 2rem;
+      gap: 1.5rem;
     }
-    
-    /* Simple Card Design */
-    .cert-cycle-card {
-      background: #ffffff;
-      border: 2px solid #e2e8f0;
-      border-radius: 16px;
-      padding: 2rem 1.5rem;
-      text-align: center;
-      transition: all 0.3s ease;
+
+    /* Animated Reveal Card Container */
+    .reveal-card-container {
+      position: relative;
+      width: 100%;
+      height: 180px;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 2px solid;
+      cursor: pointer;
+      transition: transform 0.3s ease;
     }
-    
-    .cert-cycle-card:hover {
+
+    .reveal-card-container:hover {
       transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
     }
-    
-    /* Colorful Icons */
-    .cert-cycle-card:nth-child(1) .cert-cycle-icon {
-      background: linear-gradient(135deg, #00e0a0 0%, #00b88d 100%);
-      box-shadow: 0 8px 20px rgba(0, 224, 160, 0.3);
+
+    /* Base Card (Plain scheme) */
+    .cycle-card-base {
+      position: absolute;
+      inset: 0;
+      background: #ffffff;
+      border-radius: 20px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 1;
     }
-    
-    .cert-cycle-card:nth-child(2) .cert-cycle-icon {
-      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+
+    /* Overlay Card (Accented scheme) */
+    .cycle-card-overlay {
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      z-index: 2;
+      clip-path: circle(50px at 1.5rem 1.5rem);
+      transition: clip-path 0.8s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    
-    .cert-cycle-card:nth-child(3) .cert-cycle-icon {
-      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+
+    .reveal-card-container:hover .cycle-card-overlay {
+      clip-path: circle(150% at 1.5rem 1.5rem);
     }
-    
-    .cert-cycle-card:nth-child(4) .cert-cycle-icon {
-      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-      box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
-    }
-    
-    .cert-cycle-icon {
-      width: 90px;
-      height: 90px;
+
+    /* Avatar */
+    .cycle-card-avatar {
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
-      margin: 0 auto 1.5rem auto;
-      font-size: 2.2rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 0 auto 1rem auto;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .cycle-card-avatar.hidden {
+      visibility: hidden;
+    }
+
+    /* Step Number Badge */
+    .cycle-step-badge {
+      display: inline-block;
+      background: #1e3a8a;
       color: #ffffff;
+      padding: 0.5rem 1rem;
+      border-radius: 50px;
+      font-size: 0.75rem;
       font-weight: 700;
-      transition: all 0.3s ease;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+      width: fit-content;
     }
-    
-    .cert-cycle-card:hover .cert-cycle-icon {
-      transform: scale(1.1);
+
+    .cycle-card-overlay .cycle-step-badge {
+      background: rgba(255, 255, 255, 0.2);
     }
-    
-    .cert-cycle-card h3 {
+
+    /* Card Title */
+    .cycle-card-title {
       color: #1e3a8a;
-      font-size: 1.2rem;
+      font-size: 1.25rem;
       font-weight: 700;
-      margin-bottom: 0.75rem;
+      margin: 0 0 0.75rem 0;
+      line-height: 1.3;
     }
-    
-    .cert-cycle-card p {
+
+    .cycle-card-overlay .cycle-card-title {
+      color: #ffffff;
+    }
+
+    /* Card Description */
+    .cycle-card-description {
       color: #64748b;
       font-size: 0.95rem;
       line-height: 1.7;
-      margin: 0;
+      margin-bottom: 0;
+      flex-grow: 1;
+      display: none;
     }
-    
+
+    .cycle-card-overlay .cycle-card-description {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Duration Badge */
+    .cycle-duration-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1rem;
+      background: #f1f5f9;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #475569;
+      width: fit-content;
+      margin: 0 auto;
+    }
+
+    .cycle-card-overlay .cycle-duration-badge {
+      background: rgba(255, 255, 255, 0.2);
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    /* Color Schemes for each card - All Blue Soft */
+    .cycle-card-container-1 {
+      border-color: #60a5fa;
+    }
+    .cycle-card-container-1 .cycle-card-overlay {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    }
+    .cycle-card-container-1 .cycle-card-avatar {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: #ffffff;
+    }
+
+    .cycle-card-container-2 {
+      border-color: #60a5fa;
+    }
+    .cycle-card-container-2 .cycle-card-overlay {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    }
+    .cycle-card-container-2 .cycle-card-avatar {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: #ffffff;
+    }
+
+    .cycle-card-container-3 {
+      border-color: #60a5fa;
+    }
+    .cycle-card-container-3 .cycle-card-overlay {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    }
+    .cycle-card-container-3 .cycle-card-avatar {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: #ffffff;
+    }
+
+    .cycle-card-container-4 {
+      border-color: #60a5fa;
+    }
+    .cycle-card-container-4 .cycle-card-overlay {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    }
+    .cycle-card-container-4 .cycle-card-avatar {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: #ffffff;
+    }
+
     /* Responsive */
-    @media (max-width: 992px) {
+    @media (max-width: 1200px) {
       .cert-cycle-grid {
         grid-template-columns: repeat(2, 1fr);
+      }
+      
+      .reveal-card-container {
+        height: 220px;
       }
     }
     
@@ -684,10 +799,29 @@
         grid-template-columns: 1fr;
       }
       
-      .cert-cycle-icon {
-        width: 80px;
-        height: 80px;
-        font-size: 2rem;
+      .reveal-card-container {
+        height: auto;
+        min-height: 200px;
+      }
+
+      .cycle-card-base,
+      .cycle-card-overlay {
+        padding: 1.25rem;
+      }
+
+      .cycle-card-avatar {
+        width: 50px;
+        height: 50px;
+        font-size: 1.3rem;
+      }
+      
+      .cycle-card-title {
+        font-size: 1.1rem;
+      }
+      
+      .cycle-duration-badge {
+        font-size: 0.75rem;
+        padding: 0.5rem 0.85rem;
       }
     }
     
@@ -1321,30 +1455,129 @@
 
   <!-- Certification Cycle Section -->
   <section class="cert-cycle-section">
-    <h2 class="cert-cycle-title">Siklus Sertifikasi</h2>
-    <p class="cert-cycle-desc">Sertifikasi ISO 9001 memiliki siklus yang berkelanjutan untuk memastikan sistem manajemen mutu organisasi Anda tetap efektif dan sesuai standar.</p>
+    <h2 class="cert-cycle-title">Siklus Sertifikasi ISO</h2>
+    <p class="cert-cycle-desc">Proses sertifikasi ISO berlangsung dalam 4 tahap utama dengan total durasi 3 tahun yang memastikan sistem manajemen mutu organisasi Anda tetap efektif dan sesuai standar.</p>
     
     <div class="cert-cycle-grid">
-      <div class="cert-cycle-card">
-        <div class="cert-cycle-icon">1</div>
-        <h3>Tahun Pertama</h3>
-        <p>Initial Audit - Audit sertifikasi awal untuk memperoleh sertifikat ISO 9001</p>
+      
+      <!-- Card 1: Initial Audit -->
+      <div class="reveal-card-container cycle-card-container-1">
+        <!-- Base Card (No Avatar) -->
+        <div class="cycle-card-base">
+          <div class="cycle-card-avatar hidden"></div>
+          <h3 class="cycle-card-title">Initial Audit</h3>
+          <p class="cycle-card-description"></p>
+          <div class="cycle-duration-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Durasi: 3-6 Bulan
+          </div>
+        </div>
+
+        <!-- Overlay Card (With Avatar) -->
+        <div class="cycle-card-overlay">
+          <div class="cycle-card-avatar"></div>
+          <h3 class="cycle-card-title">Initial Audit</h3>
+          <p class="cycle-card-description"></p>
+          <div class="cycle-duration-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Durasi: 3-6 Bulan
+          </div>
+        </div>
       </div>
-      <div class="cert-cycle-card">
-        <div class="cert-cycle-icon">2</div>
-        <h3>Tahun Kedua</h3>
-        <p>1st Surveillance - Audit pengawasan pertama untuk memastikan sistem tetap berjalan</p>
+
+      <!-- Card 2: 1st Surveillance -->
+      <div class="reveal-card-container cycle-card-container-2">
+        <div class="cycle-card-base">
+          <div class="cycle-card-avatar hidden"></div>
+          <h3 class="cycle-card-title">1st Surveillance</h3>
+          <p class="cycle-card-description"></p>
+          <div class="cycle-duration-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Setelah 12 Bulan
+          </div>
+        </div>
+
+        <div class="cycle-card-overlay">
+          <div class="cycle-card-avatar"></div>
+          <h3 class="cycle-card-title">1st Surveillance</h3>
+          <p class="cycle-card-description"></p>
+          <div class="cycle-duration-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Setelah 12 Bulan
+          </div>
+        </div>
       </div>
-      <div class="cert-cycle-card">
-        <div class="cert-cycle-icon">3</div>
-        <h3>Tahun Ketiga</h3>
-        <p>2nd Surveillance - Audit pengawasan kedua sebelum masa perpanjangan</p>
+
+      <!-- Card 3: 2nd Surveillance -->
+      <div class="reveal-card-container cycle-card-container-3">
+        <div class="cycle-card-base">
+          <div class="cycle-card-avatar hidden"></div>
+          <h3 class="cycle-card-title">2nd Surveillance</h3>
+          <p class="cycle-card-description"></p>
+          <div class="cycle-duration-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Setelah 24 Bulan
+          </div>
+        </div>
+
+        <div class="cycle-card-overlay">
+          <div class="cycle-card-avatar"></div>
+          <h3 class="cycle-card-title">2nd Surveillance</h3>
+          <p class="cycle-card-description"></p>
+          <div class="cycle-duration-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Setelah 24 Bulan
+          </div>
+        </div>
       </div>
-      <div class="cert-cycle-card">
-        <div class="cert-cycle-icon">🔄</div>
-        <h3>Tahun Keempat</h3>
-        <p>Recertification - Audit resertifikasi untuk memperpanjang sertifikat 3 tahun berikutnya</p>
+
+      <!-- Card 4: Recertification -->
+      <div class="reveal-card-container cycle-card-container-4">
+        <div class="cycle-card-base">
+          <div class="cycle-card-avatar hidden"></div>
+          <h3 class="cycle-card-title">Recertification</h3>
+          <p class="cycle-card-description"></p>
+          <div class="cycle-duration-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Setiap 3 Tahun
+          </div>
+        </div>
+
+        <div class="cycle-card-overlay">
+          <div class="cycle-card-avatar"></div>
+          <h3 class="cycle-card-title">Recertification</h3>
+          <p class="cycle-card-description"></p>
+          <div class="cycle-duration-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            Setiap 3 Tahun
+          </div>
+        </div>
       </div>
+
     </div>
   </section>
 
