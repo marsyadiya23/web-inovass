@@ -10,16 +10,17 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="pages.css" />
   <style>
-    /* Simple Card Design with Progress Line - INOVASS Theme */
+    /* Simple Card Design with Progress Line - INOVASS Theme - Soft Version */
     .product-detail-item {
       position: relative !important;
       overflow: hidden !important;
       background: #ffffff !important;
-      border: 2px solid #1e3a8a !important;
-      border-radius: 12px !important;
+      border: 1.5px solid #cbd5e1 !important;
+      border-radius: 16px !important;
       padding: 2rem 1.5rem !important;
       transition: all 0.3s ease !important;
-      box-shadow: 0 2px 8px rgba(30, 58, 138, 0.08) !important;
+      box-shadow: 0 1px 3px rgba(148, 163, 184, 0.1) !important;
+      cursor: pointer !important;
     }
     
     .product-detail-item::before {
@@ -28,27 +29,55 @@
       top: 0;
       left: 0;
       width: 0%;
-      height: 4px;
+      height: 3px;
       background: #1e3a8a;
       transition: width 0.8s ease;
-      border-radius: 10px 10px 0 0;
+      border-radius: 16px 16px 0 0;
       z-index: 10;
+    }
+    
+    /* Icon indicator untuk card yang bisa diklik */
+    .product-detail-item::after {
+      content: '→';
+      position: absolute;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      opacity: 0;
     }
     
     .product-detail-item:hover::before {
       width: 100%;
     }
     
+    .product-detail-item:hover::after {
+      opacity: 1;
+      color: #1e3a8a;
+      right: 1.2rem;
+    }
+    
     .product-detail-item:hover {
       transform: translateY(-5px) !important;
       box-shadow: 0 8px 20px rgba(30, 58, 138, 0.15) !important;
+      border-color: #1e3a8a !important;
     }
     
-    /* Text Color */
+    /* Text Color - Soft */
     .product-detail-item p {
-      color: #1e3a8a !important;
+      color: #475569 !important;
       margin: 0 !important;
-      line-height: 1.6 !important;
+      line-height: 1.7 !important;
+      font-weight: 450 !important;
+      font-size: 0.95rem !important;
+      transition: color 0.3s ease !important;
+      padding-right: 2rem !important;
+    }
+    
+    .product-detail-item:hover p {
+      color: #1e3a8a !important;
       font-weight: 500 !important;
     }
     
@@ -144,9 +173,9 @@
           <p>PT INOVASS menyediakan layanan konsultasi sertifikasi standar ISO/IEC/SNI yang komprehensif untuk membantu organisasi Anda mencapai standar internasional dan meningkatkan kualitas manajemen.</p>
         </div>
         <div class="product-details-grid" style="grid-template-columns: repeat(4, 1fr) !important;">
-          <div class="product-detail-item accent-navy">
+          <a href="layanan-detail-iso-9001.html" class="product-detail-item accent-navy" style="text-decoration: none; cursor: pointer;">
             <p>Jasa Konsultasi Sertifikasi ISO/SNI 9001 – Sistem Manajemen Mutu</p>
-          </div>
+          </a>
           <div class="product-detail-item accent-green">
             <p>Jasa Konsultasi Sertifikasi ISO/SNI 14001 – Sistem Manajemen Lingkungan</p>
           </div>

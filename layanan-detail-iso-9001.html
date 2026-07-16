@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jasa Konsultasi Sertifikasi ISO/SNI 9001 – Sistem Manajemen Mutu — INOVASS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+  <style>
+    /* Content Sections Styling */
+    .content-section {
+      margin-bottom: 3rem;
+    }
+    
+    .content-section h3 {
+      color: #1e3a8a;
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid #00e0a0;
+      display: inline-block;
+    }
+    
+    .content-section h4 {
+      color: #1e3a8a;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+    }
+    
+    .content-section p {
+      color: #334155;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    
+    .content-section ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 1.5rem;
+    }
+    
+    .content-section ul li {
+      color: #334155;
+      line-height: 1.8;
+      margin-bottom: 0.75rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+    
+    .content-section ul li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #00e0a0;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    .benefits-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    
+    .benefit-card {
+      background: #f8fafc;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+    
+    .benefit-card:hover {
+      border-color: #1e3a8a;
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(30, 58, 138, 0.1);
+    }
+    
+    .benefit-card h4 {
+      color: #1e3a8a;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+    }
+    
+    .benefit-card p {
+      color: #475569;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+    
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .process-step {
+      position: relative;
+      padding-left: 3rem;
+    }
+    
+    .process-step .step-number {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 2.5rem;
+      height: 2.5rem;
+      background: #1e3a8a;
+      color: #ffffff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+    
+    .process-step h4 {
+      color: #1e3a8a;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+    
+    .process-step p {
+      color: #475569;
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin-bottom: 0;
+    }
+    
+    .highlight-box {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      color: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      margin: 2rem 0;
+    }
+    
+    .highlight-box h4 {
+      color: #ffffff;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-top: 0;
+      margin-bottom: 1rem;
+    }
+    
+    .highlight-box p {
+      color: rgba(255, 255, 255, 0.9);
+      line-height: 1.8;
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="index.html" class="nav-logo">
+      <img src="image/logo.png" alt="INOVASS Logo" class="nav-logo-img" />
+    </a>
+    <div class="nav-menu">
+      <a href="index.html" class="nav-link">Beranda</a>
+      <a href="layanan-iso.html" class="nav-link active">Layanan</a>
+      <a href="produk.html" class="nav-link">Produk</a>
+      <a href="tentang.html" class="nav-link">Tentang Kami</a>
+    </div>
+    <div class="nav-right">
+      <a href="kontak.html" class="nav-cta">Hubungi Kami</a>
+      <button class="nav-hamburger" aria-label="Menu" id="hamburgerBtn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mobile-link">Beranda</a>
+    <a href="layanan-iso.html" class="mobile-link active">Layanan</a>
+    <a href="produk.html" class="mobile-link">Produk</a>
+    <a href="tentang.html" class="mobile-link">Tentang Kami</a>
+    <a href="kontak.html" class="mobile-cta">Hubungi Kami</a>
+  </div>
+
+  <!-- BREADCRUMB & TITLE -->
+  <section class="detail-header-section">
+    <div class="detail-header-container">
+      <nav class="detail-breadcrumb-nav" style="font-size: 0.82rem !important;">
+        <a href="index.html" class="breadcrumb-link" style="color: rgba(255, 255, 255, 0.5) !important;">Beranda</a>
+        <span class="breadcrumb-sep" style="color: rgba(255, 255, 255, 0.5) !important;">›</span>
+        <a href="layanan-iso.html" class="breadcrumb-link" style="color: rgba(255, 255, 255, 0.5) !important;">Layanan</a>
+        <span class="breadcrumb-sep" style="color: rgba(255, 255, 255, 0.5) !important;">›</span>
+        <a href="layanan-detail-jasa-sertifikasi-iso.html" class="breadcrumb-link" style="color: rgba(255, 255, 255, 0.5) !important;">Jasa Konsultasi Sertifikasi ISO</a>
+        <span class="breadcrumb-sep" style="color: rgba(255, 255, 255, 0.5) !important;">›</span>
+        <span class="breadcrumb-current" style="color: #00e0a0 !important;">ISO/SNI 9001</span>
+      </nav>
+      <h1 class="detail-page-title" style="color: #ffffff !important; font-size: clamp(1.2rem, 2.5vw, 1.8rem) !important; font-weight: 700 !important;">Jasa Konsultasi Sertifikasi ISO/SNI 9001 – Sistem Manajemen Mutu</h1>
+    </div>
+  </section>
+
+  <!-- SERVICE DETAIL CONTENT -->
+  <section class="service-detail-section">
+    <div class="service-detail-container">
+      
+      <!-- Overview Section -->
+      <div class="detail-content-intro">
+        <div class="intro-layout">
+          <div class="intro-title-section">
+            <h2 class="intro-main-title">ISO/SNI 9001<br><em>Sistem Manajemen Mutu</em></h2>
+          </div>
+          <div class="intro-text-section">
+            <p>ISO 9001 adalah standar internasional untuk sistem manajemen mutu yang membantu organisasi memastikan bahwa produk dan layanan mereka secara konsisten memenuhi persyaratan pelanggan dan regulasi yang berlaku. Standar ini menekankan pendekatan proses, perbaikan berkelanjutan, dan fokus pada kepuasan pelanggan.</p>
+            <p>PT INOVASS menyediakan layanan konsultasi komprehensif untuk membantu organisasi Anda dalam memperoleh sertifikasi ISO/SNI 9001, mulai dari gap analysis, penyusunan dokumentasi, implementasi sistem, hingga persiapan audit eksternal.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="content-section">
+        <h3>Apa itu ISO 9001?</h3>
+        <p>ISO 9001:2015 adalah standar sistem manajemen mutu yang paling banyak digunakan di dunia. Standar ini memberikan kerangka kerja dan seperangkat prinsip yang memastikan pendekatan umum terhadap manajemen mutu, yang dapat digunakan oleh organisasi dari berbagai ukuran dan sektor industri.</p>
+        
+        <p>Standar ini didasarkan pada beberapa prinsip manajemen mutu, termasuk fokus yang kuat pada kepuasan pelanggan, motivasi dan implikasi dari manajemen puncak, pendekatan proses, dan perbaikan berkelanjutan.</p>
+
+        <h4>Prinsip-Prinsip Manajemen Mutu ISO 9001</h4>
+        <ul>
+          <li><strong>Fokus Pelanggan:</strong> Memahami kebutuhan pelanggan saat ini dan masa depan</li>
+          <li><strong>Kepemimpinan:</strong> Pemimpin menciptakan tujuan dan arah organisasi yang jelas</li>
+          <li><strong>Keterlibatan Personel:</strong> Kompetensi, pemberdayaan, dan keterlibatan karyawan</li>
+          <li><strong>Pendekatan Proses:</strong> Hasil yang konsisten dan dapat diprediksi melalui sistem proses</li>
+          <li><strong>Perbaikan:</strong> Organisasi yang sukses selalu fokus pada perbaikan berkelanjutan</li>
+          <li><strong>Pengambilan Keputusan Berbasis Bukti:</strong> Keputusan berdasarkan analisis dan evaluasi data</li>
+          <li><strong>Manajemen Hubungan:</strong> Mengelola hubungan dengan pihak berkepentingan untuk kesuksesan berkelanjutan</li>
+        </ul>
+      </div>
+
+      <div class="content-section">
+        <h3>Manfaat Sertifikasi ISO 9001</h3>
+        <div class="benefits-grid">
+          <div class="benefit-card">
+            <h4>Meningkatkan Kepercayaan Pelanggan</h4>
+            <p>Menunjukkan komitmen terhadap kualitas dan kepuasan pelanggan, meningkatkan reputasi dan kredibilitas organisasi.</p>
+          </div>
+          <div class="benefit-card">
+            <h4>Efisiensi Operasional</h4>
+            <p>Mengidentifikasi dan menghilangkan pemborosan, mengurangi biaya operasional, dan meningkatkan produktivitas.</p>
+          </div>
+          <div class="benefit-card">
+            <h4>Konsistensi Produk/Layanan</h4>
+            <p>Memastikan produk dan layanan memenuhi standar kualitas yang konsisten melalui proses yang terdokumentasi.</p>
+          </div>
+          <div class="benefit-card">
+            <h4>Keunggulan Kompetitif</h4>
+            <p>Membedakan organisasi dari kompetitor dan membuka peluang pasar baru, terutama tender pemerintah dan korporat.</p>
+          </div>
+          <div class="benefit-card">
+            <h4>Perbaikan Berkelanjutan</h4>
+            <p>Mendorong budaya perbaikan berkelanjutan dan inovasi dalam seluruh aspek organisasi.</p>
+          </div>
+          <div class="benefit-card">
+            <h4>Keterlibatan Karyawan</h4>
+            <p>Meningkatkan keterlibatan, kompetensi, dan kesadaran karyawan terhadap pentingnya kualitas.</p>
+          </div>
+          <div class="benefit-card">
+            <h4>Manajemen Risiko</h4>
+            <p>Mengidentifikasi dan mengelola risiko yang dapat mempengaruhi kualitas produk atau layanan.</p>
+          </div>
+          <div class="benefit-card">
+            <h4>Kepatuhan Regulasi</h4>
+            <p>Memastikan kepatuhan terhadap persyaratan hukum dan regulasi yang berlaku di industri Anda.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="highlight-box">
+        <h4>Mengapa Memilih PT INOVASS?</h4>
+        <p>Tim konsultan kami memiliki pengalaman luas dalam membantu berbagai organisasi dari berbagai sektor industri memperoleh sertifikasi ISO 9001. Kami tidak hanya membantu Anda mendapatkan sertifikat, tetapi juga memastikan sistem manajemen mutu yang diimplementasikan memberikan nilai tambah nyata bagi organisasi Anda.</p>
+      </div>
+
+      <div class="content-section">
+        <h3>Proses Konsultasi Kami</h3>
+        <div class="process-steps">
+          <div class="process-step">
+            <div class="step-number">1</div>
+            <h4>Gap Analysis</h4>
+            <p>Evaluasi kondisi saat ini dan identifikasi kesenjangan antara praktik eksisting dengan persyaratan ISO 9001.</p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">2</div>
+            <h4>Perencanaan Implementasi</h4>
+            <p>Penyusunan rencana implementasi yang detail, termasuk timeline, sumber daya, dan tanggung jawab.</p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">3</div>
+            <h4>Penyusunan Dokumentasi</h4>
+            <p>Membantu menyusun dokumen sistem manajemen mutu termasuk kebijakan, prosedur, dan formulir yang diperlukan.</p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">4</div>
+            <h4>Pelatihan & Awareness</h4>
+            <p>Memberikan pelatihan kepada seluruh personel tentang ISO 9001 dan peran mereka dalam sistem manajemen mutu.</p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">5</div>
+            <h4>Implementasi Sistem</h4>
+            <p>Mendampingi implementasi sistem manajemen mutu dalam operasional sehari-hari organisasi.</p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">6</div>
+            <h4>Internal Audit</h4>
+            <p>Melakukan audit internal untuk memastikan kesiapan organisasi sebelum audit eksternal.</p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">7</div>
+            <h4>Management Review</h4>
+            <p>Memfasilitasi tinjauan manajemen untuk mengevaluasi efektivitas sistem dan identifikasi area perbaikan.</p>
+          </div>
+          <div class="process-step">
+            <div class="step-number">8</div>
+            <h4>Persiapan Audit Sertifikasi</h4>
+            <p>Mempersiapkan organisasi menghadapi audit sertifikasi dari lembaga sertifikasi yang terakreditasi.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="content-section">
+        <h3>Ruang Lingkup Layanan</h3>
+        <p>Layanan konsultasi ISO 9001 kami mencakup:</p>
+        <ul>
+          <li>Gap analysis dan penilaian kesiapan organisasi</li>
+          <li>Penyusunan rencana implementasi sistem manajemen mutu</li>
+          <li>Pengembangan dokumentasi sistem (manual mutu, prosedur, instruksi kerja, formulir)</li>
+          <li>Pelatihan dan sosialisasi ISO 9001 untuk seluruh level karyawan</li>
+          <li>Pendampingan implementasi sistem dalam operasional harian</li>
+          <li>Pelatihan dan pelaksanaan audit internal</li>
+          <li>Fasilitasi management review</li>
+          <li>Pendampingan dalam audit sertifikasi (Stage 1 & Stage 2)</li>
+          <li>Konsultasi tindakan perbaikan hasil audit</li>
+          <li>Pendampingan surveillance audit dan resertifikasi</li>
+        </ul>
+      </div>
+
+      <div class="content-section">
+        <h3>Industri yang Kami Layani</h3>
+        <p>Tim konsultan kami berpengalaman dalam berbagai sektor industri, termasuk:</p>
+        <ul>
+          <li>Manufaktur dan produksi</li>
+          <li>Layanan kesehatan dan rumah sakit</li>
+          <li>Pendidikan dan pelatihan</li>
+          <li>Konstruksi dan real estate</li>
+          <li>Teknologi informasi dan telekomunikasi</li>
+          <li>Jasa konsultan dan professional services</li>
+          <li>Logistik dan transportasi</li>
+          <li>Perdagangan dan distribusi</li>
+          <li>Perhotelan dan pariwisata</li>
+          <li>Pemerintahan dan sektor publik</li>
+        </ul>
+      </div>
+
+      <div class="highlight-box">
+        <h4>Siap Meningkatkan Sistem Manajemen Mutu Organisasi Anda?</h4>
+        <p>Hubungi tim konsultan kami untuk mendapatkan konsultasi gratis dan penawaran terbaik sesuai kebutuhan organisasi Anda. Kami siap membantu Anda mencapai sertifikasi ISO 9001 dan meningkatkan kualitas produk serta layanan Anda.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="page-cta reveal">
+    <h2>Siap memulai<br /><em>proyek Anda?</em></h2>
+    <p>Hubungi kami untuk konsultasi gratis dan penawaran terbaik untuk organisasi Anda.</p>
+    <a href="kontak.html" class="btn-outline">Hubungi Kami Sekarang</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand reveal-left">
+        <a href="index.html" class="footer-logo-link">
+          <img src="image/logo.png" alt="INOVASS Logo" class="nav-logo-img" />
+        </a>
+        <p class="footer-tagline">Inovasi untuk Masa Depan</p>
+        <p class="footer-desc">Perusahaan konsultan ISO dan pengembangan solusi digital yang membantu organisasi meningkatkan mutu, efisiensi, dan daya saing.</p>
+        <div class="footer-socials" style="margin-top:1.5rem;">
+          <a href="#">INSTAGRAM</a>
+          <a href="#">LINKEDIN</a>
+          <a href="#">YOUTUBE</a>
+        </div>
+      </div>
+      <div class="footer-links reveal-right">
+        <div class="footer-col">
+          <h4>Office</h4>
+          <ul>
+            <li>Jl. Danau Melahayu No. 23A</li>
+            <li>Pesona Telaga Cibinong</li>
+            <li>Kel. Harapan Jaya, Kec. Cibinong,</li>
+            <li>Kab. Bogor</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><a href="https://wa.me/6281311173707">+62-813-1117-3707</a></li>
+            <li><a href="mailto:inovass.adm@gmail.com">inovass.adm@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 INOVASS. Hak cipta dilindungi undang-undang.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Kebijakan Privasi</a>
+        <a href="#">Syarat &amp; Ketentuan</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburgerBtn.addEventListener('click', () => {
+      hamburgerBtn.classList.toggle('active');
+      mobileMenu.classList.toggle('open');
+    });
+  </script>
+</body>
+</html>
