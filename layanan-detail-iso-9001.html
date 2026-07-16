@@ -10,22 +10,230 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="pages.css" />
   <style>
-    /* Hero Image Section */
-    .hero-image-section {
-      width: 100%;
+    /* Global Page Improvements */
+    body {
+      background: #f8fafc;
+    }
+    
+    /* Carousel Section */
+    .carousel-section {
       max-width: 1200px;
-      margin: 2rem auto;
+      margin: 4rem auto;
       padding: 0 2rem;
+      position: relative;
     }
     
-    .hero-image-section img {
+    .carousel-title {
+      color: #1e3a8a;
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    
+    .carousel-subtitle {
+      color: #64748b;
+      font-size: 1rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+    }
+    
+    .carousel-container {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      background: #ffffff;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+    
+    .carousel-wrapper {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    
+    .carousel-slide {
+      min-width: 100%;
+      padding: 3rem;
+      box-sizing: border-box;
+    }
+    
+    .carousel-slide-content {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    
+    .carousel-slide-text h3 {
+      color: #1e3a8a;
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .carousel-slide-text p {
+      color: #64748b;
+      line-height: 1.8;
+      margin-bottom: 1rem;
+    }
+    
+    .carousel-slide-text ul {
+      list-style: none;
+      padding: 0;
+      margin: 1.5rem 0;
+    }
+    
+    .carousel-slide-text ul li {
+      color: #475569;
+      padding: 0.75rem 0 0.75rem 2rem;
+      position: relative;
+      line-height: 1.6;
+    }
+    
+    .carousel-slide-text ul li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: #00e0a0;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    .carousel-slide-image {
+      text-align: center;
+    }
+    
+    .carousel-slide-image img {
       width: 100%;
+      max-width: 400px;
       height: auto;
-      border-radius: 16px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
     }
     
-    /* Benefits Grid Section */
+    /* Carousel Controls */
+    .carousel-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    
+    .carousel-btn {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      font-size: 1.5rem;
+      color: #64748b;
+    }
+    
+    .carousel-btn:hover {
+      background: #00e0a0;
+      border-color: #00e0a0;
+      color: #ffffff;
+      transform: scale(1.1);
+    }
+    
+    .carousel-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+    
+    .carousel-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: #cbd5e1;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .carousel-dot.active {
+      background: #00e0a0;
+      width: 40px;
+      border-radius: 6px;
+    }
+    
+    /* Carousel Responsive */
+    @media (max-width: 768px) {
+      .carousel-slide {
+        padding: 2rem 1.5rem;
+      }
+      
+      .carousel-slide-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      
+      .carousel-slide-text h3 {
+        font-size: 1.4rem;
+      }
+      
+      .carousel-slide-image svg {
+        width: 200px;
+        height: 200px;
+      }
+      
+      .carousel-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+      }
+    }
+    
+    /* Modern Stats Section */
+    .stats-section {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      padding: 4rem 2rem;
+      margin: 4rem 0;
+    }
+    
+    .stats-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 3rem;
+    }
+    
+    .stat-item {
+      text-align: center;
+      color: #ffffff;
+    }
+    
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: #00e0a0;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    
+    .stat-label {
+      font-size: 1.1rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+    
+    /* Clean Section Spacing */
+    section {
+      margin: 0;
+    }
+    
+    .service-detail-section {
+      background: #ffffff;
+      padding: 3rem 2rem;
+    }
+    
+    /* Benefits Highlight - Improved */
     .benefits-highlight-section {
       background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
       padding: 4rem 2rem;
@@ -363,7 +571,7 @@
     }
     
     
-    /* Certification Cycle Section */
+    /* Certification Cycle Section - Simple & Colorful */
     .cert-cycle-section {
       max-width: 1200px;
       margin: 4rem auto;
@@ -389,51 +597,98 @@
       margin-right: auto;
     }
     
+    /* Simple Grid Layout */
     .cert-cycle-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(4, 1fr);
       gap: 2rem;
     }
     
+    /* Simple Card Design */
     .cert-cycle-card {
       background: #ffffff;
       border: 2px solid #e2e8f0;
       border-radius: 16px;
-      padding: 2rem;
+      padding: 2rem 1.5rem;
       text-align: center;
       transition: all 0.3s ease;
     }
     
     .cert-cycle-card:hover {
-      border-color: #1e3a8a;
-      box-shadow: 0 8px 20px rgba(30, 58, 138, 0.1);
       transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Colorful Icons */
+    .cert-cycle-card:nth-child(1) .cert-cycle-icon {
+      background: linear-gradient(135deg, #00e0a0 0%, #00b88d 100%);
+      box-shadow: 0 8px 20px rgba(0, 224, 160, 0.3);
+    }
+    
+    .cert-cycle-card:nth-child(2) .cert-cycle-icon {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      box-shadow: 0 8px 20px rgba(59, 130, 246, 0.3);
+    }
+    
+    .cert-cycle-card:nth-child(3) .cert-cycle-icon {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
+    }
+    
+    .cert-cycle-card:nth-child(4) .cert-cycle-icon {
+      background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+      box-shadow: 0 8px 20px rgba(139, 92, 246, 0.3);
     }
     
     .cert-cycle-icon {
-      width: 80px;
-      height: 80px;
-      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
       display: flex;
       align-items: center;
       justify-content: center;
       margin: 0 auto 1.5rem auto;
-      font-size: 2rem;
+      font-size: 2.2rem;
       color: #ffffff;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+    
+    .cert-cycle-card:hover .cert-cycle-icon {
+      transform: scale(1.1);
     }
     
     .cert-cycle-card h3 {
       color: #1e3a8a;
       font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
     }
     
     .cert-cycle-card p {
       color: #64748b;
       font-size: 0.95rem;
+      line-height: 1.7;
       margin: 0;
+    }
+    
+    /* Responsive */
+    @media (max-width: 992px) {
+      .cert-cycle-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .cert-cycle-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .cert-cycle-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+      }
     }
     
     /* FAQ Section */
@@ -835,6 +1090,10 @@
     </div>
   </section>
 
+
+
+
+
   <!-- Icon Benefits Section -->
   <section class="icon-benefits-section">
     <h2 class="icon-benefits-title">Apa Manfaat Sertifikasi ISO 9001:2015?</h2>
@@ -1084,78 +1343,12 @@
       <div class="cert-cycle-card">
         <div class="cert-cycle-icon">🔄</div>
         <h3>Tahun Keempat</h3>
-        <p>Recertification - Audit resertifikasi untuk memperpanjang sertifikat selama 3 tahun berikutnya</p>
+        <p>Recertification - Audit resertifikasi untuk memperpanjang sertifikat 3 tahun berikutnya</p>
       </div>
     </div>
   </section>
 
-  <!-- FAQ Section -->
-  <section class="faq-section">
-    <div class="faq-container">
-      <h2 class="faq-title">FAQ Sertifikasi</h2>
-      <p class="faq-subtitle">Temukan jawaban atas pertanyaan umum mengenai Sertifikasi ISO 9001</p>
 
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>Bagaimana menentukan ruang lingkup implementasi standar ISO 9001?</span>
-          <span class="faq-toggle">+</span>
-        </div>
-        <div class="faq-answer">
-          <p>Dengan cara memahami terlebih dahulu standar ISO yang akan diterapkan dan mengidentifikasi proses bisnis. Setelah itu, barulah menentukan layanan, produk, maupun proses-proses yang terlibat, serta batasan-batasannya yang sesuai dengan tujuan diterapkannya standar ISO.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>Apa benefit mengimplementasikan standar ISO 9001?</span>
-          <span class="faq-toggle">+</span>
-        </div>
-        <div class="faq-answer">
-          <p>Manfaat utama meliputi: peningkatan kepuasan pelanggan, efisiensi operasional yang lebih baik, pengurangan biaya kualitas, peningkatan reputasi organisasi, akses ke pasar global, dan perbaikan berkelanjutan dalam proses bisnis.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>Berapa lama proses pendampingan hingga mendapatkan sertifikat ISO?</span>
-          <span class="faq-toggle">+</span>
-        </div>
-        <div class="faq-answer">
-          <p>Lama proses bervariasi tergantung kesiapan organisasi, kompleksitas proses, dan ukuran organisasi. Secara umum, proses pendampingan membutuhkan waktu 3-6 bulan dari persiapan hingga perolehan sertifikat.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>Berapa lama masa berlaku sertifikat ISO?</span>
-          <span class="faq-toggle">+</span>
-        </div>
-        <div class="faq-answer">
-          <p>Sertifikat ISO berlaku selama 3 tahun. Selama periode tersebut, akan ada audit surveillance (pengawasan) tahunan pada tahun ke-1 dan ke-2. Setelah 3 tahun, diperlukan audit resertifikasi untuk memperpanjang sertifikat.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>Apakah pendampingan dengan PT INOVASS menjamin mendapatkan sertifikat ISO?</span>
-          <span class="faq-toggle">+</span>
-        </div>
-        <div class="faq-answer">
-          <p>Kami berkomitmen memberikan pendampingan terbaik dan mempersiapkan organisasi Anda secara maksimal. Namun, keputusan akhir pemberian sertifikat ada pada lembaga sertifikasi independen yang melakukan audit. Dengan pengalaman kami, tingkat keberhasilan klien sangat tinggi.</p>
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <div class="faq-question">
-          <span>Apa saja yang didapatkan jika pendampingan sertifikasi ISO dengan PT INOVASS?</span>
-          <span class="faq-toggle">+</span>
-        </div>
-        <div class="faq-answer">
-          <p>Anda akan mendapatkan: gap analysis, penyusunan dokumentasi lengkap, pelatihan tim, pendampingan implementasi, audit internal, management review, pendampingan audit sertifikasi, dan konsultasi berkelanjutan hingga sertifikat diperoleh.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- Final CTA Section -->
   <section class="page-cta reveal">
@@ -1231,6 +1424,57 @@
           item.classList.add('active');
         }
       });
+    });
+
+    // Carousel Functionality
+    const carouselWrapper = document.getElementById('carouselWrapper');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const dots = document.querySelectorAll('.carousel-dot');
+    let currentSlide = 0;
+    const totalSlides = 3;
+
+    function goToSlide(slideIndex) {
+      currentSlide = slideIndex;
+      carouselWrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+      
+      // Update dots
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % totalSlides;
+      goToSlide(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+      goToSlide(currentSlide);
+    }
+
+    // Event listeners
+    nextBtn.addEventListener('click', nextSlide);
+    prevBtn.addEventListener('click', prevSlide);
+    
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        const slideIndex = parseInt(dot.getAttribute('data-slide'));
+        goToSlide(slideIndex);
+      });
+    });
+
+    // Auto-play carousel
+    let autoplayInterval = setInterval(nextSlide, 5000);
+
+    // Pause autoplay on hover
+    carouselWrapper.addEventListener('mouseenter', () => {
+      clearInterval(autoplayInterval);
+    });
+
+    carouselWrapper.addEventListener('mouseleave', () => {
+      autoplayInterval = setInterval(nextSlide, 5000);
     });
   </script>
 </body>
