@@ -10,6 +10,591 @@
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="pages.css" />
   <style>
+    /* Hero Image Section */
+    .hero-image-section {
+      width: 100%;
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+    }
+    
+    .hero-image-section img {
+      width: 100%;
+      height: auto;
+      border-radius: 16px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Benefits Grid Section */
+    .benefits-highlight-section {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      padding: 4rem 2rem;
+      margin: 3rem 0;
+    }
+    
+    .benefits-highlight-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    
+    .benefits-highlight-title {
+      color: #ffffff;
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .benefits-highlight-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+    
+    .benefit-highlight-card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .benefit-highlight-card:hover {
+      background: rgba(255, 255, 255, 0.15);
+      transform: translateY(-5px);
+    }
+    
+    .benefit-highlight-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+    
+    .benefit-highlight-card h3 {
+      color: #ffffff;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .benefit-highlight-card p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      margin: 0;
+    }
+    
+    /* Icon Benefits Section with Images */
+    .icon-benefits-section {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+    
+    .icon-benefits-title {
+      color: #1e3a8a;
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .icon-benefit-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+      margin-bottom: 3rem;
+      padding: 2rem;
+      background: #f8fafc;
+      border-radius: 16px;
+      transition: all 0.3s ease;
+    }
+    
+    .icon-benefit-item:hover {
+      box-shadow: 0 8px 20px rgba(30, 58, 138, 0.1);
+      transform: translateX(10px);
+    }
+    
+    .icon-benefit-image {
+      flex-shrink: 0;
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.5rem;
+    }
+    
+    .icon-benefit-content h3 {
+      color: #1e3a8a;
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin: 0 0 0.75rem 0;
+    }
+    
+    .icon-benefit-content p {
+      color: #475569;
+      line-height: 1.7;
+      margin: 0;
+    }
+    
+    /* Process Steps Section - Flowchart Style */
+    .process-section {
+      background: #ffffff;
+      padding: 4rem 2rem;
+      margin: 3rem 0;
+    }
+    
+    .process-container {
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .process-title {
+      color: #1e3a8a;
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    
+    .process-subtitle {
+      color: #64748b;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 4rem;
+      line-height: 1.7;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 4rem;
+    }
+    
+    /* Flowchart Container */
+    .process-flowchart {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    /* Flowchart Item - Card Style */
+    .flowchart-item {
+      position: relative;
+      margin-bottom: 0;
+      background: #ffffff;
+      border: 2px solid #00e0a0;
+      border-radius: 50px;
+      padding: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      box-shadow: 0 5px 20px rgba(0, 224, 160, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .flowchart-item:hover {
+      box-shadow: 0 10px 30px rgba(0, 224, 160, 0.2);
+      transform: translateY(-3px);
+    }
+    
+    .flowchart-item.last-item {
+      margin-bottom: 0;
+    }
+    
+    /* Icon Inside Card */
+    .flowchart-icon-wrapper {
+      flex-shrink: 0;
+    }
+    
+    .flowchart-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00e0a0 0%, #00b88d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(0, 224, 160, 0.3);
+      color: #ffffff;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .flowchart-icon::before {
+      content: '';
+      position: absolute;
+      inset: -5px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00e0a0 0%, #00b88d 100%);
+      opacity: 0.2;
+      z-index: -1;
+    }
+    
+    .flowchart-item:hover .flowchart-icon {
+      transform: scale(1.05) rotate(5deg);
+    }
+    
+    /* Flowchart Content - Inside Card */
+    .flowchart-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    
+    .flowchart-label {
+      display: inline-block;
+      background: #00e0a0;
+      color: #ffffff;
+      padding: 0.35rem 1rem;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      margin-bottom: 0.75rem;
+      width: fit-content;
+    }
+    
+    .flowchart-content h3 {
+      color: #1e3a8a;
+      font-size: 1.4rem;
+      font-weight: 700;
+      margin: 0 0 0.75rem 0;
+    }
+    
+    .flowchart-content p {
+      color: #64748b;
+      line-height: 1.8;
+      margin: 0;
+      font-size: 0.95rem;
+    }
+    
+    /* Arrow Between Cards - Centered */
+    .flowchart-arrow {
+      display: flex;
+      justify-content: center;
+      margin: 1.5rem 0;
+    }
+    
+    .flowchart-arrow svg {
+      filter: drop-shadow(0 2px 4px rgba(0, 224, 160, 0.2));
+    }
+    
+    .flowchart-item.last-item + .flowchart-arrow {
+      display: none;
+    }
+    
+    /* Responsive Flowchart */
+    @media (max-width: 768px) {
+      .flowchart-item {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        border-radius: 30px;
+      }
+      
+      .flowchart-icon {
+        width: 80px;
+        height: 80px;
+      }
+      
+      .flowchart-icon svg {
+        width: 32px;
+        height: 32px;
+      }
+      
+      .flowchart-content {
+        align-items: center;
+      }
+      
+      .flowchart-content h3 {
+        font-size: 1.2rem;
+      }
+      
+      .flowchart-content p {
+        font-size: 0.9rem;
+      }
+      
+      .flowchart-label {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      
+      .flowchart-arrow {
+        margin: 1rem 0;
+      }
+    }
+    
+    @media (max-width: 640px) {
+      .process-title {
+        font-size: 1.5rem;
+      }
+      
+      .process-subtitle {
+        font-size: 1rem;
+      }
+      
+      .flowchart-item {
+        padding: 1.25rem;
+      }
+      
+      .flowchart-icon {
+        width: 70px;
+        height: 70px;
+      }
+      
+      .flowchart-icon svg {
+        width: 28px;
+        height: 28px;
+      }
+      
+      .flowchart-label {
+        font-size: 0.65rem;
+        padding: 0.3rem 0.8rem;
+      }
+      
+      .flowchart-arrow svg {
+        width: 30px;
+        height: 45px;
+      }
+    }
+    
+    
+    /* Certification Cycle Section */
+    .cert-cycle-section {
+      max-width: 1200px;
+      margin: 4rem auto;
+      padding: 0 2rem;
+    }
+    
+    .cert-cycle-title {
+      color: #1e3a8a;
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    
+    .cert-cycle-desc {
+      color: #64748b;
+      font-size: 1rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      line-height: 1.7;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .cert-cycle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .cert-cycle-card {
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+    
+    .cert-cycle-card:hover {
+      border-color: #1e3a8a;
+      box-shadow: 0 8px 20px rgba(30, 58, 138, 0.1);
+      transform: translateY(-5px);
+    }
+    
+    .cert-cycle-icon {
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem auto;
+      font-size: 2rem;
+      color: #ffffff;
+    }
+    
+    .cert-cycle-card h3 {
+      color: #1e3a8a;
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .cert-cycle-card p {
+      color: #64748b;
+      font-size: 0.95rem;
+      margin: 0;
+    }
+    
+    /* FAQ Section */
+    .faq-section {
+      background: #f8fafc;
+      padding: 4rem 2rem;
+      margin: 3rem 0;
+    }
+    
+    .faq-container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    
+    .faq-title {
+      color: #1e3a8a;
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    
+    .faq-subtitle {
+      color: #64748b;
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+    
+    .faq-item {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 2px solid transparent;
+    }
+    
+    .faq-item:hover {
+      border-color: #1e3a8a;
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.1);
+    }
+    
+    .faq-question {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #1e3a8a;
+      font-weight: 600;
+      font-size: 1.05rem;
+    }
+    
+    .faq-toggle {
+      font-size: 1.5rem;
+      color: #1e3a8a;
+      transition: transform 0.3s ease;
+    }
+    
+    .faq-item.active .faq-toggle {
+      transform: rotate(45deg);
+    }
+    
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      color: #475569;
+      line-height: 1.7;
+      padding-top: 0;
+    }
+    
+    .faq-item.active .faq-answer {
+      max-height: 500px;
+      padding-top: 1rem;
+    }
+    
+    /* CTA Box Section */
+    .cta-box-section {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 100%);
+      padding: 3rem 2rem;
+      margin: 3rem 0;
+      border-radius: 16px;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .cta-box-content {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    
+    .cta-box-content h2 {
+      color: #ffffff;
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    .cta-box-content p {
+      color: rgba(255, 255, 255, 0.9);
+      font-size: 1.1rem;
+      line-height: 1.7;
+      margin-bottom: 2rem;
+    }
+    
+    .cta-box-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #00e0a0;
+      color: #1e3a8a;
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1.05rem;
+    }
+    
+    .cta-box-button:hover {
+      background: #00ffc3;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 224, 160, 0.3);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .icon-benefit-item {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .icon-benefit-image {
+        margin: 0 auto;
+      }
+      
+      .process-step-item {
+        flex-direction: column;
+        text-align: center;
+      }
+      
+      .process-step-number {
+        margin: 0 auto;
+      }
+      
+      .benefits-highlight-title,
+      .icon-benefits-title,
+      .process-title,
+      .cert-cycle-title,
+      .faq-title {
+        font-size: 1.5rem;
+      }
+      
+      .cta-box-content h2 {
+        font-size: 1.5rem;
+      }
+    }
+    
+    /* Original Styles */
     /* Content Sections Styling */
     .content-section {
       margin-bottom: 3rem;
@@ -215,166 +800,364 @@
       <div class="detail-content-intro">
         <div class="intro-layout">
           <div class="intro-title-section">
-            <h2 class="intro-main-title">ISO/SNI 9001<br><em>Sistem Manajemen Mutu</em></h2>
+            <h2 class="intro-main-title">ISO/SNI 9001:2015<br><em>Sistem Manajemen Mutu</em></h2>
           </div>
           <div class="intro-text-section">
-            <p>ISO 9001 adalah standar internasional untuk sistem manajemen mutu yang membantu organisasi memastikan bahwa produk dan layanan mereka secara konsisten memenuhi persyaratan pelanggan dan regulasi yang berlaku. Standar ini menekankan pendekatan proses, perbaikan berkelanjutan, dan fokus pada kepuasan pelanggan.</p>
-            <p>PT INOVASS menyediakan layanan konsultasi komprehensif untuk membantu organisasi Anda dalam memperoleh sertifikasi ISO/SNI 9001, mulai dari gap analysis, penyusunan dokumentasi, implementasi sistem, hingga persiapan audit eksternal.</p>
+            <p style="font-size: 1.1rem; line-height: 1.8;">ISO 9001 adalah standar untuk manajemen mutu dan kualitas yang telah diakui secara global. Standar ini membantu organisasi dari berbagai ukuran dan sektor untuk meningkatkan kinerja, kepuasan pelanggan, dan menunjukkan komitmen organisasi terhadap kualitas produk atau layanan.</p>
           </div>
         </div>
-      </div>
-
-      <!-- Main Content -->
-      <div class="content-section">
-        <h3>Apa itu ISO 9001?</h3>
-        <p>ISO 9001:2015 adalah standar sistem manajemen mutu yang paling banyak digunakan di dunia. Standar ini memberikan kerangka kerja dan seperangkat prinsip yang memastikan pendekatan umum terhadap manajemen mutu, yang dapat digunakan oleh organisasi dari berbagai ukuran dan sektor industri.</p>
-        
-        <p>Standar ini didasarkan pada beberapa prinsip manajemen mutu, termasuk fokus yang kuat pada kepuasan pelanggan, motivasi dan implikasi dari manajemen puncak, pendekatan proses, dan perbaikan berkelanjutan.</p>
-
-        <h4>Prinsip-Prinsip Manajemen Mutu ISO 9001</h4>
-        <ul>
-          <li><strong>Fokus Pelanggan:</strong> Memahami kebutuhan pelanggan saat ini dan masa depan</li>
-          <li><strong>Kepemimpinan:</strong> Pemimpin menciptakan tujuan dan arah organisasi yang jelas</li>
-          <li><strong>Keterlibatan Personel:</strong> Kompetensi, pemberdayaan, dan keterlibatan karyawan</li>
-          <li><strong>Pendekatan Proses:</strong> Hasil yang konsisten dan dapat diprediksi melalui sistem proses</li>
-          <li><strong>Perbaikan:</strong> Organisasi yang sukses selalu fokus pada perbaikan berkelanjutan</li>
-          <li><strong>Pengambilan Keputusan Berbasis Bukti:</strong> Keputusan berdasarkan analisis dan evaluasi data</li>
-          <li><strong>Manajemen Hubungan:</strong> Mengelola hubungan dengan pihak berkepentingan untuk kesuksesan berkelanjutan</li>
-        </ul>
-      </div>
-
-      <div class="content-section">
-        <h3>Manfaat Sertifikasi ISO 9001</h3>
-        <div class="benefits-grid">
-          <div class="benefit-card">
-            <h4>Meningkatkan Kepercayaan Pelanggan</h4>
-            <p>Menunjukkan komitmen terhadap kualitas dan kepuasan pelanggan, meningkatkan reputasi dan kredibilitas organisasi.</p>
-          </div>
-          <div class="benefit-card">
-            <h4>Efisiensi Operasional</h4>
-            <p>Mengidentifikasi dan menghilangkan pemborosan, mengurangi biaya operasional, dan meningkatkan produktivitas.</p>
-          </div>
-          <div class="benefit-card">
-            <h4>Konsistensi Produk/Layanan</h4>
-            <p>Memastikan produk dan layanan memenuhi standar kualitas yang konsisten melalui proses yang terdokumentasi.</p>
-          </div>
-          <div class="benefit-card">
-            <h4>Keunggulan Kompetitif</h4>
-            <p>Membedakan organisasi dari kompetitor dan membuka peluang pasar baru, terutama tender pemerintah dan korporat.</p>
-          </div>
-          <div class="benefit-card">
-            <h4>Perbaikan Berkelanjutan</h4>
-            <p>Mendorong budaya perbaikan berkelanjutan dan inovasi dalam seluruh aspek organisasi.</p>
-          </div>
-          <div class="benefit-card">
-            <h4>Keterlibatan Karyawan</h4>
-            <p>Meningkatkan keterlibatan, kompetensi, dan kesadaran karyawan terhadap pentingnya kualitas.</p>
-          </div>
-          <div class="benefit-card">
-            <h4>Manajemen Risiko</h4>
-            <p>Mengidentifikasi dan mengelola risiko yang dapat mempengaruhi kualitas produk atau layanan.</p>
-          </div>
-          <div class="benefit-card">
-            <h4>Kepatuhan Regulasi</h4>
-            <p>Memastikan kepatuhan terhadap persyaratan hukum dan regulasi yang berlaku di industri Anda.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="highlight-box">
-        <h4>Mengapa Memilih PT INOVASS?</h4>
-        <p>Tim konsultan kami memiliki pengalaman luas dalam membantu berbagai organisasi dari berbagai sektor industri memperoleh sertifikasi ISO 9001. Kami tidak hanya membantu Anda mendapatkan sertifikat, tetapi juga memastikan sistem manajemen mutu yang diimplementasikan memberikan nilai tambah nyata bagi organisasi Anda.</p>
-      </div>
-
-      <div class="content-section">
-        <h3>Proses Konsultasi Kami</h3>
-        <div class="process-steps">
-          <div class="process-step">
-            <div class="step-number">1</div>
-            <h4>Gap Analysis</h4>
-            <p>Evaluasi kondisi saat ini dan identifikasi kesenjangan antara praktik eksisting dengan persyaratan ISO 9001.</p>
-          </div>
-          <div class="process-step">
-            <div class="step-number">2</div>
-            <h4>Perencanaan Implementasi</h4>
-            <p>Penyusunan rencana implementasi yang detail, termasuk timeline, sumber daya, dan tanggung jawab.</p>
-          </div>
-          <div class="process-step">
-            <div class="step-number">3</div>
-            <h4>Penyusunan Dokumentasi</h4>
-            <p>Membantu menyusun dokumen sistem manajemen mutu termasuk kebijakan, prosedur, dan formulir yang diperlukan.</p>
-          </div>
-          <div class="process-step">
-            <div class="step-number">4</div>
-            <h4>Pelatihan & Awareness</h4>
-            <p>Memberikan pelatihan kepada seluruh personel tentang ISO 9001 dan peran mereka dalam sistem manajemen mutu.</p>
-          </div>
-          <div class="process-step">
-            <div class="step-number">5</div>
-            <h4>Implementasi Sistem</h4>
-            <p>Mendampingi implementasi sistem manajemen mutu dalam operasional sehari-hari organisasi.</p>
-          </div>
-          <div class="process-step">
-            <div class="step-number">6</div>
-            <h4>Internal Audit</h4>
-            <p>Melakukan audit internal untuk memastikan kesiapan organisasi sebelum audit eksternal.</p>
-          </div>
-          <div class="process-step">
-            <div class="step-number">7</div>
-            <h4>Management Review</h4>
-            <p>Memfasilitasi tinjauan manajemen untuk mengevaluasi efektivitas sistem dan identifikasi area perbaikan.</p>
-          </div>
-          <div class="process-step">
-            <div class="step-number">8</div>
-            <h4>Persiapan Audit Sertifikasi</h4>
-            <p>Mempersiapkan organisasi menghadapi audit sertifikasi dari lembaga sertifikasi yang terakreditasi.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="content-section">
-        <h3>Ruang Lingkup Layanan</h3>
-        <p>Layanan konsultasi ISO 9001 kami mencakup:</p>
-        <ul>
-          <li>Gap analysis dan penilaian kesiapan organisasi</li>
-          <li>Penyusunan rencana implementasi sistem manajemen mutu</li>
-          <li>Pengembangan dokumentasi sistem (manual mutu, prosedur, instruksi kerja, formulir)</li>
-          <li>Pelatihan dan sosialisasi ISO 9001 untuk seluruh level karyawan</li>
-          <li>Pendampingan implementasi sistem dalam operasional harian</li>
-          <li>Pelatihan dan pelaksanaan audit internal</li>
-          <li>Fasilitasi management review</li>
-          <li>Pendampingan dalam audit sertifikasi (Stage 1 & Stage 2)</li>
-          <li>Konsultasi tindakan perbaikan hasil audit</li>
-          <li>Pendampingan surveillance audit dan resertifikasi</li>
-        </ul>
-      </div>
-
-      <div class="content-section">
-        <h3>Industri yang Kami Layani</h3>
-        <p>Tim konsultan kami berpengalaman dalam berbagai sektor industri, termasuk:</p>
-        <ul>
-          <li>Manufaktur dan produksi</li>
-          <li>Layanan kesehatan dan rumah sakit</li>
-          <li>Pendidikan dan pelatihan</li>
-          <li>Konstruksi dan real estate</li>
-          <li>Teknologi informasi dan telekomunikasi</li>
-          <li>Jasa konsultan dan professional services</li>
-          <li>Logistik dan transportasi</li>
-          <li>Perdagangan dan distribusi</li>
-          <li>Perhotelan dan pariwisata</li>
-          <li>Pemerintahan dan sektor publik</li>
-        </ul>
-      </div>
-
-      <div class="highlight-box">
-        <h4>Siap Meningkatkan Sistem Manajemen Mutu Organisasi Anda?</h4>
-        <p>Hubungi tim konsultan kami untuk mendapatkan konsultasi gratis dan penawaran terbaik sesuai kebutuhan organisasi Anda. Kami siap membantu Anda mencapai sertifikasi ISO 9001 dan meningkatkan kualitas produk serta layanan Anda.</p>
       </div>
 
     </div>
   </section>
 
-  <!-- CTA SECTION -->
+  <!-- Benefits Highlight Section -->
+  <section class="benefits-highlight-section">
+    <div class="benefits-highlight-container">
+      <h2 class="benefits-highlight-title">Dengan ISO 9001:2015 Organisasi Anda Dapat</h2>
+      <div class="benefits-highlight-grid">
+        <div class="benefit-highlight-card">
+          <div class="benefit-highlight-icon">✓</div>
+          <h3>Konsisten Menyediakan Produk dan Jasa</h3>
+          <p>Memastikan kualitas produk dan layanan yang konsisten sesuai standar</p>
+        </div>
+        <div class="benefit-highlight-card">
+          <div class="benefit-highlight-icon">😊</div>
+          <h3>Peningkatan Kepuasan Pelanggan</h3>
+          <p>Meningkatkan kepercayaan dan kepuasan pelanggan terhadap organisasi</p>
+        </div>
+        <div class="benefit-highlight-card">
+          <div class="benefit-highlight-icon">⚡</div>
+          <h3>Optimalisasi Efisiensi Operasional</h3>
+          <p>Mengurangi pemborosan dan meningkatkan produktivitas organisasi</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Icon Benefits Section -->
+  <section class="icon-benefits-section">
+    <h2 class="icon-benefits-title">Apa Manfaat Sertifikasi ISO 9001:2015?</h2>
+    
+    <div class="icon-benefit-item">
+      <div class="icon-benefit-image">👥</div>
+      <div class="icon-benefit-content">
+        <h3>Meningkatkan Kepuasan Pelanggan</h3>
+        <p>ISO 9001:2015 membantu organisasi menyediakan produk dan layanan yang konsisten sesuai dengan kebutuhan pelanggan serta peraturan yang berlaku, sehingga meningkatkan kepuasan pelanggan.</p>
+      </div>
+    </div>
+
+    <div class="icon-benefit-item">
+      <div class="icon-benefit-image">⚙️</div>
+      <div class="icon-benefit-content">
+        <h3>Efisiensi Operasional yang Lebih Baik</h3>
+        <p>Dengan menerapkan sistem manajemen mutu yang sesuai dengan standar ini, perusahaan dapat mengidentifikasi dan mengatasi masalah dengan lebih efektif, mengurangi kesalahan produksi, dan meningkatkan efisiensi operasional.</p>
+      </div>
+    </div>
+
+    <div class="icon-benefit-item">
+      <div class="icon-benefit-image">🏆</div>
+      <div class="icon-benefit-content">
+        <h3>Meningkatkan Reputasi dan Citra Perusahaan</h3>
+        <p>Sertifikasi ISO 9001:2015 menunjukkan komitmen perusahaan terhadap kualitas, yang dapat memperkuat reputasi dan citra perusahaan di mata pelanggan dan mitra bisnis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Box -->
+  <section class="cta-box-section" style="margin-left: 2rem; margin-right: 2rem;">
+    <div class="cta-box-content">
+      <h2>Ahli Kami Selalu Siap Membantu Anda</h2>
+      <p>Hubungi tim konsultan kami untuk mendapatkan konsultasi gratis dan penawaran terbaik sesuai kebutuhan organisasi Anda.</p>
+      <a href="kontak.html" class="cta-box-button">
+        <span>📞</span>
+        <span>Konsultasi Gratis Sekarang</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- Process Section -->
+  <section class="process-section">
+    <div class="process-container">
+      <h2 class="process-title">Proses Sertifikasi</h2>
+      <p class="process-subtitle">Percayakan proses sertifikasi ISO Anda kepada tim ahli kami. Kami siap membantu dari awal hingga selesai, memastikan bisnis Anda mendapatkan sertifikasi dengan cepat dan mudah.</p>
+
+      <div class="process-flowchart">
+        <!-- Step 1 -->
+        <div class="flowchart-item">
+          <div class="flowchart-icon-wrapper">
+            <div class="flowchart-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="flowchart-content">
+            <div class="flowchart-label">TAHAP 1</div>
+            <h3>Persiapan</h3>
+            <p>Tahap awal identifikasi dan perencanaan untuk memulai proses sertifikasi ISO. Mengidentifikasi tujuan sertifikasi, melakukan gap analysis, menentukan ruang lingkup, menyusun jadwal kerja, dan membentuk tim internal yang bertanggung jawab.</p>
+          </div>
+        </div>
+        
+        <div class="flowchart-arrow">
+          <svg width="40" height="60" viewBox="0 0 40 60">
+            <path d="M20 0 L20 40 L10 30 M20 40 L30 30" stroke="#00e0a0" stroke-width="3" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flowchart-item">
+          <div class="flowchart-icon-wrapper">
+            <div class="flowchart-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                <path d="M9 12h6m-6 4h6"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="flowchart-content">
+            <div class="flowchart-label">TAHAP 2</div>
+            <h3>Perencanaan</h3>
+            <p>Penyusunan rencana detail untuk memenuhi persyaratan standar ISO. Meliputi penyusunan pedoman dan prosedur kerja, identifikasi serta evaluasi risiko operasional, menentukan sasaran sesuai standar, dan menyusun kebijakan sistem manajemen.</p>
+          </div>
+        </div>
+        
+        <div class="flowchart-arrow">
+          <svg width="40" height="60" viewBox="0 0 40 60">
+            <path d="M20 0 L20 40 L10 30 M20 40 L30 30" stroke="#00e0a0" stroke-width="3" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flowchart-item">
+          <div class="flowchart-icon-wrapper">
+            <div class="flowchart-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 14l9-5-9-5-9 5 9 5z"></path>
+                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path>
+                <path d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="flowchart-content">
+            <div class="flowchart-label">TAHAP 3</div>
+            <h3>Pelatihan</h3>
+            <p>Kami membantu tim Anda memahami persyaratan standar ISO melalui pelatihan yang dirancang khusus untuk kebutuhan organisasi. Meliputi awareness training untuk seluruh karyawan, audit internal training untuk tim audit, dan pelatihan implementasi sistem manajemen.</p>
+          </div>
+        </div>
+        
+        <div class="flowchart-arrow">
+          <svg width="40" height="60" viewBox="0 0 40 60">
+            <path d="M20 0 L20 40 L10 30 M20 40 L30 30" stroke="#00e0a0" stroke-width="3" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="flowchart-item">
+          <div class="flowchart-icon-wrapper">
+            <div class="flowchart-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="flowchart-content">
+            <div class="flowchart-label">TAHAP 4</div>
+            <h3>Implementasi</h3>
+            <p>Tahap pelaksanaan sistem manajemen sesuai dengan persyaratan standar yang telah ditetapkan. Tim kami akan mendampingi implementasi sistem dalam operasional harian organisasi Anda untuk memastikan penerapan yang efektif dan sesuai standar.</p>
+          </div>
+        </div>
+        
+        <div class="flowchart-arrow">
+          <svg width="40" height="60" viewBox="0 0 40 60">
+            <path d="M20 0 L20 40 L10 30 M20 40 L30 30" stroke="#00e0a0" stroke-width="3" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Step 5 -->
+        <div class="flowchart-item">
+          <div class="flowchart-icon-wrapper">
+            <div class="flowchart-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="flowchart-content">
+            <div class="flowchart-label">TAHAP 5</div>
+            <h3>Audit Internal</h3>
+            <p>Proses audit dilakukan oleh tim internal organisasi sebagai pemenuhan persyaratan dan persiapan audit sertifikasi atau surveillance. Kami membantu melaksanakan dan memfasilitasi audit internal untuk memastikan kesiapan organisasi.</p>
+          </div>
+        </div>
+        
+        <div class="flowchart-arrow">
+          <svg width="40" height="60" viewBox="0 0 40 60">
+            <path d="M20 0 L20 40 L10 30 M20 40 L30 30" stroke="#00e0a0" stroke-width="3" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Step 6 -->
+        <div class="flowchart-item">
+          <div class="flowchart-icon-wrapper">
+            <div class="flowchart-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="flowchart-content">
+            <div class="flowchart-label">TAHAP 6</div>
+            <h3>Audit Sertifikasi</h3>
+            <p>Proses audit dilakukan oleh auditor independen dari lembaga sertifikasi resmi. Tahap 1 meninjau dokumentasi sistem manajemen, dan Tahap 2 melakukan verifikasi implementasi sistem di lapangan untuk memastikan efektivitasnya.</p>
+          </div>
+        </div>
+        
+        <div class="flowchart-arrow">
+          <svg width="40" height="60" viewBox="0 0 40 60">
+            <path d="M20 0 L20 40 L10 30 M20 40 L30 30" stroke="#00e0a0" stroke-width="3" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Step 7 -->
+        <div class="flowchart-item">
+          <div class="flowchart-icon-wrapper">
+            <div class="flowchart-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="flowchart-content">
+            <div class="flowchart-label">TAHAP 7</div>
+            <h3>Sertifikasi Terbit</h3>
+            <p>Setelah berhasil melalui audit, sertifikat ISO resmi akan diterbitkan oleh lembaga sertifikasi yang terakreditasi. Sertifikat ini menjadi bukti komitmen organisasi Anda terhadap kualitas sesuai standar ISO yang diterapkan.</p>
+          </div>
+        </div>
+        
+        <div class="flowchart-arrow">
+          <svg width="40" height="60" viewBox="0 0 40 60">
+            <path d="M20 0 L20 40 L10 30 M20 40 L30 30" stroke="#00e0a0" stroke-width="3" fill="none"/>
+          </svg>
+        </div>
+
+        <!-- Step 8 -->
+        <div class="flowchart-item last-item">
+          <div class="flowchart-icon-wrapper">
+            <div class="flowchart-icon">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+              </svg>
+            </div>
+          </div>
+          <div class="flowchart-content">
+            <div class="flowchart-label">TAHAP 8</div>
+            <h3>Audit Supervisi dan Perpanjangan</h3>
+            <p>Sertifikasi ISO berlaku selama 3 tahun, dengan audit supervisi tahunan untuk memastikan sistem manajemen Anda tetap berjalan sesuai standar. Setelah 3 tahun, audit perpanjangan dilakukan untuk memperbarui sertifikat.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certification Cycle Section -->
+  <section class="cert-cycle-section">
+    <h2 class="cert-cycle-title">Siklus Sertifikasi</h2>
+    <p class="cert-cycle-desc">Sertifikasi ISO 9001 memiliki siklus yang berkelanjutan untuk memastikan sistem manajemen mutu organisasi Anda tetap efektif dan sesuai standar.</p>
+    
+    <div class="cert-cycle-grid">
+      <div class="cert-cycle-card">
+        <div class="cert-cycle-icon">1</div>
+        <h3>Tahun Pertama</h3>
+        <p>Initial Audit - Audit sertifikasi awal untuk memperoleh sertifikat ISO 9001</p>
+      </div>
+      <div class="cert-cycle-card">
+        <div class="cert-cycle-icon">2</div>
+        <h3>Tahun Kedua</h3>
+        <p>1st Surveillance - Audit pengawasan pertama untuk memastikan sistem tetap berjalan</p>
+      </div>
+      <div class="cert-cycle-card">
+        <div class="cert-cycle-icon">3</div>
+        <h3>Tahun Ketiga</h3>
+        <p>2nd Surveillance - Audit pengawasan kedua sebelum masa perpanjangan</p>
+      </div>
+      <div class="cert-cycle-card">
+        <div class="cert-cycle-icon">🔄</div>
+        <h3>Tahun Keempat</h3>
+        <p>Recertification - Audit resertifikasi untuk memperpanjang sertifikat selama 3 tahun berikutnya</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ Section -->
+  <section class="faq-section">
+    <div class="faq-container">
+      <h2 class="faq-title">FAQ Sertifikasi</h2>
+      <p class="faq-subtitle">Temukan jawaban atas pertanyaan umum mengenai Sertifikasi ISO 9001</p>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Bagaimana menentukan ruang lingkup implementasi standar ISO 9001?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Dengan cara memahami terlebih dahulu standar ISO yang akan diterapkan dan mengidentifikasi proses bisnis. Setelah itu, barulah menentukan layanan, produk, maupun proses-proses yang terlibat, serta batasan-batasannya yang sesuai dengan tujuan diterapkannya standar ISO.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Apa benefit mengimplementasikan standar ISO 9001?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Manfaat utama meliputi: peningkatan kepuasan pelanggan, efisiensi operasional yang lebih baik, pengurangan biaya kualitas, peningkatan reputasi organisasi, akses ke pasar global, dan perbaikan berkelanjutan dalam proses bisnis.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Berapa lama proses pendampingan hingga mendapatkan sertifikat ISO?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Lama proses bervariasi tergantung kesiapan organisasi, kompleksitas proses, dan ukuran organisasi. Secara umum, proses pendampingan membutuhkan waktu 3-6 bulan dari persiapan hingga perolehan sertifikat.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Berapa lama masa berlaku sertifikat ISO?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Sertifikat ISO berlaku selama 3 tahun. Selama periode tersebut, akan ada audit surveillance (pengawasan) tahunan pada tahun ke-1 dan ke-2. Setelah 3 tahun, diperlukan audit resertifikasi untuk memperpanjang sertifikat.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Apakah pendampingan dengan PT INOVASS menjamin mendapatkan sertifikat ISO?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Kami berkomitmen memberikan pendampingan terbaik dan mempersiapkan organisasi Anda secara maksimal. Namun, keputusan akhir pemberian sertifikat ada pada lembaga sertifikasi independen yang melakukan audit. Dengan pengalaman kami, tingkat keberhasilan klien sangat tinggi.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <div class="faq-question">
+          <span>Apa saja yang didapatkan jika pendampingan sertifikasi ISO dengan PT INOVASS?</span>
+          <span class="faq-toggle">+</span>
+        </div>
+        <div class="faq-answer">
+          <p>Anda akan mendapatkan: gap analysis, penyusunan dokumentasi lengkap, pelatihan tim, pendampingan implementasi, audit internal, management review, pendampingan audit sertifikasi, dan konsultasi berkelanjutan hingga sertifikat diperoleh.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
   <section class="page-cta reveal">
     <h2>Siap memulai<br /><em>proyek Anda?</em></h2>
     <p>Hubungi kami untuk konsultasi gratis dan penawaran terbaik untuk organisasi Anda.</p>
@@ -431,6 +1214,23 @@
     hamburgerBtn.addEventListener('click', () => {
       hamburgerBtn.classList.toggle('active');
       mobileMenu.classList.toggle('open');
+    });
+
+    // FAQ Accordion Functionality
+    document.querySelectorAll('.faq-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        
+        // Close all FAQ items
+        document.querySelectorAll('.faq-item').forEach(faq => {
+          faq.classList.remove('active');
+        });
+        
+        // Open clicked item if it wasn't active
+        if (!isActive) {
+          item.classList.add('active');
+        }
+      });
     });
   </script>
 </body>
