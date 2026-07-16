@@ -32,7 +32,7 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background-color: var(--dark-navy);
+  background-color: #ffffff;
   color: var(--cream);
   font-family: var(--font-sans);
   font-weight: 300;
@@ -2969,7 +2969,7 @@ a { text-decoration: none; color: inherit; }
   font-family: var(--font-sans);
   font-size: 1rem;
   font-weight: 600;
-  color: #1e3a8a;
+  color: #00c278;
   line-height: 1.4;
   transition: color 0.2s;
 }
