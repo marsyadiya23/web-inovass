@@ -51,24 +51,63 @@
     </div>
   </section>
 
-  <!-- KEUNGGULAN SECTION -->
-  <section class="detail-features">
-    <div class="detail-features-container">
-      
-      <!-- Content will be added here -->
+  <!-- COMING SOON PLACEHOLDER -->
+  <section class="coming-soon-section">
+    <div class="coming-soon-container">
+      <div class="coming-soon-content">
+        <div class="coming-soon-icon-wrapper">
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring-delay"></div>
+          <div class="coming-soon-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+        </div>
+        <h2 class="coming-soon-title">Konten Segera Hadir</h2>
+        <p class="coming-soon-description">Informasi lengkap mengenai layanan ini sedang dalam proses pengembangan dan akan segera ditambahkan.</p>
+        
+        <div class="coming-soon-features">
+          <div class="feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+            </svg>
+            <span>Konsultan Berpengalaman</span>
+          </div>
+          <div class="feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>Harga Kompetitif</span>
+          </div>
+          <div class="feature-item">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+            <span>Proses Cepat & Efisien</span>
+          </div>
+        </div>
 
+        <div class="coming-soon-cta-group">
+          <a href="kontak.html" class="cta-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            Hubungi Kami Untuk Informasi
+          </a>
+          <a href="layanan-iso.html" class="cta-secondary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+            </svg>
+            Kembali ke Layanan
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- CTA SECTION -->
-  <section class="page-cta reveal">
-    <h2>Siap memulai<br /><em>proyek Anda?</em></h2>
-    <p>Hubungi kami untuk konsultasi gratis dan penawaran terbaik untuk organisasi Anda.</p>
-    <a href="kontak.html" class="btn-outline">Hubungi Kami Sekarang</a>
-  </section>
-
   <!-- FOOTER -->
-  <footer class="footer" style="background: #0a1628 !important;">
+  <footer class="footer">
     <div class="footer-top">
       <div class="footer-brand reveal-left">
         <a href="index.html" class="footer-logo-link">
@@ -112,37 +151,12 @@
 
   <script src="script.js"></script>
   <script>
-    // Hamburger menu
     const hamburgerBtn = document.getElementById('hamburgerBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     hamburgerBtn.addEventListener('click', () => {
       hamburgerBtn.classList.toggle('active');
       mobileMenu.classList.toggle('open');
     });
-    
-    // Read more functionality
-    const readMoreBtn = document.getElementById('heroReadMore');
-    const heroDesc = document.querySelector('.detail-hero-desc');
-    const fullText = 'Bangun Sistem Manajemen yang Profesional, Terstruktur, dan Siap Audit. Dokumen yang baik adalah fondasi dari sistem manajemen yang efektif. PT. Inovass Consulting menyediakan layanan profesional penyusunan dokumen Standar ISO, Sistem Manajemen Keselamatan dan Kesehatan Kerja (K3), serta Contractor Safety Management System (CSMS) yang disesuaikan dengan kebutuhan organisasi, regulasi yang berlaku, dan standar nasional maupun internasional. Setiap dokumen disusun secara sistematis, aplikatif, mudah dipahami, dan siap digunakan sebagai pedoman implementasi, audit internal, audit eksternal, hingga proses sertifikasi.';
-    const shortText = 'Bangun Sistem Manajemen yang Profesional, Terstruktur, dan Siap Audit. Dokumen yang baik adalah fondasi dari sistem manajemen yang efektif. PT. Inovass Consulting menyediakan layanan profesional penyusunan dokumen Standar ISO, K3, dan CSMS yang disesuaikan dengan kebutuhan organisasi Anda....';
-    
-    let isExpanded = false;
-    
-    if (readMoreBtn) {
-      readMoreBtn.addEventListener('click', () => {
-        isExpanded = !isExpanded;
-        if (isExpanded) {
-          heroDesc.innerHTML = fullText + '<button class="detail-hero-readmore" id="heroReadMore">Tutup</button>';
-        } else {
-          heroDesc.innerHTML = shortText + '<button class="detail-hero-readmore" id="heroReadMore">Selengkapnya</button>';
-        }
-        // Re-attach event listener
-        const newBtn = document.getElementById('heroReadMore');
-        newBtn.addEventListener('click', arguments.callee);
-      });
-    }
-    
-    console.log('✅ Detail page loaded successfully');
   </script>
 </body>
 </html>
