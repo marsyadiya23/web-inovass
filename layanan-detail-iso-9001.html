@@ -244,7 +244,7 @@
     .iso-benefit-modern-card h3 {
       font-size: 1.15rem;
       font-weight: 600;
-      color: #4a5568;
+      color: #64748b;
       margin: 0 0 0.75rem 0;
       line-height: 1.3;
     }
@@ -254,6 +254,103 @@
       line-height: 1.7;
       color: #64748b;
       margin: 0;
+    }
+
+    /* === CTA SECTION === */
+    @keyframes pulse {
+      0%, 100% {
+        box-shadow: 0 8px 32px rgba(37, 99, 235, 0.3);
+      }
+      50% {
+        box-shadow: 0 8px 40px rgba(37, 99, 235, 0.5);
+      }
+    }
+
+    @keyframes float {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .iso-cta-section {
+      background: #2563eb;
+      padding: 3rem 4rem;
+      border-radius: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 4rem 0 6rem 0;
+      box-shadow: 0 8px 32px rgba(37, 99, 235, 0.3);
+      animation: fadeInUp 0.8s ease-out, pulse 3s ease-in-out infinite;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative circles animation */
+    .iso-cta-section::before {
+      content: '';
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      top: -150px;
+      right: -100px;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .iso-cta-section::after {
+      content: '';
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+      bottom: -100px;
+      left: -50px;
+      animation: float 5s ease-in-out infinite reverse;
+    }
+
+    .iso-cta-text {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 0;
+      line-height: 1.3;
+      position: relative;
+      z-index: 1;
+      animation: slideInLeft 0.8s ease-out;
+    }
+
+    .iso-cta-button {
+      background: #ffffff;
+      color: #2563eb;
+      padding: 1rem 2.5rem;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      white-space: nowrap;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 1;
+      animation: slideInRight 0.8s ease-out;
+      border: 2px solid transparent;
+    }
+
+    .iso-cta-button:hover {
+      background: #f0f9ff;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      border-color: #ffffff;
+    }
+
+    .iso-cta-button:active {
+      transform: translateY(-1px) scale(1.02);
     }
 
     /* Requirements Grid */
@@ -759,6 +856,17 @@
           grid-template-columns: repeat(2, 1fr);
         }
 
+        .iso-cta-section {
+          flex-direction: column;
+          gap: 1.5rem;
+          padding: 2rem 1.5rem;
+          text-align: center;
+        }
+
+        .iso-cta-text {
+          font-size: 1.5rem;
+        }
+
         .iso-process-section {
           padding: 4rem 1.5rem;
           margin-left: -1.5rem;
@@ -939,6 +1047,12 @@
             <p>ISO 9001 membantu organisasi mengelola proses sesuai ketentuan yang berlaku sehingga mengurangi risiko ketidaksesuaian terhadap regulasi.</p>
           </div>
         </div>
+      </div>
+
+      <!-- CTA SECTION -->
+      <div class="iso-cta-section">
+        <h2 class="iso-cta-text">Ahli Kami Selalu Siap Membantu Anda</h2>
+        <a href="kontak.html" class="iso-cta-button">Konsultasikan Gratis</a>
       </div>
 
       <!-- PROSES SERTIFIKASI ISO 9001:2015 -->
