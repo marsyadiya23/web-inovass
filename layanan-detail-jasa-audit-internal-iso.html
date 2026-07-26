@@ -9,6 +9,102 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="pages.css" />
+  <style>
+    /* Simple Card Design with Progress Line - INOVASS Theme - Soft Version */
+    .product-detail-item {
+      position: relative !important;
+      overflow: hidden !important;
+      background: #ffffff !important;
+      border: 1.5px solid #cbd5e1 !important;
+      border-radius: 16px !important;
+      padding: 2rem 1.5rem !important;
+      transition: all 0.3s ease !important;
+      box-shadow: 0 1px 3px rgba(148, 163, 184, 0.1) !important;
+      cursor: pointer !important;
+    }
+    
+    .product-detail-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: #1e3a8a;
+      transition: width 0.8s ease;
+      border-radius: 16px 16px 0 0;
+      z-index: 10;
+    }
+    
+    /* Icon indicator untuk card yang bisa diklik */
+    .product-detail-item::after {
+      content: '→';
+      position: absolute;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+    
+    .product-detail-item:hover::before {
+      width: 100%;
+    }
+    
+    .product-detail-item:hover::after {
+      opacity: 1;
+      color: #1e3a8a;
+      right: 1.2rem;
+    }
+    
+    .product-detail-item:hover {
+      transform: translateY(-5px) !important;
+      box-shadow: 0 8px 20px rgba(30, 58, 138, 0.15) !important;
+      border-color: #1e3a8a !important;
+    }
+    
+    /* Text Color - Soft */
+    .product-detail-item p {
+      color: #475569 !important;
+      margin: 0 !important;
+      line-height: 1.7 !important;
+      font-weight: 450 !important;
+      font-size: 0.95rem !important;
+      transition: color 0.3s ease !important;
+      padding-right: 2rem !important;
+    }
+    
+    .product-detail-item:hover p {
+      color: #1e3a8a !important;
+      font-weight: 500 !important;
+    }
+    
+    /* Grid Layout - 4 columns */
+    .product-details-grid {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .product-details-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .product-details-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .product-details-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -51,59 +147,100 @@
       </div>
   </section>
 
-  <!-- COMING SOON PLACEHOLDER -->
-  <section class="coming-soon-section">
-    <div class="coming-soon-container">
-      <div class="coming-soon-content">
-        <div class="coming-soon-icon-wrapper">
-          <div class="pulse-ring"></div>
-          <div class="pulse-ring-delay"></div>
-          <div class="coming-soon-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
+  <!-- SERVICE DETAIL CONTENT -->
+  <section class="service-detail-section">
+    <div class="service-detail-container">
+      
+      <!-- Overview Section -->
+      <div class="detail-content-intro">
+        <div class="intro-layout">
+          <div class="intro-title-section">
+            <h2 class="intro-main-title">Jasa Audit Internal<br>Sistem Manajemen Standar ISO Organisasi</h2>
           </div>
-        </div>
-        <h2 class="coming-soon-title">Konten Segera Hadir</h2>
-        <p class="coming-soon-description">Informasi lengkap mengenai layanan ini sedang dalam proses pengembangan dan akan segera ditambahkan.</p>
-        
-        <div class="coming-soon-features">
-          <div class="feature-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-            </svg>
-            <span>Konsultan Berpengalaman</span>
+          <div class="intro-text-section">
+            <p>Layanan jasa audit internal INOVASS membantu organisasi dalam melakukan evaluasi efektivitas sistem manajemen sesuai standar ISO/IEC/SNI. Kami menyediakan auditor kompeten dan berpengalaman untuk melakukan audit internal yang objektif, memastikan kesesuaian dengan persyaratan standar, serta memberikan rekomendasi perbaikan untuk peningkatan berkelanjutan.</p>
           </div>
-          <div class="feature-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            <span>Harga Kompetitif</span>
-          </div>
-          <div class="feature-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-            <span>Proses Cepat & Efisien</span>
-          </div>
-        </div>
-
-        <div class="coming-soon-cta-group">
-          <a href="kontak.html" class="cta-primary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-            </svg>
-            Hubungi Kami Untuk Informasi
-          </a>
-          <a href="layanan-iso.html" class="cta-secondary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-            </svg>
-            Kembali ke Layanan
-          </a>
         </div>
       </div>
+
+      <!-- Product Details Section -->
+      <div class="product-details-section">
+        <div class="product-details-header">
+          <div class="product-header-line"></div>
+          <h3 class="product-details-title">Standar Audit Internal yang Kami Dukung</h3>
+        </div>
+        <div class="product-details-description">
+          <p>INOVASS menyediakan layanan audit internal sistem manajemen standar ISO/IEC/SNI yang komprehensif untuk membantu organisasi Anda dalam memastikan efektivitas penerapan sistem manajemen dan kesiapan menghadapi audit eksternal.</p>
+        </div>
+        <div class="product-details-grid" style="grid-template-columns: repeat(4, 1fr) !important;">
+          <div class="product-detail-item accent-navy">
+            <p>Jasa Audit Internal ISO/SNI 9001 – Sistem Manajemen Mutu</p>
+          </div>
+          <div class="product-detail-item accent-green">
+            <p>Jasa Audit Internal ISO/SNI 14001 – Sistem Manajemen Lingkungan</p>
+          </div>
+          <div class="product-detail-item accent-yellow">
+            <p>Jasa Audit Internal ISO 45001 – Sistem Manajemen Keselamatan dan Kesehatan Kerja (SMK3)</p>
+          </div>
+          <div class="product-detail-item accent-green">
+            <p>Jasa Audit Internal ISO 22000 – Sistem Manajemen Keamanan Pangan</p>
+          </div>
+          <div class="product-detail-item accent-navy">
+            <p>Jasa Audit Internal ISO/IEC 27001 – Sistem Manajemen Keamanan Informasi</p>
+          </div>
+          <div class="product-detail-item accent-yellow">
+            <p>Jasa Audit Internal ISO 22301 – Sistem Manajemen Keberlangsungan Bisnis (BCMS)</p>
+          </div>
+          <div class="product-detail-item accent-navy">
+            <p>Jasa Audit Internal ISO 37001 – Sistem Manajemen Anti Penyuapan</p>
+          </div>
+          <div class="product-detail-item accent-green">
+            <p>Jasa Audit Internal ISO 37301 – Sistem Manajemen Kepatuhan</p>
+          </div>
+          <div class="product-detail-item accent-yellow">
+            <p>Jasa Audit Internal ISO 50001 – Sistem Manajemen Energi</p>
+          </div>
+          <div class="product-detail-item accent-navy">
+            <p>Jasa Audit Internal ISO 55001 – Sistem Manajemen Aset</p>
+          </div>
+          <div class="product-detail-item accent-green">
+            <p>Jasa Audit Internal ISO 21001 – Sistem Manajemen Organisasi Pendidikan</p>
+          </div>
+          <div class="product-detail-item accent-yellow">
+            <p>Jasa Audit Internal ISO 13485 – Sistem Manajemen Mutu Alat Kesehatan</p>
+          </div>
+          <div class="product-detail-item accent-navy">
+            <p>Jasa Audit Internal ISO 39001 – Sistem Manajemen Keselamatan Lalu Lintas Jalan</p>
+          </div>
+          <div class="product-detail-item accent-green">
+            <p>Jasa Audit Internal ISO 10002 – Sistem Manajemen Penanganan Keluhan Pelanggan</p>
+          </div>
+          <div class="product-detail-item accent-yellow">
+            <p>Jasa Audit Internal ISO 30301 – Sistem Manajemen Pengelolaan Arsip</p>
+          </div>
+          <div class="product-detail-item accent-navy">
+            <p>Jasa Audit Internal ISO/IEC 20000-1 – Sistem Manajemen Layanan Teknologi Informasi</p>
+          </div>
+          <div class="product-detail-item accent-green">
+            <p>Jasa Audit Internal ISO 35001 – Sistem Manajemen Biorisiko Laboratorium</p>
+          </div>
+          <div class="product-detail-item accent-yellow">
+            <p>Jasa Audit Internal Integrated Management System (IMS) ISO/IEC/SNI</p>
+          </div>
+          <div class="product-detail-item accent-navy">
+            <p>Jasa Audit Internal Sistem Manajemen ISO/IEC/SNI Lainnya</p>
+          </div>
+        </div>
+      </div>
+
     </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="page-cta reveal">
+    <h2>Siap memulai<br /><em>proyek Anda?</em></h2>
+    <p>Hubungi kami untuk konsultasi gratis dan penawaran terbaik untuk organisasi Anda.</p>
+    <a href="kontak.html" class="btn-outline">Hubungi Kami Sekarang</a>
   </section>
 
   <!-- FOOTER -->
