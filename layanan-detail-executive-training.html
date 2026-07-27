@@ -9,6 +9,181 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="pages.css" />
+  <style>
+    /* Keunggulan Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes iconBounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-5px);
+      }
+    }
+
+    .keunggulan-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1rem;
+      padding: 1.5rem 0.5rem;
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.6s ease-out both;
+    }
+
+    .keunggulan-item:nth-child(1) { animation-delay: 0.1s; }
+    .keunggulan-item:nth-child(2) { animation-delay: 0.2s; }
+    .keunggulan-item:nth-child(3) { animation-delay: 0.3s; }
+    .keunggulan-item:nth-child(4) { animation-delay: 0.4s; }
+    .keunggulan-item:nth-child(5) { animation-delay: 0.5s; }
+    .keunggulan-item:nth-child(6) { animation-delay: 0.6s; }
+
+    .keunggulan-item:hover .keunggulan-icon {
+      transform: translateY(-5px);
+    }
+
+    .keunggulan-icon {
+      width: 56px;
+      height: 56px;
+      background: #1e3a8a;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      transition: all 0.4s ease;
+    }
+
+    .keunggulan-item:hover .keunggulan-icon {
+      background: #2563eb;
+      box-shadow: 0 8px 16px rgba(30, 58, 138, 0.2);
+    }
+
+    .keunggulan-content h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1e3a8a;
+      margin: 0;
+      transition: color 0.3s ease;
+    }
+
+    .keunggulan-item:hover .keunggulan-content h3 {
+      color: #2563eb;
+    }
+
+    .keunggulan-content p {
+      margin: 0;
+      line-height: 1.7;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+
+    /* Simple Card Design with Progress Line - INOVASS Theme - Soft Version */
+    .product-detail-item {
+      position: relative !important;
+      overflow: hidden !important;
+      background: #ffffff !important;
+      border: 1.5px solid #cbd5e1 !important;
+      border-radius: 16px !important;
+      padding: 2rem 1.5rem !important;
+      transition: all 0.3s ease !important;
+      box-shadow: 0 1px 3px rgba(148, 163, 184, 0.1) !important;
+      cursor: pointer !important;
+    }
+    
+    .product-detail-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: #1e3a8a;
+      transition: width 0.8s ease;
+      border-radius: 16px 16px 0 0;
+      z-index: 10;
+    }
+    
+    /* Icon indicator untuk card yang bisa diklik */
+    .product-detail-item::after {
+      content: '→';
+      position: absolute;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+    
+    .product-detail-item:hover::before {
+      width: 100%;
+    }
+    
+    .product-detail-item:hover::after {
+      opacity: 1;
+      color: #1e3a8a;
+      right: 1.2rem;
+    }
+    
+    .product-detail-item:hover {
+      transform: translateY(-5px) !important;
+      box-shadow: 0 8px 20px rgba(30, 58, 138, 0.15) !important;
+      border-color: #1e3a8a !important;
+    }
+    
+    /* Text Color - Soft */
+    .product-detail-item p {
+      color: #475569 !important;
+      margin: 0 !important;
+      line-height: 1.7 !important;
+      font-weight: 450 !important;
+      font-size: 0.95rem !important;
+      transition: color 0.3s ease !important;
+      padding-right: 2rem !important;
+    }
+    
+    .product-detail-item:hover p {
+      color: #1e3a8a !important;
+      font-weight: 500 !important;
+    }
+    
+    /* Grid Layout - 4 columns */
+    .product-details-grid {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .product-details-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .product-details-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .product-details-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -51,59 +226,178 @@
       </div>
   </section>
 
-  <!-- COMING SOON PLACEHOLDER -->
-  <section class="coming-soon-section">
-    <div class="coming-soon-container">
-      <div class="coming-soon-content">
-        <div class="coming-soon-icon-wrapper">
-          <div class="pulse-ring"></div>
-          <div class="pulse-ring-delay"></div>
-          <div class="coming-soon-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
+  <!-- SERVICE DETAIL CONTENT -->
+  <section class="service-detail-section">
+    <div class="service-detail-container">
+      
+      <!-- Overview Section -->
+      <div class="detail-content-intro">
+        <div class="intro-layout">
+          <div class="intro-title-section">
+            <h2 class="intro-main-title">Executive Training<br>Pelatihan Sertifikasi</h2>
           </div>
-        </div>
-        <h2 class="coming-soon-title">Konten Segera Hadir</h2>
-        <p class="coming-soon-description">Informasi lengkap mengenai layanan ini sedang dalam proses pengembangan dan akan segera ditambahkan.</p>
-        
-        <div class="coming-soon-features">
-          <div class="feature-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-            </svg>
-            <span>Konsultan Berpengalaman</span>
+          <div class="intro-text-section">
+            <p>INOVASS menyediakan Executive Training yang ditujukan bagi jajaran manajemen, pimpinan, dan eksekutif organisasi. Program ini berfokus pada penguatan kepemimpinan, pengambilan keputusan strategis, tata kelola organisasi, serta penerapan sistem manajemen untuk mendukung pencapaian tujuan bisnis. Pelatihan disampaikan secara eksklusif melalui diskusi mendalam dan studi kasus yang relevan dengan tantangan organisasi.</p>
           </div>
-          <div class="feature-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            <span>Harga Kompetitif</span>
-          </div>
-          <div class="feature-item">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
-            </svg>
-            <span>Proses Cepat & Efisien</span>
-          </div>
-        </div>
-
-        <div class="coming-soon-cta-group">
-          <a href="kontak.html" class="cta-primary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
-            </svg>
-            Hubungi Kami Untuk Informasi
-          </a>
-          <a href="layanan-pelatihan.html" class="cta-secondary">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
-            </svg>
-            Kembali ke Layanan
-          </a>
         </div>
       </div>
+
+      <!-- Keunggulan Section -->
+      <div class="product-details-section" style="margin-bottom: 4rem;">
+        <div class="product-details-header">
+          <div class="product-header-line"></div>
+          <h3 class="product-details-title">Keunggulan Executive Training di INOVASS</h3>
+        </div>
+        <div class="product-details-description">
+          <p>Kami menyediakan program pelatihan berkualitas dengan berbagai keunggulan untuk mendukung pengembangan kompetensi profesional Anda.</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem 2rem; margin-top: 2rem;">
+          <div class="keunggulan-item">
+            <div class="keunggulan-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 28px; height: 28px;">
+                <path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <div class="keunggulan-content">
+              <h3>Khusus Level Manajemen</h3>
+              <p>Dirancang bagi pimpinan, manajer, dan eksekutif organisasi</p>
+            </div>
+          </div>
+          <div class="keunggulan-item">
+            <div class="keunggulan-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 28px; height: 28px;">
+                <path d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"/>
+              </svg>
+            </div>
+            <div class="keunggulan-content">
+              <h3>Fokus pada Leadership</h3>
+              <p>Mengembangkan kemampuan kepemimpinan dan pengambilan keputusan strategis</p>
+            </div>
+          </div>
+          <div class="keunggulan-item">
+            <div class="keunggulan-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 28px; height: 28px;">
+                <path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+              </svg>
+            </div>
+            <div class="keunggulan-content">
+              <h3>Pembahasan Strategis</h3>
+              <p>Materi menitikberatkan pada tata kelola, manajemen risiko, dan transformasi organisasi</p>
+            </div>
+          </div>
+          <div class="keunggulan-item">
+            <div class="keunggulan-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 28px; height: 28px;">
+                <path d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+            </div>
+            <div class="keunggulan-content">
+              <h3>Diskusi Eksklusif</h3>
+              <p>Kelas dengan jumlah peserta terbatas untuk diskusi yang lebih mendalam</p>
+            </div>
+          </div>
+          <div class="keunggulan-item">
+            <div class="keunggulan-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 28px; height: 28px;">
+                <path d="M12 14l9-5-9-5-9 5 9 5z"/>
+                <path d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"/>
+                <path d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14zm-4 6v-7.5l4-2.222"/>
+              </svg>
+            </div>
+            <div class="keunggulan-content">
+              <h3>Instruktur Senior</h3>
+              <p>Dipandu oleh konsultan dan auditor senior yang berpengalaman</p>
+            </div>
+          </div>
+          <div class="keunggulan-item">
+            <div class="keunggulan-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 28px; height: 28px;">
+                <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+              </svg>
+            </div>
+            <div class="keunggulan-content">
+              <h3>Sertifikat Executive Training</h3>
+              <p>Sertifikat sebagai bukti pengembangan kompetensi kepemimpinan dan manajemen</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Details Section -->
+      <div class="product-details-section">
+        <div class="product-details-header">
+          <div class="product-header-line"></div>
+          <h3 class="product-details-title">Program Executive Training yang Tersedia</h3>
+        </div>
+        <div class="product-details-description">
+          <p>Pilihan program pelatihan terbuka untuk mengembangkan pengetahuan dan keterampilan tim Anda dalam penerapan standar sistem manajemen internasional.</p>
+        </div>
+        <div class="product-details-grid" style="grid-template-columns: repeat(4, 1fr) !important;">
+          <div class="product-detail-item accent-navy">
+            <p>ISO/IEC/SNI 9001 – Sistem Manajemen Mutu</p>
+          </div>
+          <div class="product-detail-item accent-green">
+            <p>ISO/IEC/SNI 14001 – Sistem Manajemen Lingkungan</p>
+          </div>
+          <div class="product-detail-item accent-yellow">
+            <p>ISO 45001 – Sistem Manajemen Keselamatan dan Kesehatan Kerja</p>
+          </div>
+          <div class="product-detail-item accent-green">
+            <p>ISO 22000 – Sistem Manajemen Keamanan Pangan</p>
+          </div>
+          <div class="product-detail-item accent-navy">
+            <p>ISO/IEC 27001 – Sistem Manajemen Keamanan Informasi</p>
+          </div>
+          <div class="product-detail-item accent-yellow">
+            <p>ISO 22301 – Sistem Manajemen Kelangsungan Usaha</p>
+          </div>
+          <div class="product-detail-item accent-navy">
+            <p>ISO 37001 – Sistem Manajemen Anti Penyuapan</p>
+          </div>
+          <div class="product-detail-item accent-green">
+            <p>ISO 37301 – Sistem Manajemen Kepatuhan</p>
+          </div>
+          <div class="product-detail-item accent-yellow">
+            <p>ISO 50001 – Sistem Manajemen Energi</p>
+          </div>
+          <div class="product-detail-item accent-navy">
+            <p>ISO 55001 – Sistem Manajemen Aset</p>
+          </div>
+          <div class="product-detail-item accent-green">
+            <p>ISO 21001 – Sistem Manajemen Organisasi Pendidikan</p>
+          </div>
+          <div class="product-detail-item accent-yellow">
+            <p>ISO 13485 – Sistem Manajemen Mutu Alat Kesehatan</p>
+          </div>
+          <div class="product-detail-item accent-navy">
+            <p>ISO 39001 – Sistem Manajemen Keselamatan Lalu Lintas Jalan</p>
+          </div>
+          <div class="product-detail-item accent-green">
+            <p>ISO 10002 – Manajemen Penanganan Keluhan</p>
+          </div>
+          <div class="product-detail-item accent-yellow">
+            <p>ISO 30301 – Sistem Manajemen Pengelolaan Arsip</p>
+          </div>
+          <div class="product-detail-item accent-navy">
+            <p>ISO/IEC 20000-1 – Sistem Manajemen Layanan Teknologi Informasi</p>
+          </div>
+          <div class="product-detail-item accent-green">
+            <p>ISO 35001 – Sistem Manajemen Biorisiko Laboratorium</p>
+          </div>
+          <div class="product-detail-item accent-yellow">
+            <p>Integrated Management System</p>
+          </div>
+        </div>
+      </div>
+
     </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="page-cta reveal">
+    <h2>Siap memulai<br /><em>proyek Anda?</em></h2>
+    <p>Hubungi kami untuk konsultasi gratis dan penawaran terbaik untuk organisasi Anda.</p>
+    <a href="kontak.html" class="btn-outline">Hubungi Kami Sekarang</a>
   </section>
 
   <!-- FOOTER -->
