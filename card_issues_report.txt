@@ -1,0 +1,161 @@
+================================================================================
+INTERNAL CONTENT VERIFICATION
+Checking for generic/mismatched content in detail pages
+================================================================================
+
+📂 Checking pattern: layanan-detail-iso-*.html (18 files)
+   ⚠️  layanan-detail-iso-39001.html: Found 2 generic content issues
+   ⚠️  layanan-detail-iso-37301.html: Found 1 generic content issues
+   ⚠️  layanan-detail-iso-21001.html: Found 1 generic content issues
+   ⚠️  layanan-detail-iso-21001.html: Found 2 benefit issues
+   ⚠️  layanan-detail-iso-10002.html: Found 2 generic content issues
+   ⚠️  layanan-detail-iso-50001.html: Found 1 generic content issues
+   ⚠️  layanan-detail-iso-20000-1.html: Found 2 generic content issues
+   ⚠️  layanan-detail-iso-lainnya.html: Found 2 generic content issues
+   ⚠️  layanan-detail-iso-55001.html: Found 1 generic content issues
+   ⚠️  layanan-detail-iso-37001.html: Found 1 generic content issues
+   ⚠️  layanan-detail-iso-30301.html: Found 2 generic content issues
+   ⚠️  layanan-detail-iso-13485.html: Found 2 generic content issues
+   ⚠️  layanan-detail-iso-35001.html: Found 2 generic content issues
+
+📂 Checking pattern: layanan-detail-audit-internal-iso-*.html (19 files)
+   ⚠️  layanan-detail-audit-internal-iso-13485.html: Found 1 generic content issues
+
+📂 Checking pattern: layanan-detail-csms-*.html (15 files)
+
+📂 Checking pattern: layanan-detail-pemeliharaan-*.html (19 files)
+   ⚠️  layanan-detail-pemeliharaan-iso-13485.html: Found 2 generic content issues
+
+📂 Checking pattern: layanan-detail-konsultasi-surveillance-iso-*.html (19 files)
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-14001.html: Found 4 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-50001.html: Found 3 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-22000.html: Found 4 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-22000.html: Found 1 benefit issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-10002.html: Found 3 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-21001.html: Found 3 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-37301.html: Found 4 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-37301.html: Found 1 benefit issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-39001.html: Found 3 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-ims.html: Found 3 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-35001.html: Found 3 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-13485.html: Found 4 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-22301.html: Found 4 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-22301.html: Found 1 benefit issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-30301.html: Found 3 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-27001.html: Found 4 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-37001.html: Found 4 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-37001.html: Found 1 benefit issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-45001.html: Found 4 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-45001.html: Found 1 benefit issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-55001.html: Found 3 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-20000-1.html: Found 3 generic content issues
+   ⚠️  layanan-detail-konsultasi-surveillance-iso-lainnya.html: Found 3 generic content issues
+
+📂 Checking pattern: layanan-detail-penyusunan-dokumen-iso-*.html (18 files)
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-lainnya.html: Found 2 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-50001.html: Found 2 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-20000-1.html: Found 2 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-14001.html: Found 1 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-10002.html: Found 2 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-22000.html: Found 1 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-37301.html: Found 1 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-21001.html: Found 2 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-39001.html: Found 2 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-35001.html: Found 2 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-22301.html: Found 1 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-13485.html: Found 2 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-30301.html: Found 2 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-45001.html: Found 1 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-55001.html: Found 2 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-27001.html: Found 1 generic content issues
+   ⚠️  layanan-detail-penyusunan-dokumen-iso-37001.html: Found 1 generic content issues
+
+================================================================================
+SUMMARY: Checked 108 files
+================================================================================
+
+❌ Found 118 issues:
+
+📋 GENERIC CONTENT ISSUES (111):
+
+1. layanan-detail-iso-39001.html
+   Generic "sistem manajemen mutu" (should be ISO-specific)
+   Matched: "sistem manajemen mutu"
+   Context: ...<strong>Stage 2:</strong> Verifikasi implementasi sistem manajemen mutu di lapangan.</p>               </div>            ...
+
+2. layanan-detail-iso-39001.html
+   Generic "sistem manajemen mutu" (should be ISO-specific)
+   Matched: "Sistem Manajemen Mutu"
+   Context: ...n class="page-cta">     <h2>Siap Meningkatkan <em>Sistem Manajemen Mutu</em> Organisasi Anda?</h2>     <p>Konsultasikan k...
+
+3. layanan-detail-iso-37301.html
+   Generic "sistem manajemen mutu" (should be ISO-specific)
+   Matched: "sistem manajemen mutu"
+   Context: ...<strong>Stage 2:</strong> Verifikasi implementasi sistem manajemen mutu di lapangan.</p>               </div>            ...
+
+4. layanan-detail-iso-21001.html
+   Generic "sistem manajemen mutu" (should be ISO-specific)
+   Matched: "sistem manajemen mutu"
+   Context: ...<strong>Stage 2:</strong> Verifikasi implementasi sistem manajemen mutu di lapangan.</p>               </div>            ...
+
+5. layanan-detail-iso-10002.html
+   Generic "sistem manajemen mutu" (should be ISO-specific)
+   Matched: "sistem manajemen mutu"
+   Context: ...<strong>Stage 2:</strong> Verifikasi implementasi sistem manajemen mutu di lapangan.</p>               </div>            ...
+
+6. layanan-detail-iso-10002.html
+   Generic "sistem manajemen mutu" (should be ISO-specific)
+   Matched: "Sistem Manajemen Mutu"
+   Context: ...n class="page-cta">     <h2>Siap Meningkatkan <em>Sistem Manajemen Mutu</em> Organisasi Anda?</h2>     <p>Konsultasikan k...
+
+7. layanan-detail-iso-50001.html
+   Generic "sistem manajemen mutu" (should be ISO-specific)
+   Matched: "sistem manajemen mutu"
+   Context: ...<strong>Stage 2:</strong> Verifikasi implementasi sistem manajemen mutu di lapangan.</p>               </div>            ...
+
+8. layanan-detail-iso-20000-1.html
+   Generic "sistem manajemen mutu" (should be ISO-specific)
+   Matched: "sistem manajemen mutu"
+   Context: ...<strong>Stage 2:</strong> Verifikasi implementasi sistem manajemen mutu di lapangan.</p>               </div>            ...
+
+9. layanan-detail-iso-20000-1.html
+   Generic "sistem manajemen mutu" (should be ISO-specific)
+   Matched: "Sistem Manajemen Mutu"
+   Context: ...n class="page-cta">     <h2>Siap Meningkatkan <em>Sistem Manajemen Mutu</em> Organisasi Anda?</h2>     <p>Konsultasikan k...
+
+10. layanan-detail-iso-lainnya.html
+   Generic "sistem manajemen mutu" (should be ISO-specific)
+   Matched: "sistem manajemen mutu"
+   Context: ...<strong>Stage 2:</strong> Verifikasi implementasi sistem manajemen mutu di lapangan.</p>               </div>            ...
+
+
+📋 BENEFIT TERMINOLOGY ISSUES (7):
+
+1. layanan-detail-iso-21001.html
+   Card: Meningkatkan Mutu Pembelajaran
+   Issue: mutu (should be ISO-specific term)
+
+2. layanan-detail-iso-21001.html
+   Card: Mendukung Perbaikan Berkelanjutan
+   Issue: mutu (should be ISO-specific term)
+
+3. layanan-detail-konsultasi-surveillance-iso-22000.html
+   Card: Evaluasi Objektif Sistem
+   Issue: mutu (should be ISO-specific term)
+
+4. layanan-detail-konsultasi-surveillance-iso-37301.html
+   Card: Evaluasi Objektif Sistem
+   Issue: mutu (should be ISO-specific term)
+
+5. layanan-detail-konsultasi-surveillance-iso-22301.html
+   Card: Evaluasi Objektif Sistem
+   Issue: mutu (should be ISO-specific term)
+
+6. layanan-detail-konsultasi-surveillance-iso-37001.html
+   Card: Evaluasi Objektif Sistem
+   Issue: mutu (should be ISO-specific term)
+
+7. layanan-detail-konsultasi-surveillance-iso-45001.html
+   Card: Evaluasi Objektif Sistem
+   Issue: mutu (should be ISO-specific term)
+
