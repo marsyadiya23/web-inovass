@@ -137,6 +137,31 @@ Tidak ada perubahan kode, karena domain tidak ditulis di mana pun dalam situs.
 
 Ganti ke domain lain di kemudian hari: ulangi langkah 1–2 untuk domain baru, lalu tambahkan Public Hostname-nya di tunnel `inovass` yang sama (langkah 4). Token tidak berubah, jadi server tidak perlu disentuh. Setelah memakai domain, port 8080 boleh ditutup: hapus baris `ports` di `docker-compose.yml`.
 
+## Opsi B: Cloudflare Pages (`inovass.pages.dev`), tanpa VPS
+
+Karena website ini statis, website bisa di-host langsung oleh Cloudflare Pages: gratis, HTTPS, CDN global, alamat tetap `https://inovass.pages.dev`, dan otomatis deploy setiap push ke `main`. Tidak perlu Docker atau VPS.
+
+**Setup (sekali, ±5 menit, lewat dashboard Cloudflare):**
+1. Login https://dash.cloudflare.com → menu **Workers & Pages** → **Create** → tab **Pages** → **Connect to Git** (atau *Import an existing Git repository*).
+2. **Connect GitHub** → izinkan akses ke repo `afidzulinn/web-inovass` → pilih repo itu → **Begin setup**.
+3. Isi:
+   | Kolom | Nilai |
+   |---|---|
+   | Project name | `inovass` (ini yang menjadi `inovass.pages.dev`) |
+   | Production branch | `main` |
+   | Framework preset | `None` |
+   | Build command | *(kosongkan)* |
+   | Build output directory | `public` |
+4. **Save and Deploy** → tunggu ±1 menit → buka `https://inovass.pages.dev`.
+
+Setelah itu setiap `git push` ke `main` otomatis di-deploy ulang oleh Cloudflare. Status deploy terlihat di dashboard Pages (tab **Deployments**), dan setiap deploy lama bisa di-*rollback* dengan satu klik.
+
+Catatan:
+- Pages otomatis membuat URL bersih: `/tentang.html` dialihkan ke `/tentang`. Semua link tetap jalan karena memakai path relatif.
+- Setelah domain dibeli: Pages → project `inovass` → **Custom domains** → **Set up a custom domain** → `inovass.com` (dan `www.inovass.com`). Domain harus sudah ditambahkan ke Cloudflare (langkah 1–2 di bagian *"Nanti, setelah domain dibeli"*). Tunnel tidak diperlukan.
+- Kuota gratis: 500 build per bulan, bandwidth tidak dibatasi.
+- Pages dan VPS bisa jalan bersamaan (GitHub Actions tetap deploy ke VPS). Kalau sudah memakai Pages saja, VPS boleh dimatikan: `cd ~/apps/web-inovass && docker compose down`, lalu hapus secret `SSH_HOST` agar langkah deploy VPS di-skip.
+
 ## Memantau container (gratis)
 - **Portainer CE** (opsional, belum terpasang): kalau ingin tampilan web untuk melihat status/log/restart container, pasang sekali dengan `docker run -d --name portainer --restart=always -p 127.0.0.1:9443:9443 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:lts`, lalu akses lewat SSH tunnel: `ssh -L 9443:127.0.0.1:9443 ubuntu@129.226.157.124` → buka https://localhost:9443. Tidak dipakai untuk deploy.
 - Tanpa Portainer: `docker ps`, `docker logs -f inovass-web`, `docker compose -f ~/apps/web-inovass/docker-compose.yml restart`.
