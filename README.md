@@ -2,7 +2,7 @@
 
 Website statis (HTML/CSS/JS) untuk **inovass.com**.
 
-- **Live (Cloudflare):** https://web-inovass.andynews999.workers.dev (deploy otomatis oleh Cloudflare, lihat bagian *Cloudflare Workers*)
+- **Live (Cloudflare):** https://web-inovass.inovass.workers.dev (deploy otomatis oleh Cloudflare, lihat bagian *Cloudflare Workers*)
 - **VPS (Docker):** `http://129.226.157.124:8080` + Cloudflare Quick Tunnel (deploy otomatis oleh GitHub Actions)
 
 ## Gambaran cara kerja
@@ -140,7 +140,7 @@ Tidak ada perubahan kode, karena domain tidak ditulis di mana pun dalam situs.
 
 Ganti ke domain lain di kemudian hari: ulangi langkah 1–2 untuk domain baru, lalu tambahkan Public Hostname-nya di tunnel `inovass` yang sama (langkah 4). Token tidak berubah, jadi server tidak perlu disentuh. Setelah memakai domain, port 8080 boleh ditutup: hapus baris `ports` di `docker-compose.yml`.
 
-## Cloudflare Workers (aktif): https://web-inovass.andynews999.workers.dev
+## Cloudflare Workers (aktif): https://web-inovass.inovass.workers.dev
 
 Website juga di-host gratis oleh Cloudflare (CDN global + HTTPS), terpisah dari VPS. Cloudflare membaca `wrangler.jsonc` di root repo, lalu meng-upload isi folder `public/` sebagai file statis. File lain di repo (README, Dockerfile, dll.) tidak ikut ter-publish.
 
@@ -158,8 +158,10 @@ npx wrangler dev        # buka http://localhost:8787
 Cloudflare otomatis membuat URL bersih: `/tentang.html` dialihkan ke `/tentang`, dan `/layanan/x/index.html` ke `/layanan/x/`. Semua link tetap jalan karena memakai path relatif.
 
 **Mengganti alamat:**
-- Alamat `workers.dev` = `<nama-project>.<subdomain-akun>.workers.dev`. Subdomain akun (`andynews999`) bisa diganti di **Workers & Pages → Account details → Subdomain → Change**, misalnya menjadi `inovass` → `web-inovass.inovass.workers.dev`.
+- Alamat `workers.dev` = `<nama-project>.<subdomain-akun>.workers.dev`. Subdomain akun sudah diganti menjadi `inovass` (Workers & Pages → Account details → Subdomain).
 - Setelah domain `inovass.com` dibeli dan ditambahkan ke Cloudflare (langkah 1–2 di bagian *"Nanti, setelah domain dibeli"*): **web-inovass → Settings → Domains & Routes → Add → Custom domain** → `inovass.com`, lalu ulangi untuk `www.inovass.com`. HTTPS otomatis, dan tunnel tidak diperlukan.
+
+**Alternatif tanpa `wrangler.jsonc`: Cloudflare Pages.** Workers selalu di-deploy dengan perintah `wrangler`, dan `wrangler.jsonc` hanyalah file pengaturannya. Kalau tidak mau ada file itu, pakai Pages: **Workers & Pages → Create → (link kecil) "Continue to Pages" → Import an existing Git repository** → pilih repo → Framework preset `None`, Build command kosong, **Build output directory `public`** → Save and Deploy. Alamatnya `https://<nama-project>.pages.dev`. Setelah itu `wrangler.jsonc` boleh dihapus, dan project Worker `web-inovass` dihapus di dashboard supaya tidak dobel.
 
 **VPS vs Cloudflare:** keduanya jalan bersamaan dari satu `git push`. Kalau cukup memakai Cloudflare saja, VPS boleh dimatikan: `cd ~/apps/web-inovass && docker compose down`, lalu hapus secret `SSH_HOST` di GitHub agar langkah deploy VPS di-skip.
 
