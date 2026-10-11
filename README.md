@@ -12,7 +12,7 @@ Website statis (HTML/CSS/JS) untuk **inovass.com**, dikemas sebagai container Ng
                           ▼  GitHub Actions (.github/workflows/deploy.yml)
                           1. build image Docker (nginx + public/)
                           2. push ke ghcr.io/afidzulinn/web-inovass
-                          3. SSH ke VPS ─────────────────────────▶  /opt/inovass/docker-compose.yml
+                          3. SSH ke VPS ─────────────────────────▶  ~/apps/web-inovass/docker-compose.yml
                                                                      docker compose pull web && up -d
                                                                        ├─ inovass-web     (nginx, port 8080)
                                                                        └─ inovass-tunnel  (cloudflared)
@@ -41,7 +41,7 @@ public/                          # semua isi website (= root domain)
   assets/img/
 deploy/nginx.conf                # konfigurasi Nginx di dalam container
 Dockerfile                       # nginx:alpine + public/
-docker-compose.yml               # dijalankan di VPS (/opt/inovass): web + Cloudflare Tunnel
+docker-compose.yml               # dijalankan di VPS (~/apps/web-inovass): web + Cloudflare Tunnel
 .github/workflows/deploy.yml     # CI/CD: build -> push ke GHCR -> SSH ke VPS -> docker compose up
 ```
 
@@ -94,7 +94,7 @@ cat ~/.ssh/github_deploy.pub >> ~/.ssh/authorized_keys
 cat ~/.ssh/github_deploy        # salin SELURUH isinya (private key) untuk langkah 2
 ```
 
-User yang dipakai harus bisa menjalankan `docker` (root, atau user yang ada di grup `docker`).
+User yang dipakai (`ubuntu`) harus ada di grup `docker`. Cek dengan `id -nG`. File deploy disimpan di `~/apps/web-inovass`.
 
 ### 2. Secrets di GitHub
 Repo → **Settings → Secrets and variables → Actions → New repository secret**:
@@ -102,7 +102,7 @@ Repo → **Settings → Secrets and variables → Actions → New repository sec
 | Name | Value |
 |---|---|
 | `SSH_HOST` | `129.226.157.124` |
-| `SSH_USER` | `root` (atau user lain di grup docker) |
+| `SSH_USER` | `ubuntu` |
 | `SSH_KEY`  | isi private key `~/.ssh/github_deploy` (termasuk baris `-----BEGIN/END-----`) |
 
 Lalu **Actions → Build & Deploy → Run workflow** (atau push apa saja). Setelah hijau, cek di server:
@@ -129,7 +129,7 @@ Tidak ada perubahan kode, karena domain tidak ditulis di mana pun dalam situs.
    | `www` | inovass.com | HTTP | `web:80` |
 5. Di server:
    ```bash
-   cd /opt/inovass
+   cd ~/apps/web-inovass
    echo 'TUNNEL_ARGS=run --token <TOKEN-DARI-LANGKAH-3>' > .env
    docker compose up -d
    ```
@@ -138,14 +138,14 @@ Tidak ada perubahan kode, karena domain tidak ditulis di mana pun dalam situs.
 Ganti ke domain lain di kemudian hari: ulangi langkah 1–2 untuk domain baru, lalu tambahkan Public Hostname-nya di tunnel `inovass` yang sama (langkah 4). Token tidak berubah, jadi server tidak perlu disentuh. Setelah memakai domain, port 8080 boleh ditutup: hapus baris `ports` di `docker-compose.yml`.
 
 ## Memantau container (gratis)
-- **Portainer CE** (yang sudah terpasang): tetap bisa dipakai untuk melihat status, log, dan restart container `inovass-web` / `inovass-tunnel`. Tidak lagi dipakai untuk deploy.
-- Tanpa Portainer: `docker ps`, `docker logs -f inovass-web`, `docker compose -f /opt/inovass/docker-compose.yml restart`.
+- **Portainer CE** (opsional, belum terpasang): kalau ingin tampilan web untuk melihat status/log/restart container, pasang sekali dengan `docker run -d --name portainer --restart=always -p 127.0.0.1:9443:9443 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:lts`, lalu akses lewat SSH tunnel: `ssh -L 9443:127.0.0.1:9443 ubuntu@129.226.157.124` → buka https://localhost:9443. Tidak dipakai untuk deploy.
+- Tanpa Portainer: `docker ps`, `docker logs -f inovass-web`, `docker compose -f ~/apps/web-inovass/docker-compose.yml restart`.
 - Notifikasi jika situs mati: Cloudflare (Zero Trust → tunnel status) atau Uptime Kuma (self-hosted, gratis).
 
 ## Rollback
 Setiap build diberi tag commit SHA. Cara termudah: `git revert <commit>` lalu push. Cara cepat di server:
 ```bash
-cd /opt/inovass && sed -i 's#web-inovass:latest#web-inovass:<sha>#' docker-compose.yml && docker compose up -d
+cd ~/apps/web-inovass && sed -i 's#web-inovass:latest#web-inovass:<sha>#' docker-compose.yml && docker compose up -d
 ```
 (Deploy berikutnya dari GitHub akan mengembalikan ke `:latest`.)
 
@@ -155,10 +155,10 @@ cd /opt/inovass && sed -i 's#web-inovass:latest#web-inovass:<sha>#' docker-compo
 Keduanya gratis dan punya CI/CD. Tapi GitHub Actions tidak dibatasi untuk repo publik (repo private dapat 2.000 menit/bulan), sedangkan GitLab gratis hanya 400 menit/bulan dan akun baru biasanya diminta verifikasi kartu kredit. Satu kali deploy di sini makan ±1 menit.
 
 **Apakah wajib pakai Portainer?**
-Tidak. Deploy dilakukan GitHub Actions lewat SSH, langsung dengan `docker compose`. Portainer (kalau sudah terpasang) hanya opsional untuk *melihat* status/log container.
+Tidak. Deploy dilakukan GitHub Actions lewat SSH, langsung dengan `docker compose`. Portainer hanya opsional untuk *melihat* status/log container (lihat *Memantau container*).
 
 **Kenapa sekarang alamatnya `xxxx.trycloudflare.com`?**
-Domain `inovass.com` belum dibeli. Quick Tunnel Cloudflare memberi alamat HTTPS gratis tanpa domain. Kekurangannya, alamat ini berganti setiap container `inovass-tunnel` di-restart (misalnya VPS reboot). Deploy biasa tidak me-restart tunnel, hanya `inovass-web`. Untuk update `cloudflared` sesekali: `cd /opt/inovass && docker compose pull cloudflared && docker compose up -d`, lalu ambil URL baru dari log. Setelah domain dibeli, ikuti bagian *"Nanti, setelah domain dibeli"* di atas.
+Domain `inovass.com` belum dibeli. Quick Tunnel Cloudflare memberi alamat HTTPS gratis tanpa domain. Kekurangannya, alamat ini berganti setiap container `inovass-tunnel` di-restart (misalnya VPS reboot). Deploy biasa tidak me-restart tunnel, hanya `inovass-web`. Untuk update `cloudflared` sesekali: `cd ~/apps/web-inovass && docker compose pull cloudflared && docker compose up -d`, lalu ambil URL baru dari log. Setelah domain dibeli, ikuti bagian *"Nanti, setelah domain dibeli"* di atas.
 
 **Bisa ganti domain nanti?**
 Bisa, tanpa mengubah kode. Domain hanya diatur di dashboard Cloudflare (Public Hostname tunnel). Nginx menerima domain apa pun (`server_name _`).

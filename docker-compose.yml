@@ -1,4 +1,4 @@
-# Lives on the VPS at /opt/inovass (copied there by the GitHub Actions deploy job).
+# Lives on the VPS at ~/apps/web-inovass (copied there by the GitHub Actions deploy job).
 services:
   web:
     image: ghcr.io/afidzulinn/web-inovass:latest
@@ -9,7 +9,7 @@ services:
 
   # Cloudflare Tunnel -> http://web:80, HTTPS by Cloudflare, no open ports needed.
   # Default: Quick Tunnel (random https://xxx.trycloudflare.com, no domain needed; see `docker logs inovass-tunnel`).
-  # With a domain: put TUNNEL_ARGS=run --token <token> in /opt/inovass/.env
+  # With a domain: put TUNNEL_ARGS=run --token <token> in ~/apps/web-inovass/.env
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: inovass-tunnel
