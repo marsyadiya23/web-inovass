@@ -1,175 +1,188 @@
-# Panduan: pindah repo ke akun GitHub lain + pasang domain
+# Panduan: repo baru → VPS → Cloudflare → domain
 
-Kondisi sekarang:
+Tujuan akhir:
 
-| Komponen | Saat ini | Setelah pindah repo |
-|---|---|---|
-| Repo GitHub | `github.com/afidzulinn/web-inovass` | `github.com/<AKUN-BARU>/web-inovass` |
-| Image Docker | `ghcr.io/afidzulinn/web-inovass` | `ghcr.io/<akun-baru>/web-inovass` |
-| Cloudflare Workers | project `web-inovass` di akun Cloudflare yang sama | **tetap**, hanya sambungan Git-nya diganti |
-| VPS | `ubuntu@129.226.157.124`, folder `~/apps/web-inovass` | **tetap**, tidak perlu disentuh manual |
+```
+ git push (repo baru)
+      │
+      ▼
+ GitHub Actions ── build image ──▶ ghcr.io/<pemilik>/<repo>
+      │
+      └── SSH ──▶ VPS 129.226.157.124  (~/apps/web-inovass)
+                    ├─ inovass-web     : website (nginx)
+                    └─ inovass-tunnel  : Cloudflare Tunnel ──▶ Cloudflare ──▶ https://inovass.com
+```
 
-Di panduan ini, `<AKUN-BARU>` adalah username GitHub tujuan dan `<akun-baru>` adalah versi **huruf kecil** dari username itu (nama image Docker wajib huruf kecil).
+- **Website jalan di VPS.** Cloudflare hanya menjadi pintu masuk: domain, HTTPS gratis, dan perlindungan. VPS tidak perlu membuka port 80/443.
+- **Pindah repo tidak perlu mengedit file.** Nama image otomatis mengikuti nama repo (`ghcr.io/<pemilik>/<repo>`).
+- **Ganti domain tidak perlu menyentuh server maupun kode.** Cukup diatur di dashboard Cloudflare.
+
+Urutan kerja:
+1. **Bagian 1**: pindah ke repo baru (sekali).
+2. **Bagian 2**: sebelum punya domain, website diakses lewat alamat sementara.
+3. **Bagian 3**: beli domain dan sambungkan ke VPS lewat Cloudflare.
+4. **Bagian 4**: kapan pun ingin ganti domain.
 
 ---
 
-## Bagian A: Pindah repo ke akun GitHub lain
+## Bagian 1: Pindah ke repo baru
 
-### A1. Pindahkan repo (pilih salah satu)
+### 1.1 Siapkan repo baru (pilih salah satu)
 
-**Cara 1, Transfer (disarankan):** riwayat commit tetap ada, dan link lama otomatis dialihkan.
-1. Login ke akun lama → buka repo `web-inovass` → **Settings → General** → paling bawah **Danger Zone → Transfer ownership**.
-2. Isi username akun baru → ketik nama repo untuk konfirmasi → **I understand, transfer this repository**.
-3. Login ke akun baru → buka email dari GitHub → **terima** transfer-nya.
+**Cara A, Transfer repo yang sekarang** (riwayat commit ikut, link lama otomatis dialihkan):
+1. Login akun lama → repo `web-inovass` → **Settings → General** → paling bawah **Transfer ownership**.
+2. Isi username/organisasi tujuan → konfirmasi.
+3. Login akun tujuan → buka email dari GitHub → **terima** transfernya.
 
-**Cara 2, Repo baru:** dipakai kalau transfer tidak bisa.
-1. Login ke akun baru → **New repository** → nama `web-inovass` → **Public** → *jangan* centang README/.gitignore → **Create**.
-2. Di laptop (folder project):
-   ```bash
-   git remote set-url origin https://github.com/<AKUN-BARU>/web-inovass.git
-   git push -u origin main
-   ```
+**Cara B, Repo baru yang kosong** (nama repo boleh beda):
+1. Login akun tujuan → **New repository** → beri nama → pilih **Public** → *jangan* centang README/.gitignore → **Create repository**.
+2. Lanjut ke 1.2, yang sekaligus mengisi repo baru ini.
 
-> **Public atau private?** Disarankan tetap **Public**: GitHub Actions gratis tanpa batas, dan server bisa mengambil image tanpa login. Kalau **Private**: Actions dapat 2.000 menit/bulan (cukup, karena satu deploy ±1 menit), tapi server perlu login ke GHCR (lihat A5).
+> **Public atau Private?** Disarankan **Public**: GitHub Actions gratis tanpa batas, dan server bisa mengambil image tanpa login. Kalau **Private**: Actions gratis 2.000 menit/bulan (cukup, karena satu deploy ±1 menit), tapi lakukan langkah 1.4.
 
-### A2. Arahkan laptop ke repo baru
-Kalau memakai Cara 1 (Transfer):
+### 1.2 Arahkan laptop ke repo baru
+Di folder project (VS Code → Terminal):
 ```bash
-git remote set-url origin https://github.com/<AKUN-BARU>/web-inovass.git
-git remote -v        # pastikan sudah menunjuk ke akun baru
+git remote set-url origin https://github.com/<AKUN-BARU>/<NAMA-REPO>.git
+git remote -v          # pastikan alamatnya sudah benar
+git push -u origin main
 ```
-Kalau Git meminta login, login sebagai akun baru.
+Kalau diminta login, login sebagai akun baru.
 
-### A3. Ganti nama image di 2 file
-Cari teks `afidzulinn/web-inovass` dan ganti dengan `<akun-baru>/web-inovass` (huruf kecil) di:
-- `docker-compose.yml` → baris `image:`
-- `.github/workflows/deploy.yml` → baris `IMAGE:`
-
-(README juga menyebut nama lama, jadi boleh ikut diganti.) Jangan push dulu, selesaikan A4 terlebih dahulu.
-
-### A4. Isi secrets di repo baru
-Repo baru → **Settings → Secrets and variables → Actions**. Kalau memakai Transfer, cek dulu apakah 3 secret ini sudah ikut pindah. Kalau belum ada, buat dengan **New repository secret**:
+### 1.3 Isi secrets di repo baru
+Repo baru → **Settings → Secrets and variables → Actions → New repository secret** (kalau memakai Transfer, cek dulu apakah sudah ikut pindah):
 
 | Name | Value |
 |---|---|
 | `SSH_HOST` | `129.226.157.124` |
 | `SSH_USER` | `ubuntu` |
-| `SSH_KEY` | private key deploy. Ambil di server dengan `cat ~/.ssh/github_deploy2`, salin seluruhnya termasuk baris `-----BEGIN…` dan `-----END…` |
+| `SSH_KEY` | private key deploy. Ambil di server dengan `cat ~/.ssh/github_deploy2`, salin **seluruhnya** termasuk baris `-----BEGIN…` dan `-----END…` |
 
-Paste private key **langsung ke GitHub**, jangan lewat chat atau email.
+Paste private key **langsung di GitHub**, jangan lewat chat atau email.
 
-### A5. (Hanya jika repo Private) Izinkan server mengambil image
-1. Akun baru → **Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token** → centang hanya `read:packages` → Generate → salin token-nya.
+### 1.4 (Hanya jika repo Private) Izinkan server mengambil image
+1. Akun pemilik repo → **Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token** → centang hanya `read:packages` → **Generate** → salin token.
 2. Di server:
    ```bash
    echo '<TOKEN>' | docker login ghcr.io -u <AKUN-BARU> --password-stdin
    ```
 
-### A6. Push dan cek deploy ke VPS
-```bash
-git add -A
-git commit -m "Pindah image ke akun baru"
-git push
-```
-Repo baru → tab **Actions** → **Build & Deploy** harus hijau, dan step **Deploy to VPS** harus *success* (bukan *skipped*).
+### 1.5 Jalankan deploy dan cek
+1. Repo baru → tab **Actions** → **Build & Deploy** → **Run workflow** (atau push perubahan apa saja).
+2. Tunggu centang hijau. Step **Deploy to VPS** harus *success*, bukan *skipped*. Kalau *skipped*, berarti `SSH_HOST` belum diisi.
+3. Cek di server:
+   ```bash
+   docker ps --format '{{.Names}}  {{.Image}}  {{.Status}}'
+   ```
+   `inovass-web` harus memakai `ghcr.io/<akun-baru>/<nama-repo>:latest` dengan status *Up (healthy)*.
+4. *(Jika repo Public)* Pastikan image-nya juga Public: akun baru → **Packages** → package repo → **Package settings → Change visibility → Public**. Biasanya sudah otomatis mengikuti repo.
 
-Cek di server:
-```bash
-docker ps --format '{{.Names}}  {{.Image}}  {{.Status}}'
-# inovass-web harus memakai ghcr.io/<akun-baru>/web-inovass:latest
-```
+### 1.6 Hapus project Cloudflare Workers lama
+Deploy tidak memakai Workers/wrangler (file `wrangler.jsonc` sudah dihapus dari repo). Project lama `web-inovass` di Cloudflare masih tersambung ke repo lama, jadi hapus saja:
+dash.cloudflare.com → **Workers & Pages → web-inovass → Settings** → paling bawah **Delete** → konfirmasi.
 
-### A7. Sambungkan ulang Cloudflare ke repo baru
-Akun Cloudflare tetap sama; yang diganti hanya sumber Git-nya.
-1. dash.cloudflare.com → **Workers & Pages** → **web-inovass** → **Settings** → bagian **Build** → **Git repository**.
-2. Klik **Disconnect** (atau **Manage**) pada repo lama → **Connect**.
-3. Pilih **GitHub** → kalau akun baru belum terdaftar, klik **Add account / Install** → login sebagai akun baru → pilih **Only select repositories** → `web-inovass` → **Install & Authorize**.
-4. Pilih akun baru → repo `web-inovass` → branch `main` → **Connect**. Deploy command biarkan `npx wrangler deploy`.
-5. Tes: push perubahan kecil, lalu lihat **web-inovass → Deployments**. Harus muncul build baru dengan status *Success*.
-
-Alamat `https://web-inovass.inovass.workers.dev` **tidak berubah**, karena nama project dan akun Cloudflare-nya sama.
-
-> Nama project di Cloudflare (`web-inovass`) harus tetap sama dengan `"name"` di `wrangler.jsonc`. Jangan ganti salah satunya saja.
-
-### A8. Bersih-bersih (setelah semua hijau)
-- **Akun lama**: hapus package image lama di **Profile → Packages → web-inovass → Package settings → Delete package**, lalu cabut akses Cloudflare di **Settings → Applications → Installed GitHub Apps → Cloudflare Workers and Pages → Configure → Uninstall** (kalau tidak dipakai repo lain).
-- **Server**: hapus image lama supaya disk tidak penuh:
+### 1.7 Bersih-bersih akun lama (setelah semua hijau)
+- Akun lama → **Packages → web-inovass → Package settings → Delete package**.
+- Di server, hapus image lama:
   ```bash
   docker rmi ghcr.io/afidzulinn/web-inovass:latest
   docker image prune -f
   ```
-- Folder `~/apps/web-inovass` di server hanya membutuhkan `docker-compose.yml` (dan `.env` kalau ada). Isi Git lain di sana tidak dipakai deploy.
 
-### Checklist Bagian A
-- [ ] Repo ada di akun baru, dan laptop sudah `git remote set-url`
-- [ ] Nama image diganti di `docker-compose.yml` dan `deploy.yml`
-- [ ] Secret `SSH_HOST`, `SSH_USER`, `SSH_KEY` ada di repo baru
-- [ ] Actions hijau, dan step **Deploy to VPS** *success*
-- [ ] Cloudflare **web-inovass** tersambung ke repo baru, dan build setelah push *Success*
-- [ ] Image dan akses lama dibersihkan
+**Checklist Bagian 1**
+- [ ] Repo baru berisi kode, dan laptop sudah memakai `origin` yang baru
+- [ ] Secret `SSH_HOST`, `SSH_USER`, `SSH_KEY` terisi
+- [ ] Actions hijau dan **Deploy to VPS** *success*
+- [ ] `docker ps` di server menunjukkan image dari repo baru
+- [ ] Project Workers `web-inovass` lama dihapus di Cloudflare
 
 ---
 
-## Bagian B: Beli dan pasang domain (`inovass.com`)
+## Bagian 2: Sebelum punya domain
 
-Rencananya: domain utama dilayani **Cloudflare Workers** (cepat, gratis, tanpa VPS). VPS menjadi cadangan (opsional).
+Website sudah bisa dibuka tanpa domain:
+- **HTTPS sementara (Cloudflare Quick Tunnel):** cek alamatnya di server:
+  ```bash
+  docker logs inovass-tunnel 2>&1 | grep trycloudflare.com
+  ```
+  Alamat `https://xxxx.trycloudflare.com` ini berganti kalau container tunnel di-restart (misalnya VPS reboot).
+- **Langsung ke IP:** `http://129.226.157.124:8080`
 
-### B1. Beli domain (pilih salah satu)
+---
 
-**Opsi 1, beli langsung di Cloudflare (paling mudah):** domain otomatis aktif di Cloudflare, tanpa ganti nameserver.
-1. dash.cloudflare.com → **Domain Registration → Register Domains** → cari `inovass.com` → **Purchase** (bayar kartu kredit/PayPal, harga modal ±US$10/tahun untuk `.com`).
-2. Lanjut ke **B3**.
+## Bagian 3: Beli domain dan sambungkan ke VPS
 
-**Opsi 2, beli di registrar lain** (Niagahoster, Rumahweb, Domainesia, dll., bisa bayar transfer bank/QRIS):
-1. Beli `inovass.com` di registrar tersebut.
-2. Lanjut ke **B2**.
+### 3.1 Beli domain (pilih salah satu)
+- **Langsung di Cloudflare (paling mudah):** dash.cloudflare.com → **Domain Registration → Register Domains** → cari `inovass.com` → **Purchase** (kartu kredit/PayPal, `.com` ±US$10/tahun). Domain otomatis aktif di Cloudflare, jadi **lewati 3.2**.
+- **Di registrar lokal** (Niagahoster, Rumahweb, Domainesia, dll., bisa transfer bank/QRIS): beli domain, lalu lanjut ke 3.2.
 
-> Catatan: `.co.id` mensyaratkan dokumen perusahaan (akta/NIB), sedangkan `.com` dan `.id` tidak serumit itu.
+> `.co.id` butuh dokumen perusahaan (akta/NIB). `.com` dan `.id` lebih mudah.
 
-### B2. (Hanya Opsi 2) Pindahkan DNS ke Cloudflare
-1. dash.cloudflare.com → **Add a domain** (atau *Onboard a domain*) → isi `inovass.com` → pilih plan **Free** → lanjut.
-2. Cloudflare menampilkan **2 nameserver** (contoh: `xxx.ns.cloudflare.com`, `yyy.ns.cloudflare.com`).
-3. Login ke registrar tempat beli domain → menu **Nameserver / DNS** → ganti nameserver bawaan dengan 2 nameserver Cloudflare tadi → simpan.
-4. Tunggu sampai status domain di Cloudflare menjadi **Active**. Biasanya beberapa menit, paling lama 24 jam, dan Cloudflare mengirim email saat aktif.
+### 3.2 (Hanya jika beli di registrar lain) Pindahkan DNS ke Cloudflare
+1. dash.cloudflare.com → **Add a domain** (*Onboard a domain*) → isi domain → plan **Free** → lanjut sampai muncul **2 nameserver Cloudflare** (contoh `xxx.ns.cloudflare.com`).
+2. Login ke registrar → menu **Nameserver** → ganti nameserver bawaan dengan 2 nameserver Cloudflare → simpan.
+3. Tunggu status domain di Cloudflare menjadi **Active**. Biasanya beberapa menit, paling lama 24 jam, dan ada email pemberitahuan.
 
-### B3. Pasang domain ke website (Cloudflare Workers)
-1. **Workers & Pages → web-inovass → Settings → Domains & Routes → Add → Custom domain**.
-2. Isi `inovass.com` → **Add domain**.
-3. Ulangi untuk `www.inovass.com`.
-4. Tunggu 1–5 menit (Cloudflare otomatis membuat sertifikat HTTPS), lalu buka https://inovass.com dan https://www.inovass.com.
+### 3.3 Buat Cloudflare Tunnel untuk VPS
+1. dash.cloudflare.com → **Zero Trust**. Kalau baru pertama kali, buat nama tim (bebas) dan pilih plan **Free**.
+2. **Networks → Tunnels → Create a tunnel** → pilih **Cloudflared** → nama `inovass-vps` → **Save tunnel**.
+3. Di halaman instalasi akan muncul perintah berisi `--token eyJ...`. **Salin hanya teks token-nya** (setelah `--token`). Perintah instalasinya **tidak perlu dijalankan**, karena container `cloudflared` sudah ada di server. Klik **Next**.
 
-*(Opsional)* Arahkan `www` ke alamat tanpa www supaya hanya ada satu alamat resmi: **Domain inovass.com → Rules → Redirect Rules → Create rule → template "Redirect from WWW to root"** → Deploy.
+### 3.4 Arahkan domain ke website
+Masih di tunnel `inovass-vps`, pada tab **Public Hostname** (di dashboard baru namanya *Published application routes*) → **Add**:
 
-### B4. VPS setelah punya domain (pilih salah satu)
+| Subdomain | Domain | Type | URL |
+|---|---|---|---|
+| *(kosongkan)* | `inovass.com` | `HTTP` | `web:80` |
+| `www` | `inovass.com` | `HTTP` | `web:80` |
 
-**Pilihan 1, matikan VPS (paling sederhana):** website sudah dilayani Cloudflare.
+`web:80` adalah nama container website di dalam docker-compose, jadi tulis persis seperti itu. Cloudflare otomatis membuat record DNS-nya.
+
+### 3.5 Pasang token di server
+Login SSH ke server:
 ```bash
-cd ~/apps/web-inovass && docker compose down
+cd ~/apps/web-inovass
+echo 'TUNNEL_ARGS=run --token <TOKEN-DARI-3.3>' > .env
+docker compose up -d
+docker logs inovass-tunnel 2>&1 | tail -5     # harus ada "Registered tunnel connection"
 ```
-Lalu di GitHub hapus secret `SSH_HOST` agar langkah deploy VPS di-skip.
+File `.env` hanya ada di server (tidak ada di GitHub) dan tidak ditimpa saat deploy.
 
-**Pilihan 2, VPS sebagai cadangan di subdomain** (misalnya `vps.inovass.com`). Jangan pakai `inovass.com`/`www`, karena dua alamat itu sudah dipakai Workers.
-1. **Zero Trust → Networks → Tunnels → Create a tunnel** → *Cloudflared* → nama `inovass-vps` → salin **token** (teks setelah `--token`). Lewati langkah instalasi.
-2. Tab **Public Hostname → Add**: Subdomain `vps`, Domain `inovass.com`, Type `HTTP`, URL `web:80` → Save.
-3. Di server:
-   ```bash
-   cd ~/apps/web-inovass
-   echo 'TUNNEL_ARGS=run --token <TOKEN>' > .env
-   docker compose up -d
-   ```
-4. Buka https://vps.inovass.com. Alamat trycloudflare lama otomatis tidak dipakai lagi.
+### 3.6 Cek
+- Buka **https://inovass.com** dan **https://www.inovass.com**. Harus tampil website dengan ikon gembok.
+- Di Zero Trust → **Networks → Tunnels**, status `inovass-vps` harus **Healthy**.
 
-### B5. (Opsional) Email @inovass.com gratis
-Website saat ini memakai `inovass.adm@gmail.com`. Kalau ingin alamat seperti `info@inovass.com` yang diteruskan ke Gmail:
-**Domain inovass.com → Email → Email Routing → Get started** → buat alamat `info@inovass.com` → tujuan `inovass.adm@gmail.com` → verifikasi lewat email. Ganti teks email di website setelah itu berjalan.
+### 3.7 (Opsional) Rapikan
+- **Satu alamat resmi:** domain → **Rules → Redirect Rules → Create rule** → template **"Redirect from WWW to root"** → Deploy.
+- **Tutup akses IP langsung:** hapus 2 baris `ports:` pada service `web` di `docker-compose.yml`, lalu push. Setelah itu website hanya bisa diakses lewat domain.
+- **Email `info@inovass.com` gratis:** domain → **Email → Email Routing** → buat alamat `info@inovass.com` → teruskan ke `inovass.adm@gmail.com`. Setelah berjalan, ganti teks email di website.
 
-### B6. Ganti domain lagi di kemudian hari
-Tidak perlu mengubah kode, karena domain tidak ditulis di mana pun dalam situs.
-1. Tambahkan domain baru ke Cloudflare (B1/B2).
-2. **web-inovass → Settings → Domains & Routes** → tambah custom domain baru, lalu hapus yang lama.
+**Checklist Bagian 3**
+- [ ] Domain berstatus **Active** di Cloudflare
+- [ ] Tunnel `inovass-vps` dibuat, dengan Public Hostname `inovass.com` dan `www` → `web:80`
+- [ ] `.env` berisi token di `~/apps/web-inovass`, lalu `docker compose up -d`
+- [ ] https://inovass.com terbuka, dan tunnel **Healthy**
 
-### Checklist Bagian B
-- [ ] Domain dibeli, dan status di Cloudflare **Active**
-- [ ] `inovass.com` dan `www.inovass.com` terpasang sebagai Custom domain di **web-inovass**
-- [ ] https://inovass.com terbuka dengan gembok (HTTPS)
-- [ ] VPS: dimatikan, **atau** dipasang di `vps.inovass.com`
+---
+
+## Bagian 4: Ganti domain di kemudian hari
+
+Server dan kode **tidak perlu diubah**, karena token tunnel tetap sama.
+1. Tambahkan domain baru ke Cloudflare (3.1 / 3.2).
+2. Zero Trust → **Networks → Tunnels → inovass-vps → Public Hostname** → **Add**: domain baru (dan `www`-nya) → `HTTP` → `web:80`.
+3. Cek domain baru sudah terbuka, lalu hapus baris Public Hostname domain lama.
+
+Kalau ingin domain lama tetap berfungsi dan mengalihkan ke domain baru: biarkan domain lama di Cloudflare, lalu buat **Redirect Rule** dari domain lama ke domain baru.
+
+---
+
+## Kalau ada masalah
+
+| Gejala | Penyebab & solusi |
+|---|---|
+| Actions merah di **Deploy to VPS** | Secret SSH salah, atau public key belum ada di `~/.ssh/authorized_keys` server. Buka log step tersebut. |
+| **Deploy to VPS** ter-*skip* | Secret `SSH_HOST` belum diisi di repo baru. |
+| Server gagal `pull` image (*denied / unauthorized*) | Image Private. Jadikan Public (1.5 poin 4), atau lakukan 1.4. |
+| Cloudflare **Error 1033** | Tunnel tidak tersambung: cek `docker logs inovass-tunnel`, dan pastikan token di `.env` benar. |
+| Cloudflare **Error 502 / Bad gateway** | Container website mati, atau URL di Public Hostname bukan `web:80`. Cek `docker ps`. |
+| Domain belum bisa dibuka | Status domain belum *Active* (nameserver belum berubah). Tunggu, lalu cek di registrar. |

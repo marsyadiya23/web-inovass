@@ -2,8 +2,8 @@
 
 Website statis (HTML/CSS/JS) untuk **inovass.com**.
 
-- **Live (Cloudflare):** https://web-inovass.inovass.workers.dev (deploy otomatis oleh Cloudflare, lihat bagian *Cloudflare Workers*)
-- **VPS (Docker):** `http://129.226.157.124:8080` + Cloudflare Quick Tunnel (deploy otomatis oleh GitHub Actions)
+- **Hosting:** VPS `129.226.157.124` (Docker + nginx), deploy otomatis oleh GitHub Actions setiap push ke `main`.
+- **Akses publik:** Cloudflare Tunnel. Sementara memakai alamat `https://xxxx.trycloudflare.com`; nanti diganti domain sendiri ([panduan](docs/panduan-pindah-repo-dan-domain.md)).
 
 ## Gambaran cara kerja
 
@@ -119,36 +119,11 @@ URL `https://xxxx.trycloudflare.com` dari log itu adalah alamat situs sementara 
 
 > Quick Tunnel tidak perlu akun Cloudflare, tetapi URL-nya **berubah** setiap container `inovass-tunnel` di-restart. Cocok untuk sementara sebelum punya domain.
 
-### 3. Nanti: pindah repo ke akun GitHub lain / beli domain
+### 3. Nanti: pindah repo / pasang domain
 Ikuti panduan langkah demi langkah di **[docs/panduan-pindah-repo-dan-domain.md](docs/panduan-pindah-repo-dan-domain.md)**. Ringkasnya:
-- **Pindah repo:** transfer repo → ganti nama image di `docker-compose.yml` dan `deploy.yml` → isi 3 secret SSH di repo baru → sambungkan ulang Git di Cloudflare. Server dan akun Cloudflare tetap sama.
-- **Domain:** beli domain (paling mudah langsung di Cloudflare) → **web-inovass → Settings → Domains & Routes → Custom domain** `inovass.com` dan `www.inovass.com`. Tidak perlu mengubah kode.
-- VPS setelah ada domain: dimatikan, atau dijadikan cadangan di subdomain (mis. `vps.inovass.com`) lewat Cloudflare Tunnel.
-
-## Cloudflare Workers (aktif): https://web-inovass.inovass.workers.dev
-
-Website juga di-host gratis oleh Cloudflare (CDN global + HTTPS), terpisah dari VPS. Cloudflare membaca `wrangler.jsonc` di root repo, lalu meng-upload isi folder `public/` sebagai file statis. File lain di repo (README, Dockerfile, dll.) tidak ikut ter-publish.
-
-**Alur update:** `git push` ke `main` → Cloudflare otomatis build dan deploy dalam ±30 detik. Status, log, dan rollback ada di dashboard Cloudflare → **Workers & Pages → web-inovass → Deployments**.
-
-**Cara setup yang sudah dilakukan (untuk referensi):**
-1. dash.cloudflare.com → **Workers & Pages → Create** → **Import a repository** → pilih GitHub `afidzulinn/web-inovass`.
-2. Project name `web-inovass`, root directory `/`, deploy command `npx wrangler deploy` (default).
-3. Nama project di dashboard **harus sama** dengan `"name"` di `wrangler.jsonc`.
-
-**Tes lokal persis seperti di Cloudflare:**
-```bash
-npx wrangler dev        # buka http://localhost:8787
-```
-Cloudflare otomatis membuat URL bersih: `/tentang.html` dialihkan ke `/tentang`, dan `/layanan/x/index.html` ke `/layanan/x/`. Semua link tetap jalan karena memakai path relatif.
-
-**Mengganti alamat:**
-- Alamat `workers.dev` = `<nama-project>.<subdomain-akun>.workers.dev`. Subdomain akun sudah diganti menjadi `inovass` (Workers & Pages → Account details → Subdomain).
-- Setelah domain `inovass.com` dibeli: **web-inovass → Settings → Domains & Routes → Add → Custom domain** → `inovass.com`, lalu ulangi untuk `www.inovass.com`. HTTPS otomatis, dan tunnel tidak diperlukan. Detailnya ada di [panduan](docs/panduan-pindah-repo-dan-domain.md#bagian-b-beli-dan-pasang-domain-inovasscom).
-
-**Alternatif tanpa `wrangler.jsonc`: Cloudflare Pages.** Workers selalu di-deploy dengan perintah `wrangler`, dan `wrangler.jsonc` hanyalah file pengaturannya. Kalau tidak mau ada file itu, pakai Pages: **Workers & Pages → Create → (link kecil) "Continue to Pages" → Import an existing Git repository** → pilih repo → Framework preset `None`, Build command kosong, **Build output directory `public`** → Save and Deploy. Alamatnya `https://<nama-project>.pages.dev`. Setelah itu `wrangler.jsonc` boleh dihapus, dan project Worker `web-inovass` dihapus di dashboard supaya tidak dobel.
-
-**VPS vs Cloudflare:** keduanya jalan bersamaan dari satu `git push`. Kalau cukup memakai Cloudflare saja, VPS boleh dimatikan: `cd ~/apps/web-inovass && docker compose down`, lalu hapus secret `SSH_HOST` di GitHub agar langkah deploy VPS di-skip.
+- **Pindah repo:** pindahkan repo → `git remote set-url` → isi 3 secret SSH di repo baru → Run workflow. Tidak ada file yang perlu diedit, karena nama image otomatis mengikuti nama repo.
+- **Domain:** beli domain → aktifkan di Cloudflare → buat Cloudflare Tunnel → arahkan `inovass.com` ke `web:80` → simpan token di `~/apps/web-inovass/.env` di server.
+- **Ganti domain:** cukup tambah/hapus Public Hostname di tunnel. Server dan kode tidak berubah.
 
 ## Memantau container (gratis)
 - **Portainer CE** (opsional, belum terpasang): kalau ingin tampilan web untuk melihat status/log/restart container, pasang sekali dengan `docker run -d --name portainer --restart=always -p 127.0.0.1:9443:9443 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:lts`, lalu akses lewat SSH tunnel: `ssh -L 9443:127.0.0.1:9443 ubuntu@129.226.157.124` → buka https://localhost:9443. Tidak dipakai untuk deploy.
