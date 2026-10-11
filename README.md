@@ -119,26 +119,11 @@ URL `https://xxxx.trycloudflare.com` dari log itu adalah alamat situs sementara 
 
 > Quick Tunnel tidak perlu akun Cloudflare, tetapi URL-nya **berubah** setiap container `inovass-tunnel` di-restart. Cocok untuk sementara sebelum punya domain.
 
-### 3. Nanti, setelah domain dibeli: pindah ke domain sendiri
-Tidak ada perubahan kode, karena domain tidak ditulis di mana pun dalam situs.
-
-1. Cloudflare dashboard → **Add a domain** → `inovass.com` → plan **Free**.
-2. Di registrar tempat beli domain, ganti **nameserver** ke 2 nameserver dari Cloudflare. Tunggu status *Active*.
-3. **Zero Trust → Networks → Tunnels → Create a tunnel** → *Cloudflared* → nama `inovass` → salin **token** (teks panjang setelah `--token`). Lewati langkah instalasi, karena container-nya sudah ada.
-4. Tab **Public Hostname** → tambahkan dua baris:
-   | Subdomain | Domain | Type | URL |
-   |---|---|---|---|
-   | *(kosong)* | inovass.com | HTTP | `web:80` |
-   | `www` | inovass.com | HTTP | `web:80` |
-5. Di server:
-   ```bash
-   cd ~/apps/web-inovass
-   echo 'TUNNEL_ARGS=run --token <TOKEN-DARI-LANGKAH-3>' > .env
-   docker compose up -d
-   ```
-6. Buka https://inovass.com. Di Zero Trust, status tunnel harus *Healthy*.
-
-Ganti ke domain lain di kemudian hari: ulangi langkah 1–2 untuk domain baru, lalu tambahkan Public Hostname-nya di tunnel `inovass` yang sama (langkah 4). Token tidak berubah, jadi server tidak perlu disentuh. Setelah memakai domain, port 8080 boleh ditutup: hapus baris `ports` di `docker-compose.yml`.
+### 3. Nanti: pindah repo ke akun GitHub lain / beli domain
+Ikuti panduan langkah demi langkah di **[docs/panduan-pindah-repo-dan-domain.md](docs/panduan-pindah-repo-dan-domain.md)**. Ringkasnya:
+- **Pindah repo:** transfer repo → ganti nama image di `docker-compose.yml` dan `deploy.yml` → isi 3 secret SSH di repo baru → sambungkan ulang Git di Cloudflare. Server dan akun Cloudflare tetap sama.
+- **Domain:** beli domain (paling mudah langsung di Cloudflare) → **web-inovass → Settings → Domains & Routes → Custom domain** `inovass.com` dan `www.inovass.com`. Tidak perlu mengubah kode.
+- VPS setelah ada domain: dimatikan, atau dijadikan cadangan di subdomain (mis. `vps.inovass.com`) lewat Cloudflare Tunnel.
 
 ## Cloudflare Workers (aktif): https://web-inovass.inovass.workers.dev
 
@@ -159,7 +144,7 @@ Cloudflare otomatis membuat URL bersih: `/tentang.html` dialihkan ke `/tentang`,
 
 **Mengganti alamat:**
 - Alamat `workers.dev` = `<nama-project>.<subdomain-akun>.workers.dev`. Subdomain akun sudah diganti menjadi `inovass` (Workers & Pages → Account details → Subdomain).
-- Setelah domain `inovass.com` dibeli dan ditambahkan ke Cloudflare (langkah 1–2 di bagian *"Nanti, setelah domain dibeli"*): **web-inovass → Settings → Domains & Routes → Add → Custom domain** → `inovass.com`, lalu ulangi untuk `www.inovass.com`. HTTPS otomatis, dan tunnel tidak diperlukan.
+- Setelah domain `inovass.com` dibeli: **web-inovass → Settings → Domains & Routes → Add → Custom domain** → `inovass.com`, lalu ulangi untuk `www.inovass.com`. HTTPS otomatis, dan tunnel tidak diperlukan. Detailnya ada di [panduan](docs/panduan-pindah-repo-dan-domain.md#bagian-b-beli-dan-pasang-domain-inovasscom).
 
 **Alternatif tanpa `wrangler.jsonc`: Cloudflare Pages.** Workers selalu di-deploy dengan perintah `wrangler`, dan `wrangler.jsonc` hanyalah file pengaturannya. Kalau tidak mau ada file itu, pakai Pages: **Workers & Pages → Create → (link kecil) "Continue to Pages" → Import an existing Git repository** → pilih repo → Framework preset `None`, Build command kosong, **Build output directory `public`** → Save and Deploy. Alamatnya `https://<nama-project>.pages.dev`. Setelah itu `wrangler.jsonc` boleh dihapus, dan project Worker `web-inovass` dihapus di dashboard supaya tidak dobel.
 
@@ -186,10 +171,10 @@ Keduanya gratis dan punya CI/CD. Tapi GitHub Actions tidak dibatasi untuk repo p
 Tidak. Deploy dilakukan GitHub Actions lewat SSH, langsung dengan `docker compose`. Portainer hanya opsional untuk *melihat* status/log container (lihat *Memantau container*).
 
 **Kenapa sekarang alamatnya `xxxx.trycloudflare.com`?**
-Domain `inovass.com` belum dibeli. Quick Tunnel Cloudflare memberi alamat HTTPS gratis tanpa domain. Kekurangannya, alamat ini berganti setiap container `inovass-tunnel` di-restart (misalnya VPS reboot). Deploy biasa tidak me-restart tunnel, hanya `inovass-web`. Untuk update `cloudflared` sesekali: `cd ~/apps/web-inovass && docker compose pull cloudflared && docker compose up -d`, lalu ambil URL baru dari log. Setelah domain dibeli, ikuti bagian *"Nanti, setelah domain dibeli"* di atas.
+Domain `inovass.com` belum dibeli. Quick Tunnel Cloudflare memberi alamat HTTPS gratis tanpa domain. Kekurangannya, alamat ini berganti setiap container `inovass-tunnel` di-restart (misalnya VPS reboot). Deploy biasa tidak me-restart tunnel, hanya `inovass-web`. Untuk update `cloudflared` sesekali: `cd ~/apps/web-inovass && docker compose pull cloudflared && docker compose up -d`, lalu ambil URL baru dari log. Setelah domain dibeli, ikuti [panduan domain](docs/panduan-pindah-repo-dan-domain.md#bagian-b-beli-dan-pasang-domain-inovasscom).
 
 **Bisa ganti domain nanti?**
-Bisa, tanpa mengubah kode. Domain hanya diatur di dashboard Cloudflare (Public Hostname tunnel). Nginx menerima domain apa pun (`server_name _`).
+Bisa, tanpa mengubah kode. Domain hanya diatur di dashboard Cloudflare (Custom domain di Worker `web-inovass`, atau Public Hostname tunnel untuk VPS). Nginx menerima domain apa pun (`server_name _`).
 
 **Kenapa form kontak membuka WhatsApp?**
 Website ini tidak punya backend/server email. Sebelumnya form hanya menampilkan "Pesan berhasil dikirim!" padahal pesan tidak terkirim ke mana pun. Sekarang tombol *Kirim Pesan* membuka WhatsApp INOVASS dengan pesan yang sudah terisi (nama, email, telepon, keperluan, pesan). Kalau nanti ingin masuk ke email, perlu layanan form (mis. Formspree) atau backend kecil.
