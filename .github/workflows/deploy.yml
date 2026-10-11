@@ -46,4 +46,4 @@ jobs:
           ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
           ssh "$SSH_USER@$SSH_HOST" 'mkdir -p /opt/inovass'
           scp docker-compose.yml "$SSH_USER@$SSH_HOST:/opt/inovass/"
-          ssh "$SSH_USER@$SSH_HOST" 'cd /opt/inovass && docker compose pull && docker compose up -d --remove-orphans && docker image prune -f'
+          ssh "$SSH_USER@$SSH_HOST" 'cd /opt/inovass && docker compose pull web && docker compose up -d --remove-orphans && docker image prune -f'

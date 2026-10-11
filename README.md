@@ -13,7 +13,7 @@ Website statis (HTML/CSS/JS) untuk **inovass.com**, dikemas sebagai container Ng
                           1. build image Docker (nginx + public/)
                           2. push ke ghcr.io/afidzulinn/web-inovass
                           3. SSH ke VPS ─────────────────────────▶  /opt/inovass/docker-compose.yml
-                                                                     docker compose pull && up -d
+                                                                     docker compose pull web && up -d
                                                                        ├─ inovass-web     (nginx, port 8080)
                                                                        └─ inovass-tunnel  (cloudflared)
                                                                                │
@@ -70,7 +70,7 @@ Halaman detail dulu bernama `layanan-detail-xxx.html` di root. Sekarang prefix-n
 
 1. Edit file di `public/`
 2. `git add . && git commit -m "update ..." && git push`
-3. GitHub Actions membangun image `ghcr.io/afidzulinn/web-inovass:latest`, lalu SSH ke VPS dan menjalankan `docker compose pull && docker compose up -d`. Selesai dalam ±1–2 menit. Status deploy: tab **Actions** di GitHub.
+3. GitHub Actions membangun image `ghcr.io/afidzulinn/web-inovass:latest`, lalu SSH ke VPS dan menjalankan `docker compose pull web && docker compose up -d` (hanya container website yang diganti; tunnel tidak disentuh). Selesai dalam ±1–2 menit. Status deploy: tab **Actions** di GitHub.
 
 Cek lokal sebelum push: buka `public/index.html` dengan Live Preview / double-click, atau:
 
@@ -158,7 +158,7 @@ Keduanya gratis dan punya CI/CD. Tapi GitHub Actions tidak dibatasi untuk repo p
 Tidak. Deploy dilakukan GitHub Actions lewat SSH, langsung dengan `docker compose`. Portainer (kalau sudah terpasang) hanya opsional untuk *melihat* status/log container.
 
 **Kenapa sekarang alamatnya `xxxx.trycloudflare.com`?**
-Domain `inovass.com` belum dibeli. Quick Tunnel Cloudflare memberi alamat HTTPS gratis tanpa domain. Kekurangannya, alamat ini berganti setiap container `inovass-tunnel` di-restart (deploy biasa tidak me-restart tunnel, hanya `inovass-web`). Setelah domain dibeli, ikuti bagian *"Nanti, setelah domain dibeli"* di atas.
+Domain `inovass.com` belum dibeli. Quick Tunnel Cloudflare memberi alamat HTTPS gratis tanpa domain. Kekurangannya, alamat ini berganti setiap container `inovass-tunnel` di-restart (misalnya VPS reboot). Deploy biasa tidak me-restart tunnel, hanya `inovass-web`. Untuk update `cloudflared` sesekali: `cd /opt/inovass && docker compose pull cloudflared && docker compose up -d`, lalu ambil URL baru dari log. Setelah domain dibeli, ikuti bagian *"Nanti, setelah domain dibeli"* di atas.
 
 **Bisa ganti domain nanti?**
 Bisa, tanpa mengubah kode. Domain hanya diatur di dashboard Cloudflare (Public Hostname tunnel). Nginx menerima domain apa pun (`server_name _`).
