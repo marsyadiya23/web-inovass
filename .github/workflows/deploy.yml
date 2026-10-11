@@ -9,9 +9,6 @@ permissions:
   contents: read
   packages: write
 
-env:
-  IMAGE: ghcr.io/afidzulinn/web-inovass
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -21,6 +18,9 @@ jobs:
       DEPLOY_DIR: apps/web-inovass   # relative to the SSH user's home
     steps:
       - uses: actions/checkout@v4
+
+      # Image name follows the repo (ghcr.io/<owner>/<repo>, lowercase), so moving the repo needs no edits
+      - run: echo "IMAGE=ghcr.io/${GITHUB_REPOSITORY,,}" >> "$GITHUB_ENV"
 
       - uses: docker/login-action@v3
         with:
@@ -45,6 +45,7 @@ jobs:
           install -m 700 -d ~/.ssh
           printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+          sed -i "s#image: ghcr.io/.*#image: $IMAGE:latest#" docker-compose.yml
           ssh "$SSH_USER@$SSH_HOST" "mkdir -p $DEPLOY_DIR"
           scp docker-compose.yml "$SSH_USER@$SSH_HOST:$DEPLOY_DIR/"
           ssh "$SSH_USER@$SSH_HOST" "cd $DEPLOY_DIR && docker compose pull web && docker compose up -d --remove-orphans && docker image prune -f"

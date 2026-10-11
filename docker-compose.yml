@@ -1,7 +1,7 @@
 # Lives on the VPS at ~/apps/web-inovass (copied there by the GitHub Actions deploy job).
 services:
   web:
-    image: ghcr.io/afidzulinn/web-inovass:latest
+    image: ghcr.io/afidzulinn/web-inovass:latest   # rewritten to ghcr.io/<owner>/<repo> by the deploy job
     container_name: inovass-web
     restart: unless-stopped
     ports:
