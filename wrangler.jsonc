@@ -5,5 +5,7 @@
   "compatibility_date": "2025-09-01",
   "assets": {
     "directory": "./public"
-  }
+  },
+  "workers_dev": true,   // https://web-inovass.<account-subdomain>.workers.dev
+  "preview_urls": true   // non-main branches get their own preview URL
 }
