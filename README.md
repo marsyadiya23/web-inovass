@@ -2,34 +2,28 @@
 
 Website statis (HTML/CSS/JS) untuk **inovass.com**.
 
-- **Hosting:** VPS `129.226.157.124` (Docker + nginx), deploy otomatis oleh GitHub Actions setiap push ke `main`.
-- **Akses publik:** Cloudflare Tunnel. Sementara memakai alamat `https://xxxx.trycloudflare.com`; nanti diganti domain sendiri ([panduan](docs/panduan-pindah-repo-dan-domain.md)).
+- **Hosting:** shared hosting cPanel Rumahweb (akun `inom3994`, server `kumai.iixcp.rumahweb.net`).
+- **Deploy:** otomatis oleh GitHub Actions setiap push ke `main` yang mengubah `public/`. Isi folder `public/` di-upload via FTPS ke `public_html/`.
 
 ## Gambaran cara kerja
 
 ```
- Laptop                GitHub (gratis)                         VPS 129.226.157.124
- ──────                ───────────────                         ───────────────────
+ Laptop                GitHub                                   cPanel Rumahweb
+ ──────                ──────                                   ───────────────
  edit public/  ──push──▶  repo afidzulinn/web-inovass
                           │
-                          ▼  GitHub Actions (.github/workflows/deploy.yml)
-                          1. build image Docker (nginx + public/)
-                          2. push ke ghcr.io/afidzulinn/web-inovass
-                          3. SSH ke VPS ─────────────────────────▶  ~/apps/web-inovass/docker-compose.yml
-                                                                     docker compose pull web && up -d
-                                                                       ├─ inovass-web     (nginx, port 8080)
-                                                                       └─ inovass-tunnel  (cloudflared)
-                                                                               │
- Pengunjung ◀──── HTTPS ──── Cloudflare ◀──────── tunnel keluar ───────────────┘
-                 (trycloudflare.com sementara, nanti inovass.com)
+                          ▼  GitHub Actions (.github/workflows/deploy-cpanel.yml)
+                          upload file yang berubah via FTPS ───▶  /home/inom3994/public_html
+                                                                  (Apache + public/.htaccess)
+ Pengunjung ◀──────────────── HTTPS ──────────────────────────────  https://inovass.com
 ```
 
 - **Tidak ada database atau backend**. Isinya hanya file HTML/CSS/JS/gambar.
-- **Tidak perlu buka port 80/443 di VPS**. Cloudflare Tunnel yang membuat koneksi keluar ke Cloudflare, dan HTTPS diurus Cloudflare.
-- **Deploy otomatis**: setiap push ke branch `main` situs ter-update sendiri dalam ±1–2 menit.
+- **Hanya file yang berubah yang di-upload.** Daftar file yang sudah ter-upload disimpan di `public_html/.ftp-deploy-sync-state.json` (jangan dihapus).
 
 ```
-public/                          # semua isi website (= root domain)
+public/                          # semua isi website (= public_html di server)
+  .htaccess                      # clean URL, cache, header keamanan (Apache)
   index.html  tentang.html  kontak.html  produk.html
   layanan/
     sertifikasi-organisasi/      # index.html = halaman kategori, sisanya halaman detail
@@ -42,10 +36,7 @@ public/                          # semua isi website (= root domain)
   assets/css/  (style.css, pages.css)
   assets/js/   (script.js)
   assets/img/
-deploy/nginx.conf                # konfigurasi Nginx di dalam container
-Dockerfile                       # nginx:alpine + public/
-docker-compose.yml               # dijalankan di VPS (~/apps/web-inovass): web + Cloudflare Tunnel
-.github/workflows/deploy.yml     # CI/CD: build -> push ke GHCR -> SSH ke VPS -> docker compose up
+.github/workflows/deploy-cpanel.yml   # CI/CD: upload public/ ke cPanel via FTPS
 ```
 
 Nama folder kategori mengikuti label tab di halaman Layanan:
@@ -68,105 +59,67 @@ Halaman detail dulu bernama `layanan-detail-xxx.html` di root. Sekarang prefix-n
 - **Jangan menulis ulang kode menu/navbar di `<script>` halaman.** Menu hamburger, navbar saat scroll, animasi reveal, dan tab sudah diurus `assets/js/script.js`. Mendeklarasikan ulang `const hamburgerBtn`, `const mobileMenu`, atau `const navbar` akan membuat **seluruh** script di halaman itu error. Bug ini pernah terjadi di 548 halaman.
 - **Perbaikan tampilan mobile** dikumpulkan di blok `RESPONSIVE FIXES` di akhir `assets/css/style.css`. Tambahkan perbaikan baru di situ.
 - **Nomor WhatsApp untuk form kontak** ada di script di bagian bawah `kontak.html` (`wa.me/6281311173707`).
+- **Jangan edit file langsung di File Manager cPanel.** Perubahan itu akan tertimpa deploy berikutnya. Selalu edit di repo lalu push.
 
 ## Alur update (sehari-hari)
 
 1. Edit file di `public/`
 2. `git add . && git commit -m "update ..." && git push`
-3. GitHub Actions membangun image `ghcr.io/afidzulinn/web-inovass:latest`, lalu SSH ke VPS dan menjalankan `docker compose pull web && docker compose up -d` (hanya container website yang diganti; tunnel tidak disentuh). Selesai dalam ±1–2 menit. Status deploy: tab **Actions** di GitHub.
+3. GitHub Actions meng-upload file yang berubah ke `public_html/`. Selesai dalam ±1 menit. Status deploy: tab **Actions** di GitHub.
 
 Cek lokal sebelum push: buka `public/index.html` dengan Live Preview / double-click, atau:
 
 ```bash
 cd public && python -m http.server 8080
-# atau persis seperti production:
-docker build -t web-inovass . && docker run --rm -p 8080:80 web-inovass
 # buka http://localhost:8080
 ```
 
 ## Setup awal (sekali saja)
 
-Repo: https://github.com/afidzulinn/web-inovass (publik, jadi GitHub Actions gratis tanpa batas dan image GHCR bisa di-pull tanpa login).
-
-### 1. Siapkan VPS (129.226.157.124)
-Login SSH ke server, pastikan Docker sudah ada (`docker compose version`). Lalu buat SSH key khusus deploy:
-
-```bash
-ssh-keygen -t ed25519 -f ~/.ssh/github_deploy -N "" -C "github-actions"
-cat ~/.ssh/github_deploy.pub >> ~/.ssh/authorized_keys
-cat ~/.ssh/github_deploy        # salin SELURUH isinya (private key) untuk langkah 2
-```
-
-User yang dipakai (`ubuntu`) harus ada di grup `docker`. Cek dengan `id -nG`. File deploy disimpan di `~/apps/web-inovass`.
+### 1. Akun FTP di cPanel
+cPanel → **FTP Accounts** → Add FTP Account:
+- Log In: `deploy` (menjadi `deploy@inovass.com`)
+- Directory: `public_html` (akun ini hanya bisa mengakses folder website)
+- Quota: Unlimited
 
 ### 2. Secrets di GitHub
 Repo → **Settings → Secrets and variables → Actions → New repository secret**:
 
 | Name | Value |
 |---|---|
-| `SSH_HOST` | `129.226.157.124` |
-| `SSH_USER` | `ubuntu` |
-| `SSH_KEY`  | isi private key `~/.ssh/github_deploy` (termasuk baris `-----BEGIN/END-----`) |
+| `FTP_SERVER` | `kumai.iixcp.rumahweb.net` |
+| `FTP_USERNAME` | `deploy@inovass.com` |
+| `FTP_PASSWORD` | password akun FTP di atas |
 
-Lalu **Actions → Build & Deploy → Run workflow** (atau push apa saja). Setelah hijau, cek di server:
-
-```bash
-docker ps                                   # inovass-web & inovass-tunnel harus "Up"
-docker logs inovass-tunnel 2>&1 | grep trycloudflare.com
-```
-
-URL `https://xxxx.trycloudflare.com` dari log itu adalah alamat situs sementara (HTTPS, tanpa domain). Bisa juga dibuka langsung di `http://129.226.157.124:8080` (jika port 8080 diizinkan firewall).
-
-> Quick Tunnel tidak perlu akun Cloudflare, tetapi URL-nya **berubah** setiap container `inovass-tunnel` di-restart. Cocok untuk sementara sebelum punya domain.
-
-### 3. Nanti: pindah repo / pasang domain
-Ikuti panduan langkah demi langkah di **[docs/panduan-pindah-repo-dan-domain.md](docs/panduan-pindah-repo-dan-domain.md)**. Ringkasnya:
-- **Pindah repo:** pindahkan repo → `git remote set-url` → isi 3 secret SSH di repo baru → Run workflow. Tidak ada file yang perlu diedit, karena nama image otomatis mengikuti nama repo.
-- **Domain:** beli domain → aktifkan di Cloudflare → buat Cloudflare Tunnel → arahkan `inovass.com` ke `web:80` → simpan token di `~/apps/web-inovass/.env` di server.
-- **Ganti domain:** cukup tambah/hapus Public Hostname di tunnel. Server dan kode tidak berubah.
-
-## Memantau container (gratis)
-- **Portainer CE** (opsional, belum terpasang): kalau ingin tampilan web untuk melihat status/log/restart container, pasang sekali dengan `docker run -d --name portainer --restart=always -p 127.0.0.1:9443:9443 -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:lts`, lalu akses lewat SSH tunnel: `ssh -L 9443:127.0.0.1:9443 ubuntu@129.226.157.124` → buka https://localhost:9443. Tidak dipakai untuk deploy.
-- Tanpa Portainer: `docker ps`, `docker logs -f inovass-web`, `docker compose -f ~/apps/web-inovass/docker-compose.yml restart`.
-- Notifikasi jika situs mati: Cloudflare (Zero Trust → tunnel status) atau Uptime Kuma (self-hosted, gratis).
+### 3. Deploy pertama
+1. Kosongkan `public_html` lewat File Manager (hapus file bawaan seperti `default.html`). Deploy tidak menghapus file yang sudah ada di server sebelumnya.
+2. **Actions → Deploy to cPanel → Run workflow** (atau push perubahan di `public/`). Deploy pertama meng-upload semua file (±28 MB), jadi lebih lama.
+3. Buka https://inovass.com.
 
 ## Rollback
-Setiap build diberi tag commit SHA. Cara termudah: `git revert <commit>` lalu push. Cara cepat di server:
-```bash
-cd ~/apps/web-inovass && sed -i 's#web-inovass:latest#web-inovass:<sha>#' docker-compose.yml && docker compose up -d
-```
-(Deploy berikutnya dari GitHub akan mengembalikan ke `:latest`.)
+`git revert <commit>` lalu push. File yang dikembalikan akan di-upload ulang.
 
 ## Tanya-jawab
-
-**Kenapa GitHub, bukan GitLab?**
-Keduanya gratis dan punya CI/CD. Tapi GitHub Actions tidak dibatasi untuk repo publik (repo private dapat 2.000 menit/bulan), sedangkan GitLab gratis hanya 400 menit/bulan dan akun baru biasanya diminta verifikasi kartu kredit. Satu kali deploy di sini makan ±1 menit.
-
-**Apakah wajib pakai Portainer?**
-Tidak. Deploy dilakukan GitHub Actions lewat SSH, langsung dengan `docker compose`. Portainer hanya opsional untuk *melihat* status/log container (lihat *Memantau container*).
-
-**Kenapa sekarang alamatnya `xxxx.trycloudflare.com`?**
-Domain `inovass.com` belum dibeli. Quick Tunnel Cloudflare memberi alamat HTTPS gratis tanpa domain. Kekurangannya, alamat ini berganti setiap container `inovass-tunnel` di-restart (misalnya VPS reboot). Deploy biasa tidak me-restart tunnel, hanya `inovass-web`. Untuk update `cloudflared` sesekali: `cd ~/apps/web-inovass && docker compose pull cloudflared && docker compose up -d`, lalu ambil URL baru dari log. Setelah domain dibeli, ikuti [panduan domain](docs/panduan-pindah-repo-dan-domain.md#bagian-b-beli-dan-pasang-domain-inovasscom).
-
-**Bisa ganti domain nanti?**
-Bisa, tanpa mengubah kode. Domain hanya diatur di dashboard Cloudflare (Custom domain di Worker `web-inovass`, atau Public Hostname tunnel untuk VPS). Nginx menerima domain apa pun (`server_name _`).
 
 **Kenapa form kontak membuka WhatsApp?**
 Website ini tidak punya backend/server email. Sebelumnya form hanya menampilkan "Pesan berhasil dikirim!" padahal pesan tidak terkirim ke mana pun. Sekarang tombol *Kirim Pesan* membuka WhatsApp INOVASS dengan pesan yang sudah terisi (nama, email, telepon, keperluan, pesan). Kalau nanti ingin masuk ke email, perlu layanan form (mis. Formspree) atau backend kecil.
 
 **Apakah perubahan CSS langsung terlihat setelah deploy?**
-Ya. Nginx menyuruh browser selalu mengecek ulang file CSS/JS (`Cache-Control: no-cache`). Gambar di-cache 7 hari, jadi kalau mengganti gambar, pakai **nama file baru**.
+Ya. `.htaccess` menyuruh browser selalu mengecek ulang file CSS/JS (`Cache-Control: no-cache`). Gambar di-cache 7 hari, jadi kalau mengganti gambar, pakai **nama file baru**.
+
+**File yang dihapus dari repo, apakah ikut terhapus di server?**
+Ya. Deploy mencatat file yang pernah di-upload, jadi file yang dihapus dari `public/` juga dihapus dari `public_html/`. File yang dibuat langsung di server (bukan lewat deploy) tidak disentuh.
 
 ## Troubleshooting
 
 | Gejala | Penyebab & solusi |
 |---|---|
 | Halaman tampil polos tanpa CSS saat dibuka lokal | Ada link yang diawali `/` (path absolut). Ganti jadi relatif (`../../assets/...`). Cek: `grep -rn 'href="/' public` |
-| Actions merah di step **Deploy to VPS** | Secret `SSH_HOST`/`SSH_USER`/`SSH_KEY` salah, atau public key belum ada di `~/.ssh/authorized_keys` server. Lihat log step tersebut di tab Actions. |
-| Step **Deploy to VPS** ter-*skip* | Secret `SSH_HOST` belum diisi. Build tetap jalan, tapi server tidak di-update. |
-| Actions merah di step build | Biasanya `Dockerfile` atau `deploy/nginx.conf` rusak. Tes lokal: `docker build -t web-inovass .` |
-| Alamat trycloudflare tidak bisa dibuka | `docker logs inovass-tunnel` → ambil URL terbaru (URL lama mati setelah restart). |
-| `http://129.226.157.124:8080` tidak bisa dibuka | Port 8080 diblokir firewall VPS/provider. Tidak masalah kalau aksesnya lewat Cloudflare. |
+| Actions merah: login gagal | Secret `FTP_SERVER`/`FTP_USERNAME`/`FTP_PASSWORD` salah. Coba login dengan FileZilla memakai data yang sama. |
+| Actions merah: error TLS/sertifikat | Ganti `protocol: ftps` menjadi `ftp` di `deploy-cpanel.yml`. |
+| Workflow tidak jalan setelah push | Hanya jalan jika ada perubahan di `public/`. Jalankan manual: **Actions → Deploy to cPanel → Run workflow**. |
+| File di server tidak ter-update / ada yang hilang | Hapus `public_html/.ftp-deploy-sync-state.json` lewat File Manager, lalu Run workflow. Semua file akan di-upload ulang. |
+| `/tentang` 404 padahal `/tentang.html` bisa | `.htaccess` belum ter-upload. Cek di File Manager (aktifkan *Show Hidden Files*). |
 | Menu hamburger / animasi tidak jalan di satu halaman | Buka DevTools (F12) → Console. Biasanya ada `Identifier '...' has already been declared` → hapus deklarasi ganda di `<script>` halaman itu (lihat *Aturan penting*). |
 
 ## Catatan perubahan (Oktober 2026)
@@ -174,4 +127,4 @@ Ya. Nginx menyuruh browser selalu mengecek ulang file CSS/JS (`Cache-Control: no
 - Dihapus: skrip generator (`*.py`, `*.sh`), file laporan (`*.md`), template tak terpakai, dan 51 gambar yang tidak dipakai di halaman mana pun.
 - Diperbaiki: 6 link rusak (termasuk 5 link `onclick` ke halaman yang tidak ada), error JavaScript di 548 halaman, form kontak palsu, dan tampilan mobile. Tab layanan, grid beranda, garis timeline, breadcrumb, dan grid 3/4 kolom sebelumnya meluber di HP.
 - Hasil pengecekan otomatis: 555 halaman × 3 ukuran layar (375/768/1280px), tanpa scroll ke samping, tanpa error JavaScript, dan 18.299 link valid.
-- Ditambahkan: Docker (nginx), deploy otomatis via GitHub Actions, dan Cloudflare Tunnel.
+- Pindah hosting dari VPS (Docker + Cloudflare Tunnel) ke shared hosting cPanel; deploy via FTPS dari GitHub Actions.
