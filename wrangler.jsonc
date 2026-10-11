@@ -1,0 +1,9 @@
+// Cloudflare Workers Builds runs `npx wrangler deploy` on every push to main.
+// Static site only: serve public/ as assets, no Worker script.
+{
+  "name": "web-inovass",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./public"
+  }
+}
