@@ -16,7 +16,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     env:
-      PORTAINER_WEBHOOK_URL: ${{ secrets.PORTAINER_WEBHOOK_URL }}
+      SSH_HOST: ${{ secrets.SSH_HOST }}
+      SSH_USER: ${{ secrets.SSH_USER }}
     steps:
       - uses: actions/checkout@v4
 
@@ -34,7 +35,15 @@ jobs:
             ${{ env.IMAGE }}:latest
             ${{ env.IMAGE }}:${{ github.sha }}
 
-      # -k: Portainer ships with a self-signed cert on :9443
-      - name: Trigger Portainer redeploy
-        if: env.PORTAINER_WEBHOOK_URL != ''
-        run: curl -fsSk -X POST "$PORTAINER_WEBHOOK_URL"
+      # Skipped until the SSH_* secrets are set (see README)
+      - name: Deploy to VPS
+        if: env.SSH_HOST != ''
+        env:
+          SSH_KEY: ${{ secrets.SSH_KEY }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_KEY" > ~/.ssh/id_ed25519 && chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -H "$SSH_HOST" >> ~/.ssh/known_hosts
+          ssh "$SSH_USER@$SSH_HOST" 'mkdir -p /opt/inovass'
+          scp docker-compose.yml "$SSH_USER@$SSH_HOST:/opt/inovass/"
+          ssh "$SSH_USER@$SSH_HOST" 'cd /opt/inovass && docker compose pull && docker compose up -d --remove-orphans && docker image prune -f'
