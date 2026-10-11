@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontak — INOVASS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <link rel="stylesheet" href="assets/css/pages.css" />
+  <style>
+    /* Contact Section New Design */
+    .contact-section-new {
+      background: #f8fafc;
+      padding: 5rem 2rem;
+    }
+
+    .contact-container-new {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 5rem;
+      align-items: start;
+    }
+
+    /* Left Side: Contact Info */
+    .contact-info-side {
+      padding: 1rem 0;
+    }
+
+    .contact-eyebrow {
+      color: #1e3a8a;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .contact-title {
+      color: #1e3a8a;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      line-height: 1.15;
+    }
+
+    .contact-description {
+      color: #475569;
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 3rem;
+    }
+
+    .contact-info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.25rem;
+      transition: transform 0.3s ease;
+    }
+
+    .contact-info-item:hover {
+      transform: translateX(5px);
+    }
+
+    .contact-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: #00e0a0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: 0 4px 15px rgba(0, 224, 160, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .contact-info-item:hover .contact-icon {
+      transform: scale(1.1);
+      box-shadow: 0 6px 20px rgba(0, 224, 160, 0.3);
+      background: #1e3a8a;
+    }
+
+    .contact-icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: #ffffff;
+      stroke-width: 2;
+    }
+
+    .contact-info-text h4 {
+      color: #64748b;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin: 0 0 0.35rem 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .contact-info-text p {
+      color: #1e3a8a;
+      font-size: 1rem;
+      font-weight: 600;
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* Right Side: Form */
+    .contact-form-side {
+      background: #ffffff;
+      padding: 2.5rem;
+      border-radius: 20px;
+      box-shadow: 0 4px 30px rgba(30, 58, 138, 0.08);
+    }
+
+    .contact-form-new {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .form-row-double {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
+
+    .form-group-new {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .form-group-new label {
+      display: none;
+    }
+
+    .form-group-new input,
+    .form-group-new textarea,
+    .form-group-new select {
+      padding: 1.25rem 1.5rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 0.95rem;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: all 0.3s ease;
+      background: #f8fafc;
+      color: #475569;
+    }
+
+    .form-group-new input::placeholder,
+    .form-group-new textarea::placeholder {
+      color: #94a3b8;
+    }
+
+    .form-group-new select {
+      color: #94a3b8;
+    }
+
+    .form-group-new select option {
+      color: #475569;
+    }
+
+    .form-group-new textarea {
+      resize: vertical;
+      min-height: 140px;
+    }
+
+    .form-group-new select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1.5L6 6.5L11 1.5' stroke='%2394a3b8' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1.5rem center;
+      padding-right: 3rem;
+    }
+
+    .form-group-new input:focus,
+    .form-group-new textarea:focus,
+    .form-group-new select:focus {
+      outline: none;
+      border-color: #00e0a0;
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(0, 224, 160, 0.1);
+    }
+
+    .submit-btn-new {
+      background: transparent;
+      color: #00e0a0;
+      border: 2px solid #00e0a0;
+      padding: 1.25rem 3.5rem;
+      border-radius: 12px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: fit-content;
+      margin-top: 0.5rem;
+      text-transform: uppercase;
+    }
+
+    .submit-btn-new:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 224, 160, 0.4);
+      background: #00e0a0;
+      color: #ffffff;
+    }
+
+    .submit-btn-new:active {
+      transform: translateY(0);
+    }
+
+    /* Map Section */
+    .map-section {
+      width: 100%;
+      max-width: 1200px;
+      margin: 4rem auto 5rem;
+      padding: 0 2rem;
+      height: 450px;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .map-section iframe {
+      width: 100%;
+      height: 100%;
+      display: block;
+      border-radius: 20px;
+      box-shadow: 0 4px 30px rgba(30, 58, 138, 0.1);
+    }
+
+    /* Responsive */
+    @media (max-width: 992px) {
+      .contact-container-new {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+      
+      .contact-form-side {
+        padding: 2rem;
+      }
+      
+      .map-section {
+        margin: 3rem auto 4rem;
+        border-radius: 16px;
+      }
+      
+      .map-section iframe {
+        border-radius: 16px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .contact-section-new {
+        padding: 3rem 1.5rem;
+      }
+
+      .contact-title {
+        font-size: 2.25rem;
+      }
+      
+      .contact-description {
+        font-size: 1rem;
+      }
+      
+      .form-row-double {
+        grid-template-columns: 1fr;
+      }
+      
+      .contact-form-side {
+        padding: 1.75rem;
+      }
+      
+      .form-group-new input,
+      .form-group-new textarea,
+      .form-group-new select {
+        padding: 1.1rem 1.25rem;
+      }
+
+      .submit-btn-new {
+        width: 100%;
+        padding: 1.15rem 2rem;
+      }
+      
+      .map-section {
+        padding: 0 1.5rem;
+        margin: 3rem auto 4rem;
+        border-radius: 12px;
+      }
+      
+      .map-section iframe {
+        border-radius: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar scrolled">
+    <a href="index.html" class="nav-logo">
+      <img src="assets/img/logo.png" alt="INOVASS Logo" class="nav-logo-img" />
+    </a>
+    <div class="nav-menu">
+      <a href="index.html" class="nav-link">Beranda</a>
+      <a href="layanan/sertifikasi-organisasi/index.html" class="nav-link">Layanan</a>
+      <a href="produk.html" class="nav-link">Produk</a>
+      <a href="tentang.html" class="nav-link">Tentang Kami</a>
+    </div>
+    <div class="nav-right">
+      <a href="kontak.html" class="nav-cta">Hubungi Kami</a>
+      <button class="nav-hamburger" aria-label="Menu" id="hamburgerBtn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="mobile-link">Beranda</a>
+    <a href="layanan/sertifikasi-organisasi/index.html" class="mobile-link">Layanan</a>
+    <a href="produk.html" class="mobile-link">Produk</a>
+    <a href="tentang.html" class="mobile-link">Tentang Kami</a>
+    <a href="kontak.html" class="mobile-cta">Hubungi Kami</a>
+  </div>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero page-hero-img">
+    <img src="assets/img/hero produk kami.png" alt="Hubungi Kami" class="page-hero-bg" />
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <nav class="page-breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Beranda</a>
+        <span>›</span>
+        <span>Hubungi Kami</span>
+      </nav>
+      <h1>Hubungi<br /><em>Kami</em></h1>
+      <p class="page-desc">Ada pertanyaan atau proyek yang ingin dibahas? Tim kami siap membantu Anda</p>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-section-new">
+    <div class="contact-container-new">
+      
+      <!-- Left Side: Contact Info -->
+      <div class="contact-info-side">
+        <h2 class="contact-title">Mari Wujudkan Solusi Bersama</h2>
+        <p class="contact-description">Terima kasih atas ketertarikan Anda kepada INOVASS. Silakan hubungi kami untuk konsultasi, pertanyaan, atau kebutuhan layanan Anda. Tim kami siap membantu.</p>
+
+        <div class="contact-info-list">
+          <div class="contact-info-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </div>
+            <div class="contact-info-text">
+              <h4>Hubungi Kami</h4>
+              <p>+62 813-1117-3707</p>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </div>
+            <div class="contact-info-text">
+              <h4>Email Kami</h4>
+              <p>inovass.adm@gmail.com</p>
+            </div>
+          </div>
+
+          <div class="contact-info-item">
+            <div class="contact-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
+            <div class="contact-info-text">
+              <h4>Kantor Kami</h4>
+              <p>Jl. Danau Melahayu No. 23A<br/>Pesona Telaga Cibinong, Bogor</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Side: Contact Form -->
+      <div class="contact-form-side">
+        <form class="contact-form-new" id="contactForm">
+          <div class="form-row-double">
+            <div class="form-group-new">
+              <label for="nama">Nama Lengkap</label>
+              <input type="text" id="nama" placeholder="Nama Lengkap" required />
+            </div>
+            
+            <div class="form-group-new">
+              <label for="email">Email</label>
+              <input type="email" id="email" placeholder="Alamat Email" required />
+            </div>
+          </div>
+          
+          <div class="form-group-new">
+            <label for="telepon">Nomor Telepon</label>
+            <input type="tel" id="telepon" placeholder="Nomor Telepon" required />
+          </div>
+          
+          <div class="form-group-new">
+            <label for="layanan">Keperluan</label>
+            <select id="layanan" required>
+              <option value="">Pilih Keperluan</option>
+              <option value="iso">Konsultasi ISO</option>
+              <option value="akreditasi">Akreditasi Laboratorium</option>
+              <option value="pelatihan">Pelatihan</option>
+              <option value="sertifikasi">Sertifikasi Kompetensi</option>
+              <option value="produk">Produk Digital</option>
+              <option value="lainnya">Lainnya</option>
+            </select>
+          </div>
+          
+          <div class="form-group-new">
+            <label for="pesan">Pesan</label>
+            <textarea id="pesan" rows="5" placeholder="Tulis pesan Anda" required></textarea>
+          </div>
+          
+          <button type="submit" class="submit-btn-new">
+            Kirim Pesan
+          </button>
+        </form>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- GOOGLE MAP SECTION -->
+  <section class="map-section">
+    <iframe 
+      src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3964.432233214819!2d106.83294699999999!3d-6.466800999999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNsKwMjgnMDAuNSJTIDEwNsKwNDknNTguNiJF!5e0!3m2!1sen!2sid!4v1784904375351!5m2!1sen!2sid" 
+      width="100%" 
+      height="450" 
+      style="border:0;" 
+      allowfullscreen="" 
+      loading="lazy" 
+      referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand reveal-left">
+        <a href="index.html" class="footer-logo-link">
+          <img src="assets/img/logo.png" alt="INOVASS Logo" class="nav-logo-img" />
+        </a>
+        <p class="footer-tagline">Inovasi untuk Masa Depan</p>
+        <p class="footer-desc">Perusahaan konsultan ISO dan pengembangan solusi digital yang membantu organisasi meningkatkan mutu, efisiensi, dan daya saing.</p>
+        <div class="footer-socials" style="margin-top:1.5rem;">
+          <a href="#">INSTAGRAM</a>
+          <a href="#">LINKEDIN</a>
+          <a href="#">YOUTUBE</a>
+        </div>
+      </div>
+      <div class="footer-links reveal-right">
+        <div class="footer-col">
+          <h4>Office</h4>
+          <ul>
+            <li>Jl. Danau Melahayu No. 23A</li>
+            <li>Pesona Telaga Cibinong</li>
+            <li>Kel. Harapan Jaya, Kec. Cibinong,</li>
+            <li>Kab. Bogor</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><a href="https://wa.me/6281311173707">+62-813-1117-3707</a></li>
+            <li><a href="mailto:inovass.adm@gmail.com">inovass.adm@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 INOVASS. Hak cipta dilindungi undang-undang.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Kebijakan Privasi</a>
+        <a href="#">Syarat &amp; Ketentuan</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+  <script>
+    // Contact form -> WhatsApp (ponytail: no backend; add an email/API endpoint if messages must land in an inbox)
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const v = (id) => document.getElementById(id).value.trim();
+      const layanan = document.getElementById('layanan');
+      const text = [
+        'Halo INOVASS, saya ingin berkonsultasi.',
+        'Nama: ' + v('nama'),
+        'Email: ' + v('email'),
+        'Telepon: ' + v('telepon'),
+        'Keperluan: ' + layanan.options[layanan.selectedIndex].text,
+        '',
+        v('pesan'),
+      ].join('\n');
+      window.open('https://wa.me/6281311173707?text=' + encodeURIComponent(text), '_blank', 'noopener');
+    });
+  </script>
+</body>
+</html>

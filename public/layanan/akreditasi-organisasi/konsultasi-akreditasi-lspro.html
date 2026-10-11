@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Konsultasi Akreditasi Lembaga Sertifikasi Produk — INOVASS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <link rel="stylesheet" href="../../assets/css/pages.css" />
+  <style>
+    /* Simple Card Design with Progress Line - INOVASS Theme - Soft Version */
+    .product-detail-item {
+      position: relative !important;
+      overflow: hidden !important;
+      background: #ffffff !important;
+      border: 1.5px solid #cbd5e1 !important;
+      border-radius: 16px !important;
+      padding: 2rem 1.5rem !important;
+      transition: all 0.3s ease !important;
+      box-shadow: 0 1px 3px rgba(148, 163, 184, 0.1) !important;
+      cursor: pointer !important;
+    }
+    
+    .product-detail-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 0%;
+      height: 3px;
+      background: #1e3a8a;
+      transition: width 0.8s ease;
+      border-radius: 16px 16px 0 0;
+      z-index: 10;
+    }
+    
+    /* Icon indicator untuk card yang bisa diklik */
+    .product-detail-item::after {
+      content: '→';
+      position: absolute;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      color: #cbd5e1;
+      font-size: 1.2rem;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      opacity: 0;
+    }
+    
+    .product-detail-item:hover::before {
+      width: 100%;
+    }
+    
+    .product-detail-item:hover::after {
+      opacity: 1;
+      color: #1e3a8a;
+      right: 1.2rem;
+    }
+    
+    .product-detail-item:hover {
+      transform: translateY(-5px) !important;
+      box-shadow: 0 8px 20px rgba(30, 58, 138, 0.15) !important;
+      border-color: #1e3a8a !important;
+    }
+    
+    /* Text Color - Soft */
+    .product-detail-item p {
+      color: #475569 !important;
+      margin: 0 !important;
+      line-height: 1.7 !important;
+      font-weight: 450 !important;
+      font-size: 0.95rem !important;
+      transition: color 0.3s ease !important;
+      padding-right: 2rem !important;
+    }
+    
+    .product-detail-item:hover p {
+      color: #1e3a8a !important;
+      font-weight: 500 !important;
+    }
+    
+    /* Grid Layout - 4 columns */
+    .product-details-grid {
+      grid-template-columns: repeat(4, 1fr) !important;
+    }
+    
+    /* Responsive */
+    @media (max-width: 1200px) {
+      .product-details-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .product-details-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .product-details-grid {
+        grid-template-columns: 1fr !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <a href="../../index.html" class="nav-logo">
+      <img src="../../assets/img/logo.png" alt="INOVASS Logo" class="nav-logo-img" />
+    </a>
+    <div class="nav-menu">
+      <a href="../../index.html" class="nav-link">Beranda</a>
+      <a href="../sertifikasi-organisasi/index.html" class="nav-link active">Layanan</a>
+      <a href="../../produk.html" class="nav-link">Produk</a>
+      <a href="../../tentang.html" class="nav-link">Tentang Kami</a>
+    </div>
+    <div class="nav-right">
+      <a href="../../kontak.html" class="nav-cta">Hubungi Kami</a>
+      <button class="nav-hamburger" aria-label="Menu" id="hamburgerBtn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html" class="mobile-link">Beranda</a>
+    <a href="../sertifikasi-organisasi/index.html" class="mobile-link active">Layanan</a>
+    <a href="../../produk.html" class="mobile-link">Produk</a>
+    <a href="../../tentang.html" class="mobile-link">Tentang Kami</a>
+    <a href="../../kontak.html" class="mobile-cta">Hubungi Kami</a>
+  </div>
+
+  <!-- BREADCRUMB & TITLE -->
+  <section class="detail-header-section">
+    <div class="detail-header-container">
+      <nav class="detail-breadcrumb-nav" style="font-size: 0.82rem !important;">
+        <a href="../../index.html" class="breadcrumb-link" style="color: rgba(255, 255, 255, 0.5) !important;">Beranda</a>
+        <span class="breadcrumb-sep" style="color: rgba(255, 255, 255, 0.5) !important;">›</span>
+        <a href="index.html" class="breadcrumb-link" style="color: rgba(255, 255, 255, 0.5) !important;">Layanan</a>
+        <span class="breadcrumb-sep" style="color: rgba(255, 255, 255, 0.5) !important;">›</span>
+        <span class="breadcrumb-current" style="color: #00e0a0 !important;">Jasa Konsultasi Akreditasi Lembaga Sertifikasi Produk Standar ISO/IEC/SNI 17065</span>
+      </nav>
+      <h1 class="detail-page-title" style="color: #ffffff !important; font-size: clamp(1.2rem, 2.5vw, 1.8rem) !important; font-weight: 700 !important;">Jasa Konsultasi Akreditasi Lembaga Sertifikasi Produk Standar ISO/IEC/SNI 17065</h1>
+      </div>
+  </section>
+
+  <!-- SERVICE DETAIL CONTENT -->
+  <section class="service-detail-section">
+    <div class="service-detail-container">
+      
+      <!-- Overview Section -->
+      <div class="detail-content-intro">
+        <div class="intro-layout">
+          <div class="intro-title-section">
+            <h2 class="intro-main-title">Akreditasi Lembaga<br>Sertifikasi Produk<br>ISO/IEC/SNI 17065</h2>
+          </div>
+          <div class="intro-text-section">
+            <p>Layanan konsultasi akreditasi lembaga sertifikasi produk (LSPro) INOVASS membantu LSPro memenuhi persyaratan ISO/IEC/SNI 17065 untuk mendapatkan pengakuan kompetensi dari Komite Akreditasi Nasional (KAN). Kami menyediakan konsultasi komprehensif mulai dari gap analysis, penyusunan dokumen sistem manajemen, pelatihan personel, hingga pendampingan audit akreditasi.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product Details Section -->
+      <div class="product-details-section">
+        <div class="product-details-header">
+          <div class="product-header-line"></div>
+          <h3 class="product-details-title">Layanan Akreditasi Lembaga Sertifikasi Produk yang Kami Dukung</h3>
+        </div>
+        <div class="product-details-description">
+          <p>INOVASS menyediakan layanan konsultasi akreditasi LSPro yang komprehensif untuk membantu lembaga mencapai standar ISO/IEC/SNI 17065 dan meningkatkan kredibilitas sertifikasi produk.</p>
+        </div>
+        <div class="product-details-grid">
+          <div class="product-detail-item accent-navy" onclick="window.location.href='akreditasi-iso-17065.html'" style="cursor: pointer !important;">
+            <p>Jasa Konsultasi Akreditasi Lembaga Sertifikasi Produk SNI ISO/IEC 17065:2012</p>
+          </div>
+          <div class="product-detail-item accent-green" onclick="window.location.href='gap-analysis-iso-17065.html'" style="cursor: pointer !important;">
+            <p>Jasa Gap Analysis Akreditasi Lembaga Sertifikasi Produk</p>
+          </div>
+          <div class="product-detail-item accent-yellow" onclick="window.location.href='penyusunan-dokumen-iso-17065.html'" style="cursor: pointer !important;">
+            <p>Jasa Konsultasi Penyusunan Dokumen Akreditasi Lembaga Sertifikasi Produk SNI ISO/IEC 17065:2012</p>
+          </div>
+          <div class="product-detail-item accent-green" onclick="window.location.href='penerapan-sistem-iso-17065.html'" style="cursor: pointer !important;">
+            <p>Jasa Konsultasi Penerapan Sistem Akreditasi Lembaga Sertifikasi Produk</p>
+          </div>
+          <div class="product-detail-item accent-navy" onclick="window.location.href='pengembangan-skema-sertifikasi-produk.html'" style="cursor: pointer !important;">
+            <p>Jasa Konsultasi Pengembangan Skema Sertifikasi Produk</p>
+          </div>
+          <div class="product-detail-item accent-yellow" onclick="window.location.href='penyusunan-proses-sertifikasi-produk.html'" style="cursor: pointer !important;">
+            <p>Jasa Konsultasi Penyusunan Proses Sertifikasi Produk</p>
+          </div>
+          <div class="product-detail-item accent-navy" onclick="window.location.href='ketidakberpihakan-kerahasiaan-lspro.html'" style="cursor: pointer !important;">
+            <p>Jasa Konsultasi Ketidakberpihakan dan Kerahasiaan</p>
+          </div>
+          <div class="product-detail-item accent-green" onclick="window.location.href='manajemen-risiko-lspro.html'" style="cursor: pointer !important;">
+            <p>Jasa Konsultasi Manajemen Risiko LSPro</p>
+          </div>
+          <div class="product-detail-item accent-yellow" onclick="window.location.href='pengelolaan-kompetensi-personel-lspro.html'" style="cursor: pointer !important;">
+            <p>Jasa Konsultasi Pengelolaan Kompetensi Personel LSPro</p>
+          </div>
+          <div class="product-detail-item accent-navy" onclick="window.location.href='audit-internal-lspro.html'" style="cursor: pointer !important;">
+            <p>Jasa Audit Internal Sistem Akreditasi Lembaga Sertifikasi Produk</p>
+          </div>
+          <div class="product-detail-item accent-green" onclick="window.location.href='management-review-lspro.html'" style="cursor: pointer !important;">
+            <p>Jasa Pendampingan Tinjauan Manajemen (Management Review)</p>
+          </div>
+          <div class="product-detail-item accent-yellow" onclick="window.location.href='persiapan-asesmen-akreditasi-lspro.html'" style="cursor: pointer !important;">
+            <p>Jasa Konsultasi Persiapan Asesmen Akreditasi KAN</p>
+          </div>
+          <div class="product-detail-item accent-navy" onclick="window.location.href='pendampingan-asesmen-akreditasi-kan-lspro.html'" style="cursor: pointer !important;">
+            <p>Jasa Pendampingan Asesmen Akreditasi KAN</p>
+          </div>
+          <div class="product-detail-item accent-green" onclick="window.location.href='corrective-action-lspro.html'" style="cursor: pointer !important;">
+            <p>Jasa Pendampingan Penyelesaian Ketidaksesuaian (Corrective Action)</p>
+          </div>
+          <div class="product-detail-item accent-yellow" onclick="window.location.href='surveillance-lspro.html'" style="cursor: pointer !important;">
+            <p>Jasa Konsultasi Persiapan Surveillance Akreditasi SNI ISO/IEC 17065</p>
+          </div>
+          <div class="product-detail-item accent-navy" onclick="window.location.href='pemeliharaan-sistem-akreditasi-lspro.html'" style="cursor: pointer !important;">
+            <p>Jasa Pemeliharaan Sistem Akreditasi Lembaga Sertifikasi Produk</p>
+          </div>
+          <div class="product-detail-item accent-green" onclick="window.location.href='pelatihan-kompetensi-personel-lspro.html'" style="cursor: pointer !important;">
+            <p>Jasa Pelatihan dan Peningkatan Kompetensi Personel LSPro</p>
+          </div>
+          <div class="product-detail-item accent-yellow" onclick="window.location.href='digitalisasi-sistem-manajemen-lspro.html'" style="cursor: pointer !important;">
+            <p>Jasa Digitalisasi Sistem Manajemen LSPro</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="page-cta reveal">
+    <h2>Siap memulai<br /><em>proyek Anda?</em></h2>
+    <p>Hubungi kami untuk konsultasi gratis dan penawaran terbaik untuk organisasi Anda.</p>
+    <a href="../../kontak.html" class="btn-outline">Hubungi Kami Sekarang</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand reveal-left">
+        <a href="../../index.html" class="footer-logo-link">
+          <img src="../../assets/img/logo.png" alt="INOVASS Logo" class="nav-logo-img" />
+        </a>
+        <p class="footer-tagline">Inovasi untuk Masa Depan</p>
+        <p class="footer-desc">Perusahaan konsultan ISO dan pengembangan solusi digital yang membantu organisasi meningkatkan mutu, efisiensi, dan daya saing.</p>
+        <div class="footer-socials" style="margin-top:1.5rem;">
+          <a href="#">INSTAGRAM</a>
+          <a href="#">LINKEDIN</a>
+          <a href="#">YOUTUBE</a>
+        </div>
+      </div>
+      <div class="footer-links reveal-right">
+        <div class="footer-col">
+          <h4>Office</h4>
+          <ul>
+            <li>Jl. Danau Melahayu No. 23A</li>
+            <li>Pesona Telaga Cibinong</li>
+            <li>Kel. Harapan Jaya, Kec. Cibinong,</li>
+            <li>Kab. Bogor</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><a href="https://wa.me/6281311173707">+62-813-1117-3707</a></li>
+            <li><a href="mailto:inovass.adm@gmail.com">inovass.adm@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 INOVASS. Hak cipta dilindungi undang-undang.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Kebijakan Privasi</a>
+        <a href="#">Syarat &amp; Ketentuan</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/script.js"></script>
+</body>
+</html>

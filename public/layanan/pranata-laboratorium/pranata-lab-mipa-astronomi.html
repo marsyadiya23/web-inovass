@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pelatihan Pranata Laboratorium Pendidikan Astronomi Standar Akreditasi SPMI, SN-Dikti, ISO 21001, ISO 9001 dan ISO/IEC/SNI 17025:2017 — INOVASS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../../assets/css/style.css" />
+  <link rel="stylesheet" href="../../assets/css/pages.css" />
+  <style>
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideInLeft { from { opacity: 0; transform: translateX(-30px); } to { opacity: 1; transform: translateX(0); } }
+    @keyframes slideInRight { from { opacity: 0; transform: translateX(30px); } to { opacity: 1; transform: translateX(0); } }
+    :root { --primary-green: #00c278; --primary-navy: #1e3a8a; --accent-blue: #3b82f6; }
+    .iso-content-layout { display: grid; grid-template-columns: 35% 1fr; gap: 4rem; margin-bottom: 6rem; align-items: start; }
+    .iso-content-layout.pengertian-card { display: grid; grid-template-columns: 35% 1fr; gap: 3rem; background: #ffffff; padding: 2.5rem; border-radius: 16px; box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06); border: 1px solid rgba(30, 58, 138, 0.08); animation: fadeInUp 0.8s ease-out; }
+    .iso-content-left { position: static; }
+    .iso-content-title { font-size: 2.5rem; font-weight: 700; line-height: 1.2; color: #1e3a8a; margin: 0; }
+    .iso-content-right { padding-top: 0.5rem; }
+    .iso-content-desc { font-size: 1.1rem; line-height: 1.9; color: #475569; margin-bottom: 1.5rem; }
+    .iso-content-section { background: linear-gradient(180deg, #f8f9fa 0%, #ffffff 100%); padding: 4rem 5rem; position: relative; }
+    .iso-content-container { max-width: 1300px; margin: 0 auto; }
+    .iso-benefit-section { margin-bottom: 6rem; animation: fadeIn 0.8s ease-out; }
+    .iso-benefit-section-title { font-size: 2.5rem; font-weight: 700; color: #1e3a8a; text-align: center; margin-bottom: 5rem; animation: fadeIn 0.6s ease-out; }
+    .iso-benefits-modern-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .iso-benefit-modern-card { background: #ffffff; padding: 2rem; border-radius: 12px; border: 1px solid rgba(30, 58, 138, 0.1); box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04); transition: all 0.3s ease; animation: fadeInUp 0.6s ease-out both; }
+    .iso-benefit-modern-card:nth-child(1) { animation-delay: 0.1s; }
+    .iso-benefit-modern-card:nth-child(2) { animation-delay: 0.15s; }
+    .iso-benefit-modern-card:nth-child(3) { animation-delay: 0.2s; }
+    .iso-benefit-modern-card:nth-child(4) { animation-delay: 0.25s; }
+    .iso-benefit-modern-card:nth-child(5) { animation-delay: 0.3s; }
+    .iso-benefit-modern-card:nth-child(6) { animation-delay: 0.35s; }
+    .iso-benefit-modern-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); border-color: rgba(0, 194, 120, 0.3); }
+    .iso-benefit-modern-card h3 { font-size: 1.15rem; font-weight: 600; color: #64748b; margin: 0 0 0.75rem 0; line-height: 1.3; }
+    .iso-benefit-modern-card p { font-size: 0.95rem; line-height: 1.7; color: #64748b; margin: 0; }
+    @keyframes pulse { 0%, 100% { box-shadow: 0 8px 32px rgba(37, 99, 235, 0.3); } 50% { box-shadow: 0 8px 40px rgba(37, 99, 235, 0.5); } }
+    @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+    .iso-cta-section { background: #2563eb; padding: 3rem 4rem; border-radius: 20px; display: flex; justify-content: space-between; align-items: center; margin: 4rem 0 6rem 0; box-shadow: 0 8px 32px rgba(37, 99, 235, 0.3); animation: fadeInUp 0.8s ease-out, pulse 3s ease-in-out infinite; position: relative; overflow: hidden; }
+    .iso-cta-section::before { content: ''; position: absolute; width: 300px; height: 300px; background: rgba(255, 255, 255, 0.05); border-radius: 50%; top: -150px; right: -100px; animation: float 4s ease-in-out infinite; }
+    .iso-cta-section::after { content: ''; position: absolute; width: 200px; height: 200px; background: rgba(255, 255, 255, 0.05); border-radius: 50%; bottom: -100px; left: -50px; animation: float 5s ease-in-out infinite reverse; }
+    .iso-cta-text { font-size: 1.75rem; font-weight: 700; color: #ffffff; margin: 0; line-height: 1.3; position: relative; z-index: 1; animation: slideInLeft 0.8s ease-out; }
+    .iso-cta-button { background: #ffffff; color: #2563eb; padding: 1rem 2.5rem; border-radius: 12px; font-size: 1rem; font-weight: 600; text-decoration: none; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); white-space: nowrap; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1); position: relative; z-index: 1; animation: slideInRight 0.8s ease-out; border: 2px solid transparent; }
+    .iso-cta-button:hover { background: #f0f9ff; transform: translateY(-3px) scale(1.05); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2); border-color: #ffffff; }
+    .iso-process-section { margin-bottom: 6rem; background: #f7f9f8; padding: 4rem 0; margin-left: -5rem; margin-right: -5rem; padding-left: 5rem; padding-right: 5rem; animation: fadeIn 1s ease-out; }
+    .iso-process-title { font-size: 2.5rem; font-weight: 700; color: #1e3a8a; margin: 0 0 4rem 0; line-height: 1.2; text-align: center; animation: fadeIn 0.6s ease-out; }
+    .iso-process-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem 4rem; position: relative; max-width: 1300px; margin: 0 auto; padding: 2rem 0; }
+    .iso-process-step { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; animation: fadeInUp 0.8s ease-out both; }
+    .iso-process-step:nth-child(1) { animation-delay: 0.1s; }
+    .iso-process-step:nth-child(2) { animation-delay: 0.2s; }
+    .iso-process-step:nth-child(3) { animation-delay: 0.3s; }
+    .iso-process-step:nth-child(4) { animation-delay: 0.4s; }
+    .iso-process-step:nth-child(5) { animation-delay: 0.5s; }
+    .iso-process-step:nth-child(6) { animation-delay: 0.6s; }
+    .iso-process-step:nth-child(-n+3) { flex-direction: column-reverse; }
+    .iso-process-step:nth-child(n+4) { flex-direction: column; }
+    .process-step-number { width: 60px; height: 60px; border-radius: 50%; background: #00c278; color: #ffffff; font-size: 1.3rem; font-weight: 700; display: flex; align-items: center; justify-content: center; position: relative; z-index: 3; box-shadow: 0 4px 16px rgba(0, 194, 120, 0.35); flex-shrink: 0; transition: all 0.3s ease; }
+    .iso-process-step:hover .process-step-number { transform: scale(1.1); box-shadow: 0 6px 24px rgba(0, 194, 120, 0.5); }
+    .iso-process-step:nth-child(1) .process-step-number::after { content: ''; position: absolute; left: calc(50% + 30px); top: 50%; transform: translateY(-50%); width: calc(100% + 4rem + 270px); height: 2px; background: linear-gradient(to right, #00c278, rgba(0, 194, 120, 0.3)); z-index: -1; }
+    .iso-process-step:nth-child(2) .process-step-number::after { content: ''; position: absolute; left: calc(50% + 30px); top: 50%; transform: translateY(-50%); width: calc(100% + 4rem + 270px); height: 2px; background: linear-gradient(to right, #00c278, rgba(0, 194, 120, 0.3)); z-index: -1; }
+    .iso-process-step:nth-child(3) .process-step-number::before { content: ''; position: absolute; left: 50%; top: calc(50% + 30px); transform: translateX(-50%); width: 2px; height: calc(4rem + 60px); background: linear-gradient(to bottom, #00c278, rgba(0, 194, 120, 0.3)); z-index: -1; }
+    .iso-process-step:nth-child(4) .process-step-number::after { content: ''; position: absolute; left: calc(50% + 30px); top: 50%; transform: translateY(-50%); width: calc(100% + 4rem + 270px); height: 2px; background: linear-gradient(to right, #00c278, rgba(0, 194, 120, 0.3)); z-index: -1; }
+    .iso-process-step:nth-child(5) .process-step-number::after { content: ''; position: absolute; left: calc(50% + 30px); top: 50%; transform: translateY(-50%); width: calc(100% + 4rem + 270px); height: 2px; background: linear-gradient(to right, #00c278, rgba(0, 194, 120, 0.3)); z-index: -1; }
+    .iso-process-step:nth-child(-n+3) .process-step-number { margin-top: 2rem; }
+    .iso-process-step:nth-child(n+4) .process-step-number { margin-bottom: 2rem; }
+    .process-connector { display: none; }
+    .process-step-content { background: #ffffff; border-radius: 16px; padding: 1.5rem 1.2rem; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07); border: 1px solid rgba(0, 194, 120, 0.1); width: 100%; transition: transform 0.3s ease, box-shadow 0.3s; min-height: 180px; display: flex; flex-direction: column; }
+    .iso-process-step:hover .process-step-content { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); }
+    .process-step-content h3 { font-size: 0.95rem; font-weight: 700; color: #1e3a8a; margin: 0 0 0.75rem 0; line-height: 1.3; }
+    .process-step-content p { font-size: 0.78rem; color: #64748b; line-height: 1.7; margin: 0 0 0.5rem 0; }
+    .iso-benefit-highlight { margin: 3rem 0 6rem 0; padding: 0; position: relative; }
+    .benefit-highlight-title { font-size: 2rem; font-weight: 700; color: #1e3a8a; text-align: center; margin-bottom: 5rem; line-height: 1.2; }
+    .benefit-highlight-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; position: relative; max-width: 950px; margin: 0 auto; }
+    .benefit-highlight-grid::before { content: ''; position: absolute; top: 8px; left: 16.66%; right: 16.66%; height: 2px; background: #00c278; z-index: 1; }
+    .benefit-highlight-card { background: transparent; padding: 0; border-radius: 0; box-shadow: none; text-align: center; border: none; transition: transform 0.3s ease; display: flex; flex-direction: column; align-items: center; min-height: auto; position: relative; z-index: 2; animation: fadeInUp 0.6s ease-out both; }
+    .benefit-highlight-card:nth-child(1) { animation-delay: 0.1s; }
+    .benefit-highlight-card:nth-child(2) { animation-delay: 0.2s; }
+    .benefit-highlight-card:nth-child(3) { animation-delay: 0.3s; }
+    .benefit-highlight-card:hover { transform: translateY(-5px); }
+    .benefit-highlight-card::before { content: ''; width: 16px; height: 16px; background: #00c278; border: 3px solid #ffffff; border-radius: 50%; margin-bottom: 1.5rem; flex-shrink: 0; box-shadow: 0 0 0 2px #00c278; }
+    .benefit-highlight-card p { font-size: 0.95rem; line-height: 1.5; color: #64748b; margin: 0; font-weight: 400; text-align: center; }
+    .iso-target-section { margin-bottom: 6rem; animation: fadeIn 0.8s ease-out; }
+    .iso-target-section-title { font-size: 2.5rem; font-weight: 700; color: #1e3a8a; margin: 0 0 1rem 0; line-height: 1.2; animation: fadeIn 0.6s ease-out; }
+    .iso-target-description { font-size: 1.05rem; line-height: 1.8; color: #64748b; margin-bottom: 3rem; max-width: 800px; }
+    .iso-target-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-bottom: 2.5rem; }
+    .iso-target-card { padding: 1.75rem 1.5rem; background: #ffffff; border: 2px solid rgba(37, 99, 235, 0.1); border-radius: 12px; text-align: center; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); animation: fadeInUp 0.6s ease-out both; position: relative; overflow: hidden; }
+    .iso-target-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 3px; background: #2563eb; transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+    .iso-target-card:hover::before { transform: scaleX(1); }
+    .iso-target-card:nth-child(1) { animation-delay: 0.1s; }
+    .iso-target-card:nth-child(2) { animation-delay: 0.15s; }
+    .iso-target-card:nth-child(3) { animation-delay: 0.2s; }
+    .iso-target-card:nth-child(4) { animation-delay: 0.25s; }
+    .iso-target-card:nth-child(5) { animation-delay: 0.3s; }
+    .iso-target-card:nth-child(6) { animation-delay: 0.35s; }
+    .iso-target-card:hover { transform: translateY(-5px); border-color: #2563eb; box-shadow: 0 8px 24px rgba(37, 99, 235, 0.15); }
+    .iso-target-card h4 { font-size: 1rem; font-weight: 600; color: #1e3a8a; margin: 0; transition: color 0.3s ease; }
+    .iso-target-card:hover h4 { color: #2563eb; }
+    .iso-target-footer { font-size: 1rem; line-height: 1.8; color: #64748b; padding: 2rem; background: rgba(37, 99, 235, 0.05); border-radius: 12px; border-left: 4px solid #2563eb; animation: fadeIn 1s ease-out; }
+    @media (max-width: 900px) {
+      .iso-content-section { padding: 3rem 1.5rem; }
+      .iso-content-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .benefit-highlight-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+      .benefit-highlight-grid::before { display: none; }
+      .iso-benefits-modern-grid { grid-template-columns: repeat(2, 1fr); }
+      .iso-cta-section { flex-direction: column; gap: 1.5rem; padding: 2rem 1.5rem; text-align: center; }
+      .iso-process-section { padding: 4rem 1.5rem; margin-left: -1.5rem; margin-right: -1.5rem; padding-left: 1.5rem; padding-right: 1.5rem; }
+      .iso-process-steps { grid-template-columns: 1fr 1fr; gap: 2rem 1.5rem; }
+      .iso-target-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 580px) {
+      .iso-benefits-modern-grid { grid-template-columns: 1fr; }
+      .iso-process-steps { grid-template-columns: 1fr; gap: 2rem; }
+      .iso-target-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <a href="../../index.html" class="nav-logo">
+      <img src="../../assets/img/logo.png" alt="INOVASS Logo" class="nav-logo-img" />
+    </a>
+    <div class="nav-menu">
+      <a href="../../index.html" class="nav-link">Beranda</a>
+      <a href="index.html" class="nav-link active">Layanan</a>
+      <a href="../../produk.html" class="nav-link">Produk</a>
+      <a href="../../tentang.html" class="nav-link">Tentang Kami</a>
+    </div>
+    <div class="nav-right">
+      <a href="../../kontak.html" class="nav-cta">Hubungi Kami</a>
+      <button class="nav-hamburger" aria-label="Menu" id="hamburgerBtn">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="../../index.html" class="mobile-link">Beranda</a>
+    <a href="index.html" class="mobile-link active">Layanan</a>
+    <a href="../../produk.html" class="mobile-link">Produk</a>
+    <a href="../../tentang.html" class="mobile-link">Tentang Kami</a>
+    <a href="../../kontak.html" class="mobile-cta">Hubungi Kami</a>
+  </div>
+
+  <section class="detail-header-section">
+    <div class="detail-header-container">
+      <nav class="detail-breadcrumb-nav" style="font-size: 0.82rem !important;">
+        <a href="../../index.html" class="breadcrumb-link" style="color: rgba(255, 255, 255, 0.5) !important;">Beranda</a>
+        <span class="breadcrumb-sep" style="color: rgba(255, 255, 255, 0.5) !important;">›</span>
+        <a href="index.html" class="breadcrumb-link" style="color: rgba(255, 255, 255, 0.5) !important;">Layanan</a>
+        <span class="breadcrumb-sep" style="color: rgba(255, 255, 255, 0.5) !important;">›</span>
+        <a href="pranata-lab-mipa.html" class="breadcrumb-link" style="color: rgba(255, 255, 255, 0.5) !important;">Pelatihan Pranata Laboratorium Pendidikan MIPA</a>
+        <span class="breadcrumb-sep" style="color: rgba(255, 255, 255, 0.5) !important;">›</span>
+        <span class="breadcrumb-current" style="color: #00e0a0 !important;">Pranata Lab Pendidikan Astronomi</span>
+      </nav>
+      <h1 class="detail-page-title" style="color: #ffffff !important; font-size: clamp(1.2rem, 2.5vw, 1.8rem) !important; font-weight: 700 !important;">Pelatihan Pranata Laboratorium Pendidikan Astronomi Standar Akreditasi SPMI, SN-Dikti, ISO 21001, ISO 9001 dan ISO/IEC/SNI 17025:2017</h1>
+    </div>
+  </section>
+
+  <section class="iso-content-section">
+    <div class="iso-content-container">
+
+      <!-- Highlight Section -->
+      <div class="iso-benefit-highlight">
+        <h2 class="benefit-highlight-title">Dengan Pelatihan Ini, Organisasi Anda Dapat:</h2>
+        <div class="benefit-highlight-grid">
+          <div class="benefit-highlight-card">
+            <p>Pelatihan sesuai standar SPMI dan SN-Dikti</p>
+          </div>
+          <div class="benefit-highlight-card">
+            <p>Terintegrasi dengan ISO 21001, ISO 9001, dan ISO/IEC/SNI 17025:2017</p>
+          </div>
+          <div class="benefit-highlight-card">
+            <p>Praktik pengelolaan laboratorium astronomi pendidikan</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pengertian Section -->
+      <div class="iso-content-layout pengertian-card">
+        <div class="iso-content-left">
+          <h2 class="iso-content-title">Apa itu Pranata Lab Pendidikan Astronomi?</h2>
+        </div>
+        <div class="iso-content-right">
+          <p class="iso-content-desc">Pelatihan Pranata Laboratorium Pendidikan Astronomi adalah program komprehensif yang dirancang untuk meningkatkan kompetensi pengelola laboratorium astronomi di perguruan tinggi dan lembaga pendidikan. Program ini mengintegrasikan standar akreditasi SPMI (Sistem Penjaminan Mutu Internal), SN-Dikti (Standar Nasional Pendidikan Tinggi), ISO 21001 (Sistem Manajemen Organisasi Pendidikan), ISO 9001 (Sistem Manajemen Mutu), dan ISO/IEC/SNI 17025:2017 (Laboratorium Pengujian dan Kalibrasi) untuk memastikan pengelolaan laboratorium yang berkualitas dan terakreditasi.</p>
+        </div>
+      </div>
+
+      <!-- Manfaat Section -->
+      <div class="iso-benefit-section">
+        <h2 class="iso-benefit-section-title">Manfaat Pranata Lab Pendidikan Astronomi</h2>
+        <div class="iso-benefits-modern-grid">
+          <div class="iso-benefit-modern-card">
+            <h3>Kompetensi Terintegrasi</h3>
+            <p>Memahami dan menerapkan multiple standar akreditasi secara terintegrasi dalam pengelolaan laboratorium astronomi</p>
+          </div>
+          <div class="iso-benefit-modern-card">
+            <h3>Praktik Langsung</h3>
+            <p>Pelatihan mencakup praktik pengelolaan laboratorium astronomi dengan studi kasus nyata</p>
+          </div>
+          <div class="iso-benefit-modern-card">
+            <h3>Sertifikat Pelatihan</h3>
+            <p>Mendapatkan sertifikat pelatihan pranata laboratorium yang diakui</p>
+          </div>
+          <div class="iso-benefit-modern-card">
+            <h3>Materi Komprehensif</h3>
+            <p>Materi mencakup aspek teknis, manajerial, dan keselamatan kerja di laboratorium astronomi</p>
+          </div>
+          <div class="iso-benefit-modern-card">
+            <h3>Instruktur Berpengalaman</h3>
+            <p>Dibimbing oleh praktisi dan asesor yang berpengalaman di bidang akreditasi laboratorium</p>
+          </div>
+          <div class="iso-benefit-modern-card">
+            <h3>Networking</h3>
+            <p>Kesempatan membangun jaringan dengan pranata laboratorium dari institusi lain</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA Section -->
+      <div class="iso-cta-section">
+        <p class="iso-cta-text">Siap mengikuti Pelatihan?<br>Hubungi konsultan kami sekarang!</p>
+        <a href="../../kontak.html" class="iso-cta-button">Hubungi Konsultan</a>
+      </div>
+
+      <!-- Materi Training Section -->
+      <div class="iso-process-section">
+        <h2 class="iso-process-title">Materi Pelatihan</h2>
+        <div class="iso-process-steps">
+          <div class="iso-process-step">
+            <div class="process-step-number">1</div>
+            <div class="process-step-content">
+              <h3>Pengenalan Standar Akreditasi Laboratorium Pendidikan</h3>
+              <p>Pemahaman SPMI, SN-Dikti, ISO 21001, ISO 9001, dan ISO/IEC/SNI 17025:2017 untuk laboratorium pendidikan astronomi</p>
+            </div>
+          </div>
+          <div class="iso-process-step">
+            <div class="process-step-number">2</div>
+            <div class="process-step-content">
+              <h3>Manajemen Laboratorium Astronomi</h3>
+              <p>Organisasi lab, perencanaan kegiatan, pengelolaan SDM, dan sistem dokumentasi laboratorium astronomi</p>
+            </div>
+          </div>
+          <div class="iso-process-step">
+            <div class="process-step-number">3</div>
+            <div class="process-step-content">
+              <h3>Keselamatan dan Kesehatan Kerja Laboratorium Astronomi</h3>
+              <p>K3L di laboratorium astronomi, keselamatan penggunaan teleskop dan instrumen astronomi, dan manajemen risiko observasi</p>
+            </div>
+          </div>
+          <div class="iso-process-step">
+            <div class="process-step-number">6</div>
+            <div class="process-step-content">
+              <h3>Pengelolaan Instrumen dan Data Astronomi</h3>
+              <p>Inventarisasi, kalibrasi, perawatan teleskop dan peralatan lab astronomi, pengelolaan data observasi, dan sistem arsip</p>
+            </div>
+          </div>
+          <div class="iso-process-step">
+            <div class="process-step-number">5</div>
+            <div class="process-step-content">
+              <h3>Sistem Mutu Laboratorium Astronomi</h3>
+              <p>Dokumentasi mutu, pengendalian dokumen, audit internal, tindakan korektif, dan peningkatan berkelanjutan</p>
+            </div>
+          </div>
+          <div class="iso-process-step">
+            <div class="process-step-number">4</div>
+            <div class="process-step-content">
+              <h3>Praktik Pengelolaan Laboratorium Astronomi Pendidikan</h3>
+              <p>Praktik penyusunan dokumen, prosedur kerja, dan simulasi pengelolaan laboratorium astronomi sesuai standar akreditasi</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Target Peserta Section -->
+      <div class="iso-target-section">
+        <h2 class="iso-target-section-title">Target Peserta</h2>
+        <p class="iso-target-description">Pelatihan ini dirancang untuk:</p>
+        <div class="iso-target-grid">
+          <div class="iso-target-card">
+            <h4>Kepala Laboratorium Astronomi perguruan tinggi</h4>
+          </div>
+          <div class="iso-target-card">
+            <h4>Laboran dan teknisi laboratorium astronomi</h4>
+          </div>
+          <div class="iso-target-card">
+            <h4>Dosen pengampu praktikum astronomi</h4>
+          </div>
+          <div class="iso-target-card">
+            <h4>Staf pengelola laboratorium astronomi pendidikan</h4>
+          </div>
+          <div class="iso-target-card">
+            <h4>Calon pranata laboratorium pendidikan</h4>
+          </div>
+          <div class="iso-target-card">
+            <h4>Pihak yang terlibat dalam akreditasi lab pendidikan</h4>
+          </div>
+        </div>
+        <div class="iso-target-footer">
+          Pelatihan ini cocok untuk siapa saja yang terlibat dalam pengelolaan laboratorium pendidikan dan berkomitmen untuk meningkatkan kualitas layanan laboratorium sesuai standar akreditasi nasional dan internasional.
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="page-cta reveal">
+    <h2>Siap memulai<br /><em>proyek Anda?</em></h2>
+    <p>Hubungi kami untuk konsultasi gratis dan penawaran terbaik untuk kebutuhan pelatihan Anda.</p>
+    <a href="../../kontak.html" class="btn-outline">Hubungi Kami Sekarang</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top">
+      <div class="footer-brand reveal-left">
+        <a href="../../index.html" class="footer-logo-link">
+          <img src="../../assets/img/logo.png" alt="INOVASS Logo" class="nav-logo-img" />
+        </a>
+        <p class="footer-tagline">Inovasi untuk Masa Depan</p>
+        <p class="footer-desc">Perusahaan konsultan ISO dan pengembangan solusi digital yang membantu organisasi meningkatkan mutu, efisiensi, dan daya saing.</p>
+        <div class="footer-socials" style="margin-top:1.5rem;">
+          <a href="#">INSTAGRAM</a>
+          <a href="#">LINKEDIN</a>
+          <a href="#">YOUTUBE</a>
+        </div>
+      </div>
+      <div class="footer-links reveal-right">
+        <div class="footer-col">
+          <h4>Office</h4>
+          <ul>
+            <li>Jl. Danau Melahayu No. 23A</li>
+            <li>Pesona Telaga Cibinong</li>
+            <li>Kel. Harapan Jaya, Kec. Cibinong,</li>
+            <li>Kab. Bogor</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact Us</h4>
+          <ul>
+            <li><a href="https://wa.me/6281311173707">+62-813-1117-3707</a></li>
+            <li><a href="mailto:inovass.adm@gmail.com">inovass.adm@gmail.com</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 INOVASS. Hak cipta dilindungi undang-undang.</p>
+      <div class="footer-bottom-links">
+        <a href="#">Kebijakan Privasi</a>
+        <a href="#">Syarat &amp; Ketentuan</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../../assets/js/script.js"></script>
+</body>
+</html>

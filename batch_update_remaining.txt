@@ -1,8 +1,0 @@
-File klinik, puskesmas, dan analis kesehatan akan diupdate dalam batch berikutnya...
-
-SUMMARY PROGRESS:
-✅ Kebidanan - COMPLETE (Title, Breadcrumb, Highlights, Pengertian, Benefits, Process, Target)
-✅ Rumah Sakit - COMPLETE (Title, Breadcrumb, Highlights, Pengertian, Benefits, Process, Target)
-⏳ Klinik - In Progress
-⏳ Puskesmas - In Progress
-⏳ Analis Kesehatan / TLM - In Progress
