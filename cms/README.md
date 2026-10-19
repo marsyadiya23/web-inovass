@@ -35,7 +35,8 @@ php artisan serve
 ```
 
 - Website: http://127.0.0.1:8000 · Jadwal: http://127.0.0.1:8000/jadwal-pelatihan
-- Admin: http://127.0.0.1:8000/admin · login `admin@inovass.com` / `inovass123` (lokal saja; set `ADMIN_PASSWORD` di `.env` sebelum seed di server)
+- Admin: http://127.0.0.1:8000/admin · login `ADMIN_EMAIL` di `.env` (default `admin@inovass.com`) / `inovass123` (lokal saja; set `ADMIN_EMAIL` & `ADMIN_PASSWORD` di `.env` sebelum seed di server)
+- Email notifikasi pendaftar: lokal `MAIL_MAILER=log` → isi email tertulis di `storage/logs/laravel.log`
 - Reset semua data ke awal: `php artisan migrate:fresh --seed` (menghapus semua isian admin)
 - Test: `php artisan test`
 

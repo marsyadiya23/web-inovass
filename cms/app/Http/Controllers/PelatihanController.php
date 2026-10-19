@@ -6,8 +6,11 @@ use App\Models\Registration;
 use App\Models\Training;
 use App\Models\TrainingCategory;
 use App\Models\TrainingSchedule;
+use App\Models\User;
+use App\Notifications\NewRegistration;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Validation\ValidationException;
 
 class PelatihanController extends Controller
@@ -103,9 +106,11 @@ class PelatihanController extends Controller
             throw ValidationException::withMessages(['participants' => "Sisa kuota jadwal ini {$left} peserta."]);
         }
 
-        Registration::create($data + ['status' => 'baru']);
+        $registration = Registration::create($data + ['status' => 'baru']);
 
         $label = $training->title.' ('.$schedule->dateLabel().')';
+        // Email gagal (SMTP mati, dll.) tidak boleh menggagalkan pendaftaran; error tetap tercatat di laravel.log.
+        rescue(fn () => Notification::send(User::all(), new NewRegistration($registration, $label)));
         $wa = implode("\n", array_filter([
             'Halo INOVASS, saya sudah mendaftar pelatihan:',
             $label,

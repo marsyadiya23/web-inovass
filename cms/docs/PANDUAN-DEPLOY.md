@@ -103,7 +103,8 @@ php artisan serve
 |---|---|
 | Website | http://127.0.0.1:8000 |
 | Jadwal pelatihan | http://127.0.0.1:8000/jadwal-pelatihan |
-| Admin | http://127.0.0.1:8000/admin · `admin@inovass.com` / `inovass123` (hanya lokal) |
+| Admin | http://127.0.0.1:8000/admin · email = `ADMIN_EMAIL` di `.env` (mis. `andynews999@gmail.com`), password `inovass123` (hanya lokal) |
+| Email notifikasi | Lokal tidak benar-benar terkirim (`MAIL_MAILER=log`). Isinya tertulis di `storage/logs/laravel.log` |
 
 Matikan server: **Ctrl + C**.
 
@@ -218,7 +219,19 @@ CACHE_STORE=database
 QUEUE_CONNECTION=sync
 FILESYSTEM_DISK=local
 
+# Akun admin (dibuat sekali oleh db:seed). Email ini juga menerima notifikasi pendaftar.
+ADMIN_EMAIL=andynews999@gmail.com
 ADMIN_PASSWORD=...password-admin-minimal-12-karakter...
+
+# Email notifikasi pendaftar baru (lihat 3.10)
+MAIL_MAILER=smtp
+MAIL_SCHEME=smtps
+MAIL_HOST=mail.inovass.com
+MAIL_PORT=465
+MAIL_USERNAME=noreply@inovass.com
+MAIL_PASSWORD=...password-akun-email-noreply...
+MAIL_FROM_ADDRESS=noreply@inovass.com
+MAIL_FROM_NAME="INOVASS Pelatihan"
 ```
 
 - `.env` berisi password. **Jangan di-commit, jangan dibagikan.** File Manager tidak menampilkannya di URL publik karena berada di luar `public/`.
@@ -265,10 +278,26 @@ Cron ini jalan tiap menit, tapi hanya bekerja kalau CI baru saja meng-upload fil
 ### 3.9 Cek hasil
 
 1. Buka https://jadwal.inovass.com/jadwal-pelatihan → daftar jadwal tampil.
-2. Buka https://jadwal.inovass.com/admin → login `admin@inovass.com` + `ADMIN_PASSWORD`.
+2. Buka https://jadwal.inovass.com/admin → login `ADMIN_EMAIL` + `ADMIN_PASSWORD`.
 3. Klik avatar (kanan atas) → **Profil** → ganti password bila perlu. Setelah itu `ADMIN_PASSWORD` di `.env` boleh dihapus.
 4. **Pengaturan → Pengaturan Situs** → cek nomor WhatsApp (dipakai tombol konfirmasi pendaftaran).
-5. Coba daftar satu pelatihan dari website → muncul di **Kotak Masuk → Pendaftar**.
+5. Coba daftar satu pelatihan dari website → muncul di **Kotak Masuk → Pendaftar**, dan email notifikasi masuk ke Gmail admin (cek juga folder Spam).
+
+### 3.10 Email notifikasi pendaftar
+
+Setiap ada pendaftar baru, CMS mengirim email ke **semua akun admin** (email login admin). Isinya: program & jadwal, data pendaftar, tombol **Proses di admin**. *Balas* email itu langsung ke pendaftar (Reply-To = email pendaftar).
+
+Pengirimnya akun email domain sendiri di cPanel, supaya tidak masuk spam:
+
+1. cPanel → **Email Accounts** → *Create* → `noreply@inovass.com`, password kuat. Isi `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_FROM_ADDRESS` di `.env` (3.7).
+2. Di akun itu → **Connect Devices** → lihat *Outgoing Server* & port SMTP (SSL/TLS). Biasanya `mail.inovass.com` port `465`. Kalau berbeda (mis. `kumai.iixcp.rumahweb.net`), pakai yang tertulis di sana untuk `MAIL_HOST`.
+3. cPanel → **Email Deliverability** → `inovass.com` → SPF dan DKIM harus **Valid**. Kalau ada masalah, klik *Repair*. Tanpa ini Gmail cenderung menaruh email di Spam.
+4. Setelah mengubah `.env`, jalankan sekali via cron: `cd ~/inovass && php artisan optimize`.
+5. Uji: daftar dari website. Kalau email masuk Spam, tandai **Bukan spam** sekali di Gmail.
+
+- **Ganti penerima notifikasi:** ganti email lewat **Profil** di admin. Notifikasi ikut ke email baru.
+- **Email gagal tidak menggagalkan pendaftaran.** Data tetap tersimpan, error dicatat di `storage/logs/laravel.log`.
+- Alternatif tanpa email cPanel: SMTP Gmail (`MAIL_HOST=smtp.gmail.com`, `MAIL_PORT=465`, `MAIL_USERNAME` = alamat Gmail, `MAIL_PASSWORD` = *App Password* dari Google Account → Security → 2-Step Verification → App passwords).
 
 ---
 
@@ -389,7 +418,8 @@ Langkah pertama untuk hampir semua masalah di server: buka **`inovass/storage/lo
 | `deploy.log` tidak pernah terisi | Cron salah perintah PHP atau path. Ulangi tes 3.8a |
 | Admin tampil tanpa CSS | Folder `public/css/filament` belum ter-upload. *Run workflow* lagi |
 | Upload brosur gagal | `upload_max_filesize` / `post_max_size` di **Select PHP Version → Options** kurang dari 12M |
-| Lupa password admin | Ganti `ADMIN_PASSWORD` di `.env`, lalu cron sekali: `cd ~/inovass && php artisan config:clear && php artisan tinker --execute="App\Models\User::where('email','admin@inovass.com')->update(['password'=>bcrypt(env('ADMIN_PASSWORD'))])" && php artisan optimize`. **Jangan** pakai `db:seed` (menimpa pengaturan) |
+| Lupa password admin | Ganti `ADMIN_PASSWORD` di `.env`, lalu cron sekali: `cd ~/inovass && php artisan config:clear && php artisan tinker --execute="App\Models\User::where('email',env('ADMIN_EMAIL'))->update(['password'=>bcrypt(env('ADMIN_PASSWORD'))])" && php artisan optimize`. **Jangan** pakai `db:seed` (menimpa pengaturan) |
+| Email notifikasi tidak masuk | Cek folder Spam Gmail. Lalu `laravel.log`: `Connection could not be established` = `MAIL_HOST`/`MAIL_PORT` salah. `Authentication failed` = `MAIL_USERNAME`/`MAIL_PASSWORD` salah. Setelah ubah `.env`, jalankan `php artisan optimize` via cron |
 | Jadwal tampil tapi tombol daftar tidak ada | Jadwal lewat batas daftar, kuota penuh, atau status bukan *Dibuka* (sesuai aturan bisnis, bukan bug) |
 
 ---
