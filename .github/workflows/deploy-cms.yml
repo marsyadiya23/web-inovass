@@ -16,7 +16,7 @@ jobs:
 
       - uses: shivammathur/setup-php@v2
         with:
-          php-version: '8.3'
+          php-version: '8.4'   # composer.lock (Symfony 8) butuh PHP >= 8.4.1; samakan dengan versi PHP di cPanel
           extensions: intl, zip
 
       # vendor/ & aset Filament (public/css|js|fonts/filament) dibuat di sini, server tidak butuh Composer
