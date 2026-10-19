@@ -2,6 +2,8 @@
 
 Panel admin: `/admin`. Dokumen ini memetakan **apa saja yang bisa dilakukan admin** saat ini (Fase 1) dan **usulan pembagian peran** untuk Fase 2.
 
+> **Okt 2026:** admin dibatasi ke Pelatihan, Pendaftar, dan Pengaturan Situs. **Pesan Masuk** dan seluruh **Konten Website** tidak lagi didaftarkan di panel (lihat `AdminPanelProvider`). Kodenya masih ada di `app/Filament` bila suatu saat dibutuhkan lagi.
+
 > Status saat ini: hanya ada **satu peran**. Setiap akun yang bisa login punya akses penuh ke semua menu di bawah. Menambah akun admin baru belum bisa dari panel (harus lewat developer).
 
 ---

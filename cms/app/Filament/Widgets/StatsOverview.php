@@ -2,11 +2,9 @@
 
 namespace App\Filament\Widgets;
 
-use App\Filament\Resources\ContactMessages\ContactMessageResource;
 use App\Filament\Resources\Registrations\RegistrationResource;
 use App\Filament\Resources\Trainings\TrainingResource;
 use App\Filament\Resources\TrainingSchedules\TrainingScheduleResource;
-use App\Models\ContactMessage;
 use App\Models\Registration;
 use App\Models\Training;
 use App\Models\TrainingSchedule;
@@ -23,7 +21,6 @@ class StatsOverview extends StatsOverviewWidget
         $upcoming = TrainingSchedule::upcoming()->count();
         $thisMonth = TrainingSchedule::upcoming()->whereBetween('start_date', [today(), today()->endOfMonth()])->count();
         $newRegs = Registration::where('status', 'baru')->count();
-        $newMsgs = ContactMessage::where('status', 'baru')->count();
 
         return [
             Stat::make('Jadwal mendatang', $upcoming)
@@ -38,10 +35,6 @@ class StatsOverview extends StatsOverviewWidget
             Stat::make('Program pelatihan aktif', Training::where('is_published', true)->count())
                 ->icon(Heroicon::OutlinedAcademicCap)
                 ->url(TrainingResource::getUrl()),
-            Stat::make('Pesan baru', $newMsgs)
-                ->color($newMsgs ? 'warning' : 'success')
-                ->icon(Heroicon::OutlinedInboxArrowDown)
-                ->url(ContactMessageResource::getUrl()),
         ];
     }
 }
