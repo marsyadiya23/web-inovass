@@ -2,6 +2,11 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\SiteSettings;
+use App\Filament\Resources\Registrations\RegistrationResource;
+use App\Filament\Resources\TrainingCategories\TrainingCategoryResource;
+use App\Filament\Resources\Trainings\TrainingResource;
+use App\Filament\Resources\TrainingSchedules\TrainingScheduleResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -38,14 +43,20 @@ class AdminPanelProvider extends PanelProvider
             ->navigationGroups([
                 NavigationGroup::make('Pelatihan'),
                 NavigationGroup::make('Kotak Masuk'),
-                NavigationGroup::make('Konten Website')->collapsed(),
                 NavigationGroup::make('Pengaturan')->collapsed(),
             ])
             ->sidebarCollapsibleOnDesktop()
-            ->discoverResources(in: app_path('Filament/Resources'), for: 'App\Filament\Resources')
-            ->discoverPages(in: app_path('Filament/Pages'), for: 'App\Filament\Pages')
+            // ponytail: admin hanya untuk jadwal & pendaftaran. Resource/Page konten compro
+            // (Beranda, Layanan, Berita, Pesan Masuk, dst.) masih ada di app/Filament tapi tidak didaftarkan.
+            ->resources([
+                TrainingScheduleResource::class,
+                TrainingResource::class,
+                TrainingCategoryResource::class,
+                RegistrationResource::class,
+            ])
             ->pages([
                 Dashboard::class,
+                SiteSettings::class, // nomor WhatsApp untuk konfirmasi pendaftaran
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\Filament\Widgets')
             ->widgets([

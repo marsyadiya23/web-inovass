@@ -1,0 +1,46 @@
+name: Deploy CMS to cPanel
+
+on:
+  push:
+    branches: [main]
+    paths: [cms/**, .github/workflows/deploy-cms.yml]
+  workflow_dispatch:
+
+concurrency: deploy-cms
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.3'
+          extensions: intl, zip
+
+      # vendor/ & aset Filament (public/css|js|fonts/filament) dibuat di sini, server tidak butuh Composer
+      - name: Build
+        working-directory: cms
+        env:
+          CACHE_STORE: array
+        run: |
+          cp .env.example .env
+          composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+          rm .env
+          date -u > deploy-pending   # ponytail: penanda untuk cron di server (migrate + optimize)
+
+      # File yang tidak ada di repo (.env, storage/*, public/uploads, cache) tidak disentuh di server
+      - uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.CMS_FTP_USERNAME }}
+          password: ${{ secrets.CMS_FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./cms/
+          server-dir: ./
+          # .gitignore di storage/ & bootstrap/cache sengaja ikut: itu yang membuat foldernya ada di server
+          exclude: |
+            **/node_modules/**
+            tests/**
+            .phpunit.result.cache
