@@ -381,7 +381,7 @@ Sistem **tidak pernah mengubah `status` tersimpan secara otomatis**. Status "Pen
 
 ### 9.2 Kebutuhan server
 
-- **PHP ≥ 8.3** (pilih di cPanel → *MultiPHP Manager* / *Select PHP Version*).
+- **PHP ≥ 8.4** (wajib: `composer.lock` memakai Symfony 8; pilih di cPanel → *MultiPHP Manager* / *Select PHP Version*).
 - Ekstensi: `bcmath`, `ctype`, `curl`, `dom`, `fileinfo`, `filter`, `intl` (wajib untuk Filament), `mbstring`, `openssl`, `pdo_mysql`, `session`, `tokenizer`, `xml`, `zip` (untuk ekspor di Fase 2), `gd` (thumbnail).
 - `memory_limit ≥ 256M`, `upload_max_filesize` dan `post_max_size ≥ 12M` (brosur 10 MB).
 - Fungsi `symlink` aktif (untuk `storage:link`). Bila dinonaktifkan hosting, gunakan disk `public` yang mengarah langsung ke `public/storage` (lihat 9.4).

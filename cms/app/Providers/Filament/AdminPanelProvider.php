@@ -33,6 +33,7 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->profile() // ganti nama/email/password admin; jangan pakai db:seed untuk ini (seed menimpa pengaturan)
             ->brandName('INOVASS CMS')
             ->brandLogo(asset('assets/img/logo.png'))
             ->brandLogoHeight('2.25rem')

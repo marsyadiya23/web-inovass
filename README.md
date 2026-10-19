@@ -4,14 +4,14 @@ Website statis (HTML/CSS/JS) untuk **inovass.com**.
 
 - **Hosting:** shared hosting cPanel Rumahweb (akun `inom3994`, server `kumai.iixcp.rumahweb.net`).
 - **Deploy:** otomatis oleh GitHub Actions setiap push ke `main` yang mengubah `public/`. Isi folder `public/` di-upload via FTPS ke `public_html/`.
-- **CMS jadwal & pendaftaran pelatihan:** aplikasi Laravel di folder [`cms/`](cms/README.md). Terpisah dari situs statis; push ke `cms/` **tidak** memicu deploy `public/`.
+- **CMS jadwal & pendaftaran pelatihan:** aplikasi Laravel di folder [`cms/`](cms/README.md). Terpisah dari situs statis; push ke `cms/` **tidak** memicu deploy `public/`. CMS punya workflow sendiri (`deploy-cms.yml`) ke `jadwal.inovass.com`. Panduan: [`cms/docs/PANDUAN-DEPLOY.md`](cms/docs/PANDUAN-DEPLOY.md).
 
 ## Gambaran cara kerja
 
 ```
  Laptop                GitHub                                   cPanel Rumahweb
  ──────                ──────                                   ───────────────
- edit public/  ──push──▶  repo afidzulinn/web-inovass
+ edit public/  ──push──▶  repo marsyadiya23/web-inovass
                           │
                           ▼  GitHub Actions (.github/workflows/deploy-cpanel.yml)
                           upload file yang berubah via FTPS ───▶  /home/inom3994/public_html
