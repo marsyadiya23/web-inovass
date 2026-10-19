@@ -1,0 +1,4 @@
+# Upload dari admin tidak di-commit; gambar situs lama (legacy/) di-commit karena dipakai seeder.
+/*
+!/.gitignore
+!/legacy/
