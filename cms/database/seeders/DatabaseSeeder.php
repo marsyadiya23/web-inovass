@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         User::updateOrCreate(
-            ['email' => 'admin@inovass.com'],
+            ['email' => env('ADMIN_EMAIL', 'admin@inovass.com')], // email admin = penerima notifikasi pendaftar
             ['name' => 'Admin INOVASS', 'password' => bcrypt(env('ADMIN_PASSWORD', 'inovass123'))],
         );
 

@@ -6,7 +6,10 @@ use App\Models\Registration;
 use App\Models\Training;
 use App\Models\TrainingCategory;
 use App\Models\TrainingSchedule;
+use App\Models\User;
+use App\Notifications\NewRegistration;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 /** Aturan bisnis pendaftaran: status, kuota, batas daftar, kepemilikan jadwal, honeypot, visibilitas. */
@@ -44,8 +47,11 @@ class TrainingRegistrationTest extends TestCase
 
     public function test_registers_on_open_schedule(): void
     {
+        Notification::fake();
+        $admin = User::factory()->create();
         $s = $this->schedule(['quota' => 3]);
         $this->daftar($s)->assertRedirect()->assertSessionHas('daftar_ok');
+        Notification::assertSentTo($admin, NewRegistration::class);
         $this->assertSame(1, $this->regs());
         $this->assertSame('baru', Registration::latest('id')->first()->status);
         $this->assertSame(2, $s->fresh()->seatsLeft());
