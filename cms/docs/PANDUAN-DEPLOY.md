@@ -103,7 +103,7 @@ php artisan serve
 |---|---|
 | Website | http://127.0.0.1:8000 |
 | Jadwal pelatihan | http://127.0.0.1:8000/jadwal-pelatihan |
-| Admin | http://127.0.0.1:8000/admin · email = `ADMIN_EMAIL` di `.env` (mis. `andynews999@gmail.com`), password `inovass123` (hanya lokal) |
+| Admin | http://127.0.0.1:8000/admin · email = `ADMIN_EMAIL` di `.env` (mis. `inovass.adm@gmail.com`), password `inovass123` (hanya lokal) |
 | Email notifikasi | Lokal tidak benar-benar terkirim (`MAIL_MAILER=log`). Isinya tertulis di `storage/logs/laravel.log` |
 
 Matikan server: **Ctrl + C**.
@@ -137,13 +137,29 @@ Pastikan kolom *Path* di daftar akun benar-benar `/home/inom3994/inovass`. Workf
 
 ### 3.2 Database MySQL
 
-cPanel → **Database Wizard**:
+cPanel → bagian **Databases** → **Database Wizard** (satu alur untuk database + user + hak akses):
 
-1. Nama database: `inovass` → otomatis menjadi `inom3994_inovass`
-2. User: `inovass` → menjadi `inom3994_inovass`. Pakai *Password Generator*, **simpan password-nya**.
-3. Privileges: centang **ALL PRIVILEGES** → *Next Step*.
+1. **Step 1 · Create A Database.** Isi `inovass` → *Next Step*. Nama sebenarnya: `inom3994_inovass`.
+2. **Step 2 · Create Database Users.**
+   - Username `inovass` (maks. 7 huruf, karena awalan `inom3994_` sudah 9 dari batas 16 karakter) → `inom3994_inovass`.
+   - Klik **Password Generator** → centang *I have copied this password in a safe place* → *Use Password*. **Salin dan simpan password-nya** (tidak bisa dilihat lagi; bisa direset di *Manage My Databases*).
+   - *Create User*.
+3. **Step 3 · Add User to the Database.** Centang **ALL PRIVILEGES** → *Make Changes*.
+4. **Cek:** cPanel → **Manage My Databases** → di *Current Databases* harus ada `inom3994_inovass` dengan *Privileged Users* `inom3994_inovass`.
 
-Host database dari aplikasi: `localhost`.
+Hasilnya dipakai di `.env` server (3.7):
+
+```dotenv
+DB_HOST=localhost
+DB_DATABASE=inom3994_inovass
+DB_USERNAME=inom3994_inovass
+DB_PASSWORD="...password-dari-langkah-2..."
+```
+
+- Host selalu `localhost` (database di server yang sama), bukan alamat IP atau `kumai.iixcp.rumahweb.net`.
+- Password yang mengandung `#`, `$`, spasi, atau tanda kutip **wajib diberi tanda kutip** di `.env`, kalau tidak terpotong dan muncul `Access denied`.
+- Tabel **tidak dibuat manual**: dibuat otomatis oleh `migrate` lewat cron (3.8). Jangan impor SQL atau buat tabel di phpMyAdmin.
+- Cek isi database kapan saja: cPanel → **phpMyAdmin** → `inom3994_inovass`.
 
 ### 3.3 Subdomain
 
@@ -220,7 +236,7 @@ QUEUE_CONNECTION=sync
 FILESYSTEM_DISK=local
 
 # Akun admin (dibuat sekali oleh db:seed). Email ini juga menerima notifikasi pendaftar.
-ADMIN_EMAIL=andynews999@gmail.com
+ADMIN_EMAIL=inovass.adm@gmail.com
 ADMIN_PASSWORD=...password-admin-minimal-12-karakter...
 
 # Email notifikasi pendaftar baru (lihat 3.10)
