@@ -20,11 +20,12 @@ Panduan lengkap untuk menjalankan CMS jadwal & pendaftaran pelatihan di laptop, 
 | 2 | Database + user MySQL | cPanel | [3.2](#32-database-mysql) |
 | 3 | Subdomain `jadwal.inovass.com` → `public_html/inovass/public` | cPanel | [3.3](#33-subdomain) |
 | 4 | PHP 8.4 (patch ≥ 8.4.27) untuk subdomain | cPanel | [3.4](#34-versi-php) |
-| 5 | Secrets FTP di GitHub (2 akun FTP) | GitHub | [3.5](#35-github-secrets) |
+| 5 | Secrets GitHub (`FTP_SERVER`, `CMS_FTP_USERNAME`, `CMS_FTP_PASSWORD`) | GitHub | [3.5](#35-github-secrets) |
 | 6 | Buat APP_KEY: `php artisan key:generate --show` | Laptop | [3.7](#37-buat-env-di-server) |
-| 7 | Push ke `main` → tunggu Actions hijau | Laptop + GitHub | [3.6](#36-deploy-pertama) |
-| 8 | Buat `.env` server | cPanel File Manager | [3.7](#37-buat-env-di-server) |
-| 9 | Cron: cek PHP → setup pertama (lalu **hapus**) → cron permanen | cPanel Cron Jobs | [3.8](#38-cron) |
+| 7 | Buat `.env` server | cPanel File Manager | [3.7](#37-buat-env-di-server) |
+| 8 | Pasang cron permanen (menjalankan `deploy.php`) | cPanel Cron Jobs | [3.8](#38-cron) |
+| 9 | Push ke `main` → Actions hijau (±3 menit) → tunggu cron ≤ 1 menit | Laptop + GitHub | [3.6](#36-deploy-pertama) |
+| 9b | Isi data awal sekali (cron seed, lalu **hapus**) | cPanel Cron Jobs | [3.8](#38-cron) |
 | 10 | Buka website & login admin | Browser | [3.9](#39-cek-hasil) |
 | 11 | Email `noreply@inovass.com` + SPF/DKIM untuk notifikasi | cPanel | [3.10](#310-email-notifikasi-pendaftar) |
 
@@ -53,24 +54,29 @@ Setelah itu, **CI/CD otomatis**: setiap push ke `main` yang mengubah `cms/` lang
                            │
                            ▼ GitHub Actions (.github/workflows/deploy-cms.yml)
                            1. composer install --no-dev  (vendor/ + aset Filament)
-                           2. buat file penanda deploy-pending
-                           3. upload file yang BERUBAH via FTPS:
-                              a. seluruh cms/  ─(akun deploycms)─▶ /home/inom3994/inovass
-                              b. cms/public/   ─(akun FTP statis)─▶ /home/inom3994/public_html/inovass/public
+                           2. bungkus semuanya jadi SATU file release.zip (±50 MB)
+                           3. upload release.zip + deploy.php via FTPS ──▶ /home/inom3994/inovass
+                           4. upload penanda deploy-pending (paling akhir) ──▶ /home/inom3994/inovass
                                                                     │
                                                     Cron tiap menit ▼
-                                         ada deploy-pending? → migrate + optimize
+                                   ada deploy-pending? → php deploy.php:
+                                     • ekstrak release.zip ke /home/inom3994/inovass
+                                     • salin public/ → /home/inom3994/public_html/inovass/public
+                                     • migrate + optimize
                                                                     │
  Pengunjung ◀── HTTPS ── jadwal.inovass.com ◀── document root public_html/inovass/public
                                                 (index.php membaca aplikasi dari /home/inom3994/inovass)
 ```
 
-> **Kenapa dua tujuan upload?** cPanel Rumahweb hanya mengizinkan document root di dalam `public_html`. Kode aplikasi dan `.env` tidak boleh berada di folder publik, jadi aplikasinya tetap di `/home/inom3994/inovass`, dan hanya isi `public/` (index.php, CSS/JS, gambar) yang disalin ke `public_html/inovass/public`. `cms/public/index.php` otomatis mencari aplikasi di `../../../inovass` bila `vendor/` tidak ada di sebelahnya.
+> **Kenapa satu zip, bukan upload file satu per satu?** FTP Rumahweb butuh ±5 detik per file/folder. Aplikasi ini ±20.000 file `vendor/`: upload per file akan memakan puluhan jam dan dibatalkan GitHub setelah 6 jam. Satu zip selesai dalam ±1 menit; cron di server yang membukanya.
+>
+> **Kenapa `public/` disalin ke `public_html/inovass/public`?** cPanel Rumahweb hanya mengizinkan document root di dalam `public_html`. Kode aplikasi dan `.env` tidak boleh berada di folder publik, jadi aplikasi tetap di `/home/inom3994/inovass`, dan hanya isi `public/` (index.php, CSS/JS, gambar) yang disalin ke sana. `cms/public/index.php` otomatis mencari aplikasi di `../../../inovass` bila `vendor/` tidak ada di sebelahnya.
 
 Poin penting:
 
 - **Server tidak butuh Composer, Node, Git, atau SSH.** Semua dibangun di GitHub Actions, server hanya menerima file.
-- **Hanya file yang berubah yang di-upload.** Daftar file yang sudah ter-upload disimpan di `/home/inom3994/inovass/.ftp-deploy-sync-state.json`. **Jangan dihapus**, kecuali sengaja ingin upload ulang semua.
+- **Yang di-upload tiap deploy hanya 3 file:** `release.zip`, `deploy.php`, dan `deploy-pending`. Catatan upload FTP disimpan di `.ftp-deploy-sync-state*.json` di `/home/inom3994/inovass` (aman, di luar folder publik; boleh dihapus kalau perlu).
+- **Ekstraksi hanya menimpa/menambah file, tidak menghapus.** File yang dihapus dari repo tetap tertinggal di server sampai dihapus manual. Tidak berbahaya untuk aplikasi ini.
 - **Yang tidak pernah disentuh deploy:** `.env`, isi `storage/` (log, sesi, cache), dan file upload admin di `public_html/inovass/public/uploads/`. File-file itu tidak ada di repo, jadi aman.
 - Situs statis (`public/` di root repo → `public_html`) punya workflow sendiri (`deploy-cpanel.yml`). Push ke `cms/` tidak memicunya, dan sebaliknya.
 
@@ -159,9 +165,7 @@ cPanel → **FTP Accounts** → *Add FTP Account*:
 | Directory | `inovass` → path `/home/inom3994/inovass` |
 | Quota | Unlimited |
 
-Pastikan kolom *Path* di daftar akun benar-benar `/home/inom3994/inovass`. Workflow meng-upload aplikasi ke root akun FTP ini.
-
-Isi `public/` di-upload memakai **akun FTP situs statis** yang sudah ada (root `public_html`, secrets `FTP_USERNAME`/`FTP_PASSWORD`), ke `public_html/inovass/public`. Tidak perlu akun FTP ketiga.
+Pastikan kolom *Path* di daftar akun benar-benar `/home/inom3994/inovass`. Workflow meng-upload `release.zip` ke root akun FTP ini. Akun FTP situs statis (`deploy@inovass.com`, root `public_html`) **tidak dipakai** oleh CMS.
 
 ### 3.2 Database MySQL
 
@@ -223,16 +227,17 @@ GitHub → repo `marsyadiya23/web-inovass` → **Settings → Secrets and variab
 | `FTP_SERVER` | `kumai.iixcp.rumahweb.net` |
 | `CMS_FTP_USERNAME` | `deploycms@inovass.com` (username FTP lengkap dari 3.1) |
 | `CMS_FTP_PASSWORD` | password akun FTP dari 3.1 |
-| `FTP_USERNAME` | akun FTP situs statis (root `public_html`), mis. `deploy@inovass.com` |
-| `FTP_PASSWORD` | password akun FTP situs statis |
 
-Kelimanya **wajib**. `FTP_USERNAME`/`FTP_PASSWORD` dipakai untuk upload `public/` CMS dan juga oleh workflow situs statis. Secrets tidak ikut berpindah antar-repo: kalau repo ini baru, isi ulang semuanya.
+Tiga secret itu cukup untuk CMS. `FTP_SERVER` juga dipakai workflow situs statis (bersama `FTP_USERNAME`/`FTP_PASSWORD` miliknya). Secrets tidak ikut berpindah antar-repo: kalau repo ini baru, isi ulang semuanya.
 
 ### 3.6 Deploy pertama
 
-1. Pastikan kode sudah di branch `main` (merge dari `feat/cms`) lalu push. Atau GitHub → **Actions → Deploy CMS to cPanel → Run workflow**.
-2. Upload pertama **lama** (±10–30 menit), karena ada ribuan file `vendor/`. Deploy berikutnya hanya file yang berubah, biasanya < 2 menit.
-3. Tunggu sampai centang hijau di tab Actions.
+Lakukan **setelah** `.env` server (3.7) dan cron permanen (3.8a) terpasang.
+
+1. Pastikan kode sudah di branch `main`, lalu push. Atau GitHub → **Actions → Deploy CMS to cPanel → Run workflow**.
+2. Actions hijau dalam ±3–5 menit (build ±2 menit, upload zip ±1 menit).
+3. Dalam ≤ 1 menit setelah hijau, cron mengekstrak dan menjalankan migrate. Cek `inovass/storage/logs/deploy.log`: harus berakhir `deploy selesai`.
+4. Isi data awal sekali (cron seed di 3.8b).
 
 ### 3.7 Buat `.env` di server
 
@@ -291,40 +296,28 @@ MAIL_FROM_NAME="INOVASS Pelatihan"
 
 cPanel → **Cron Jobs**. *Common Settings*: **Once Per Minute** (`* * * * *`).
 
-**a. Cek perintah PHP yang dipakai cron**
+PHP untuk cron: di server `kumai` (akun inom3994, dites 2026-10-22), `php` biasa = *cgi-fcgi*, sedangkan **`/opt/cpanel/ea-php84/root/usr/bin/php` = versi CLI yang benar** (8.4.26 saat dites, harus ≥ 8.4.27 setelah patch). Semua cron di bawah memakai path itu. Cara cek ulang: cron sementara `/opt/cpanel/ea-php84/root/usr/bin/php -v > ~/phpver.txt 2>&1`, baca `/home/inom3994/phpver.txt`, lalu hapus cron tes.
 
-Tambah cron sementara:
-
-```
-php -v > ~/phpver.txt 2>&1
-```
-
-Tunggu 1–2 menit, buka `/home/inom3994/phpver.txt` di File Manager.
-
-- Tertulis `PHP 8.4.x` → pakai `php` di perintah-perintah berikut.
-- Versi lain → pakai path lengkap. Di Rumahweb biasanya `/opt/alt/php84/usr/bin/php`, atau `/opt/cpanel/ea-php84/root/usr/bin/php`. Ulangi tes dengan path itu sampai muncul 8.4.
-- **Server `kumai` (akun inom3994), dites 2026-10-22:** `php` = 8.4.26 *cgi-fcgi*, `/opt/cpanel/ea-php84/root/usr/bin/php` = 8.4.26 *cli*. **Pakai path ea-php84 itu di semua cron** (versi cli yang benar untuk artisan).
-
-Hapus cron tes ini setelah ketemu. Di bawah ditulis `php`; ganti bila perlu.
-
-**b. Setup pertama (sekali saja)**: membuat tabel, data awal (katalog 127 pelatihan), dan akun admin.
+**a. Cron permanen: jalankan `deploy.php` setiap ada deploy baru** (pasang sekali, biarkan aktif selamanya)
 
 ```
-cd ~/inovass && (php artisan config:clear && php artisan migrate --force && php artisan db:seed --force && php artisan optimize) >> storage/logs/deploy.log 2>&1
+cd ~/inovass && [ -f deploy-pending ] && /opt/cpanel/ea-php84/root/usr/bin/php deploy.php >> storage/logs/deploy.log 2>&1 && rm deploy-pending
 ```
 
-Tunggu 1–2 menit, buka `inovass/storage/logs/deploy.log`. Kalau ada baris `Seeding database` dan `Caching ...` tanpa `ERROR`, **hapus cron ini segera**.
+- Jalan tiap menit tapi hanya bekerja kalau CI baru meng-upload `deploy-pending`.
+- `deploy-pending` dihapus **hanya kalau sukses**. Kalau gagal (mis. zip belum selesai ter-upload), dicoba lagi menit berikutnya. Cek `storage/logs/deploy.log`.
+- Pasang cron ini **sebelum** deploy pertama.
+
+**b. Data awal (sekali saja, setelah `deploy.log` menunjukkan `deploy selesai`)**: katalog 127 program pelatihan dan akun admin.
+
+```
+cd ~/inovass && (/opt/cpanel/ea-php84/root/usr/bin/php artisan config:clear && /opt/cpanel/ea-php84/root/usr/bin/php artisan db:seed --force && /opt/cpanel/ea-php84/root/usr/bin/php artisan optimize) >> storage/logs/deploy.log 2>&1
+```
+
+Tunggu 1–2 menit, cek `deploy.log` (ada `Seeding database` tanpa `ERROR`), lalu **hapus cron ini segera**.
 
 > ⚠ **Jangan biarkan cron ini aktif dan jangan jalankan `db:seed` lagi.** Setiap kali seed jalan, password admin direset ke `ADMIN_PASSWORD` dan Pengaturan Situs (nomor WhatsApp, alamat, dll.) ditimpa ke nilai awal.
 > `config:clear` di awal wajib: kalau config sedang di-cache, `ADMIN_PASSWORD` tidak terbaca dan password admin menjadi `inovass123`.
-
-**c. Cron permanen untuk setiap deploy**
-
-```
-cd ~/inovass && [ -f deploy-pending ] && rm deploy-pending && (php artisan migrate --force && php artisan optimize) >> storage/logs/deploy.log 2>&1
-```
-
-Cron ini jalan tiap menit, tapi hanya bekerja kalau CI baru saja meng-upload file `deploy-pending`. Biarkan aktif selamanya.
 
 ### 3.9 Cek hasil
 
@@ -455,13 +448,15 @@ Langkah pertama untuk hampir semua masalah di server: buka **`inovass/storage/lo
 | Gejala | Penyebab & solusi |
 |---|---|
 | Actions merah di langkah **Build**: `requires php >=8.4` | `php-version` di `deploy-cms.yml` harus `8.4` (atau lebih baru) |
-| Actions merah: **login failed / 530** | Lihat langkah mana yang merah. Upload pertama = `CMS_FTP_USERNAME`/`CMS_FTP_PASSWORD`, upload kedua (`public/`) = `FTP_USERNAME`/`FTP_PASSWORD`. Uji dengan FileZilla memakai data yang sama |
+| Actions merah: **login failed / 530** atau `Input required: username` | `CMS_FTP_USERNAME`/`CMS_FTP_PASSWORD`/`FTP_SERVER` salah, kosong, atau salah nama. Uji dengan FileZilla memakai data yang sama |
+| Actions hijau tapi website tidak berubah | Cron belum mengekstrak. Cek ada tidaknya `inovass/deploy-pending` di File Manager, lalu `storage/logs/deploy.log`. Pastikan cron 3.8a terpasang |
+| `deploy.log`: `release.zip hilang atau rusak` | Zip belum selesai ter-upload. Biasanya sembuh sendiri di menit berikutnya. Kalau terus berulang, *Run workflow* lagi |
 | **500 di laptop**, log: `could not find driver` | `.env` laptop berisi `DB_CONNECTION=mysql`. Kembalikan ke `sqlite` (data MySQL hanya untuk `.env` server) |
-| Website menampilkan daftar file / 403 di `jadwal.inovass.com` | Upload `public/` belum jalan. Cek langkah kedua di Actions dan isi `public_html/inovass/public` di File Manager |
-| Gambar upload admin tidak tampil | Upload tersimpan di `public_html/inovass/public/uploads`. Pastikan `cms/public/index.php` versi terbaru (ada `usePublicPath`) sudah ter-upload |
+| Website menampilkan daftar file / 403 di `jadwal.inovass.com` | `public/` belum tersalin. Cek `deploy.log` (baris `public/ disalin`) dan isi `public_html/inovass/public` di File Manager |
+| Gambar upload admin tidak tampil | Upload tersimpan di `public_html/inovass/public/uploads`. Pastikan deploy terakhir sukses (`cms/public/index.php` versi terbaru, ada `usePublicPath`) |
 | Actions merah: **TLS / certificate** | Ubah `protocol: ftps` → `ftp` di `deploy-cms.yml` |
 | Workflow tidak jalan setelah push | Hanya jalan untuk push ke `main` yang mengubah `cms/`. Jalankan manual: *Actions → Run workflow* |
-| File di server tidak ter-update | Hapus `inovass/.ftp-deploy-sync-state.json`, lalu *Run workflow* (upload ulang semua) |
+| File di server tidak ter-update | *Run workflow* lagi. Kalau upload zip dilewati, hapus `inovass/.ftp-deploy-sync-state.json`, lalu *Run workflow* |
 | **500 Server Error** | Lihat `laravel.log`. Penyebab umum: `.env` belum ada/salah, `APP_KEY` kosong, password DB salah |
 | `No application encryption key` | `APP_KEY` di `.env` kosong. Isi dari `php artisan key:generate --show`, lalu jalankan `php artisan config:clear` via cron sekali |
 | `SQLSTATE[HY000] [1045] Access denied` | `DB_USERNAME`/`DB_PASSWORD` salah, atau user belum ditambahkan ke database (Database Wizard langkah privileges) |
@@ -484,6 +479,6 @@ Langkah pertama untuk hampir semua masalah di server: buka **`inovass/storage/lo
 2. **Jangan jalankan `db:seed`, `migrate:fresh`, atau `db:wipe` di server** setelah setup pertama.
 3. **`APP_DEBUG=false`** di server, selalu.
 4. **Jangan commit `.env`**, `database.sqlite`, atau `vendor/` (sudah di `.gitignore`).
-5. **Kode aplikasi dan `.env` hanya di `/home/inom3994/inovass`.** Di `public_html/inovass/public` hanya boleh isi `cms/public` (index.php, aset, uploads). Jangan pernah menyalin `.env` atau `vendor/` ke dalam `public_html`.
+5. **Kode aplikasi dan `.env` hanya di `/home/inom3994/inovass`.** Di `public_html/inovass/public` hanya boleh isi `cms/public` (index.php, aset, uploads), disalin otomatis oleh `deploy.php`. Jangan pernah menyalin `.env` atau `vendor/` ke dalam `public_html`.
 6. **Jangan hapus `.ftp-deploy-sync-state.json`** kecuali memang ingin upload ulang semua.
 7. **`php artisan test` harus hijau sebelum merge ke `main`.** `main` = production.

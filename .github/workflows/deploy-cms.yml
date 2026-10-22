@@ -6,7 +6,10 @@ on:
     paths: [cms/**, .github/workflows/deploy-cms.yml]
   workflow_dispatch:
 
-concurrency: deploy-cms
+# Aman dibatalkan di tengah jalan: penanda deploy baru di-upload paling akhir (langkah 3)
+concurrency:
+  group: deploy-cms
+  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -19,7 +22,8 @@ jobs:
           php-version: '8.4'   # composer.lock (Symfony 8) butuh PHP >= 8.4.1; samakan dengan versi PHP di cPanel
           extensions: intl, zip
 
-      # vendor/ & aset Filament (public/css|js|fonts/filament) dibuat di sini, server tidak butuh Composer
+      # vendor/ & aset Filament dibuat di sini, server tidak butuh Composer.
+      # Semuanya dibungkus SATU zip: FTP Rumahweb ±5 detik per file/folder, ±20.000 file tidak selesai dalam 6 jam.
       - name: Build
         working-directory: cms
         env:
@@ -28,32 +32,30 @@ jobs:
           cp .env.example .env
           composer install --no-dev --optimize-autoloader --no-interaction --no-progress
           rm .env
-          date -u > deploy-pending   # ponytail: penanda untuk cron di server (migrate + optimize)
+          mkdir -p ../dist ../dist-marker
+          # .env & isi storage/ tidak masuk zip; .gitignore di storage/ & bootstrap/cache ikut agar foldernya ada
+          zip -qr ../dist/release.zip . -x '.env' 'tests/*' 'node_modules/*' 'deploy.php' 'storage/logs/*.log' '.phpunit.result.cache'
+          cp deploy.php ../dist/
+          date -u > ../dist-marker/deploy-pending
 
-      # 1) Aplikasi -> /home/inom3994/inovass (di luar folder publik).
-      # File yang tidak ada di repo (.env, storage/*, public/uploads, cache) tidak disentuh di server
+      # 1) release.zip + deploy.php -> /home/inom3994/inovass (akun deploycms; di luar folder publik)
       - uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.CMS_FTP_USERNAME }}
           password: ${{ secrets.CMS_FTP_PASSWORD }}
           protocol: ftps
-          local-dir: ./cms/
+          local-dir: ./dist/
           server-dir: ./
-          # .gitignore di storage/ & bootstrap/cache sengaja ikut: itu yang membuat foldernya ada di server
-          exclude: |
-            **/node_modules/**
-            tests/**
-            .phpunit.result.cache
 
-      # 2) Isi public/ -> public_html/inovass/public, folder yang dilayani jadwal.inovass.com.
-      # Pakai akun FTP situs statis (root = public_html). cPanel Rumahweb tidak mengizinkan document
-      # root di luar public_html, jadi index.php di sini membaca aplikasi dari /home/inom3994/inovass.
+      # 2) Penanda deploy: diunggah SETELAH zip selesai, supaya cron tidak mengekstrak zip yang setengah jadi.
+      # Cron di server (tiap menit) melihat file ini -> php deploy.php (ekstrak, salin public/, migrate, optimize).
       - uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          username: ${{ secrets.CMS_FTP_USERNAME }}
+          password: ${{ secrets.CMS_FTP_PASSWORD }}
           protocol: ftps
-          local-dir: ./cms/public/
-          server-dir: ./inovass/public/
+          local-dir: ./dist-marker/
+          server-dir: ./
+          state-name: .ftp-deploy-sync-state-marker.json
