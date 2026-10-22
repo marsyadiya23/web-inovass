@@ -6,11 +6,29 @@ Panduan lengkap untuk menjalankan CMS jadwal & pendaftaran pelatihan di laptop, 
 |---|---|
 | Repo | https://github.com/marsyadiya23/web-inovass (folder `cms/`) |
 | Hosting | cPanel Rumahweb, akun `inom3994`, server `kumai.iixcp.rumahweb.net` |
-| Lokasi aplikasi di server | `/home/inom3994/inovass` (di **luar** `public_html`) |
+| Lokasi aplikasi di server | `/home/inom3994/inovass` (di **luar** `public_html`). Hanya isi `public/` yang disalin ke `public_html/inovass/public` |
 | Alamat | `https://jadwal.inovass.com` · admin: `/admin` |
 | Situs compro statis | Tetap di `public_html` (`inovass.com`), deploy terpisah. Lihat [README root](../../README.md) |
 
 ---
+
+## Checklist go-live (urutan kerja)
+
+| # | Langkah | Di mana | Bagian |
+|---|---|---|---|
+| 1 | Akun FTP `deploycms` → `/home/inom3994/inovass` | cPanel | [3.1](#31-akun-ftp) |
+| 2 | Database + user MySQL | cPanel | [3.2](#32-database-mysql) |
+| 3 | Subdomain `jadwal.inovass.com` → `public_html/inovass/public` | cPanel | [3.3](#33-subdomain) |
+| 4 | PHP 8.4 (patch ≥ 8.4.27) untuk subdomain | cPanel | [3.4](#34-versi-php) |
+| 5 | Secrets FTP di GitHub (2 akun FTP) | GitHub | [3.5](#35-github-secrets) |
+| 6 | Buat APP_KEY: `php artisan key:generate --show` | Laptop | [3.7](#37-buat-env-di-server) |
+| 7 | Push ke `main` → tunggu Actions hijau | Laptop + GitHub | [3.6](#36-deploy-pertama) |
+| 8 | Buat `.env` server | cPanel File Manager | [3.7](#37-buat-env-di-server) |
+| 9 | Cron: cek PHP → setup pertama (lalu **hapus**) → cron permanen | cPanel Cron Jobs | [3.8](#38-cron) |
+| 10 | Buka website & login admin | Browser | [3.9](#39-cek-hasil) |
+| 11 | Email `noreply@inovass.com` + SPF/DKIM untuk notifikasi | cPanel | [3.10](#310-email-notifikasi-pendaftar) |
+
+Setelah itu, **CI/CD otomatis**: setiap push ke `main` yang mengubah `cms/` langsung ter-deploy (bagian [4](#4-alur-update-sehari-hari)).
 
 ## Daftar isi
 
@@ -36,33 +54,39 @@ Panduan lengkap untuk menjalankan CMS jadwal & pendaftaran pelatihan di laptop, 
                            ▼ GitHub Actions (.github/workflows/deploy-cms.yml)
                            1. composer install --no-dev  (vendor/ + aset Filament)
                            2. buat file penanda deploy-pending
-                           3. upload file yang BERUBAH via FTPS ──▶ /home/inom3994/inovass
+                           3. upload file yang BERUBAH via FTPS:
+                              a. seluruh cms/  ─(akun deploycms)─▶ /home/inom3994/inovass
+                              b. cms/public/   ─(akun FTP statis)─▶ /home/inom3994/public_html/inovass/public
                                                                     │
                                                     Cron tiap menit ▼
                                          ada deploy-pending? → migrate + optimize
                                                                     │
- Pengunjung ◀────────────────── HTTPS ── jadwal.inovass.com ◀── document root inovass/public
+ Pengunjung ◀── HTTPS ── jadwal.inovass.com ◀── document root public_html/inovass/public
+                                                (index.php membaca aplikasi dari /home/inom3994/inovass)
 ```
+
+> **Kenapa dua tujuan upload?** cPanel Rumahweb hanya mengizinkan document root di dalam `public_html`. Kode aplikasi dan `.env` tidak boleh berada di folder publik, jadi aplikasinya tetap di `/home/inom3994/inovass`, dan hanya isi `public/` (index.php, CSS/JS, gambar) yang disalin ke `public_html/inovass/public`. `cms/public/index.php` otomatis mencari aplikasi di `../../../inovass` bila `vendor/` tidak ada di sebelahnya.
 
 Poin penting:
 
 - **Server tidak butuh Composer, Node, Git, atau SSH.** Semua dibangun di GitHub Actions, server hanya menerima file.
 - **Hanya file yang berubah yang di-upload.** Daftar file yang sudah ter-upload disimpan di `/home/inom3994/inovass/.ftp-deploy-sync-state.json`. **Jangan dihapus**, kecuali sengaja ingin upload ulang semua.
-- **Yang tidak pernah disentuh deploy:** `.env`, isi `storage/` (log, sesi, cache), dan file upload admin di `public/uploads/`. File-file itu tidak ada di repo, jadi aman.
+- **Yang tidak pernah disentuh deploy:** `.env`, isi `storage/` (log, sesi, cache), dan file upload admin di `public_html/inovass/public/uploads/`. File-file itu tidak ada di repo, jadi aman.
 - Situs statis (`public/` di root repo → `public_html`) punya workflow sendiri (`deploy-cpanel.yml`). Push ke `cms/` tidak memicunya, dan sebaliknya.
 
 Struktur di server setelah deploy:
 
 ```
 /home/inom3994/
-├── public_html/          ← situs compro statis (inovass.com), JANGAN dicampur
-└── inovass/              ← aplikasi CMS (isi folder cms/ dari repo)
-    ├── .env              ← dibuat manual di File Manager, tidak ada di repo
+├── public_html/              ← situs compro statis (inovass.com)
+│   └── inovass/public/       ← document root jadwal.inovass.com (salinan cms/public)
+│       ├── index.php  .htaccess  assets/  css/  js/
+│       └── uploads/          ← gambar/brosur yang di-upload admin
+└── inovass/                  ← aplikasi CMS (isi folder cms/ dari repo), TIDAK bisa diakses dari web
+    ├── .env                  ← dibuat manual di File Manager, tidak ada di repo
     ├── app/ config/ database/ routes/ resources/ vendor/ ...
-    ├── storage/logs/     ← laravel.log (error aplikasi), deploy.log (hasil cron)
-    └── public/           ← document root jadwal.inovass.com
-        ├── index.php  .htaccess
-        └── uploads/      ← gambar/brosur yang di-upload admin
+    ├── storage/logs/         ← laravel.log (error aplikasi), deploy.log (hasil cron)
+    └── public/               ← salinan cadangan, tidak dipakai web
 ```
 
 ---
@@ -76,6 +100,8 @@ Struktur di server setelah deploy:
 - Database lokal memakai **SQLite** (satu file, tanpa install MySQL)
 
 Cek: `php -v` dan `composer -V`.
+
+> **`.env` di laptop selalu `DB_CONNECTION=sqlite`.** Data MySQL (`inom3994_...`) hanya untuk `.env` di server. Kalau diisi di laptop, semua halaman error 500 (`could not find driver`), karena PHP laptop tidak punya driver MySQL dan database server tidak bisa diakses dari laptop.
 
 ### Pertama kali (setelah clone)
 
@@ -133,7 +159,9 @@ cPanel → **FTP Accounts** → *Add FTP Account*:
 | Directory | `inovass` → path `/home/inom3994/inovass` |
 | Quota | Unlimited |
 
-Pastikan kolom *Path* di daftar akun benar-benar `/home/inom3994/inovass`. Workflow meng-upload ke root akun FTP ini.
+Pastikan kolom *Path* di daftar akun benar-benar `/home/inom3994/inovass`. Workflow meng-upload aplikasi ke root akun FTP ini.
+
+Isi `public/` di-upload memakai **akun FTP situs statis** yang sudah ada (root `public_html`, secrets `FTP_USERNAME`/`FTP_PASSWORD`), ke `public_html/inovass/public`. Tidak perlu akun FTP ketiga.
 
 ### 3.2 Database MySQL
 
@@ -145,14 +173,14 @@ cPanel → bagian **Databases** → **Database Wizard** (satu alur untuk databas
    - Klik **Password Generator** → centang *I have copied this password in a safe place* → *Use Password*. **Salin dan simpan password-nya** (tidak bisa dilihat lagi; bisa direset di *Manage My Databases*).
    - *Create User*.
 3. **Step 3 · Add User to the Database.** Centang **ALL PRIVILEGES** → *Make Changes*.
-4. **Cek:** cPanel → **Manage My Databases** → di *Current Databases* harus ada `inom3994_inovass` dengan *Privileged Users* `inom3994_inovass`.
+4. **Cek:** cPanel → **Manage My Databases** → di *Current Databases* harus ada `inom3994_inovass` dengan *Privileged Users* berisi user-nya (di akun ini `inom3994_admin`). Nama user itu yang dipakai di `DB_USERNAME`.
 
 Hasilnya dipakai di `.env` server (3.7):
 
 ```dotenv
 DB_HOST=localhost
 DB_DATABASE=inom3994_inovass
-DB_USERNAME=inom3994_inovass
+DB_USERNAME=inom3994_admin
 DB_PASSWORD="...password-dari-langkah-2..."
 ```
 
@@ -169,9 +197,11 @@ cPanel → **Domains** → *Create A New Domain*:
 |---|---|
 | Domain | `jadwal.inovass.com` |
 | Share document root | **Tidak dicentang** |
-| Document Root | `../inovass/public` (kolom diawali `/public_html/` yang tidak bisa dihapus; `../` membawanya keluar ke `/home/inom3994/inovass/public`) |
+| Document Root | `inovass/public` (di belakang awalan `/public_html/` yang tidak bisa dihapus) |
 
-Cek di *List Domains*: document root `jadwal.inovass.com` harus `/home/inom3994/inovass/public`. Kalau `../` ditolak atau hasilnya masih di dalam `public_html`, buat dengan isian bawaan lalu ubah lewat *List Domains → Manage → Document Root*.
+Cek di *List Domains*: document root `jadwal.inovass.com` = **`/public_html/inovass/public`**. cPanel Rumahweb tidak mengizinkan document root di luar `public_html` (`../` diabaikan), karena itu workflow menyalin `public/` ke sana (lihat bagian 1).
+
+DNS: kalau nameserver `inovass.com` di Rumahweb, subdomain aktif otomatis. Kalau DNS dikelola di tempat lain (mis. Cloudflare), tambah record **A** `jadwal` → `202.10.43.124` (Shared IP di cPanel).
 
 SSL: cPanel → **SSL/TLS Status** → *Run AutoSSL*. Biasanya terpasang otomatis dalam beberapa menit.
 
@@ -193,8 +223,10 @@ GitHub → repo `marsyadiya23/web-inovass` → **Settings → Secrets and variab
 | `FTP_SERVER` | `kumai.iixcp.rumahweb.net` |
 | `CMS_FTP_USERNAME` | `deploycms@inovass.com` (username FTP lengkap dari 3.1) |
 | `CMS_FTP_PASSWORD` | password akun FTP dari 3.1 |
+| `FTP_USERNAME` | akun FTP situs statis (root `public_html`), mis. `deploy@inovass.com` |
+| `FTP_PASSWORD` | password akun FTP situs statis |
 
-`FTP_SERVER` dipakai bersama oleh workflow situs statis.
+Kelimanya **wajib**. `FTP_USERNAME`/`FTP_PASSWORD` dipakai untuk upload `public/` CMS dan juga oleh workflow situs statis. Secrets tidak ikut berpindah antar-repo: kalau repo ini baru, isi ulang semuanya.
 
 ### 3.6 Deploy pertama
 
@@ -228,7 +260,7 @@ DB_CONNECTION=mysql
 DB_HOST=localhost
 DB_PORT=3306
 DB_DATABASE=inom3994_inovass
-DB_USERNAME=inom3994_inovass
+DB_USERNAME=inom3994_admin
 DB_PASSWORD=...password-database-dari-3.2...
 
 SESSION_DRIVER=database
@@ -422,7 +454,10 @@ Langkah pertama untuk hampir semua masalah di server: buka **`inovass/storage/lo
 | Gejala | Penyebab & solusi |
 |---|---|
 | Actions merah di langkah **Build**: `requires php >=8.4` | `php-version` di `deploy-cms.yml` harus `8.4` (atau lebih baru) |
-| Actions merah: **login failed / 530** | `CMS_FTP_USERNAME`/`CMS_FTP_PASSWORD`/`FTP_SERVER` salah. Uji dengan FileZilla memakai data yang sama |
+| Actions merah: **login failed / 530** | Lihat langkah mana yang merah. Upload pertama = `CMS_FTP_USERNAME`/`CMS_FTP_PASSWORD`, upload kedua (`public/`) = `FTP_USERNAME`/`FTP_PASSWORD`. Uji dengan FileZilla memakai data yang sama |
+| **500 di laptop**, log: `could not find driver` | `.env` laptop berisi `DB_CONNECTION=mysql`. Kembalikan ke `sqlite` (data MySQL hanya untuk `.env` server) |
+| Website menampilkan daftar file / 403 di `jadwal.inovass.com` | Upload `public/` belum jalan. Cek langkah kedua di Actions dan isi `public_html/inovass/public` di File Manager |
+| Gambar upload admin tidak tampil | Upload tersimpan di `public_html/inovass/public/uploads`. Pastikan `cms/public/index.php` versi terbaru (ada `usePublicPath`) sudah ter-upload |
 | Actions merah: **TLS / certificate** | Ubah `protocol: ftps` → `ftp` di `deploy-cms.yml` |
 | Workflow tidak jalan setelah push | Hanya jalan untuk push ke `main` yang mengubah `cms/`. Jalankan manual: *Actions → Run workflow* |
 | File di server tidak ter-update | Hapus `inovass/.ftp-deploy-sync-state.json`, lalu *Run workflow* (upload ulang semua) |
@@ -448,6 +483,6 @@ Langkah pertama untuk hampir semua masalah di server: buka **`inovass/storage/lo
 2. **Jangan jalankan `db:seed`, `migrate:fresh`, atau `db:wipe` di server** setelah setup pertama.
 3. **`APP_DEBUG=false`** di server, selalu.
 4. **Jangan commit `.env`**, `database.sqlite`, atau `vendor/` (sudah di `.gitignore`).
-5. **Jangan taruh folder `inovass/` di dalam `public_html`.** `.env` dan kode harus di luar folder publik.
+5. **Kode aplikasi dan `.env` hanya di `/home/inom3994/inovass`.** Di `public_html/inovass/public` hanya boleh isi `cms/public` (index.php, aset, uploads). Jangan pernah menyalin `.env` atau `vendor/` ke dalam `public_html`.
 6. **Jangan hapus `.ftp-deploy-sync-state.json`** kecuali memang ingin upload ulang semua.
 7. **`php artisan test` harus hijau sebelum merge ke `main`.** `main` = production.

@@ -30,6 +30,7 @@ jobs:
           rm .env
           date -u > deploy-pending   # ponytail: penanda untuk cron di server (migrate + optimize)
 
+      # 1) Aplikasi -> /home/inom3994/inovass (di luar folder publik).
       # File yang tidak ada di repo (.env, storage/*, public/uploads, cache) tidak disentuh di server
       - uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
@@ -44,3 +45,15 @@ jobs:
             **/node_modules/**
             tests/**
             .phpunit.result.cache
+
+      # 2) Isi public/ -> public_html/inovass/public, folder yang dilayani jadwal.inovass.com.
+      # Pakai akun FTP situs statis (root = public_html). cPanel Rumahweb tidak mengizinkan document
+      # root di luar public_html, jadi index.php di sini membaca aplikasi dari /home/inom3994/inovass.
+      - uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./cms/public/
+          server-dir: ./inovass/public/

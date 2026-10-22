@@ -1,3 +1,8 @@
+# Catatan deploy FTP (di-upload CI ke folder ini) tidak boleh bisa dibuka dari web
+<FilesMatch "^\.ftp-deploy-sync-state">
+    Require all denied
+</FilesMatch>
+
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews -Indexes
