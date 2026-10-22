@@ -169,7 +169,9 @@ cPanel → **Domains** → *Create A New Domain*:
 |---|---|
 | Domain | `jadwal.inovass.com` |
 | Share document root | **Tidak dicentang** |
-| Document Root | `inovass/public` |
+| Document Root | `../inovass/public` (kolom diawali `/public_html/` yang tidak bisa dihapus; `../` membawanya keluar ke `/home/inom3994/inovass/public`) |
+
+Cek di *List Domains*: document root `jadwal.inovass.com` harus `/home/inom3994/inovass/public`. Kalau `../` ditolak atau hasilnya masih di dalam `public_html`, buat dengan isian bawaan lalu ubah lewat *List Domains → Manage → Document Root*.
 
 SSL: cPanel → **SSL/TLS Status** → *Run AutoSSL*. Biasanya terpasang otomatis dalam beberapa menit.
 
