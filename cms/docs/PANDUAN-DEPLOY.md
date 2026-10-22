@@ -303,6 +303,7 @@ Tunggu 1–2 menit, buka `/home/inom3994/phpver.txt` di File Manager.
 
 - Tertulis `PHP 8.4.x` → pakai `php` di perintah-perintah berikut.
 - Versi lain → pakai path lengkap. Di Rumahweb biasanya `/opt/alt/php84/usr/bin/php`, atau `/opt/cpanel/ea-php84/root/usr/bin/php`. Ulangi tes dengan path itu sampai muncul 8.4.
+- **Server `kumai` (akun inom3994), dites 2026-10-22:** `php` = 8.4.26 *cgi-fcgi*, `/opt/cpanel/ea-php84/root/usr/bin/php` = 8.4.26 *cli*. **Pakai path ea-php84 itu di semua cron** (versi cli yang benar untuk artisan).
 
 Hapus cron tes ini setelah ketemu. Di bawah ditulis `php`; ganti bila perlu.
 
