@@ -366,11 +366,30 @@ git push                                 # lalu merge ke main (Pull Request di G
 
 Setelah masuk `main`:
 
-1. GitHub Actions membangun & meng-upload (tab **Actions → Deploy CMS to cPanel**).
-2. Dalam ≤ 1 menit setelah upload selesai, cron menjalankan `migrate` + `optimize`.
-3. Cek hasil di `storage/logs/deploy.log` bila ada perubahan database.
+1. GitHub Actions membangun dan meng-upload `release.zip` (tab **Actions → Deploy CMS to cPanel**, ±1 menit).
+2. Dalam ≤ 1 menit setelah hijau, cron mengekstrak zip, menyalin `public/`, lalu menjalankan `migrate` + `optimize`.
+3. Cek `storage/logs/deploy.log`: baris terakhir harus `deploy selesai`.
 
-Selama upload berjalan sampai cron selesai, situs bisa sebentar error atau URL baru 404. Hindari deploy saat jam ramai pendaftaran.
+Selama proses ekstraksi (beberapa detik), situs bisa sebentar error atau URL baru 404. Hindari deploy saat jam ramai pendaftaran.
+
+### Membaca status GitHub Actions
+
+| Tampilan | Artinya | Perlu tindakan? |
+|---|---|---|
+| ✅ hijau (*success*) | Zip dan penanda ter-upload. Hasilnya baru terlihat setelah cron berjalan (≤ 1 menit) | Tidak. Cek `deploy.log` bila ragu |
+| ⚪ abu-abu (*cancelled*) | Dibatalkan otomatis karena ada push yang lebih baru (`cancel-in-progress`), atau dibatalkan manual | Tidak. Run terbaru yang berlaku |
+| ❌ merah (*failed*) | Salah satu langkah gagal. Klik run → klik langkah merah → baca pesan errornya | **Ya**, lihat tabel di bawah |
+
+Penyebab merah yang pernah terjadi:
+
+| Pesan di langkah merah | Penyebab | Solusi |
+|---|---|---|
+| `Input required and not supplied: username` | Secret `CMS_FTP_USERNAME` belum ada atau salah nama | Isi di Settings → Secrets → Actions, lalu **Re-run all jobs** |
+| `530 Login authentication failed` | Username/password FTP salah | Cek dengan FileZilla, perbarui secret, lalu Re-run |
+| Langkah **Build** merah, `requires php >=8.4` | `php-version` di workflow bukan 8.4 | Ubah ke `8.4` di `deploy-cms.yml` |
+| Job berjalan berjam-jam lalu dibatalkan | Meng-upload ribuan file lewat FTP (cara lama) | Sudah diganti zip; pastikan memakai workflow terbaru |
+
+> Status merah juga bisa muncul dari **run lama** (mis. percobaan pertama sebelum secret diisi). Yang menentukan adalah **run paling atas** di tab Actions.
 
 ### Mengubah jadwal, program, pendaftar
 
@@ -437,7 +456,7 @@ git revert <hash-commit-yang-bermasalah>
 git push
 ```
 
-Workflow meng-upload ulang file versi lama. **Catatan:** rollback kode tidak membatalkan migration yang sudah jalan. Kalau perubahan database ikut bermasalah, pulihkan dari backup phpMyAdmin (*Import*).
+Workflow membangun ulang versi lama, lalu cron mengekstraknya di atas versi sekarang. **Catatan:** file yang baru ditambahkan di versi bermasalah tidak ikut terhapus, dan rollback kode tidak membatalkan migration yang sudah jalan. Kalau perubahan database ikut bermasalah, pulihkan dari backup phpMyAdmin (*Import*).
 
 ---
 
