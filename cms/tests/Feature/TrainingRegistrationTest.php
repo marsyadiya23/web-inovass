@@ -8,6 +8,8 @@ use App\Models\TrainingCategory;
 use App\Models\TrainingSchedule;
 use App\Models\User;
 use App\Notifications\NewRegistration;
+use App\Notifications\RegistrationReceived;
+use App\Notifications\RegistrationStatusChanged;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
@@ -52,6 +54,8 @@ class TrainingRegistrationTest extends TestCase
         $s = $this->schedule(['quota' => 3]);
         $this->daftar($s)->assertRedirect()->assertSessionHas('daftar_ok');
         Notification::assertSentTo($admin, NewRegistration::class);
+        Notification::assertSentOnDemand(RegistrationReceived::class,
+            fn ($n, $channels, $notifiable) => $notifiable->routes['mail'] === 'budi@example.com');
         $this->assertSame(1, $this->regs());
         $this->assertSame('baru', Registration::latest('id')->first()->status);
         $this->assertSame(2, $s->fresh()->seatsLeft());
@@ -104,6 +108,19 @@ class TrainingRegistrationTest extends TestCase
         $this->training->update(['is_published' => false]);
         $this->get('/jadwal-pelatihan')->assertOk()->assertDontSee('KOTA-MENDATANG');
         $this->get('/pelatihan/pelatihan-uji')->assertNotFound();
+    }
+
+    public function test_status_change_emails_registrant_only_on_confirm_or_cancel(): void
+    {
+        $r = $this->schedule()->registrations()->create(['name' => 'Ani', 'email' => 'ani@example.com', 'phone' => '0812', 'participants' => 1, 'status' => 'baru']);
+        Notification::fake();
+
+        $r->update(['note' => 'sudah ditelepon']);
+        Notification::assertNothingSent();
+
+        $r->update(['status' => 'dikonfirmasi']);
+        $r->update(['status' => 'batal']);
+        Notification::assertSentOnDemandTimes(RegistrationStatusChanged::class, 2);
     }
 
     public function test_hidden_price_and_program_syllabus(): void

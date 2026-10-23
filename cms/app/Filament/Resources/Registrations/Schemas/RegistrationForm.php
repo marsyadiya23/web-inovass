@@ -33,7 +33,7 @@ class RegistrationForm
             ]),
             Section::make('Tindak lanjut')->columnSpan(['lg' => 1])->schema([
                 Select::make('status')->label('Status')->options(Registration::STATUSES)->default('baru')->required()
-                    ->helperText('Pendaftar "Batal" tidak dihitung ke kuota.'),
+                    ->helperText('Pendaftar "Batal" tidak dihitung ke kuota. Mengubah ke "Dikonfirmasi" atau "Batal" otomatis mengirim email ke pendaftar.'),
                 Textarea::make('note')->label('Catatan internal')->rows(4),
             ]),
         ]);

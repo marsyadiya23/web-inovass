@@ -8,6 +8,7 @@ use App\Models\TrainingCategory;
 use App\Models\TrainingSchedule;
 use App\Models\User;
 use App\Notifications\NewRegistration;
+use App\Notifications\RegistrationReceived;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
@@ -111,6 +112,7 @@ class PelatihanController extends Controller
         $label = $training->title.' ('.$schedule->dateLabel().')';
         // Email gagal (SMTP mati, dll.) tidak boleh menggagalkan pendaftaran; error tetap tercatat di laravel.log.
         rescue(fn () => Notification::send(User::all(), new NewRegistration($registration, $label)));
+        rescue(fn () => Notification::route('mail', $registration->email)->notify(new RegistrationReceived($registration, $label)));
         $wa = implode("\n", array_filter([
             'Halo INOVASS, saya sudah mendaftar pelatihan:',
             $label,

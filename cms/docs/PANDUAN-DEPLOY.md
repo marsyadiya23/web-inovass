@@ -332,7 +332,16 @@ Tunggu 1–2 menit, cek `deploy.log` (ada `Seeding database` tanpa `ERROR`), lal
 
 ### 3.10 Email notifikasi pendaftar
 
-Setiap ada pendaftar baru, CMS mengirim email ke **semua akun admin** (email login admin). Isinya: program & jadwal, data pendaftar, tombol **Proses di admin**. *Balas* email itu langsung ke pendaftar (Reply-To = email pendaftar).
+Email yang dikirim CMS:
+
+| Kapan | Ke | Isi |
+|---|---|---|
+| Pendaftar baru | **Semua akun admin** (email login) | Program & jadwal, data pendaftar, tombol **Proses di admin**. *Balas* = langsung ke pendaftar |
+| Pendaftar baru | **Pendaftar** | "Pendaftaran diterima", ringkasan, info akan dihubungi ≤ 1×24 jam kerja, tombol WhatsApp |
+| Admin mengubah status ke **Dikonfirmasi** | **Pendaftar** | Konfirmasi + waktu, tempat, jumlah peserta, catatan jadwal |
+| Admin mengubah status ke **Batal** | **Pendaftar** | Pemberitahuan pembatalan |
+
+Email ke pendaftar memakai Reply-To = email di **Pengaturan Situs**, jadi balasan pendaftar masuk ke email kantor. Selama `MAIL_MAILER=log`, semua email ini hanya tercatat di `storage/logs/laravel.log` (tidak terkirim).
 
 Pengirimnya akun email domain sendiri di cPanel, supaya tidak masuk spam:
 
@@ -424,10 +433,10 @@ Admin dibatasi ke urusan pelatihan:
 | Menu | Fungsi |
 |---|---|
 | Dasbor | Jadwal mendatang, pendaftar baru, program aktif, 6 jadwal terdekat, 5 pendaftar terbaru |
-| Pelatihan → Jadwal Pelatihan | Tambah/ubah/duplikat jadwal, kuota, status Dibuka/Penuh/Ditutup/Batal, **sembunyikan harga** (website tampil "Hubungi kami") |
+| Pelatihan → Jadwal Pelatihan | Tambah/ubah/duplikat jadwal, kuota, status Dibuka/Penuh/Ditutup/Batal, **sembunyikan harga** (website tampil "Hubungi kami"), **Ekspor peserta** per jadwal ke Excel |
 | Pelatihan → Program Pelatihan | Katalog program, deskripsi, harga, **silabus** (PDF atau gambar; tampil juga di setiap jadwalnya), tampil/sembunyi |
 | Pelatihan → Kategori Pelatihan | Kategori & urutan |
-| Kotak Masuk → Pendaftar | Proses pendaftar (Baru → Dikonfirmasi/Batal), catatan, hubungi via WhatsApp |
+| Kotak Masuk → Pendaftar | Proses pendaftar (Baru → Dikonfirmasi/Batal; pendaftar otomatis dapat email), catatan, hubungi via WhatsApp, **Ekspor Excel** (ikut filter status/jadwal yang aktif) |
 | Pengaturan → Pengaturan Situs | Nomor WhatsApp, kontak, logo |
 | Profil (avatar kanan atas) | Ganti nama, email, password admin |
 

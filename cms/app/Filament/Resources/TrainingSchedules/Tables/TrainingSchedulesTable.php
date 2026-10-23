@@ -2,7 +2,9 @@
 
 namespace App\Filament\Resources\TrainingSchedules\Tables;
 
+use App\Exports\RegistrationsExport;
 use App\Models\TrainingSchedule;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -62,6 +64,10 @@ class TrainingSchedulesTable
             ->defaultSort('start_date')
             ->recordActions([
                 EditAction::make(),
+                Action::make('export')->label('Ekspor peserta')->icon('heroicon-o-arrow-down-tray')->color('gray')
+                    ->action(fn (TrainingSchedule $record) => RegistrationsExport::download(
+                        $record->registrations()->getQuery()->orderBy('created_at'),
+                        'peserta-'.$record->training->slug.'-'.$record->start_date->format('Y-m-d').'.xlsx')),
                 ReplicateAction::make()->label('Duplikat')
                     ->excludeAttributes(['seats_taken'])
                     ->successNotificationTitle('Jadwal diduplikat, silakan ubah tanggalnya'),

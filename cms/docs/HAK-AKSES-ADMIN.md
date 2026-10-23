@@ -26,6 +26,7 @@ Admin INOVASS
 │   │   ├── Duplikat jadwal (untuk batch berikutnya)
 │   │   ├── Ubah status: Dibuka / Penuh / Ditutup / Batal
 │   │   ├── Sembunyikan harga di website (tampil "Hubungi kami"; harga tetap tersimpan)
+│   │   ├── Ekspor peserta satu jadwal ke Excel (.xlsx)
 │   │   ├── Hapus jadwal  ⚠ ikut menghapus pendaftarnya — lebih aman set status "Batal"
 │   │   ├── Filter: akan datang / sudah lewat, kategori, metode, status
 │   │   └── Lihat jumlah peserta terisi vs kuota

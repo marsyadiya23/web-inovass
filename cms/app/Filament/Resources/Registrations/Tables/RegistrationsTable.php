@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Registrations\Tables;
 
+use App\Exports\RegistrationsExport;
 use App\Models\Registration;
 use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
@@ -39,6 +40,12 @@ class RegistrationsTable
                     ->relationship('schedule', 'id', fn (Builder $query) => $query->with('training')->orderByDesc('start_date'))
                     ->getOptionLabelFromRecordUsing(fn ($record) => $record->training->title.' — '.$record->dateLabel())
                     ->searchable()->preload(),
+            ])
+            ->headerActions([
+                Action::make('export')->label('Ekspor Excel')->icon('heroicon-o-arrow-down-tray')->color('gray')
+                    ->tooltip('Mengikuti filter yang sedang aktif (status, jadwal)')
+                    ->action(fn ($livewire) => RegistrationsExport::download(
+                        $livewire->getFilteredSortedTableQuery(), 'pendaftar-'.now()->format('Y-m-d').'.xlsx')),
             ])
             ->recordActions([
                 Action::make('wa')->label('WhatsApp')->icon('heroicon-o-chat-bubble-left-right')->color('success')
