@@ -12,6 +12,7 @@ use App\Notifications\RegistrationReceived;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Validation\ValidationException;
 
 class PelatihanController extends Controller
@@ -78,11 +79,10 @@ class PelatihanController extends Controller
     public function daftar(Request $request, string $slug)
     {
         $training = Training::where('slug', $slug)->where('is_published', true)->firstOrFail();
-        $back = redirect()->to($training->url().'#daftar');
 
         // Honeypot: bot mengisi field tersembunyi -> pura-pura sukses tanpa menyimpan.
         if (filled($request->input('website'))) {
-            return $back->with('daftar_ok', ['schedule' => '', 'wa' => '']);
+            return redirect()->to($training->url());
         }
 
         $data = $request->validate([
@@ -93,11 +93,15 @@ class PelatihanController extends Controller
             'organization' => ['nullable', 'string', 'max:255'],
             'position' => ['nullable', 'string', 'max:255'],
             'participants' => ['required', 'integer', 'min:1', 'max:100'],
+            'participant_names' => ['nullable', 'string', 'max:5000'],
             'message' => ['nullable', 'string', 'max:2000'],
         ], [], [
             'training_schedule_id' => 'jadwal', 'name' => 'nama', 'phone' => 'nomor WhatsApp',
-            'participants' => 'jumlah peserta', 'message' => 'pesan',
+            'participants' => 'jumlah peserta', 'participant_names' => 'nama peserta lain', 'message' => 'pesan',
         ]);
+        if ($data['participants'] < 2) {
+            $data['participant_names'] = null;
+        }
 
         $schedule = $training->schedules()->find($data['training_schedule_id']);
         if (! $schedule || ! $schedule->isOpen()) {
@@ -113,14 +117,20 @@ class PelatihanController extends Controller
         // Email gagal (SMTP mati, dll.) tidak boleh menggagalkan pendaftaran; error tetap tercatat di laravel.log.
         rescue(fn () => Notification::send(User::all(), new NewRegistration($registration, $label)));
         rescue(fn () => Notification::route('mail', $registration->email)->notify(new RegistrationReceived($registration, $label)));
-        $wa = implode("\n", array_filter([
-            'Halo INOVASS, saya sudah mendaftar pelatihan:',
-            $label,
-            'Nama: '.$data['name'],
-            filled($data['organization'] ?? null) ? 'Instansi: '.$data['organization'] : null,
-            'Jumlah peserta: '.$data['participants'],
-        ]));
 
-        return $back->with('daftar_ok', ['schedule' => $label, 'wa' => $wa]);
+        // Halaman terima kasih terpisah (form tidak tampil lagi -> tidak dobel). Tautan bertanda tangan:
+        // berisi data pendaftar, jadi tidak bisa dibuka dengan menebak nomor.
+        return redirect()->to(URL::temporarySignedRoute('pelatihan.terima-kasih', now()->addDays(7), ['registration' => $registration->id]));
+    }
+
+    public function terimaKasih(Registration $registration)
+    {
+        $registration->load('schedule.training');
+
+        return view('pelatihan.terima-kasih', [
+            'title' => 'Pendaftaran diterima',
+            'registration' => $registration,
+            'schedule' => $registration->schedule,
+        ]);
     }
 }

@@ -70,7 +70,7 @@ Admin INOVASS
 │   └── Berita  → tulis, jadwalkan tanggal terbit, kategori, tampil/sembunyi, hapus
 │
 └── PENGATURAN
-    └── Pengaturan Situs → nama, tagline, logo, telepon, nomor WhatsApp (dipakai tombol WA),
+    └── Pengaturan Situs → tampilkan/sembunyikan harga pelatihan, nama, tagline, logo, telepon, nomor WhatsApp (dipakai tombol WA),
                            email, alamat, media sosial, teks copyright
 ```
 

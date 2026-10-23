@@ -26,5 +26,6 @@ Route::get('/berita/{slug}', [BeritaController::class, 'show'])->name('berita.sh
 // Inti CMS: jadwal & katalog pelatihan.
 Route::get('/jadwal-pelatihan', [PelatihanController::class, 'jadwal'])->name('pelatihan.jadwal');
 Route::get('/pelatihan', [PelatihanController::class, 'index'])->name('pelatihan.index');
+Route::get('/pelatihan/terima-kasih/{registration}', [PelatihanController::class, 'terimaKasih'])->middleware('signed')->name('pelatihan.terima-kasih');
 Route::get('/pelatihan/{slug}', [PelatihanController::class, 'show'])->name('pelatihan.show');
 Route::post('/pelatihan/{slug}/daftar', [PelatihanController::class, 'daftar'])->middleware('throttle:5,1')->name('pelatihan.daftar');

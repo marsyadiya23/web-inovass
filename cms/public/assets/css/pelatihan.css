@@ -99,3 +99,29 @@
   .pl-filter select { min-width: 0; width: 100%; }
   .pl-filter > div { flex: 1 1 100%; }
 }
+
+/* Form daftar: perkiraan biaya */
+.pl-estimate { margin-top: .5rem; font-size: .85rem; font-weight: 600; color: #065f46; background: #e9fbf3; border-radius: 8px; padding: .5rem .7rem; }
+
+/* Halaman terima kasih */
+.pl-thanks { max-width: 720px; }
+.pl-thanks .pl-box { padding: 2rem; }
+.pl-code { font-size: .95rem; color: #334155; margin: 0 0 1.5rem; }
+.pl-code strong { font-size: 1.15rem; color: #0a1628; letter-spacing: .03em; background: #f1f5f9; border-radius: 8px; padding: .2rem .55rem; }
+.pl-summary { display: grid; grid-template-columns: 160px 1fr; gap: .55rem 1rem; margin: 0 0 1.75rem; font-size: .92rem; }
+.pl-summary dt { color: #64748b; }
+.pl-summary dd { margin: 0; color: #0f172a; font-weight: 500; }
+.pl-steps { margin: 0 0 1.75rem; padding-left: 1.2rem; color: #334155; line-height: 1.7; font-size: .92rem; }
+.pl-actions { display: flex; flex-wrap: wrap; gap: .75rem; }
+
+/* HP: tombol "Daftar sekarang" menempel di bawah layar */
+.pl-sticky-cta { display: none; }
+@media (max-width: 960px) {
+  .pl-sticky-cta { display: block; position: fixed; left: 16px; right: 16px; bottom: 16px; z-index: 50; text-align: center; padding: .9rem; border-radius: 12px; background: #00c278; color: #fff; font-weight: 700; text-decoration: none; box-shadow: 0 10px 30px rgba(0, 0, 0, .25); }
+  .pl-sticky-cta.is-hidden { display: none; }
+}
+@media (max-width: 600px) {
+  .pl-summary { grid-template-columns: 1fr; gap: .1rem; }
+  .pl-summary dd { margin-bottom: .6rem; }
+  .pl-thanks .pl-box { padding: 1.4rem; }
+}

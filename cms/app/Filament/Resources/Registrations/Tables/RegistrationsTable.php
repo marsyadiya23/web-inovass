@@ -22,7 +22,8 @@ class RegistrationsTable
         return $table
             ->modifyQueryUsing(fn (Builder $query) => $query->with('schedule.training'))
             ->columns([
-                TextColumn::make('created_at')->label('Masuk')->dateTime('d M Y H:i')->sortable(),
+                TextColumn::make('created_at')->label('Masuk')->dateTime('d M Y H:i')->sortable()
+                    ->description(fn (Registration $r) => $r->code()),
                 TextColumn::make('name')->label('Nama')->searchable()
                     ->description(fn (Registration $r) => trim($r->position.($r->position && $r->organization ? ', ' : '').$r->organization)),
                 TextColumn::make('phone')->label('Kontak')->searchable()->description(fn (Registration $r) => $r->email),

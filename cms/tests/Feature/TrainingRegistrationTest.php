@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\PageContent;
 use App\Models\Registration;
 use App\Models\Training;
 use App\Models\TrainingCategory;
@@ -52,13 +53,28 @@ class TrainingRegistrationTest extends TestCase
         Notification::fake();
         $admin = User::factory()->create();
         $s = $this->schedule(['quota' => 3]);
-        $this->daftar($s)->assertRedirect()->assertSessionHas('daftar_ok');
+        $res = $this->daftar($s, ['participants' => 2, 'participant_names' => "Ani\nCici"]);
+        $reg = Registration::latest('id')->first();
+
+        // Halaman terima kasih: tautan bertanda tangan, berisi nomor pendaftaran; tanpa tanda tangan ditolak
+        $res->assertRedirectContains('/pelatihan/terima-kasih/'.$reg->id);
+        $this->get($res->headers->get('Location'))->assertOk()->assertSee($reg->code())->assertSee('Pelatihan Uji');
+        $this->get('/pelatihan/terima-kasih/'.$reg->id)->assertForbidden();
+
         Notification::assertSentTo($admin, NewRegistration::class);
         Notification::assertSentOnDemand(RegistrationReceived::class,
             fn ($n, $channels, $notifiable) => $notifiable->routes['mail'] === 'budi@example.com');
         $this->assertSame(1, $this->regs());
-        $this->assertSame('baru', Registration::latest('id')->first()->status);
-        $this->assertSame(2, $s->fresh()->seatsLeft());
+        $this->assertSame('baru', $reg->status);
+        $this->assertSame("Ani\nCici", $reg->participant_names);
+        $this->assertMatchesRegularExpression('/^REG-\d{4}-\d{4,}$/', $reg->code());
+        $this->assertSame(1, $s->fresh()->seatsLeft());
+    }
+
+    public function test_participant_names_dropped_for_single_participant(): void
+    {
+        $this->daftar($this->schedule(), ['participants' => 1, 'participant_names' => 'Sisa isian']);
+        $this->assertNull(Registration::latest('id')->first()->participant_names);
     }
 
     public function test_rejects_more_participants_than_seats_left(): void
@@ -129,9 +145,13 @@ class TrainingRegistrationTest extends TestCase
         $this->schedule(['location' => 'KOTA-A', 'price' => 2345678, 'hide_price' => true]);
         $this->schedule(['location' => 'KOTA-B', 'start_date' => today()->addDays(20)]);
 
+        PageContent::put('settings', ['show_prices' => true]);
         $this->get('/jadwal-pelatihan')->assertOk()
-            ->assertDontSee('2.345.678')->assertSee('Hubungi kami')   // harga disembunyikan
+            ->assertDontSee('2.345.678')->assertSee('Hubungi kami')   // harga jadwal ini disembunyikan
             ->assertSee('1.750.000')                                     // jadwal lain tetap pakai harga program
             ->assertSee('brosur/program-uji.pdf');                       // silabus program tampil di kartu jadwal
+
+        PageContent::put('settings', ['show_prices' => false]);         // saklar Pengaturan Situs mati
+        $this->get('/jadwal-pelatihan')->assertOk()->assertDontSee('1.750.000');
     }
 }

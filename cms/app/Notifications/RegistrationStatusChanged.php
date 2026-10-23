@@ -21,7 +21,7 @@ class RegistrationStatusChanged extends Notification
     {
         $r = $this->registration->loadMissing('schedule.training');
         $schedule = $r->schedule;
-        $label = $schedule->training->title.' ('.$schedule->dateLabel().')';
+        $label = $schedule->training->title.' ('.$schedule->dateLabel().') — '.$r->code();
         $s = PageContent::get('settings');
 
         $mail = (new MailMessage)->greeting('Halo '.$r->name.',')->salutation('Salam, Tim INOVASS');

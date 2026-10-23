@@ -53,12 +53,18 @@ class TrainingSchedule extends Model
         return $this->price ?? $this->training?->price;
     }
 
+    /** Harga boleh tampil di website: saklar "Tampilkan harga" di Pengaturan Situs aktif & jadwal ini tidak disembunyikan. */
+    public function priceVisible(): bool
+    {
+        return (PageContent::get('settings')['show_prices'] ?? false) && ! $this->hide_price && $this->effectivePrice() !== null;
+    }
+
     public function priceLabel(): string
     {
         $p = $this->effectivePrice();
 
         return match (true) {
-            $this->hide_price, $p === null => 'Hubungi kami',
+            ! $this->priceVisible() => 'Hubungi kami',
             $p === 0 => 'Gratis',
             default => 'Rp '.number_format($p, 0, ',', '.'),
         };

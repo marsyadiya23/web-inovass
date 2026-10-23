@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             'address' => "Jl. Danau Melahayu No. 23A\nPesona Telaga Cibinong\nKel. Harapan Jaya, Kec. Cibinong,\nKab. Bogor",
             'phone' => '+62-813-1117-3707',
             'whatsapp' => '6281311173707',
+            'show_prices' => false, // harga pelatihan disembunyikan di website; konfirmasi biaya oleh admin
             'email' => 'inovass.adm@gmail.com',
             'socials' => [
                 ['platform' => 'instagram', 'url' => ''],

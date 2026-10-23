@@ -384,6 +384,14 @@ Setelah masuk `main`:
 
 Selama proses ekstraksi (beberapa detik), situs bisa sebentar error atau URL baru 404. Hindari deploy saat jam ramai pendaftaran.
 
+### Alur pendaftaran (sisi pengunjung)
+
+1. `inovass.com/jadwal-pelatihan` → klik **Daftar** di kartu jadwal (di HP ada tombol **Daftar sekarang** yang menempel di bawah layar).
+2. Isi form: jadwal, data diri, jumlah peserta. Bila lebih dari 1 peserta muncul kolom **Nama peserta lain** (untuk sertifikat). Perkiraan total biaya hanya tampil bila harga ditampilkan (Pengaturan Situs).
+3. Halaman **Terima kasih** dengan **No. pendaftaran** (`REG-tahun-nomor`), ringkasan, langkah berikutnya, dan tombol **Konfirmasi via WhatsApp** (pesan sudah berisi nomor pendaftaran). Tautan halaman ini bertanda tangan dan berlaku 7 hari.
+4. Email "Pendaftaran diterima" ke pendaftar + email "Pendaftar baru" ke semua admin (berisi perkiraan biaya untuk admin).
+5. Admin mengubah status → email "Dikonfirmasi"/"Dibatalkan" ke pendaftar.
+
 ### Membaca status GitHub Actions
 
 | Tampilan | Artinya | Perlu tindakan? |
@@ -437,7 +445,7 @@ Admin dibatasi ke urusan pelatihan:
 | Pelatihan → Program Pelatihan | Katalog program, deskripsi, harga, **silabus** (PDF atau gambar; tampil juga di setiap jadwalnya), tampil/sembunyi |
 | Pelatihan → Kategori Pelatihan | Kategori & urutan |
 | Kotak Masuk → Pendaftar | Proses pendaftar (Baru → Dikonfirmasi/Batal; pendaftar otomatis dapat email), catatan, hubungi via WhatsApp, **Ekspor Excel** (ikut filter status/jadwal yang aktif) |
-| Pengaturan → Pengaturan Situs | Nomor WhatsApp, kontak, logo |
+| Pengaturan → Pengaturan Situs | Nomor WhatsApp, kontak, logo, **Tampilkan harga pelatihan di website** (mati = semua jadwal "Hubungi kami") |
 | Pengaturan → Akun Admin | Tambah/ubah/hapus akun admin |
 | Profil (avatar kanan atas) | Ganti nama, email, password admin |
 

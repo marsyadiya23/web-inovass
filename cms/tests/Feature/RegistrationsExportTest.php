@@ -38,8 +38,14 @@ class RegistrationsExportTest extends TestCase
         $reader->close();
 
         $this->assertSame(RegistrationsExport::HEADINGS, $rows[0]);
-        $this->assertSame(['Siti', '081200001111', 2, 'Dikonfirmasi', 'Pelatihan Ekspor', 'Bogor'],
-            [$rows[1][1], $rows[1][4], $rows[1][6], $rows[1][7], $rows[1][8], $rows[1][11]]); // nomor HP tetap teks (0 di depan)
+        $row = array_combine($rows[0], array_pad($rows[1], count($rows[0]), ''));
+        $this->assertMatchesRegularExpression('/^REG-\d{4}-\d{4,}$/', $row['No. pendaftaran']);
+        $this->assertSame('Siti', $row['Nama']);
+        $this->assertSame('081200001111', $row['WhatsApp']); // nomor HP tetap teks (0 di depan)
+        $this->assertSame(2, $row['Jumlah peserta']);
+        $this->assertSame('Dikonfirmasi', $row['Status']);
+        $this->assertSame('Pelatihan Ekspor', $row['Program']);
+        $this->assertSame('Bogor', $row['Lokasi']);
     }
 
     public function test_admin_export_buttons_download_xlsx(): void

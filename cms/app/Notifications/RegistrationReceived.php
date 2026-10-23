@@ -24,9 +24,10 @@ class RegistrationReceived extends Notification
         $wa = preg_replace('/\D/', '', $s['whatsapp'] ?? '');
 
         $mail = (new MailMessage)
-            ->subject('Pendaftaran diterima: '.$this->scheduleLabel)
+            ->subject('Pendaftaran diterima ('.$r->code().'): '.$this->scheduleLabel)
             ->greeting('Halo '.$r->name.',')
             ->line('Terima kasih, pendaftaran Anda untuk **'.$this->scheduleLabel.'** sudah kami terima.')
+            ->line('**No. pendaftaran:** '.$r->code().' (sebutkan nomor ini saat menghubungi kami)')
             ->line('**Jumlah peserta:** '.$r->participants.($r->organization ? ' · **Instansi:** '.$r->organization : ''))
             ->line('Tim INOVASS akan menghubungi Anda melalui WhatsApp atau email maksimal 1×24 jam kerja untuk konfirmasi dan informasi pembayaran.')
             ->salutation('Salam, Tim INOVASS');

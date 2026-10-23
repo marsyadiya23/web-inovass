@@ -28,6 +28,7 @@ class RegistrationForm
                     TextInput::make('organization')->label('Instansi / perusahaan'),
                     TextInput::make('position')->label('Jabatan'),
                     TextInput::make('participants')->label('Jumlah peserta')->numeric()->minValue(1)->default(1)->required(),
+                    Textarea::make('participant_names')->label('Nama peserta lain (satu per baris)')->rows(3)->columnSpanFull(),
                     Textarea::make('message')->label('Pesan dari pendaftar')->rows(3)->columnSpanFull(),
                 ]),
             ]),

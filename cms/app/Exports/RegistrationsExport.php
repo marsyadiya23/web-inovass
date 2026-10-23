@@ -12,8 +12,9 @@ use Symfony\Component\HttpFoundation\BinaryFileResponse;
 class RegistrationsExport
 {
     public const HEADINGS = [
-        'Tanggal daftar', 'Nama', 'Instansi', 'Jabatan', 'WhatsApp', 'Email', 'Jumlah peserta', 'Status',
-        'Program', 'Tanggal pelatihan', 'Metode', 'Lokasi', 'Pesan pendaftar', 'Catatan internal',
+        'No. pendaftaran', 'Tanggal daftar', 'Nama', 'Instansi', 'Jabatan', 'WhatsApp', 'Email', 'Jumlah peserta',
+        'Nama peserta lain', 'Perkiraan biaya', 'Status', 'Program', 'Tanggal pelatihan', 'Metode', 'Lokasi',
+        'Pesan pendaftar', 'Catatan internal',
     ];
 
     /** @return list<list<string|int|null>> */
@@ -21,6 +22,7 @@ class RegistrationsExport
     {
         // ponytail: get() sekaligus; cukup untuk ribuan baris. Pakai lazy() bila sampai puluhan ribu.
         return $query->with('schedule.training')->get()->map(fn (Registration $r) => [
+            $r->code(),
             $r->created_at?->format('Y-m-d H:i'),
             $r->name,
             $r->organization,
@@ -28,6 +30,8 @@ class RegistrationsExport
             $r->phone,
             $r->email,
             $r->participants,
+            $r->participant_names ? str_replace("\n", ', ', trim($r->participant_names)) : null,
+            $r->estimatedTotal(),
             Registration::STATUSES[$r->status] ?? $r->status,
             $r->schedule?->training?->title,
             $r->schedule?->dateLabel(),
