@@ -44,6 +44,14 @@ try {
     }
 
     if (is_file("$app/release.zip")) {
+        // Selama file ditimpa, pengunjung dapat halaman 503 singkat, bukan error 500 karena vendor/ setengah baru.
+        // Dibaca oleh public/index.php. Dihapus lewat shutdown function agar tetap terhapus walau skrip exit di tengah.
+        $maintenance = "$app/storage/framework/maintenance.php";
+        is_dir(dirname($maintenance)) || mkdir(dirname($maintenance), 0755, true);
+        file_put_contents($maintenance, '<?php http_response_code(503); header("Retry-After: 15"); '
+            .'echo "<p style=\"font-family:sans-serif;text-align:center;margin-top:20vh\">Sedang ada pembaruan. Silakan muat ulang halaman dalam beberapa detik.</p>"; exit;');
+        register_shutdown_function(fn () => @unlink($maintenance));
+
         $extract("$app/release.zip", $app);
         $log('CMS diekstrak');
 
