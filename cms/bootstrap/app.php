@@ -5,7 +5,7 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 
-return Application::configure(basePath: dirname(__DIR__))
+$app = Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',
@@ -19,3 +19,12 @@ return Application::configure(basePath: dirname(__DIR__))
             fn (Request $request) => $request->is('api/*') || $request->expectsJson(),
         );
     })->create();
+
+// Di cPanel, folder yang dilayani web ada di public_html/inovass/public (bukan inovass/public). public_path() ikut
+// tertanam di cache config (disk upload), dan config:cache membuat aplikasi baru lewat file ini, jadi harus diatur di sini
+// supaya berlaku juga untuk CLI/cron. Tidak ada di lokal -> memakai public/ biasa.
+if (is_dir($web = dirname(__DIR__, 2).'/public_html/inovass/public')) {
+    $app->usePublicPath($web);
+}
+
+return $app;

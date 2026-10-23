@@ -497,6 +497,7 @@ Langkah pertama untuk hampir semua masalah di server: buka **`inovass/storage/lo
 | `deploy.log`: `release.zip hilang atau rusak` | Zip belum selesai ter-upload. Biasanya sembuh sendiri di menit berikutnya. Kalau terus berulang, *Run workflow* lagi |
 | **500 di laptop**, log: `could not find driver` | `.env` laptop berisi `DB_CONNECTION=mysql`. Kembalikan ke `sqlite` (data MySQL hanya untuk `.env` server) |
 | Website menampilkan daftar file / 403 di `jadwal.inovass.com` | `public/` belum tersalin. Cek `deploy.log` (baris `public/ disalin`) dan isi `public_html/inovass/public` di File Manager |
+| Silabus/gambar yang di-upload admin **404** padahal tersimpan | Dulu jalur upload tertanam di cache config sebagai `inovass/public/uploads` (di luar folder website). Sudah diperbaiki di `bootstrap/app.php`. File lama otomatis disalin ke `public_html/inovass/public/uploads` oleh deploy berikutnya. Cek: File Manager → `public_html/inovass/public/uploads/brosur` |
 | Gambar upload admin tidak tampil | Upload tersimpan di `public_html/inovass/public/uploads`. Pastikan deploy terakhir sukses (`cms/public/index.php` versi terbaru, ada `usePublicPath`) |
 | Actions merah: **TLS / certificate** | Ubah `protocol: ftps` → `ftp` di `deploy-cms.yml` |
 | Workflow tidak jalan setelah push | Hanya jalan untuk push ke `main` yang mengubah `cms/`. Jalankan manual: *Actions → Run workflow* |
