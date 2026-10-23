@@ -33,8 +33,8 @@ class RegistrationForm
                 ]),
             ]),
             Section::make('Tindak lanjut')->columnSpan(['lg' => 1])->schema([
-                Select::make('status')->label('Status')->options(Registration::STATUSES)->default('baru')->required()
-                    ->helperText('Pendaftar "Batal" tidak dihitung ke kuota. Mengubah ke "Dikonfirmasi" atau "Batal" otomatis mengirim email ke pendaftar.'),
+                Select::make('status')->label('Tahap')->options(Registration::STATUSES)->default('baru')->required()
+                    ->helperText('Urutan: Baru → Dihubungi → Penawaran dikirim → Dikonfirmasi → Lunas → Selesai. "Dikonfirmasi" dan "Batal" otomatis mengirim email ke pendaftar. "Batal" tidak dihitung ke kuota.'),
                 Textarea::make('note')->label('Catatan internal')->rows(4),
             ]),
         ]);

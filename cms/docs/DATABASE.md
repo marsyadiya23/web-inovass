@@ -6,7 +6,7 @@ Diturunkan dari `database/migrations/` (kondisi 23 Okt 2026). Server: **MySQL** 
 
 | Kelompok | Tabel | Dipakai? |
 |---|---|---|
-| **Inti pelatihan** | `training_categories`, `trainings`, `training_schedules`, `registrations` | Ya: website + admin |
+| **Inti pelatihan** | `training_categories`, `trainings`, `training_schedules`, `registrations`, `registration_activities` | Ya: website + admin |
 | **Pengaturan** | `page_contents` (key `settings`: WhatsApp, kontak, saklar harga) | Ya |
 | **Akun & sistem** | `users`, `sessions`, `password_reset_tokens`, `cache`, `cache_locks`, `jobs`, `job_batches`, `failed_jobs` | Ya (bawaan Laravel) |
 | **Konten compro lama** | `service_categories`, `services`, `products`, `clients`, `testimonials`, `faqs`, `articles`, `contact_messages` | Data ada, **tidak dikelola di admin** (situs compro = HTML statis) |
@@ -18,6 +18,8 @@ erDiagram
     training_categories ||--o{ trainings : "punya"
     trainings ||--o{ training_schedules : "dijadwalkan"
     training_schedules ||--o{ registrations : "didaftari"
+    registrations ||--o{ registration_activities : "riwayat"
+    users |o--o{ registration_activities : "dilakukan oleh"
 
     training_categories {
         bigint id PK
@@ -78,12 +80,25 @@ erDiagram
         int participants "jumlah peserta (min 1)"
         text participant_names "nama peserta lain, satu per baris"
         text message "pesan dari pendaftar"
-        varchar status "baru | dikonfirmasi | batal"
+        varchar status "tahap: baru | dihubungi | penawaran | dikonfirmasi | lunas | selesai | batal"
         text note "catatan internal admin"
         timestamp created_at "waktu daftar"
         timestamp updated_at
     }
+
+    registration_activities {
+        bigint id PK
+        bigint registration_id FK "ON DELETE CASCADE"
+        bigint user_id FK "admin pelaku; kosong = pendaftar/sistem (ON DELETE SET NULL)"
+        varchar description "mis. Tahap: Baru → Dihubungi"
+        timestamp created_at "waktu kejadian"
+        timestamp updated_at
+    }
 ```
+
+**Tahap pendaftaran** (urutan normal): `baru` → `dihubungi` → `penawaran` (penawaran dikirim) → `dikonfirmasi` → `lunas` → `selesai`; `batal` bisa dari tahap mana pun. "Masih perlu ditindaklanjuti" = `baru`, `dihubungi`, `penawaran`. Email otomatis ke pendaftar hanya saat masuk `dikonfirmasi` atau `batal`.
+
+**Riwayat** (`registration_activities`) diisi otomatis oleh model `Registration`: saat daftar ("Mendaftar lewat website" / "Ditambahkan oleh admin"), setiap pindah tahap, dan setiap catatan internal diubah. Tidak bisa diedit dari admin.
 
 ### Relasi & efek hapus
 
@@ -92,8 +107,10 @@ erDiagram
 | `training_categories` → `trainings` | 1 : N | **Ditolak** (RESTRICT): kategori yang masih punya program tidak bisa dihapus |
 | `trainings` → `training_schedules` | 1 : N | **Ikut terhapus** (CASCADE) |
 | `training_schedules` → `registrations` | 1 : N | **Ikut terhapus** (CASCADE). ⚠ Menghapus jadwal = menghapus data pendaftarnya. Lebih aman ubah status jadwal ke `batal` |
+| `registrations` → `registration_activities` | 1 : N | **Ikut terhapus** (CASCADE) |
+| `users` → `registration_activities` | 1 : N (opsional) | Riwayat tetap ada, kolom pelaku jadi kosong (SET NULL) |
 
-Tidak ada relasi antara `users` (admin) dan `registrations`: semua admin melihat & menerima email semua pendaftar.
+Pendaftar tidak "dimiliki" admin tertentu: semua admin melihat & menerima email semua pendaftar. Siapa yang memproses tercatat di `registration_activities.user_id`.
 
 ## 2. Nilai turunan (tidak disimpan sebagai kolom)
 
@@ -183,14 +200,14 @@ GROUP BY s.id, t.title, s.start_date, s.location, s.quota
 ORDER BY s.start_date DESC;
 ```
 
-Tingkat konfirmasi (pendaftar → dikonfirmasi) per program:
+Tingkat konfirmasi (pendaftar yang sampai tahap dikonfirmasi/lunas/selesai) per program:
 
 ```sql
 SELECT t.title,
        COUNT(*) AS total,
-       SUM(r.status = 'dikonfirmasi') AS dikonfirmasi,
+       SUM(r.status IN ('dikonfirmasi', 'lunas', 'selesai')) AS terkonfirmasi,
        SUM(r.status = 'batal') AS batal,
-       ROUND(100 * SUM(r.status = 'dikonfirmasi') / COUNT(*)) AS persen_konfirmasi
+       ROUND(100 * SUM(r.status IN ('dikonfirmasi', 'lunas', 'selesai')) / COUNT(*)) AS persen_konfirmasi
 FROM registrations r
 JOIN training_schedules s ON s.id = r.training_schedule_id
 JOIN trainings t ON t.id = s.training_id
@@ -206,9 +223,19 @@ SELECT DATE_FORMAT(s.start_date, '%Y-%m') AS bulan_pelatihan,
 FROM registrations r
 JOIN training_schedules s ON s.id = r.training_schedule_id
 JOIN trainings t ON t.id = s.training_id
-WHERE r.status = 'dikonfirmasi'
+WHERE r.status IN ('dikonfirmasi', 'lunas', 'selesai')
 GROUP BY bulan_pelatihan
 ORDER BY bulan_pelatihan;
+```
+
+Kecepatan respons: rata-rata jam dari daftar sampai pertama kali pindah tahap:
+
+```sql
+SELECT ROUND(AVG(TIMESTAMPDIFF(MINUTE, r.created_at, a.first_at)) / 60, 1) AS rata_jam
+FROM registrations r
+JOIN (SELECT registration_id, MIN(created_at) AS first_at
+      FROM registration_activities WHERE description LIKE 'Tahap:%'
+      GROUP BY registration_id) a ON a.registration_id = r.id;
 ```
 
 Instansi paling sering mendaftar:

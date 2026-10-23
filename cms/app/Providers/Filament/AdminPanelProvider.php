@@ -44,7 +44,6 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->navigationGroups([
                 NavigationGroup::make('Pelatihan'),
-                NavigationGroup::make('Kotak Masuk'),
                 NavigationGroup::make('Pengaturan')->collapsed(),
             ])
             ->sidebarCollapsibleOnDesktop()

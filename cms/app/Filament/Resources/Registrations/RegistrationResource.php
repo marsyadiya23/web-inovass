@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Registrations;
 use App\Filament\Resources\Registrations\Pages\CreateRegistration;
 use App\Filament\Resources\Registrations\Pages\EditRegistration;
 use App\Filament\Resources\Registrations\Pages\ListRegistrations;
+use App\Filament\Resources\Registrations\RelationManagers\ActivitiesRelationManager;
 use App\Filament\Resources\Registrations\Schemas\RegistrationForm;
 use App\Filament\Resources\Registrations\Tables\RegistrationsTable;
 use App\Models\Registration;
@@ -21,21 +22,21 @@ class RegistrationResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = Heroicon::OutlinedUserPlus;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Kotak Masuk';
+    protected static string|UnitEnum|null $navigationGroup = null; // menu utama, tepat di bawah Dasbor
 
     protected static ?int $navigationSort = 1;
 
-    protected static ?string $modelLabel = 'Pendaftar';
+    protected static ?string $modelLabel = 'Pendaftaran';
 
-    protected static ?string $pluralModelLabel = 'Pendaftar';
+    protected static ?string $pluralModelLabel = 'Pendaftaran';
 
-    protected static ?string $navigationLabel = 'Pendaftar';
+    protected static ?string $navigationLabel = 'Pendaftaran';
 
     protected static ?string $recordTitleAttribute = 'name';
 
     public static function getNavigationBadge(): ?string
     {
-        return Registration::where('status', 'baru')->count() ?: null;
+        return Registration::whereIn('status', Registration::OPEN)->count() ?: null; // perlu ditindaklanjuti
     }
 
     public static function getNavigationBadgeColor(): ?string
@@ -56,7 +57,7 @@ class RegistrationResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            ActivitiesRelationManager::class,
         ];
     }
 

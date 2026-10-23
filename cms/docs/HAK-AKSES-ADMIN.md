@@ -13,10 +13,22 @@ Panel admin: `/admin`. Dokumen ini memetakan **apa saja yang bisa dilakukan admi
 ```
 Admin INOVASS
 │
-├── Dashboard
-│   ├── Lihat ringkasan: jadwal mendatang (+ jumlah bulan ini), pendaftar baru, program aktif, pesan baru
-│   ├── Lihat 6 jadwal terdekat (klik → edit jadwal)
-│   └── Lihat 5 pendaftar terbaru (klik → proses pendaftar)
+├── Dasbor
+│   ├── Perlu tindakan: daftar tugas hari ini (pendaftar belum dihubungi > 24 jam, kursi hampir habis,
+│   │                   batas daftar dekat, belum lunas menjelang pelatihan, jadwal/pendaftaran belum ditutup) → klik langsung ke halamannya
+│   ├── Angka ringkas: perlu ditindaklanjuti, jadwal mendatang, peserta bulan ini, perkiraan pemasukan bulan ini
+│   ├── Lihat jadwal terdekat (klik → edit jadwal)
+│   └── Lihat pendaftaran terbaru (klik → detail pendaftaran)
+│
+├── Pendaftaran   (badge = jumlah yang masih perlu ditindaklanjuti: Baru, Dihubungi, Penawaran dikirim)
+│   ├── Tab: Perlu ditindaklanjuti (bawaan) · per tahap · Semua; cari nama/kontak; filter jadwal
+│   ├── Tahap: Baru → Dihubungi → Penawaran dikirim → Dikonfirmasi → Lunas → Selesai, atau Batal
+│   │          (Batal = kursi kembali ke kuota; Dikonfirmasi & Batal mengirim email ke pendaftar)
+│   ├── Tombol cepat per baris: → tahap berikutnya, WhatsApp (pesan berisi no. pendaftaran)
+│   ├── Ubah tahap massal (centang beberapa) · Hapus massal
+│   ├── Detail: data pendaftar, tahap, catatan internal, Riwayat (siapa, apa, kapan — otomatis, tidak bisa diedit)
+│   ├── Tambah pendaftaran manual (mis. daftar lewat telepon)
+│   └── Ekspor Excel (ikut tab & filter aktif)
 │
 ├── PELATIHAN  ← inti CMS
 │   ├── Jadwal Pelatihan
@@ -26,14 +38,14 @@ Admin INOVASS
 │   │   ├── Duplikat jadwal (untuk batch berikutnya)
 │   │   ├── Ubah status: Dibuka / Penuh / Ditutup / Batal
 │   │   ├── Sembunyikan harga di website (tampil "Hubungi kami"; harga tetap tersimpan)
-│   │   ├── Ekspor peserta satu jadwal ke Excel (.xlsx)
+│   │   ├── Halaman ubah jadwal: daftar pendaftar jadwal ini (terisi X dari Y kursi), proses tahap, ekspor peserta (.xlsx)
 │   │   ├── Hapus jadwal  ⚠ ikut menghapus pendaftarnya — lebih aman set status "Batal"
 │   │   ├── Filter: akan datang / sudah lewat, kategori, metode, status
 │   │   └── Lihat jumlah peserta terisi vs kuota
 │   │
 │   ├── Program Pelatihan
-│   │   ├── Tambah program baru (nama, slug/URL, ringkasan, poin utama, deskripsi lengkap,
-│   │   │                        kategori, durasi, harga default, gambar, brosur PDF, SEO)
+│   │   ├── Tambah program baru (nama, ringkasan, poin utama, deskripsi lengkap, kategori, durasi,
+│   │   │                        harga default, gambar, silabus PDF/gambar; alamat halaman, SEO & urutan di panel "Lanjutan")
 │   │   ├── Ubah program
 │   │   ├── Kelola jadwal langsung dari halaman program (tambah / ubah / duplikat / hapus)
 │   │   ├── Tampilkan / sembunyikan dari website (toggle)
@@ -47,22 +59,9 @@ Admin INOVASS
 │       ├── Urutkan (drag & drop)
 │       └── Tampilkan / sembunyikan (ikut menyembunyikan jadwalnya dari website)
 │
-├── KOTAK MASUK
-│   ├── Pendaftar   (badge = jumlah pendaftar berstatus Baru)
-│   │   ├── Lihat semua pendaftar (terbaru dulu), cari nama/kontak
-│   │   ├── Proses: ubah status Baru → Dikonfirmasi / Batal (Batal = kursi kembali ke kuota)
-│   │   ├── Tulis catatan internal
-│   │   ├── Hubungi via WhatsApp (1 klik)
-│   │   ├── Tambah pendaftar manual (mis. daftar lewat telepon)
-│   │   ├── Hapus (massal)
-│   │   └── Filter: status, jadwal
-│   │
-│   └── Pesan Masuk   (dari form Kontak; badge = pesan Baru)
-│       ├── Baca pesan, ubah status Baru / Dihubungi / Selesai / Spam, catatan internal
-│       ├── Filter status · Cari
-│       └── Hapus (massal)   — tidak bisa membuat pesan baru dari admin
+├── (tidak aktif) Pesan Masuk — form Kontak; kode ada, tidak didaftarkan di panel
 │
-├── KONTEN WEBSITE  (compro; tertutup default, jarang diubah)
+├── (tidak aktif) KONTEN WEBSITE  (compro statis; kode ada, tidak didaftarkan di panel)
 │   ├── Halaman: Beranda · Tentang Kami · Halaman Produk · Halaman Kontak  → ubah teks & gambar per section
 │   ├── Kategori Layanan  → ubah, urutkan, tampil/sembunyi (tanpa hapus)
 │   ├── Layanan (521 halaman layanan lama) → tambah, ubah, tampil/sembunyi, hapus, filter kategori/level/induk
@@ -70,8 +69,9 @@ Admin INOVASS
 │   └── Berita  → tulis, jadwalkan tanggal terbit, kategori, tampil/sembunyi, hapus
 │
 └── PENGATURAN
-    └── Pengaturan Situs → tampilkan/sembunyikan harga pelatihan, nama, tagline, logo, telepon, nomor WhatsApp (dipakai tombol WA),
-                           email, alamat, media sosial, teks copyright
+    ├── Pengaturan Situs → tampilkan/sembunyikan harga pelatihan, nama, tagline, logo, telepon, nomor WhatsApp (dipakai tombol WA),
+    │                      email, alamat, media sosial, teks copyright
+    └── Akun Admin → tambah / ubah / hapus akun (semua akun = penerima email pendaftaran)
 ```
 
 ---
@@ -92,7 +92,7 @@ Super Admin  (IT / pemilik)
 | Jadwal: hapus | ✅ | ❌ (pakai status Batal) | ❌ |
 | Program & kategori pelatihan: tambah / ubah | ✅ | ✅ | ❌ |
 | Program & kategori: hapus | ✅ | ❌ | ❌ |
-| Pendaftar: lihat, proses status, catatan, WhatsApp | ✅ | ✅ | ✅ |
+| Pendaftar: lihat, pindah tahap, catatan, WhatsApp | ✅ | ✅ | ✅ |
 | Pendaftar: tambah manual | ✅ | ✅ | ✅ |
 | Pendaftar: hapus | ✅ | ❌ | ❌ |
 | Export peserta (Fase 2) | ✅ | ✅ | ✅ |

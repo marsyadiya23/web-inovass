@@ -18,7 +18,7 @@ class LatestRegistrations extends TableWidget
     public function table(Table $table): Table
     {
         return $table
-            ->heading('Pendaftar Terbaru')
+            ->heading('Pendaftaran Terbaru')
             ->query(Registration::query()->with('schedule.training')->latest()->limit(5))
             ->paginated(false)
             ->columns([
@@ -26,7 +26,7 @@ class LatestRegistrations extends TableWidget
                 TextColumn::make('schedule.training.title')->label('Pelatihan')->wrap()->limit(60)
                     ->description(fn (Registration $r) => $r->schedule?->dateLabel()),
                 TextColumn::make('participants')->label('Peserta'),
-                TextColumn::make('status')->label('Status')->badge()
+                TextColumn::make('status')->label('Tahap')->badge()
                     ->formatStateUsing(fn ($state) => Registration::STATUSES[$state] ?? $state)
                     ->color(fn ($state) => RegistrationsTable::COLORS[$state] ?? 'gray'),
                 TextColumn::make('created_at')->label('Masuk')->since(),

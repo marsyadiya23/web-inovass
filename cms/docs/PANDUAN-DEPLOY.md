@@ -328,7 +328,7 @@ Tunggu 1–2 menit, cek `deploy.log` (ada `Seeding database` tanpa `ERROR`), lal
 2. Buka https://inovass.com/admin → login `ADMIN_EMAIL` + `ADMIN_PASSWORD`.
 3. Klik avatar (kanan atas) → **Profil** → ganti password bila perlu. Setelah itu `ADMIN_PASSWORD` di `.env` boleh dihapus.
 4. **Pengaturan → Pengaturan Situs** → cek nomor WhatsApp (dipakai tombol konfirmasi pendaftaran).
-5. Coba daftar satu pelatihan dari website → muncul di **Kotak Masuk → Pendaftar**, dan email notifikasi masuk ke Gmail admin (cek juga folder Spam).
+5. Coba daftar satu pelatihan dari website → muncul di menu **Pendaftaran** (tab *Perlu ditindaklanjuti*), dan email notifikasi masuk ke Gmail admin (cek juga folder Spam).
 
 ### 3.10 Email notifikasi pendaftar
 
@@ -338,8 +338,8 @@ Email yang dikirim CMS:
 |---|---|---|
 | Pendaftar baru | **Semua akun admin** (email login) | Program & jadwal, data pendaftar, tombol **Proses di admin**. *Balas* = langsung ke pendaftar |
 | Pendaftar baru | **Pendaftar** | "Pendaftaran diterima", ringkasan, info akan dihubungi ≤ 1×24 jam kerja, tombol WhatsApp |
-| Admin mengubah status ke **Dikonfirmasi** | **Pendaftar** | Konfirmasi + waktu, tempat, jumlah peserta, catatan jadwal |
-| Admin mengubah status ke **Batal** | **Pendaftar** | Pemberitahuan pembatalan |
+| Admin memindah tahap ke **Dikonfirmasi** | **Pendaftar** | Konfirmasi + waktu, tempat, jumlah peserta, catatan jadwal |
+| Admin memindah tahap ke **Batal** | **Pendaftar** | Pemberitahuan pembatalan |
 
 Email ke pendaftar memakai Reply-To = email di **Pengaturan Situs**, jadi balasan pendaftar masuk ke email kantor. Selama `MAIL_MAILER=log`, semua email ini hanya tercatat di `storage/logs/laravel.log` (tidak terkirim).
 
@@ -390,7 +390,7 @@ Selama proses ekstraksi (beberapa detik), situs bisa sebentar error atau URL bar
 2. Isi form: jadwal, data diri, jumlah peserta. Bila lebih dari 1 peserta muncul kolom **Nama peserta lain** (untuk sertifikat). Perkiraan total biaya hanya tampil bila harga ditampilkan (Pengaturan Situs).
 3. Halaman **Terima kasih** dengan **No. pendaftaran** (`REG-tahun-nomor`), ringkasan, langkah berikutnya, dan tombol **Konfirmasi via WhatsApp** (pesan sudah berisi nomor pendaftaran). Tautan halaman ini bertanda tangan dan berlaku 7 hari.
 4. Email "Pendaftaran diterima" ke pendaftar + email "Pendaftar baru" ke semua admin (berisi perkiraan biaya untuk admin).
-5. Admin mengubah status → email "Dikonfirmasi"/"Dibatalkan" ke pendaftar.
+5. Admin memproses lewat tahap Dihubungi → Penawaran dikirim → Dikonfirmasi → Lunas → Selesai (tercatat di Riwayat). Saat Dikonfirmasi/Batal → email "Dikonfirmasi"/"Dibatalkan" ke pendaftar.
 
 ### Membaca status GitHub Actions
 
@@ -440,11 +440,11 @@ Admin dibatasi ke urusan pelatihan:
 
 | Menu | Fungsi |
 |---|---|
-| Dasbor | Jadwal mendatang, pendaftar baru, program aktif, 6 jadwal terdekat, 5 pendaftar terbaru |
-| Pelatihan → Jadwal Pelatihan | Tambah/ubah/duplikat jadwal, kuota, status Dibuka/Penuh/Ditutup/Batal, **sembunyikan harga** (website tampil "Hubungi kami"), **Ekspor peserta** per jadwal ke Excel |
-| Pelatihan → Program Pelatihan | Katalog program, deskripsi, harga, **silabus** (PDF atau gambar; tampil juga di setiap jadwalnya), tampil/sembunyi |
+| Dasbor | **Perlu tindakan** (pendaftar belum dihubungi > 24 jam, kursi hampir habis, batas daftar ≤ 3 hari, dikonfirmasi tapi belum lunas padahal pelatihan ≤ 7 hari, jadwal lewat tapi masih Dibuka, pelatihan lewat belum ditandai Selesai; klik = langsung ke halamannya), angka ringkas, jadwal terdekat, pendaftaran terbaru |
+| Pendaftaran | Tab per tahap (bawaan: **Perlu ditindaklanjuti**). Tahap: Baru → Dihubungi → Penawaran dikirim → Dikonfirmasi → Lunas → Selesai (+ Batal). Tombol **→ tahap berikutnya** dan **WhatsApp** di tiap baris; **Ubah tahap** massal (centang beberapa). Halaman detail berisi **Riwayat** (siapa mengubah apa, kapan). Email otomatis ke pendaftar saat Dikonfirmasi/Batal. **Ekspor Excel** ikut tab & filter yang aktif |
+| Pelatihan → Jadwal Pelatihan | Tambah/ubah/duplikat jadwal, kuota, status Dibuka/Penuh/Ditutup/Batal, **sembunyikan harga** (website tampil "Hubungi kami"). Di halaman ubah jadwal: daftar **Pendaftar jadwal ini** (terisi X dari Y kursi) + **Ekspor peserta** |
+| Pelatihan → Program Pelatihan | Katalog program, deskripsi, harga, **silabus** (PDF atau gambar; tampil juga di setiap jadwalnya), tampil/sembunyi. Alamat halaman, SEO, dan urutan ada di panel tertutup **Lanjutan** |
 | Pelatihan → Kategori Pelatihan | Kategori & urutan |
-| Kotak Masuk → Pendaftar | Proses pendaftar (Baru → Dikonfirmasi/Batal; pendaftar otomatis dapat email), catatan, hubungi via WhatsApp, **Ekspor Excel** (ikut filter status/jadwal yang aktif) |
 | Pengaturan → Pengaturan Situs | Nomor WhatsApp, kontak, logo, **Tampilkan harga pelatihan di website** (mati = semua jadwal "Hubungi kami") |
 | Pengaturan → Akun Admin | Tambah/ubah/hapus akun admin |
 | Profil (avatar kanan atas) | Ganti nama, email, password admin |

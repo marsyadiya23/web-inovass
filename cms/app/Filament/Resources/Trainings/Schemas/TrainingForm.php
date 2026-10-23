@@ -25,7 +25,6 @@ class TrainingForm
                     TextInput::make('title')->label('Nama pelatihan')->required()->maxLength(255)
                         ->live(onBlur: true)
                         ->afterStateUpdated(fn (?string $state, Set $set, string $operation) => $operation === 'create' ? $set('slug', Str::slug($state ?? '')) : null),
-                    TextInput::make('slug')->required()->alphaDash()->unique(ignoreRecord: true)->prefix(url('pelatihan').'/'),
                     Textarea::make('summary')->label('Ringkasan')->rows(3)
                         ->helperText('Tampil di kartu katalog dan daftar jadwal.'),
                     TagsInput::make('highlights')->label('Poin utama')->placeholder('Ketik lalu Enter'),
@@ -46,13 +45,19 @@ class TrainingForm
                     TextInput::make('price')->label('Harga default per peserta')->numeric()->minValue(0)->prefix('Rp')
                         ->helperText('Bisa diganti per jadwal. Tampil di website hanya bila "Tampilkan harga" di Pengaturan Situs aktif; selalu dikirim ke admin.'),
                     Toggle::make('is_published')->label('Tampilkan di website')->default(true),
-                    TextInput::make('sort')->label('Urutan')->numeric()->default(0),
                 ]),
                 Section::make('Silabus & gambar')->schema([
                     FileUpload::make('image')->label('Gambar latar halaman program')->image()->disk('public')->directory('pelatihan'),
                     FileUpload::make('brochure')->label('Silabus (PDF atau gambar)')->helperText('Tampil sebagai tombol "Silabus" di halaman program dan di setiap jadwalnya.')->acceptedFileTypes(['application/pdf', 'image/*'])->openable()->downloadable()
                         ->maxSize(10240)->disk('public')->directory('brosur'),
-                    TextInput::make('meta_description')->label('Meta description (SEO)')->maxLength(255),
+                ]),
+                // Isian teknis: jarang diubah, otomatis terisi. Disembunyikan agar form utama tidak membingungkan.
+                Section::make('Lanjutan (alamat halaman, SEO, urutan)')->collapsed()->schema([
+                    TextInput::make('slug')->label('Alamat halaman')->required()->alphaDash()->unique(ignoreRecord: true)
+                        ->prefix(url('pelatihan').'/')->helperText('Otomatis dari nama pelatihan. Mengubahnya membuat tautan lama tidak berlaku.'),
+                    TextInput::make('meta_description')->label('Deskripsi untuk Google (SEO)')->maxLength(255)
+                        ->helperText('Kosongkan = memakai Ringkasan.'),
+                    TextInput::make('sort')->label('Urutan di katalog')->numeric()->default(0)->helperText('Angka kecil tampil lebih dulu.'),
                 ]),
             ]),
         ]);

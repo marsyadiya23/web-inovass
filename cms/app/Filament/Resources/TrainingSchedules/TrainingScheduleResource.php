@@ -5,6 +5,7 @@ namespace App\Filament\Resources\TrainingSchedules;
 use App\Filament\Resources\TrainingSchedules\Pages\CreateTrainingSchedule;
 use App\Filament\Resources\TrainingSchedules\Pages\EditTrainingSchedule;
 use App\Filament\Resources\TrainingSchedules\Pages\ListTrainingSchedules;
+use App\Filament\Resources\TrainingSchedules\RelationManagers\RegistrationsRelationManager;
 use App\Filament\Resources\TrainingSchedules\Schemas\TrainingScheduleForm;
 use App\Filament\Resources\TrainingSchedules\Tables\TrainingSchedulesTable;
 use App\Models\TrainingSchedule;
@@ -44,7 +45,7 @@ class TrainingScheduleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            RegistrationsRelationManager::class,
         ];
     }
 
