@@ -5,6 +5,7 @@ Website compro statis tetap di folder `../public/` dan tidak bergantung pada fol
 
 - **Panduan lokal, deploy cPanel & CI/CD: [docs/PANDUAN-DEPLOY.md](docs/PANDUAN-DEPLOY.md)**
 - Kebutuhan produk: [PRD.md](PRD.md)
+- Struktur database (diagram relasi, aturan bisnis, contoh query): [docs/DATABASE.md](docs/DATABASE.md)
 - Peta menu & hak akses admin: [docs/HAK-AKSES-ADMIN.md](docs/HAK-AKSES-ADMIN.md)
 - PRD lama (CMS compro, sudah tidak dipakai): [docs/PRD-compro-v1.md](docs/PRD-compro-v1.md)
 
