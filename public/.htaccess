@@ -23,8 +23,9 @@ RewriteRule ^(.+)$ $1.html [L]
   Header always set X-Content-Type-Options nosniff
   Header always set X-Frame-Options SAMEORIGIN
   Header always set Referrer-Policy strict-origin-when-cross-origin
-  # CSS/JS have no hashed filenames, so browsers revalidate to pick up deploys
-  <FilesMatch "\.(css|js)$">
+  # HTML/CSS/JS have no hashed filenames, so browsers revalidate to pick up deploys
+  # (tanpa ini browser menebak sendiri dan bisa menampilkan halaman lama hingga ±1 hari)
+  <FilesMatch "\.(html|css|js)$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
   <FilesMatch "\.(png|jpe?g|gif|svg|webp|ico|woff2?)$">
