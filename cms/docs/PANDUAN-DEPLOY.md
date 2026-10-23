@@ -348,7 +348,7 @@ Pengirimnya akun email domain sendiri di cPanel, supaya tidak masuk spam:
 1. cPanel → **Email Accounts** → *Create* → `noreply@inovass.com`, password kuat. Isi `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_FROM_ADDRESS` di `.env` (3.7).
 2. Di akun itu → **Connect Devices** → lihat *Outgoing Server* & port SMTP (SSL/TLS). Biasanya `mail.inovass.com` port `465`. Kalau berbeda (mis. `kumai.iixcp.rumahweb.net`), pakai yang tertulis di sana untuk `MAIL_HOST`.
 3. cPanel → **Email Deliverability** → `inovass.com` → SPF dan DKIM harus **Valid**. Kalau ada masalah, klik *Repair*. Tanpa ini Gmail cenderung menaruh email di Spam.
-4. Setelah mengubah `.env`, jalankan sekali via cron: `cd ~/inovass && php artisan optimize`.
+4. Setelah mengubah `.env`, buat file kosong `deploy-pending` di `/home/inom3994/inovass` (File Manager → **+ File**), tunggu ≤ 1 menit, lalu cek `storage/logs/deploy.log` berisi `pengaturan .env dimuat ulang`.
 5. Uji: daftar dari website. Kalau email masuk Spam, tandai **Bukan spam** sekali di Gmail.
 
 - **Ganti penerima notifikasi:** ganti email lewat **Profil** di admin. Notifikasi ikut ke email baru.
@@ -496,13 +496,13 @@ Langkah pertama untuk hampir semua masalah di server: buka **`inovass/storage/lo
 | `SQLSTATE[HY000] [1045] Access denied` | `DB_USERNAME`/`DB_PASSWORD` salah, atau user belum ditambahkan ke database (Database Wizard langkah privileges) |
 | `Table '...sessions' doesn't exist` | Migrate belum jalan. Cek cron 3.8 dan `deploy.log` |
 | Halaman putih / `Composer detected issues in your platform` | PHP subdomain bukan 8.4. Atur di **MultiPHP Manager** |
-| Perubahan `.env` tidak berpengaruh | Config di-cache. Jalankan sekali via cron: `cd ~/inovass && php artisan optimize` (cache ulang dari `.env` baru) |
+| Perubahan `.env` tidak berpengaruh | Pengaturan di-cache. Buat file kosong `deploy-pending` di `/home/inom3994/inovass` (File Manager → **+ File**), tunggu ≤ 1 menit, lalu cek `storage/logs/deploy.log` berisi `pengaturan .env dimuat ulang` |
 | URL baru 404 setelah deploy | Route masih di-cache versi lama. Tunggu cron (≤ 1 menit). Cek `deploy-pending` sudah hilang dan `deploy.log` |
 | `deploy.log` tidak pernah terisi | Cron salah perintah PHP atau path. Ulangi tes 3.8a |
 | Admin tampil tanpa CSS | Folder `public/css/filament` belum ter-upload. *Run workflow* lagi |
 | Upload brosur gagal | `upload_max_filesize` / `post_max_size` di **Select PHP Version → Options** kurang dari 12M |
 | Lupa password admin | Ganti `ADMIN_PASSWORD` di `.env`, lalu cron sekali: `cd ~/inovass && php artisan config:clear && php artisan tinker --execute="App\Models\User::where('email',env('ADMIN_EMAIL'))->update(['password'=>bcrypt(env('ADMIN_PASSWORD'))])" && php artisan optimize`. **Jangan** pakai `db:seed` (menimpa pengaturan) |
-| Email notifikasi tidak masuk | Cek folder Spam Gmail. Lalu `laravel.log`: `Connection could not be established` = `MAIL_HOST`/`MAIL_PORT` salah. `Authentication failed` = `MAIL_USERNAME`/`MAIL_PASSWORD` salah. Setelah ubah `.env`, jalankan `php artisan optimize` via cron |
+| Email notifikasi tidak masuk | Cek folder Spam Gmail. Lalu `laravel.log`: `Connection could not be established` = `MAIL_HOST`/`MAIL_PORT` salah. `Authentication failed` = `MAIL_USERNAME`/`MAIL_PASSWORD` salah. Setelah ubah `.env`, buat file kosong `deploy-pending` di `/home/inom3994/inovass` (File Manager → **+ File**), tunggu ≤ 1 menit, lalu cek `storage/logs/deploy.log` berisi `pengaturan .env dimuat ulang` |
 | Jadwal tampil tapi tombol daftar tidak ada | Jadwal lewat batas daftar, kuota penuh, atau status bukan *Dibuka* (sesuai aturan bisnis, bukan bug) |
 
 ---

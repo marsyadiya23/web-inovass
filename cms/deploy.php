@@ -31,9 +31,25 @@ $extract = function (string $zipFile, string $to) use ($log): void {
     $zip->close();
 };
 
+// Laravel dijalankan di proses ini: hosting memblokir passthru/exec
+$artisan = function (array $commands) use ($app, $log): void {
+    require_once "$app/vendor/autoload.php";
+    $kernel = (require "$app/bootstrap/app.php")->make(Illuminate\Contracts\Console\Kernel::class);
+    foreach ($commands as $cmd => $args) {
+        $code = $kernel->call($cmd, $args);
+        echo $kernel->output();
+        if ($code !== 0) {
+            $log("gagal: artisan $cmd (kode $code)");
+            exit($code);
+        }
+    }
+};
+
 try {
+    // deploy-pending tanpa zip = dibuat manual (File Manager) setelah mengubah .env: muat ulang cache pengaturan saja.
     if (! is_file("$app/site.zip") && ! is_file("$app/release.zip")) {
-        $log('tidak ada zip baru, tidak ada yang dikerjakan');
+        $artisan(['optimize' => []]);
+        $log('tidak ada zip baru; pengaturan .env dimuat ulang');
         exit(0);
     }
 
@@ -72,17 +88,7 @@ try {
         }
         $log('public/ CMS disalin ke '.$publicDst);
 
-        // Laravel dijalankan di proses ini: hosting memblokir passthru/exec
-        require "$app/vendor/autoload.php";
-        $kernel = (require "$app/bootstrap/app.php")->make(Illuminate\Contracts\Console\Kernel::class);
-        foreach (['migrate' => ['--force' => true], 'optimize' => []] as $cmd => $args) {
-            $code = $kernel->call($cmd, $args);
-            echo $kernel->output();
-            if ($code !== 0) {
-                $log("gagal: artisan $cmd (kode $code)");
-                exit($code);
-            }
-        }
+        $artisan(['migrate' => ['--force' => true], 'optimize' => []]);
         unlink("$app/release.zip");
     }
 
