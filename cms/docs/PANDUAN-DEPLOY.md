@@ -469,6 +469,8 @@ Langkah pertama untuk hampir semua masalah di server: buka **`inovass/storage/lo
 | Actions merah di langkah **Build**: `requires php >=8.4` | `php-version` di `deploy-cms.yml` harus `8.4` (atau lebih baru) |
 | Actions merah: **login failed / 530** atau `Input required: username` | `CMS_FTP_USERNAME`/`CMS_FTP_PASSWORD`/`FTP_SERVER` salah, kosong, atau salah nama. Uji dengan FileZilla memakai data yang sama |
 | Actions hijau tapi website tidak berubah | Cron belum mengekstrak. Cek ada tidaknya `inovass/deploy-pending` di File Manager, lalu `storage/logs/deploy.log`. Pastikan cron 3.8a terpasang |
+| `deploy.log` berhenti setelah `public/ disalin`, berulang tiap menit, tanpa `deploy selesai` | Versi lama `deploy.php` memanggil `artisan` lewat `passthru`, yang diblokir hosting. Sudah diganti (Laravel dijalankan di dalam `deploy.php`). Pastikan deploy terbaru sudah ter-upload |
+| `deploy.log`: `ERROR ...` | Pesan error lengkap tertulis di baris itu. Penyebab umum: password DB atau `APP_KEY` di `.env` server salah |
 | `deploy.log`: `release.zip hilang atau rusak` | Zip belum selesai ter-upload. Biasanya sembuh sendiri di menit berikutnya. Kalau terus berulang, *Run workflow* lagi |
 | **500 di laptop**, log: `could not find driver` | `.env` laptop berisi `DB_CONNECTION=mysql`. Kembalikan ke `sqlite` (data MySQL hanya untuk `.env` server) |
 | Website menampilkan daftar file / 403 di `jadwal.inovass.com` | `public/` belum tersalin. Cek `deploy.log` (baris `public/ disalin`) dan isi `public_html/inovass/public` di File Manager |
