@@ -2,8 +2,13 @@
 Options -Indexes
 DirectoryIndex index.html
 
-# Clean URLs: /tentang -> tentang.html
 RewriteEngine On
+
+# CMS Laravel (jadwal & pendaftaran pelatihan, admin) ada di public_html/inovass/public.
+# Alamat ini diteruskan ke CMS; sisanya tetap situs statis. livewire-xxxx & filament = endpoint internal admin.
+RewriteRule ^(jadwal-pelatihan|pelatihan|admin|filament|livewire-[^/]+)(/.*)?$ inovass/public/index.php [L]
+
+# Clean URLs: /tentang -> tentang.html
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME}.html -f

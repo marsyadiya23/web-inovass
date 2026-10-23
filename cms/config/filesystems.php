@@ -42,7 +42,8 @@ return [
             'driver' => 'local',
             // ponytail: upload langsung ke public/uploads, tanpa storage:link (aman di Windows & shared hosting).
             'root' => public_path('uploads'),
-            'url' => '/uploads',
+            // Di inovass.com, file publik CMS ada di /inovass/public (ASSET_URL); lokal: /uploads
+            'url' => rtrim((string) env('ASSET_URL'), '/').'/uploads',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,

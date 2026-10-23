@@ -7,7 +7,7 @@ Panduan lengkap untuk menjalankan CMS jadwal & pendaftaran pelatihan di laptop, 
 | Repo | https://github.com/marsyadiya23/web-inovass (folder `cms/`) |
 | Hosting | cPanel Rumahweb, akun `inom3994`, server `kumai.iixcp.rumahweb.net` |
 | Lokasi aplikasi di server | `/home/inom3994/inovass` (di **luar** `public_html`). Hanya isi `public/` yang disalin ke `public_html/inovass/public` |
-| Alamat | `https://jadwal.inovass.com` · admin: `/admin` |
+| Alamat | `https://inovass.com/jadwal-pelatihan` · admin: `https://inovass.com/admin` (diteruskan ke CMS oleh `public/.htaccess` situs statis). `jadwal.inovass.com` tetap jalan sebagai alamat cadangan |
 | Situs compro statis | Tetap di `public_html` (`inovass.com`), deploy terpisah. Lihat [README root](../../README.md) |
 
 ---
@@ -71,6 +71,8 @@ Setelah itu, **CI/CD otomatis**: setiap push ke `main` yang mengubah `cms/` lang
 > **Kenapa satu zip, bukan upload file satu per satu?** FTP Rumahweb butuh ±5 detik per file/folder. Aplikasi ini ±20.000 file `vendor/`: upload per file akan memakan puluhan jam dan dibatalkan GitHub setelah 6 jam. Satu zip selesai dalam ±1 menit; cron di server yang membukanya.
 >
 > **Kenapa `public/` disalin ke `public_html/inovass/public`?** cPanel Rumahweb hanya mengizinkan document root di dalam `public_html`. Kode aplikasi dan `.env` tidak boleh berada di folder publik, jadi aplikasi tetap di `/home/inom3994/inovass`, dan hanya isi `public/` (index.php, CSS/JS, gambar) yang disalin ke sana. `cms/public/index.php` otomatis mencari aplikasi di `../../../inovass` bila `vendor/` tidak ada di sebelahnya.
+>
+> **Kenapa CMS bisa dibuka di `inovass.com/jadwal-pelatihan` dan `inovass.com/admin`?** `public/.htaccess` situs statis meneruskan alamat `jadwal-pelatihan`, `pelatihan`, `admin`, `filament`, dan `livewire-…` ke `inovass/public/index.php`. Alamat lain tetap dilayani file HTML statis. Di `.env` server, `APP_URL=https://inovass.com` (link yang dibuat CMS memakai domain utama) dan `ASSET_URL=https://inovass.com/inovass/public` (CSS/JS/gambar/upload CMS diambil dari folder aslinya). Menambah halaman CMS dengan awalan baru? Tambahkan awalannya di aturan `.htaccess` itu.
 
 Poin penting:
 
@@ -253,7 +255,8 @@ APP_NAME=INOVASS
 APP_ENV=production
 APP_DEBUG=false
 APP_KEY=base64:...hasil-perintah-di-atas...
-APP_URL=https://jadwal.inovass.com
+APP_URL=https://inovass.com
+ASSET_URL=https://inovass.com/inovass/public
 APP_LOCALE=id
 APP_FALLBACK_LOCALE=en
 
@@ -321,8 +324,8 @@ Tunggu 1–2 menit, cek `deploy.log` (ada `Seeding database` tanpa `ERROR`), lal
 
 ### 3.9 Cek hasil
 
-1. Buka https://jadwal.inovass.com/jadwal-pelatihan → daftar jadwal tampil.
-2. Buka https://jadwal.inovass.com/admin → login `ADMIN_EMAIL` + `ADMIN_PASSWORD`.
+1. Buka https://inovass.com/jadwal-pelatihan → daftar jadwal tampil.
+2. Buka https://inovass.com/admin → login `ADMIN_EMAIL` + `ADMIN_PASSWORD`.
 3. Klik avatar (kanan atas) → **Profil** → ganti password bila perlu. Setelah itu `ADMIN_PASSWORD` di `.env` boleh dihapus.
 4. **Pengaturan → Pengaturan Situs** → cek nomor WhatsApp (dipakai tombol konfirmasi pendaftaran).
 5. Coba daftar satu pelatihan dari website → muncul di **Kotak Masuk → Pendaftar**, dan email notifikasi masuk ke Gmail admin (cek juga folder Spam).
@@ -393,7 +396,7 @@ Penyebab merah yang pernah terjadi:
 
 ### Mengubah jadwal, program, pendaftar
 
-**Tidak perlu deploy.** Dilakukan langsung di https://jadwal.inovass.com/admin. Data tersimpan di MySQL server, bukan di repo.
+**Tidak perlu deploy.** Dilakukan langsung di https://inovass.com/admin. Data tersimpan di MySQL server, bukan di repo.
 
 > Data lokal (SQLite di laptop) dan data server (MySQL) **terpisah**. Mengisi jadwal di lokal tidak muncul di server.
 
