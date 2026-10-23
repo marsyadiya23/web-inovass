@@ -112,7 +112,7 @@ Ya. `.htaccess` menyuruh browser selalu mengecek ulang file CSS/JS (`Cache-Contr
 | Actions hijau tapi situs tidak berubah | Cron belum mengekstrak. Cek `inovass/storage/logs/deploy.log` dan cron di cPanel (PANDUAN-DEPLOY 3.8a). |
 | Actions merah: error TLS/sertifikat | Ganti `protocol: ftps` menjadi `ftp` di `deploy-cpanel.yml`. |
 | Workflow tidak jalan setelah push | Hanya jalan jika ada perubahan di `public/`. Jalankan manual: **Actions → Deploy to cPanel → Run workflow**. |
-| File di server tidak ter-update | Run workflow lagi. Kalau upload zip dilewati, hapus `inovass/.ftp-deploy-sync-state-site.json` lalu Run workflow. |
+| File di server tidak ter-update | Pastikan Actions hijau, lalu cek `inovass/storage/logs/deploy.log`. Bila perlu, Run workflow lagi. |
 | `/tentang` 404 padahal `/tentang.html` bisa | `.htaccess` belum ter-upload. Cek di File Manager (aktifkan *Show Hidden Files*). |
 | Menu hamburger / animasi tidak jalan di satu halaman | Buka DevTools (F12) → Console. Biasanya ada `Identifier '...' has already been declared` → hapus deklarasi ganda di `<script>` halaman itu (lihat *Aturan penting*). |
 

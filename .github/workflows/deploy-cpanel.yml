@@ -25,23 +25,18 @@ jobs:
           (cd public && zip -qr ../dist/site.zip .)
           date -u > dist-marker/deploy-pending
 
-      # Ke /home/inom3994/inovass (akun FTP CMS), di luar folder publik
-      - uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.CMS_FTP_USERNAME }}
-          password: ${{ secrets.CMS_FTP_PASSWORD }}
-          protocol: ftps
-          local-dir: ./dist/
-          server-dir: ./
-          state-name: .ftp-deploy-sync-state-site.json
-
-      - uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.CMS_FTP_USERNAME }}
-          password: ${{ secrets.CMS_FTP_PASSWORD }}
-          protocol: ftps
-          local-dir: ./dist-marker/
-          server-dir: ./
-          state-name: .ftp-deploy-sync-state-site-marker.json
+      # Upload via FTPS dengan curl: berurutan, penanda deploy-pending PALING AKHIR (cron baru bekerja
+      # setelah zip lengkap), coba ulang otomatis bila koneksi FTP Rumahweb putus ("Timeout (control socket)").
+      # Akun FTP CMS: root = /home/inom3994/inovass (di luar folder publik).
+      - name: Upload ke cPanel
+        env:
+          FTP_HOST: ${{ secrets.FTP_SERVER }}
+          FTP_USER: ${{ secrets.CMS_FTP_USERNAME }}
+          FTP_PASS: ${{ secrets.CMS_FTP_PASSWORD }}
+        run: |
+          up() {
+            curl --fail --silent --show-error --ssl-reqd --connect-timeout 30 --retry 5 --retry-all-errors --retry-delay 15 --user "$FTP_USER:$FTP_PASS" -T "$1" "ftp://$FTP_HOST/$(basename "$1")"
+            echo "terkirim: $1"
+          }
+          up dist/site.zip
+          up dist-marker/deploy-pending

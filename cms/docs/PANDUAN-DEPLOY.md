@@ -77,7 +77,7 @@ Setelah itu, **CI/CD otomatis**: setiap push ke `main` yang mengubah `cms/` lang
 Poin penting:
 
 - **Server tidak butuh Composer, Node, Git, atau SSH.** Semua dibangun di GitHub Actions, server hanya menerima file.
-- **Yang di-upload tiap deploy hanya 3 file:** `release.zip`, `deploy.php`, dan `deploy-pending`. Catatan upload FTP disimpan di `.ftp-deploy-sync-state*.json` di `/home/inom3994/inovass` (aman, di luar folder publik; boleh dihapus kalau perlu).
+- **Yang di-upload tiap deploy hanya 3 file:** `release.zip`, `deploy.php`, dan `deploy-pending`. Upload memakai `curl` (FTPS) dengan coba ulang otomatis bila koneksi putus.
 - **Ekstraksi hanya menimpa/menambah file, tidak menghapus.** File yang dihapus dari repo tetap tertinggal di server sampai dihapus manual. Tidak berbahaya untuk aplikasi ini.
 - **Yang tidak pernah disentuh deploy:** `.env`, isi `storage/` (log, sesi, cache), dan file upload admin di `public_html/inovass/public/uploads/`. File-file itu tidak ada di repo, jadi aman.
 - Situs statis (`public/` di root repo → `public_html`) punya workflow sendiri (`deploy-cpanel.yml`) dengan cara yang sama: `public/` dibungkus jadi `site.zip`, di-upload ke `/home/inom3994/inovass`, lalu `deploy.php` (cron yang sama) mengekstraknya ke `public_html`. Push ke `cms/` tidak memicunya, dan sebaliknya.
@@ -489,6 +489,8 @@ Langkah pertama untuk hampir semua masalah di server: buka **`inovass/storage/lo
 |---|---|
 | Actions merah di langkah **Build**: `requires php >=8.4` | `php-version` di `deploy-cms.yml` harus `8.4` (atau lebih baru) |
 | Actions merah: **login failed / 530** atau `Input required: username` | `CMS_FTP_USERNAME`/`CMS_FTP_PASSWORD`/`FTP_SERVER` salah, kosong, atau salah nama. Uji dengan FileZilla memakai data yang sama |
+| Langkah **Upload ke cPanel** merah: `Timeout (control socket)`, `curl: (28)`, `(55)`, atau `(56)` | Koneksi FTP Rumahweb putus. Upload sudah otomatis mencoba ulang hingga 5×. Bila tetap gagal, *Run workflow* lagi beberapa menit kemudian |
+| `curl: (67)` atau `530` | Username/password FTP salah: cek secret `CMS_FTP_USERNAME`/`CMS_FTP_PASSWORD` |
 | Actions hijau tapi website tidak berubah | Cron belum mengekstrak. Cek ada tidaknya `inovass/deploy-pending` di File Manager, lalu `storage/logs/deploy.log`. Pastikan cron 3.8a terpasang |
 | `deploy.log` berhenti setelah `public/ disalin`, berulang tiap menit, tanpa `deploy selesai` | Versi lama `deploy.php` memanggil `artisan` lewat `passthru`, yang diblokir hosting. Sudah diganti (Laravel dijalankan di dalam `deploy.php`). Pastikan deploy terbaru sudah ter-upload |
 | `deploy.log`: `ERROR ...` | Pesan error lengkap tertulis di baris itu. Penyebab umum: password DB atau `APP_KEY` di `.env` server salah |
@@ -498,7 +500,7 @@ Langkah pertama untuk hampir semua masalah di server: buka **`inovass/storage/lo
 | Gambar upload admin tidak tampil | Upload tersimpan di `public_html/inovass/public/uploads`. Pastikan deploy terakhir sukses (`cms/public/index.php` versi terbaru, ada `usePublicPath`) |
 | Actions merah: **TLS / certificate** | Ubah `protocol: ftps` → `ftp` di `deploy-cms.yml` |
 | Workflow tidak jalan setelah push | Hanya jalan untuk push ke `main` yang mengubah `cms/`. Jalankan manual: *Actions → Run workflow* |
-| File di server tidak ter-update | *Run workflow* lagi. Kalau upload zip dilewati, hapus `inovass/.ftp-deploy-sync-state.json`, lalu *Run workflow* |
+| File di server tidak ter-update | Pastikan Actions hijau, cek `deploy.log` berakhir `deploy selesai`. Bila perlu, *Run workflow* lagi |
 | **500 Server Error** | Lihat `laravel.log`. Penyebab umum: `.env` belum ada/salah, `APP_KEY` kosong, password DB salah |
 | `No application encryption key` | `APP_KEY` di `.env` kosong. Isi dari `php artisan key:generate --show`, lalu jalankan `php artisan config:clear` via cron sekali |
 | `SQLSTATE[HY000] [1045] Access denied` | `DB_USERNAME`/`DB_PASSWORD` salah, atau user belum ditambahkan ke database (Database Wizard langkah privileges) |
@@ -522,5 +524,4 @@ Langkah pertama untuk hampir semua masalah di server: buka **`inovass/storage/lo
 3. **`APP_DEBUG=false`** di server, selalu.
 4. **Jangan commit `.env`**, `database.sqlite`, atau `vendor/` (sudah di `.gitignore`).
 5. **Kode aplikasi dan `.env` hanya di `/home/inom3994/inovass`.** Di `public_html/inovass/public` hanya boleh isi `cms/public` (index.php, aset, uploads), disalin otomatis oleh `deploy.php`. Jangan pernah menyalin `.env` atau `vendor/` ke dalam `public_html`.
-6. **Jangan hapus `.ftp-deploy-sync-state.json`** kecuali memang ingin upload ulang semua.
-7. **`php artisan test` harus hijau sebelum merge ke `main`.** `main` = production.
+6. **`php artisan test` harus hijau sebelum merge ke `main`.** `main` = production.
