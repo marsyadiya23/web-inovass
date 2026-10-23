@@ -44,13 +44,13 @@ class TrainingForm
                         ]),
                     TextInput::make('duration')->label('Durasi')->placeholder('2 hari (16 jam)'),
                     TextInput::make('price')->label('Harga default per peserta')->numeric()->minValue(0)->prefix('Rp')
-                        ->helperText('Bisa diganti per jadwal. Kosongkan = "Hubungi kami".'),
+                        ->helperText('Bisa diganti per jadwal. Tampil di website hanya bila "Tampilkan harga" di Pengaturan Situs aktif; selalu dikirim ke admin.'),
                     Toggle::make('is_published')->label('Tampilkan di website')->default(true),
                     TextInput::make('sort')->label('Urutan')->numeric()->default(0),
                 ]),
-                Section::make('Media')->collapsed()->schema([
-                    FileUpload::make('image')->label('Gambar')->image()->disk('public')->directory('pelatihan'),
-                    FileUpload::make('brochure')->label('Silabus (PDF atau gambar)')->helperText('Tampil sebagai tombol "Silabus" di halaman program dan di setiap jadwalnya.')->acceptedFileTypes(['application/pdf', 'image/*'])
+                Section::make('Silabus & gambar')->schema([
+                    FileUpload::make('image')->label('Gambar latar halaman program')->image()->disk('public')->directory('pelatihan'),
+                    FileUpload::make('brochure')->label('Silabus (PDF atau gambar)')->helperText('Tampil sebagai tombol "Silabus" di halaman program dan di setiap jadwalnya.')->acceptedFileTypes(['application/pdf', 'image/*'])->openable()->downloadable()
                         ->maxSize(10240)->disk('public')->directory('brosur'),
                     TextInput::make('meta_description')->label('Meta description (SEO)')->maxLength(255),
                 ]),
