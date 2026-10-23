@@ -27,7 +27,7 @@
           <span>{{ $training->category->name }}</span>
           @if ($training->duration)<span>⏱ {{ $training->duration }}</span>@endif
           <span>📅 {{ $schedules->count() ? $schedules->count().' jadwal mendatang' : 'Jadwal menyusul' }}</span>
-          @if ($training->brochure)<span><a href="{{ media_url($training->brochure) }}" target="_blank" rel="noopener">⬇ Unduh brosur / silabus</a></span>@endif
+          @if ($training->brochure)<span><a href="{{ media_url($training->brochure) }}" target="_blank" rel="noopener">⬇ Unduh silabus</a></span>@endif
         </div>
 
         @if ($training->highlights)

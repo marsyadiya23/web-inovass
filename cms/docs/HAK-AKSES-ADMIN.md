@@ -26,7 +26,6 @@ Admin INOVASS
 │   │   ├── Duplikat jadwal (untuk batch berikutnya)
 │   │   ├── Ubah status: Dibuka / Penuh / Ditutup / Batal
 │   │   ├── Sembunyikan harga di website (tampil "Hubungi kami"; harga tetap tersimpan)
-│   │   ├── Upload silabus PDF/gambar (kosong = brosur program)
 │   │   ├── Hapus jadwal  ⚠ ikut menghapus pendaftarnya — lebih aman set status "Batal"
 │   │   ├── Filter: akan datang / sudah lewat, kategori, metode, status
 │   │   └── Lihat jumlah peserta terisi vs kuota

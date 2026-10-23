@@ -5,7 +5,6 @@ namespace App\Filament\Resources\TrainingSchedules\Schemas;
 use App\Models\Training;
 use App\Models\TrainingSchedule;
 use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -47,12 +46,6 @@ class TrainingScheduleForm
                 Select::make('status')->label('Status')->options(TrainingSchedule::STATUSES)->default('dibuka')->required()
                     ->helperText('Otomatis tampil "Penuh" bila kuota habis, dan hilang dari website setelah tanggal lewat.'),
                 Textarea::make('note')->label('Catatan (tampil di website)')->rows(2),
-            ]),
-            Section::make('Silabus')->columnSpanFull()->schema([
-                FileUpload::make('syllabus')->label('File silabus (PDF atau gambar)')
-                    ->acceptedFileTypes(['application/pdf', 'image/*'])->maxSize(10240)
-                    ->disk('public')->directory('silabus')->openable()->downloadable()
-                    ->helperText('Maks. 10 MB. Tampil sebagai tombol "Silabus" di website. Kosongkan = pakai brosur program.'),
             ]),
         ];
     }
