@@ -6,7 +6,10 @@ on:
     paths: [public/**, .github/workflows/deploy-cpanel.yml]
   workflow_dispatch:
 
-concurrency: deploy-cpanel
+# Aman dibatalkan di tengah jalan: penanda deploy di-upload paling akhir
+concurrency:
+  group: deploy-cpanel
+  cancel-in-progress: true
 
 jobs:
   deploy:
@@ -14,11 +17,31 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      # FTP Rumahweb ±5 detik per file: 600+ file = puluhan menit. Satu zip = ±1 menit.
+      # Zip diekstrak ke public_html oleh cms/deploy.php lewat cron (lihat cms/docs/PANDUAN-DEPLOY.md 3.8).
+      - name: Build
+        run: |
+          mkdir -p dist dist-marker
+          (cd public && zip -qr ../dist/site.zip .)
+          date -u > dist-marker/deploy-pending
+
+      # Ke /home/inom3994/inovass (akun FTP CMS), di luar folder publik
       - uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
+          username: ${{ secrets.CMS_FTP_USERNAME }}
+          password: ${{ secrets.CMS_FTP_PASSWORD }}
           protocol: ftps
-          local-dir: ./public/
+          local-dir: ./dist/
           server-dir: ./
+          state-name: .ftp-deploy-sync-state-site.json
+
+      - uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.CMS_FTP_USERNAME }}
+          password: ${{ secrets.CMS_FTP_PASSWORD }}
+          protocol: ftps
+          local-dir: ./dist-marker/
+          server-dir: ./
+          state-name: .ftp-deploy-sync-state-site-marker.json

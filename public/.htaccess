@@ -2,6 +2,11 @@
 Options -Indexes
 DirectoryIndex index.html
 
+# Catatan sinkronisasi FTP lama (cara deploy sebelumnya) tidak boleh dibuka dari web
+<FilesMatch "^\.ftp-deploy-sync-state">
+  Require all denied
+</FilesMatch>
+
 RewriteEngine On
 
 # CMS Laravel (jadwal & pendaftaran pelatihan, admin) ada di public_html/inovass/public.

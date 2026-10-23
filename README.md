@@ -3,8 +3,8 @@
 Website statis (HTML/CSS/JS) untuk **inovass.com**.
 
 - **Hosting:** shared hosting cPanel Rumahweb (akun `inom3994`, server `kumai.iixcp.rumahweb.net`).
-- **Deploy:** otomatis oleh GitHub Actions setiap push ke `main` yang mengubah `public/`. Isi folder `public/` di-upload via FTPS ke `public_html/`.
-- **CMS jadwal & pendaftaran pelatihan:** aplikasi Laravel di folder [`cms/`](cms/README.md). Terpisah dari situs statis; push ke `cms/` **tidak** memicu deploy `public/`. CMS punya workflow sendiri (`deploy-cms.yml`) ke `jadwal.inovass.com`. Panduan: [`cms/docs/PANDUAN-DEPLOY.md`](cms/docs/PANDUAN-DEPLOY.md).
+- **Deploy:** otomatis oleh GitHub Actions setiap push ke `main` yang mengubah `public/`. Isi `public/` dibungkus jadi **satu `site.zip`**, di-upload via FTPS, lalu diekstrak ke `public_html/` oleh cron di server (±2 menit total).
+- **CMS jadwal & pendaftaran pelatihan:** aplikasi Laravel di folder [`cms/`](cms/README.md). Terpisah dari situs statis; push ke `cms/` **tidak** memicu deploy `public/`. CMS punya workflow sendiri (`deploy-cms.yml`) dan tampil di `inovass.com/jadwal-pelatihan` serta `inovass.com/admin` (diteruskan oleh `public/.htaccess`). Panduan: [`cms/docs/PANDUAN-DEPLOY.md`](cms/docs/PANDUAN-DEPLOY.md).
 
 ## Gambaran cara kerja
 
@@ -14,13 +14,14 @@ Website statis (HTML/CSS/JS) untuk **inovass.com**.
  edit public/  ──push──▶  repo marsyadiya23/web-inovass
                           │
                           ▼  GitHub Actions (.github/workflows/deploy-cpanel.yml)
-                          upload file yang berubah via FTPS ───▶  /home/inom3994/public_html
+                          zip public/ → upload site.zip ───────▶  /home/inom3994/inovass
+                                                                  cron + deploy.php → ekstrak ke public_html
                                                                   (Apache + public/.htaccess)
  Pengunjung ◀──────────────── HTTPS ──────────────────────────────  https://inovass.com
 ```
 
 - **Tidak ada database atau backend**. Isinya hanya file HTML/CSS/JS/gambar.
-- **Hanya file yang berubah yang di-upload.** Daftar file yang sudah ter-upload disimpan di `public_html/.ftp-deploy-sync-state.json` (jangan dihapus).
+- **Kenapa zip, bukan upload per file?** FTP Rumahweb butuh ±5 detik per file. 600+ file = puluhan menit; satu zip = ±1 menit. Detail mekanisme (cron, `deploy.php`): [`cms/docs/PANDUAN-DEPLOY.md`](cms/docs/PANDUAN-DEPLOY.md) bagian 1 dan 3.8.
 
 ```
 public/                          # semua isi website (= public_html di server)
@@ -37,7 +38,7 @@ public/                          # semua isi website (= public_html di server)
   assets/css/  (style.css, pages.css)
   assets/js/   (script.js)
   assets/img/
-.github/workflows/deploy-cpanel.yml   # CI/CD: upload public/ ke cPanel via FTPS
+.github/workflows/deploy-cpanel.yml   # CI/CD: zip public/ → upload → cron mengekstrak ke public_html
 ```
 
 Nama folder kategori mengikuti label tab di halaman Layanan:
@@ -66,7 +67,7 @@ Halaman detail dulu bernama `layanan-detail-xxx.html` di root. Sekarang prefix-n
 
 1. Edit file di `public/`
 2. `git add . && git commit -m "update ..." && git push`
-3. GitHub Actions meng-upload file yang berubah ke `public_html/`. Selesai dalam ±1 menit. Status deploy: tab **Actions** di GitHub.
+3. GitHub Actions meng-upload `site.zip` (±1 menit), lalu cron mengekstraknya ke `public_html/` (≤ 1 menit). Status deploy: tab **Actions** di GitHub; hasil ekstrak: `inovass/storage/logs/deploy.log`.
 
 Cek lokal sebelum push: buka `public/index.html` dengan Live Preview / double-click, atau:
 
@@ -77,28 +78,19 @@ cd public && python -m http.server 8080
 
 ## Setup awal (sekali saja)
 
-### 1. Akun FTP di cPanel
-cPanel → **FTP Accounts** → Add FTP Account:
-- Log In: `deploy` (menjadi `deploy@inovass.com`)
-- Directory: `public_html` (akun ini hanya bisa mengakses folder website)
-- Quota: Unlimited
+### 1. Akun FTP, secrets, dan cron
+Situs statis memakai akun FTP, secrets GitHub, dan cron yang **sama dengan CMS**:
+- Akun FTP `deploycms@inovass.com` → `/home/inom3994/inovass` (bukan `public_html`)
+- Secrets: `FTP_SERVER`, `CMS_FTP_USERNAME`, `CMS_FTP_PASSWORD`
+- Cron permanen yang menjalankan `deploy.php`
 
-### 2. Secrets di GitHub
-Repo → **Settings → Secrets and variables → Actions → New repository secret**:
+Langkahnya: [`cms/docs/PANDUAN-DEPLOY.md`](cms/docs/PANDUAN-DEPLOY.md) bagian 3.1, 3.5, dan 3.8. Akun FTP lama `deploy@inovass.com` dan secret `FTP_USERNAME`/`FTP_PASSWORD` tidak dipakai lagi (boleh dihapus).
 
-| Name | Value |
-|---|---|
-| `FTP_SERVER` | `kumai.iixcp.rumahweb.net` |
-| `FTP_USERNAME` | `deploy@inovass.com` |
-| `FTP_PASSWORD` | password akun FTP di atas |
-
-### 3. Deploy pertama
-1. Kosongkan `public_html` lewat File Manager (hapus file bawaan seperti `default.html`). Deploy tidak menghapus file yang sudah ada di server sebelumnya.
-2. **Actions → Deploy to cPanel → Run workflow** (atau push perubahan di `public/`). Deploy pertama meng-upload semua file (±28 MB), jadi lebih lama.
-3. Buka https://inovass.com.
+### 2. Deploy pertama
+**Actions → Deploy to cPanel → Run workflow** (atau push perubahan di `public/`), lalu cek `inovass/storage/logs/deploy.log` berakhir `deploy selesai`.
 
 ## Rollback
-`git revert <commit>` lalu push. File yang dikembalikan akan di-upload ulang.
+`git revert <commit>` lalu push. Versi lama di-zip dan diekstrak ulang.
 
 ## Tanya-jawab
 
@@ -109,17 +101,18 @@ Website ini tidak punya backend/server email. Sebelumnya form hanya menampilkan 
 Ya. `.htaccess` menyuruh browser selalu mengecek ulang file CSS/JS (`Cache-Control: no-cache`). Gambar di-cache 7 hari, jadi kalau mengganti gambar, pakai **nama file baru**.
 
 **File yang dihapus dari repo, apakah ikut terhapus di server?**
-Ya. Deploy mencatat file yang pernah di-upload, jadi file yang dihapus dari `public/` juga dihapus dari `public_html/`. File yang dibuat langsung di server (bukan lewat deploy) tidak disentuh.
+**Tidak.** Ekstraksi zip hanya menambah/menimpa file. File yang dihapus dari `public/` tetap ada di `public_html/` sampai dihapus manual lewat File Manager. File lain di server (mis. folder `inovass/` milik CMS) tidak disentuh.
 
 ## Troubleshooting
 
 | Gejala | Penyebab & solusi |
 |---|---|
 | Halaman tampil polos tanpa CSS saat dibuka lokal | Ada link yang diawali `/` (path absolut). Ganti jadi relatif (`../../assets/...`). Cek: `grep -rn 'href="/' public` |
-| Actions merah: login gagal | Secret `FTP_SERVER`/`FTP_USERNAME`/`FTP_PASSWORD` salah. Coba login dengan FileZilla memakai data yang sama. |
+| Actions merah: login gagal | Secret `FTP_SERVER`/`CMS_FTP_USERNAME`/`CMS_FTP_PASSWORD` salah. Coba login dengan FileZilla memakai data yang sama. |
+| Actions hijau tapi situs tidak berubah | Cron belum mengekstrak. Cek `inovass/storage/logs/deploy.log` dan cron di cPanel (PANDUAN-DEPLOY 3.8a). |
 | Actions merah: error TLS/sertifikat | Ganti `protocol: ftps` menjadi `ftp` di `deploy-cpanel.yml`. |
 | Workflow tidak jalan setelah push | Hanya jalan jika ada perubahan di `public/`. Jalankan manual: **Actions → Deploy to cPanel → Run workflow**. |
-| File di server tidak ter-update / ada yang hilang | Hapus `public_html/.ftp-deploy-sync-state.json` lewat File Manager, lalu Run workflow. Semua file akan di-upload ulang. |
+| File di server tidak ter-update | Run workflow lagi. Kalau upload zip dilewati, hapus `inovass/.ftp-deploy-sync-state-site.json` lalu Run workflow. |
 | `/tentang` 404 padahal `/tentang.html` bisa | `.htaccess` belum ter-upload. Cek di File Manager (aktifkan *Show Hidden Files*). |
 | Menu hamburger / animasi tidak jalan di satu halaman | Buka DevTools (F12) → Console. Biasanya ada `Identifier '...' has already been declared` → hapus deklarasi ganda di `<script>` halaman itu (lihat *Aturan penting*). |
 

@@ -80,7 +80,7 @@ Poin penting:
 - **Yang di-upload tiap deploy hanya 3 file:** `release.zip`, `deploy.php`, dan `deploy-pending`. Catatan upload FTP disimpan di `.ftp-deploy-sync-state*.json` di `/home/inom3994/inovass` (aman, di luar folder publik; boleh dihapus kalau perlu).
 - **Ekstraksi hanya menimpa/menambah file, tidak menghapus.** File yang dihapus dari repo tetap tertinggal di server sampai dihapus manual. Tidak berbahaya untuk aplikasi ini.
 - **Yang tidak pernah disentuh deploy:** `.env`, isi `storage/` (log, sesi, cache), dan file upload admin di `public_html/inovass/public/uploads/`. File-file itu tidak ada di repo, jadi aman.
-- Situs statis (`public/` di root repo → `public_html`) punya workflow sendiri (`deploy-cpanel.yml`). Push ke `cms/` tidak memicunya, dan sebaliknya.
+- Situs statis (`public/` di root repo → `public_html`) punya workflow sendiri (`deploy-cpanel.yml`) dengan cara yang sama: `public/` dibungkus jadi `site.zip`, di-upload ke `/home/inom3994/inovass`, lalu `deploy.php` (cron yang sama) mengekstraknya ke `public_html`. Push ke `cms/` tidak memicunya, dan sebaliknya.
 
 Struktur di server setelah deploy:
 
