@@ -20,6 +20,7 @@ class TrainingSchedule extends Model
         'end_date' => 'date',
         'registration_deadline' => 'date',
         'price' => 'integer',
+        'hide_price' => 'boolean',
         'quota' => 'integer',
     ];
 
@@ -52,12 +53,18 @@ class TrainingSchedule extends Model
         return $this->price ?? $this->training?->price;
     }
 
+    /** File silabus (PDF/gambar) untuk website: milik jadwal ini, atau brosur program bila kosong. */
+    public function syllabusFile(): ?string
+    {
+        return $this->syllabus ?: $this->training?->brochure;
+    }
+
     public function priceLabel(): string
     {
         $p = $this->effectivePrice();
 
         return match (true) {
-            $p === null => 'Hubungi kami',
+            $this->hide_price, $p === null => 'Hubungi kami',
             $p === 0 => 'Gratis',
             default => 'Rp '.number_format($p, 0, ',', '.'),
         };

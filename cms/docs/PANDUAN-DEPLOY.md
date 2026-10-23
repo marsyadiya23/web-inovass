@@ -424,8 +424,8 @@ Admin dibatasi ke urusan pelatihan:
 | Menu | Fungsi |
 |---|---|
 | Dasbor | Jadwal mendatang, pendaftar baru, program aktif, 6 jadwal terdekat, 5 pendaftar terbaru |
-| Pelatihan → Jadwal Pelatihan | Tambah/ubah/duplikat jadwal, kuota, status Dibuka/Penuh/Ditutup/Batal |
-| Pelatihan → Program Pelatihan | Katalog program, deskripsi, harga, brosur, tampil/sembunyi |
+| Pelatihan → Jadwal Pelatihan | Tambah/ubah/duplikat jadwal, kuota, status Dibuka/Penuh/Ditutup/Batal, **sembunyikan harga** (website tampil "Hubungi kami"), **upload silabus** PDF/gambar (kosong = brosur program) |
+| Pelatihan → Program Pelatihan | Katalog program, deskripsi, harga, brosur/silabus (PDF atau gambar), tampil/sembunyi |
 | Pelatihan → Kategori Pelatihan | Kategori & urutan |
 | Kotak Masuk → Pendaftar | Proses pendaftar (Baru → Dikonfirmasi/Batal), catatan, hubungi via WhatsApp |
 | Pengaturan → Pengaturan Situs | Nomor WhatsApp, kontak, logo |

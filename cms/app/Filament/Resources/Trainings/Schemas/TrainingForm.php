@@ -50,7 +50,7 @@ class TrainingForm
                 ]),
                 Section::make('Media')->collapsed()->schema([
                     FileUpload::make('image')->label('Gambar')->image()->disk('public')->directory('pelatihan'),
-                    FileUpload::make('brochure')->label('Brosur (PDF)')->acceptedFileTypes(['application/pdf'])
+                    FileUpload::make('brochure')->label('Brosur / silabus (PDF atau gambar)')->acceptedFileTypes(['application/pdf', 'image/*'])
                         ->maxSize(10240)->disk('public')->directory('brosur'),
                     TextInput::make('meta_description')->label('Meta description (SEO)')->maxLength(255),
                 ]),

@@ -19,6 +19,7 @@
       @if ($schedule->time)<span>🕘 {{ $schedule->time }}</span>@endif
       <span>📍 {{ $schedule->methodLabel() }}{{ $schedule->location ? ' · '.$schedule->location : '' }}</span>
       @if ($left !== null && $schedule->isOpen())<span>👥 Sisa {{ $left }} kursi</span>@endif
+      @if ($file = $schedule->syllabusFile())<span><a href="{{ media_url($file) }}" target="_blank" rel="noopener">⬇ Silabus</a></span>@endif
     </div>
     @if ($schedule->note)<div class="pl-note">{{ $schedule->note }}</div>@endif
   </div>

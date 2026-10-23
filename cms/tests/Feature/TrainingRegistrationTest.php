@@ -105,4 +105,17 @@ class TrainingRegistrationTest extends TestCase
         $this->get('/jadwal-pelatihan')->assertOk()->assertDontSee('KOTA-MENDATANG');
         $this->get('/pelatihan/pelatihan-uji')->assertNotFound();
     }
+
+    public function test_hidden_price_and_syllabus_fallback(): void
+    {
+        $this->training->update(['price' => 1750000, 'brochure' => 'brosur/program-uji.pdf']);
+        $this->schedule(['location' => 'KOTA-A', 'price' => 2345678, 'hide_price' => true, 'syllabus' => 'silabus/jadwal-uji.pdf']);
+        $this->schedule(['location' => 'KOTA-B', 'start_date' => today()->addDays(20)]);
+
+        $this->get('/jadwal-pelatihan')->assertOk()
+            ->assertDontSee('2.345.678')->assertSee('Hubungi kami')   // harga disembunyikan
+            ->assertSee('1.750.000')                                     // jadwal lain tetap pakai harga program
+            ->assertSee('silabus/jadwal-uji.pdf')                        // silabus milik jadwal
+            ->assertSee('brosur/program-uji.pdf');                       // kosong -> brosur program
+    }
 }

@@ -5,9 +5,11 @@ namespace App\Filament\Resources\TrainingSchedules\Schemas;
 use App\Models\Training;
 use App\Models\TrainingSchedule;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
@@ -39,10 +41,18 @@ class TrainingScheduleForm
                 TextInput::make('location')->label('Lokasi')->placeholder('Bogor / Zoom Meeting'),
                 TextInput::make('price')->label('Biaya per peserta')->numeric()->minValue(0)->prefix('Rp')
                     ->helperText(fn (Get $get) => 'Kosongkan = pakai harga program'.(($p = Training::find($get('training_id'))?->price) ? ' (Rp '.number_format($p, 0, ',', '.').')' : '').'.'),
+                Toggle::make('hide_price')->label('Sembunyikan harga di website')
+                    ->helperText('Website menampilkan "Hubungi kami". Harga tetap tersimpan.')->inline(false),
                 TextInput::make('quota')->label('Kuota peserta')->numeric()->minValue(1)->helperText('Kosongkan = tanpa batas.'),
                 Select::make('status')->label('Status')->options(TrainingSchedule::STATUSES)->default('dibuka')->required()
                     ->helperText('Otomatis tampil "Penuh" bila kuota habis, dan hilang dari website setelah tanggal lewat.'),
                 Textarea::make('note')->label('Catatan (tampil di website)')->rows(2),
+            ]),
+            Section::make('Silabus')->columnSpanFull()->schema([
+                FileUpload::make('syllabus')->label('File silabus (PDF atau gambar)')
+                    ->acceptedFileTypes(['application/pdf', 'image/*'])->maxSize(10240)
+                    ->disk('public')->directory('silabus')->openable()->downloadable()
+                    ->helperText('Maks. 10 MB. Tampil sebagai tombol "Silabus" di website. Kosongkan = pakai brosur program.'),
             ]),
         ];
     }
