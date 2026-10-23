@@ -7,6 +7,7 @@ use App\Filament\Resources\Registrations\RegistrationResource;
 use App\Filament\Resources\TrainingCategories\TrainingCategoryResource;
 use App\Filament\Resources\Trainings\TrainingResource;
 use App\Filament\Resources\TrainingSchedules\TrainingScheduleResource;
+use App\Filament\Resources\Users\UserResource;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -54,6 +55,7 @@ class AdminPanelProvider extends PanelProvider
                 TrainingResource::class,
                 TrainingCategoryResource::class,
                 RegistrationResource::class,
+                UserResource::class,
             ])
             ->pages([
                 Dashboard::class,

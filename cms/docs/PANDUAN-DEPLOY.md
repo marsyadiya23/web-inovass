@@ -438,13 +438,14 @@ Admin dibatasi ke urusan pelatihan:
 | Pelatihan → Kategori Pelatihan | Kategori & urutan |
 | Kotak Masuk → Pendaftar | Proses pendaftar (Baru → Dikonfirmasi/Batal; pendaftar otomatis dapat email), catatan, hubungi via WhatsApp, **Ekspor Excel** (ikut filter status/jadwal yang aktif) |
 | Pengaturan → Pengaturan Situs | Nomor WhatsApp, kontak, logo |
+| Pengaturan → Akun Admin | Tambah/ubah/hapus akun admin |
 | Profil (avatar kanan atas) | Ganti nama, email, password admin |
 
 Detail hak akses: [HAK-AKSES-ADMIN.md](HAK-AKSES-ADMIN.md).
 
 Menu konten compro (Beranda, Layanan, Berita, Pesan Masuk, dll.) sengaja **tidak didaftarkan**. Kodenya masih ada di `app/Filament/`. Untuk mengaktifkannya lagi, tambahkan class-nya ke `->resources([...])` / `->pages([...])` di `app/Providers/Filament/AdminPanelProvider.php`.
 
-Menambah akun admin baru belum bisa dari panel. Sementara: ganti email/password akun yang ada lewat Profil.
+Akun admin dikelola di **Pengaturan → Akun Admin**: tambah, ubah (password boleh dikosongkan = tetap), hapus (tidak bisa menghapus akun sendiri). Semua akun punya akses penuh dan menerima email pendaftar baru.
 
 ---
 
