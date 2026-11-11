@@ -29,7 +29,9 @@ class TrainingForm
                         ->helperText('Tampil di kartu katalog dan daftar jadwal.'),
                     TagsInput::make('highlights')->label('Poin utama')->placeholder('Ketik lalu Enter'),
                     RichEditor::make('description')->label('Deskripsi lengkap (materi, manfaat, peserta)')
-                        ->fileAttachmentsDisk('public')->fileAttachmentsDirectory('pelatihan'),
+                        ->helperText('Gambar yang disisipkan: maks. 5 MB per gambar.')
+                        ->fileAttachmentsDisk('public')->fileAttachmentsDirectory('pelatihan')
+                        ->fileAttachmentsAcceptedFileTypes(['image/png', 'image/jpeg', 'image/webp', 'image/gif'])->fileAttachmentsMaxSize(5120),
                 ]),
             ]),
             Group::make()->columnSpan(['lg' => 1])->schema([
@@ -47,9 +49,13 @@ class TrainingForm
                     Toggle::make('is_published')->label('Tampilkan di website')->default(true),
                 ]),
                 Section::make('Silabus & gambar')->schema([
-                    FileUpload::make('image')->label('Gambar latar halaman program')->image()->disk('public')->directory('pelatihan'),
-                    FileUpload::make('brochure')->label('Silabus (PDF atau gambar)')->helperText('Tampil sebagai tombol "Silabus" di halaman program dan di setiap jadwalnya.')->acceptedFileTypes(['application/pdf', 'image/*'])->openable()->downloadable()
-                        ->maxSize(10240)->disk('public')->directory('brosur'),
+                    // Batas ukuran dicek di browser sebelum upload (pesan langsung muncul), lalu dicek ulang di server.
+                    // Harus ≤ upload_max_filesize PHP server (cPanel → Select PHP Version → Options) dan ≤ 12 MB (batas Livewire).
+                    FileUpload::make('image')->label('Gambar latar halaman program')->image()->maxSize(5120)
+                        ->helperText('JPG/PNG/WebP, maks. 5 MB. Disarankan lebar ±1600 px.')->disk('public')->directory('pelatihan'),
+                    FileUpload::make('brochure')->label('Silabus (PDF atau gambar)')->acceptedFileTypes(['application/pdf', 'image/*'])->openable()->downloadable()
+                        ->maxSize(10240)->helperText('PDF atau gambar, maks. 10 MB. Tampil sebagai tombol "Silabus" di halaman program dan di setiap jadwalnya.')
+                        ->disk('public')->directory('brosur'),
                 ]),
                 // Isian teknis: jarang diubah, otomatis terisi. Disembunyikan agar form utama tidak membingungkan.
                 Section::make('Lanjutan (alamat halaman, SEO, urutan)')->collapsed()->schema([

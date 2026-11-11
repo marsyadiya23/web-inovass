@@ -32,7 +32,8 @@ class SiteSettings extends EditPageContent
                 TextInput::make('site_name')->label('Nama situs')->required(),
                 TextInput::make('tagline')->label('Tagline'),
                 Textarea::make('description')->label('Deskripsi singkat (footer & meta)')->rows(3)->columnSpanFull(),
-                FileUpload::make('logo')->label('Logo')->image()->disk('public')->directory('settings')->columnSpanFull(),
+                FileUpload::make('logo')->label('Logo')->image()->maxSize(2048)->helperText('PNG/SVG/JPG, maks. 2 MB.')
+                    ->disk('public')->directory('settings')->columnSpanFull(),
             ]),
             Section::make('Pelatihan')->schema([
                 Toggle::make('show_prices')->label('Tampilkan harga pelatihan di website')

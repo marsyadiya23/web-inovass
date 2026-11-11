@@ -116,6 +116,20 @@ class AdminWorkflowTest extends TestCase
         Storage::disk('public')->assertExists($path);
     }
 
+    public function test_program_form_rejects_syllabus_over_10_mb(): void
+    {
+        Storage::fake('public');
+        $this->actingAs(User::factory()->create());
+        $training = $this->schedule->training;
+
+        Livewire::test(EditTraining::class, ['record' => $training->getRouteKey()])
+            ->set('data.brochure', [UploadedFile::fake()->create('besar.pdf', 11000, 'application/pdf')])
+            ->call('save')
+            ->assertHasFormErrors(['brochure']);
+
+        $this->assertNull($training->fresh()->brochure);
+    }
+
     /** Regresi 11 Nov 2026: deskripsi berisi daftar (list) → path RichEditor > 10 level → semua request form gagal. */
     public function test_program_form_accepts_deeply_nested_description_updates(): void
     {
