@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Filament\Resources\Registrations\Pages\ListRegistrations;
 use App\Filament\Resources\TrainingSchedules\Pages\EditTrainingSchedule;
 use App\Filament\Resources\TrainingSchedules\RelationManagers\RegistrationsRelationManager;
+use App\Filament\Resources\Trainings\Pages\EditTraining;
 use App\Filament\Widgets\ActionItems;
 use App\Models\Registration;
 use App\Models\Training;
@@ -13,6 +14,8 @@ use App\Models\TrainingSchedule;
 use App\Models\User;
 use Filament\Actions\Testing\TestAction;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Notification;
 use Livewire\Livewire;
 use Tests\TestCase;
@@ -95,6 +98,34 @@ class AdminWorkflowTest extends TestCase
         $texts = array_column(ActionItems::items(), 1);
         $this->assertTrue(collect($texts)->contains(fn ($t) => str_contains($t, 'belum dihubungi lebih dari 24 jam')));
         $this->assertTrue(collect($texts)->contains(fn ($t) => str_contains($t, 'sudah lewat tetapi statusnya masih Dibuka')));
+    }
+
+    public function test_program_form_uploads_syllabus_pdf_and_saves(): void
+    {
+        Storage::fake('public');
+        $this->actingAs(User::factory()->create());
+        $training = $this->schedule->training;
+
+        Livewire::test(EditTraining::class, ['record' => $training->getRouteKey()])
+            ->set('data.brochure', [UploadedFile::fake()->create('2. Silabus ISO IEC 17020.pdf', 85, 'application/pdf')])
+            ->call('save')
+            ->assertHasNoFormErrors();
+
+        $path = $training->fresh()->brochure;
+        $this->assertStringStartsWith('brosur/', (string) $path);
+        Storage::disk('public')->assertExists($path);
+    }
+
+    /** Regresi 11 Nov 2026: deskripsi berisi daftar (list) → path RichEditor > 10 level → semua request form gagal. */
+    public function test_program_form_accepts_deeply_nested_description_updates(): void
+    {
+        $this->actingAs(User::factory()->create());
+        $training = $this->schedule->training;
+        $training->update(['description' => '<h2>Judul</h2><p>a</p><p>b</p><ul><li><p>satu</p></li><li><p>dua</p></li></ul>']);
+
+        Livewire::test(EditTraining::class, ['record' => $training->getRouteKey()])
+            ->set('data.description.content.3.content.0.content.0.content.0.text', 'Memahami seluruh persyaratan')
+            ->assertHasNoErrors();
     }
 
     public function test_schedule_page_lists_its_registrations_and_exports(): void
