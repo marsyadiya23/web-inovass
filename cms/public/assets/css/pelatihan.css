@@ -125,3 +125,14 @@
   .pl-summary dd { margin-bottom: .6rem; }
   .pl-thanks .pl-box { padding: 1.4rem; }
 }
+
+/* Pencarian katalog program */
+.pl-search { display: flex; gap: .8rem; align-items: center; flex-wrap: wrap; margin-bottom: .6rem; }
+.pl-search-box { position: relative; flex: 1 1 320px; }
+.pl-search-box svg { position: absolute; left: 1.1rem; top: 50%; width: 20px; height: 20px; transform: translateY(-50%); color: #6b8f80; pointer-events: none; }
+.pl-search-box input { width: 100%; box-sizing: border-box; font: inherit; font-size: 1rem; padding: .9rem 1.2rem .9rem 3rem; border: 1.5px solid #d6e2dc; border-radius: 999px; background: #fff; color: #0a1628; outline: none; transition: border-color .2s, box-shadow .2s; }
+.pl-search-box input:focus { border-color: #00c278; box-shadow: 0 0 0 4px rgba(0,194,120,.15); }
+.pl-sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.pl-search-meta { margin: 0 .4rem 2rem; min-height: 1.2em; font-size: .85rem; color: #6b8f80; }
+.pl-search-empty { padding: 1.5rem 1.2rem; border: 1px dashed #d6e2dc; border-radius: 14px; color: #334155; margin-bottom: 3rem; }
+.pl-search-empty a { color: #00a066; font-weight: 600; }

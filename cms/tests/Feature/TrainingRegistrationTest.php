@@ -154,4 +154,15 @@ class TrainingRegistrationTest extends TestCase
         PageContent::put('settings', ['show_prices' => false]);         // saklar Pengaturan Situs mati
         $this->get('/jadwal-pelatihan')->assertOk()->assertDontSee('1.750.000');
     }
+
+    public function test_catalog_has_search_with_escaped_prefill(): void
+    {
+        $this->training->update(['summary' => 'Ringkasan audit internal']);
+
+        $this->get('/pelatihan?q='.urlencode('<script>x</script>'))->assertOk()
+            ->assertSee('id="plSearch"', false)
+            ->assertSee('data-search="Pelatihan Uji Ringkasan audit internal Uji"', false)  // judul + ringkasan + kategori dicari
+            ->assertDontSee('<script>x</script>', false)                                   // isi ?q= di-escape
+            ->assertSee('&lt;script&gt;x&lt;/script&gt;', false);
+    }
 }

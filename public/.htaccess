@@ -25,7 +25,7 @@ RewriteRule ^(.+)$ $1.html [L]
   Header always set Referrer-Policy strict-origin-when-cross-origin
   # HTML/CSS/JS have no hashed filenames, so browsers revalidate to pick up deploys
   # (tanpa ini browser menebak sendiri dan bisa menampilkan halaman lama hingga ±1 hari)
-  <FilesMatch "\.(html|css|js)$">
+  <FilesMatch "\.(html|css|js|json)$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
   <FilesMatch "\.(png|jpe?g|gif|svg|webp|ico|woff2?)$">
