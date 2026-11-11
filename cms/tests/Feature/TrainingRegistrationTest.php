@@ -155,6 +155,30 @@ class TrainingRegistrationTest extends TestCase
         $this->get('/jadwal-pelatihan')->assertOk()->assertDontSee('1.750.000');
     }
 
+    /** Keamanan: isian formulir publik tidak boleh menjadi tautan/gambar aktif di email (phishing lewat server email INOVASS). */
+    public function test_registration_emails_do_not_render_markdown_links_from_form_input(): void
+    {
+        $payload = '[Bayar di sini](https://evil.example/pay) ![](https://evil.example/pixel.gif)';
+        $reg = $this->schedule()->registrations()->create([
+            'name' => $payload, 'email' => 'korban@example.com', 'phone' => '0812', 'participants' => 2,
+            'organization' => $payload, 'position' => $payload, 'participant_names' => $payload, 'message' => $payload,
+            'status' => 'dikonfirmasi',
+        ]);
+        $admin = User::factory()->create();
+
+        foreach ([
+            (new RegistrationReceived($reg, 'jadwal'))->toMail($reg),
+            (new NewRegistration($reg, 'jadwal'))->toMail($admin),
+            (new RegistrationStatusChanged($reg))->toMail($reg),
+        ] as $mail) {
+            $html = (string) $mail->render();
+            $this->assertStringNotContainsString('evil.example/pay"', $html);   // tidak ada <a href="https://evil.example/pay">
+            $this->assertStringNotContainsString('<img src="https://evil.example', $html);
+            $this->assertStringContainsString('[Bayar di sini](https://evil.example/pay)', $html); // tampil sebagai teks biasa
+            $this->assertStringContainsString('<strong', $html);               // format **tebal** milik aplikasi tetap jalan
+        }
+    }
+
     public function test_catalog_has_search_with_escaped_prefill(): void
     {
         $this->training->update(['summary' => 'Ringkasan audit internal']);
